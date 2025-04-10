@@ -9,6 +9,6 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     function index(): View {
-        return view('admin.layouts.layout');
+        return view('frontend.pages.home');
     }
 }
