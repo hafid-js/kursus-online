@@ -14,6 +14,9 @@ Route::get('/', [FrontendController::class,'index'])->name('home');
 // Student Routes
 Route::group(['middleware' => ['auth:web', 'verified','check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function() {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/become-instructor', [StudentDashboardController::class, 'becomeInstructor'])->name('become-instructor');
+    Route::post('/become-instructor', [StudentDashboardController::class, 'becomeInstructorUpdate'])->name('become-instructor.update');
+
 });
 
 // Instructor Routes
