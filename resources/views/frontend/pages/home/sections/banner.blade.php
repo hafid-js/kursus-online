@@ -16,7 +16,7 @@
                         <div class="play_btn_area">
                             <a class="play_btn venobox vbox-item" data-autoplay="true" data-vbtype="video"
                                 href="https://youtu.be/sVPYIRF9RCQ?si=labNkx-xlyOWtptr">
-                                <img src="{{ asset('frontend/images/play_icon.png') }}" alt="Play" class="img-fluid">
+                                <img src="{{ asset('frontend/assets/images/play_icon.png') }}" alt="Play" class="img-fluid">
                             </a>
                             <h4>See Our Lesson Showcase</h4>
                         </div>
@@ -26,7 +26,7 @@
             <div class="col-xl-4 col-lg-6 wow fadeInRight">
                 <div class="wsus__banner_3_img">
                     <div class="img">
-                        <img src="{{ asset('frontend/images/banner_3_img_1.png') }}" alt="Banner" class="img-fluid">
+                        <img src="{{ asset('frontend/assets/images/banner_3_img_1.png') }}" alt="Banner" class="img-fluid">
 
                         <div class="text">
                             <h4>250+ Popular Course</h4>
@@ -57,7 +57,7 @@
         <ul class="wsus__banner_features d-flex flex-wrap">
             <li class="green wow fadeInRight">
                 <div class="icon">
-                    <img src="{{ asset('frontend/images/banner_feature_icon_1.png') }}" alt="Features" class="img-fluid">
+                    <img src="{{ asset('frontend/assets/images/banner_feature_icon_1.png') }}" alt="Features" class="img-fluid">
                 </div>
                 <div class="text">
                     <h4>Learn From Experts</h4>
@@ -66,7 +66,7 @@
             </li>
             <li class="pink wow fadeInRight">
                 <div class="icon">
-                    <img src="{{ asset('frontend/images/banner_feature_icon_2.png') }}" alt="Features" class="img-fluid">
+                    <img src="{{ asset('frontend/assets/images/banner_feature_icon_2.png') }}" alt="Features" class="img-fluid">
                 </div>
                 <div class="text">
                     <h4>Earn a Certificate</h4>
@@ -75,7 +75,7 @@
             </li>
             <li class="sky wow fadeInRight">
                 <div class="icon">
-                    <img src="{{ asset('frontend/images/banner_feature_icon_3.png') }}" alt="Features" class="img-fluid">
+                    <img src="{{ asset('frontend/assets/images/banner_feature_icon_3.png') }}" alt="Features" class="img-fluid">
                 </div>
                 <div class="text">
                     <h4>5400+ Courses</h4>

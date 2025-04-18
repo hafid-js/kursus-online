@@ -7,11 +7,11 @@
                 <div class="col-lg-6 wow fadeInLeft">
                     <div class="wsus__about_3_img">
 
-                        <img src="{{ asset('frontend/images/about_3_img_1.png') }}" alt="About us" class="about_3_large img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/about_3_img_1.png') }}" alt="About us" class="about_3_large img-fluid w-100">
 
                         <div class="text">
                             <h4> <span>20K+</span> Enrolled Learners</h4>
-                            <img src="{{ asset('frontend/images/banner_2_photo_list.png') }}" alt="Photo" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/banner_2_photo_list.png') }}" alt="Photo" class="img-fluid">
                         </div>
 
                         <div class="circle_box">
@@ -47,11 +47,11 @@
                         </ul>
                         <a class="common_btn" href="#">Start Free Trial</a>
                         <div class="about_video">
-                            <img src="{{ asset('frontend/images/about_3_img_2.jpg') }}" alt="Video" class="img-fluid w-100">
+                            <img src="{{ asset('frontend/assets/images/about_3_img_2.jpg') }}" alt="Video" class="img-fluid w-100">
                             <span>live</span>
                             <a class="play_btn venobox" data-autoplay="true" data-vbtype="video"
                                 href="https://youtu.be/sVPYIRF9RCQ?si=labNkx-xlyOWtptr">
-                                <img src="{{ asset('frontend/images/play_icon.png') }}" alt="Play" class="img-fluid">
+                                <img src="{{ asset('frontend/assets/images/play_icon.png') }}" alt="Play" class="img-fluid">
                             </a>
                         </div>
                     </div>

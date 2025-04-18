@@ -327,7 +327,7 @@
                 <p>Hi there</p>
                 <p>Your instructor request has been approved. from now you will be able to palish courses in our site!
                 </p>
-                <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="common_btn">
                 </table>
                 <p>Please visit your dashboard from here: <a href="{{ url('/instructor/dashboard') }}">Instructor
                         Dashboard</a></p>

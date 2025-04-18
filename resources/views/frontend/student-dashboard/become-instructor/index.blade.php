@@ -5,7 +5,7 @@
     <!--===========================
             BREADCRUMB START
         ============================-->
-    <section class="wsus__breadcrumb" style="background: url(frontend/images/breadcrumb_bg.jpg);">
+    <section class="wsus__breadcrumb" style="background: 'frontend/assets/images/breadcrumb_bg.jpg">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
                 <div class="row">
@@ -36,7 +36,7 @@
                 @include('frontend.student-dashboard.sidebar')
                 <div class="col-xl-9 col-md-8">
                     <div class="text-end">
-                        <a href="{{ route('student.become-instructor') }}" class="btn btn-primary">Become a Instructor</a>
+                        <a href="{{ route('student.dashboard') }}" class="common_btn">Back</a>
                     </div>
                     <div class="card mt-4">
                         <div class="card-header">
@@ -50,7 +50,7 @@
                                     <input type="file" name="document" id="">
                                 </div>
                                 <div class="form-group mt-3">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="common_btn">Submit</button>
                                 </div>
                             </form>
                         </div>

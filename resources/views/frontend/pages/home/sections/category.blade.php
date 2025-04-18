@@ -17,7 +17,7 @@
                 <div class="col-xxl-3 col-md-6 col-lg-4 wow fadeInUp">
                     <a href="#" class="wsus__single_category_4">
                         <div class="icon">
-                            <img src="{{ asset('frontend/images/category_icon_1.png') }}" alt="category" class="img-fluid w-100">
+                            <img src="{{ asset('frontend/assets/images/category_icon_1.png') }}" alt="category" class="img-fluid w-100">
                         </div>
                         <div class="text">
                             <h4>Business Strategy</h4>
@@ -28,7 +28,7 @@
                 <div class="col-xxl-3 col-md-6 col-lg-4 wow fadeInUp">
                     <a href="#" class="wsus__single_category_4">
                         <div class="icon">
-                            <img src="{{ asset('frontend/images/category_icon_2.png') }}" alt="category" class="img-fluid w-100">
+                            <img src="{{ asset('frontend/assets/images/category_icon_2.png') }}" alt="category" class="img-fluid w-100">
                         </div>
                         <div class="text">
                             <h4>Digital Marketing</h4>
@@ -39,7 +39,7 @@
                 <div class="col-xxl-3 col-md-6 col-lg-4 wow fadeInUp">
                     <a href="#" class="wsus__single_category_4">
                         <div class="icon">
-                            <img src="{{ asset('frontend/images/category_icon_3.png') }}" alt="category" class="img-fluid w-100">
+                            <img src="{{ asset('frontend/assets/images/category_icon_3.png') }}" alt="category" class="img-fluid w-100">
                         </div>
                         <div class="text">
                             <h4>Health & Fitness</h4>
@@ -50,7 +50,7 @@
                 <div class="col-xxl-3 col-md-6 col-lg-4 wow fadeInUp">
                     <a href="#" class="wsus__single_category_4">
                         <div class="icon">
-                            <img src="{{ asset('frontend/images/category_icon_4.png') }}" alt="category" class="img-fluid w-100">
+                            <img src="{{ asset('frontend/assets/images/category_icon_4.png') }}" alt="category" class="img-fluid w-100">
                         </div>
                         <div class="text">
                             <h4>Development</h4>
@@ -61,7 +61,7 @@
                 <div class="col-xxl-3 col-md-6 col-lg-4 wow fadeInUp">
                     <a href="#" class="wsus__single_category_4">
                         <div class="icon">
-                            <img src="{{ asset('frontend/images/category_icon_5.png') }}" alt="category" class="img-fluid w-100">
+                            <img src="{{ asset('frontend/assets/images/category_icon_5.png') }}" alt="category" class="img-fluid w-100">
                         </div>
                         <div class="text">
                             <h4>Motion Graphics</h4>
@@ -72,7 +72,7 @@
                 <div class="col-xxl-3 col-md-6 col-lg-4 wow fadeInUp">
                     <a href="#" class="wsus__single_category_4">
                         <div class="icon">
-                            <img src="{{ asset('frontend/images/category_icon_6.png') }}" alt="category" class="img-fluid w-100">
+                            <img src="{{ asset('frontend/assets/images/category_icon_6.png') }}" alt="category" class="img-fluid w-100">
                         </div>
                         <div class="text">
                             <h4>Adobe Illustrator</h4>
@@ -83,7 +83,7 @@
                 <div class="col-xxl-3 col-md-6 col-lg-4 wow fadeInUp">
                     <a href="#" class="wsus__single_category_4">
                         <div class="icon">
-                            <img src="{{ asset('frontend/images/category_icon_7.png') }}" alt="category" class="img-fluid w-100">
+                            <img src="{{ asset('frontend/assets/images/category_icon_7.png') }}" alt="category" class="img-fluid w-100">
                         </div>
                         <div class="text">
                             <h4>Mobile App Design</h4>
@@ -94,7 +94,7 @@
                 <div class="col-xxl-3 col-md-6 col-lg-4 wow fadeInUp">
                     <a href="#" class="wsus__single_category_4">
                         <div class="icon">
-                            <img src="{{ asset('frontend/images/category_icon_8.png') }}" alt="category" class="img-fluid w-100">
+                            <img src="{{ asset('frontend/assets/images/category_icon_8.png') }}" alt="category" class="img-fluid w-100">
                         </div>
                         <div class="text">
                             <h4>HTML & CSS</h4>

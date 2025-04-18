@@ -5,7 +5,7 @@
     <div class="mobile_menu_area">
         <div class="mobile_menu_area_top">
             <a class="mobile_menu_logo" href="index.html">
-                <img src="{{ asset('frontend/images/logo.png') }}" alt="EduCore">
+                <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="EduCore">
             </a>
             <div class="mobile_menu_icon d-block d-lg-none" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
@@ -111,7 +111,7 @@
                                 <li class="mobile_dropdown">
                                     <a href="#">
                                         <span>
-                                            <img src="{{ asset('frontend/images/menu_category_icon_1.png') }}" alt="Category" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/menu_category_icon_1.png') }}" alt="Category" class="img-fluid">
                                         </span>
                                         Development
                                     </a>
@@ -125,7 +125,7 @@
                                 <li class="mobile_dropdown">
                                     <a href="#">
                                         <span>
-                                            <img src="{{ asset('frontend/images/menu_category_icon_2.png') }}" alt="Category" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/menu_category_icon_2.png') }}" alt="Category" class="img-fluid">
                                         </span>
                                         Business
                                     </a>
@@ -139,7 +139,7 @@
                                 <li class="mobile_dropdown">
                                     <a href="#">
                                         <span>
-                                            <img src="{{ asset('frontend/images/menu_category_icon_3.png') }}" alt="Category" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/menu_category_icon_3.png') }}" alt="Category" class="img-fluid">
                                         </span>
                                         Marketing
                                     </a>
@@ -153,7 +153,7 @@
                                 <li class="mobile_dropdown">
                                     <a href="#">
                                         <span>
-                                            <img src="{{ asset('frontend/images/menu_category_icon_4.png') }}" alt="Category" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/menu_category_icon_4.png') }}" alt="Category" class="img-fluid">
                                         </span>
                                         Lifestyle
                                     </a>
@@ -167,7 +167,7 @@
                                 <li class="mobile_dropdown">
                                     <a href="#">
                                         <span>
-                                            <img src="{{ asset('frontend/images/menu_category_icon_5.png') }}" alt="Category" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/menu_category_icon_5.png') }}" alt="Category" class="img-fluid">
                                         </span>
                                         Health & Fitness
                                     </a>
@@ -181,7 +181,7 @@
                                 <li class="mobile_dropdown">
                                     <a href="#">
                                         <span>
-                                            <img src="{{ asset('frontend/images/menu_category_icon_6.png') }}" alt="Category" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/menu_category_icon_6.png') }}" alt="Category" class="img-fluid">
                                         </span>
                                         Design
                                     </a>
@@ -195,7 +195,7 @@
                                 <li class="mobile_dropdown">
                                     <a href="#">
                                         <span>
-                                            <img src="{{ asset('frontend/images/menu_category_icon_7.png') }}" alt="Category" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/menu_category_icon_7.png') }}" alt="Category" class="img-fluid">
                                         </span>
                                         Academics
                                     </a>

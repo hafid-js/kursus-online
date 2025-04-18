@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Traits\FileUpload;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class StudentDashboardController extends Controller
     }
 
     function becomeInstructor() {
+        if(auth()->user()->role == 'instructor') abort(404);
         return view('frontend.student-dashboard.become-instructor.index');
     }
 

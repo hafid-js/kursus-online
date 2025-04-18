@@ -60,7 +60,7 @@
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
                             <div class="form-footer">
-                                <button type="submit" class="btn btn-primary w-100">Email Password Reset Link</button>
+                                <button type="submit" class="common_btn w-100">Email Password Reset Link</button>
                             </div>
                         </div>
                     </form>

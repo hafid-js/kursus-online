@@ -145,7 +145,7 @@
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
                         <div class="form-footer">
-                            <button type="submit" class="btn btn-primary w-100">Reset Password</button>
+                            <button type="submit" class="common_btn w-100">Reset Password</button>
                         </div>
                 </div>
                 </form>

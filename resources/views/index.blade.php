@@ -5,7 +5,7 @@
  <!--===========================
         BREADCRUMB START
     ============================-->
-    <section class="wsus__breadcrumb" style="background: 'frontend/assets/images/breadcrumb_bg.jpg'">
+    <section class="wsus__breadcrumb" style="background: 'frontend/assets/{{ asset('frontend/assets/js/'">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
                 <div class="row">
@@ -57,7 +57,7 @@
 
                       @endif
                       <div class="text-end">
-                        <a href="{{ route('student.become-instructor') }}" class="btn btn-primary">Become a Instructor</a>
+                        <a href="{{ route('student.become-instructor') }}" class="common_btn">Become a Instructor</a>
                       </div>
                     <div class="row">
                         <div class="col-xl-4 col-sm-6 wow fadeInUp">

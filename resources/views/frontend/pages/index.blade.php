@@ -67,22 +67,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -108,7 +108,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -122,22 +122,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -164,7 +164,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hugh Millie-Yate</h4>
                                     </a>
@@ -178,22 +178,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -220,7 +220,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Dominic L. Ement</h4>
                                     </a>
@@ -234,22 +234,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_4.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_4.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -275,7 +275,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -289,22 +289,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_9.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_9.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -330,7 +330,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -344,22 +344,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_6.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_6.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -386,7 +386,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hugh Millie-Yate</h4>
                                     </a>
@@ -400,22 +400,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_7.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_7.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -442,7 +442,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Dominic L. Ement</h4>
                                     </a>
@@ -456,22 +456,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_8.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_8.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -497,7 +497,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -521,22 +521,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -562,7 +562,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -576,22 +576,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -618,7 +618,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hugh Millie-Yate</h4>
                                     </a>
@@ -632,22 +632,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -674,7 +674,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Dominic L. Ement</h4>
                                     </a>
@@ -688,22 +688,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_4.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_4.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -729,7 +729,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -743,22 +743,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_9.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_9.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -784,7 +784,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -798,22 +798,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_6.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_6.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -840,7 +840,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hugh Millie-Yate</h4>
                                     </a>
@@ -854,22 +854,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_7.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_7.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -896,7 +896,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Dominic L. Ement</h4>
                                     </a>
@@ -910,22 +910,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_8.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_8.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -951,7 +951,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -975,22 +975,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1016,7 +1016,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -1030,22 +1030,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1072,7 +1072,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hugh Millie-Yate</h4>
                                     </a>
@@ -1086,22 +1086,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1128,7 +1128,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Dominic L. Ement</h4>
                                     </a>
@@ -1142,22 +1142,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_4.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_4.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1183,7 +1183,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -1197,22 +1197,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_9.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_9.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1238,7 +1238,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -1252,22 +1252,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_6.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_6.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1294,7 +1294,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hugh Millie-Yate</h4>
                                     </a>
@@ -1308,22 +1308,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_7.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_7.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1350,7 +1350,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Dominic L. Ement</h4>
                                     </a>
@@ -1364,22 +1364,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_8.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_8.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1405,7 +1405,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -1429,22 +1429,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1470,7 +1470,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -1484,22 +1484,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1526,7 +1526,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hugh Millie-Yate</h4>
                                     </a>
@@ -1540,22 +1540,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1582,7 +1582,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Dominic L. Ement</h4>
                                     </a>
@@ -1596,22 +1596,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_4.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_4.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1637,7 +1637,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -1651,22 +1651,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_9.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_9.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1692,7 +1692,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -1706,22 +1706,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_6.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_6.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1748,7 +1748,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hugh Millie-Yate</h4>
                                     </a>
@@ -1762,22 +1762,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_7.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_7.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1804,7 +1804,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Dominic L. Ement</h4>
                                     </a>
@@ -1818,22 +1818,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_8.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_8.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1859,7 +1859,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -1883,22 +1883,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1924,7 +1924,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -1938,22 +1938,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -1980,7 +1980,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hugh Millie-Yate</h4>
                                     </a>
@@ -1994,22 +1994,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -2036,7 +2036,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Dominic L. Ement</h4>
                                     </a>
@@ -2050,22 +2050,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_4.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_4.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -2091,7 +2091,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -2105,22 +2105,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_9.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_9.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -2146,7 +2146,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -2160,22 +2160,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_6.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_6.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -2202,7 +2202,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hugh Millie-Yate</h4>
                                     </a>
@@ -2216,22 +2216,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_7.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_7.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -2258,7 +2258,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Dominic L. Ement</h4>
                                     </a>
@@ -2272,22 +2272,22 @@
                         <div class="col-xl-3 col-md-6 col-lg-4">
                             <div class="wsus__single_courses_3">
                                 <div class="wsus__single_courses_3_img">
-                                    <img src="{{ asset('frontend/images/courses_3_img_8.jpg') }}" alt="Courses" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/courses_3_img_8.jpg') }}" alt="Courses" class="img-fluid">
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love" class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                     class="img-fluid">
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
+                                                <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart" class="img-fluid">
                                             </a>
                                         </li>
                                     </ul>
@@ -2313,7 +2313,7 @@
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                         </div>
                                         <h4>Hermann P. Schnitzel</h4>
                                     </a>
@@ -2348,7 +2348,7 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-xl-4 col-md-6 wow fadeInLeft">
                     <div class="wsus__offer_img">
-                        <img src="{{ asset('frontend/images/offer_img_1.png') }}" alt="Offer" class="img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/offer_img_1.png') }}" alt="Offer" class="img-fluid w-100">
                     </div>
                 </div>
                 <div class="col-xl-6 col-md-6 wow fadeInRight">
@@ -2387,7 +2387,7 @@
                 </div>
                 <div class="col-xl-5 col-md-6 wow fadeInRight">
                     <div class="wsus__become_instructor_img">
-                        <img src="{{ asset('frontend/images/become_instructor_img.png') }}" alt="Instructor" class="img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/become_instructor_img.png') }}" alt="Instructor" class="img-fluid w-100">
                     </div>
                 </div>
             </div>
@@ -2402,10 +2402,10 @@
         VIDEO START
     ============================-->
     <section class="wsus__video mt_120 xs_mt_100">
-        <img src="{{ asset('frontend/images/video_bg.jpg') }}" alt="Video" class="img-fluid w-100">
+        <img src="{{ asset('frontend/assets/images/video_bg.jpg') }}" alt="Video" class="img-fluid w-100">
         <a class="play_btn venobox" data-autoplay="true" data-vbtype="video"
             href="https://youtu.be/sVPYIRF9RCQ?si=labNkx-xlyOWtptr">
-            <img src="{{ asset('frontend/images/play_icon_white.png') }}" alt="Play" class="img-fluid">
+            <img src="{{ asset('frontend/assets/images/play_icon_white.png') }}" alt="Play" class="img-fluid">
         </a>
         <div class="text wow fadeInLeft">
             <p>LMS allows administrators and instructors to create, organize, and deliver courses. This includes
@@ -2432,37 +2432,37 @@
                             <ul class="d-flex flex-wrap">
                                 <li>
                                     <a href="#">
-                                        <img src="{{ asset('frontend/images/brand_icon_1.png') }}" alt="brand" class="img-fluid w-100">
+                                        <img src="{{ asset('frontend/assets/images/brand_icon_1.png') }}" alt="brand" class="img-fluid w-100">
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="{{ asset('frontend/images/brand_icon_2.png') }}" alt="brand" class="img-fluid w-100">
+                                        <img src="{{ asset('frontend/assets/images/brand_icon_2.png') }}" alt="brand" class="img-fluid w-100">
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="{{ asset('frontend/images/brand_icon_3.png') }}" alt="brand" class="img-fluid w-100">
+                                        <img src="{{ asset('frontend/assets/images/brand_icon_3.png') }}" alt="brand" class="img-fluid w-100">
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="{{ asset('frontend/images/brand_icon_4.png') }}" alt="brand" class="img-fluid w-100">
+                                        <img src="{{ asset('frontend/assets/images/brand_icon_4.png') }}" alt="brand" class="img-fluid w-100">
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="{{ asset('frontend/images/brand_icon_5.png') }}" alt="brand" class="img-fluid w-100">
+                                        <img src="{{ asset('frontend/assets/images/brand_icon_5.png') }}" alt="brand" class="img-fluid w-100">
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="{{ asset('frontend/images/brand_icon_6.png') }}" alt="brand" class="img-fluid w-100">
+                                        <img src="{{ asset('frontend/assets/images/brand_icon_6.png') }}" alt="brand" class="img-fluid w-100">
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="{{ asset('frontend/images/brand_icon_7.png') }}" alt="brand" class="img-fluid w-100">
+                                        <img src="{{ asset('frontend/assets/images/brand_icon_7.png') }}" alt="brand" class="img-fluid w-100">
                                     </a>
                                 </li>
                             </ul>
@@ -2501,7 +2501,7 @@
                         </div>
                         <div class="col-xxl-4 col-xl-4 col-md-6 col-lg-6 d-none d-xl-block wow fadeInUp">
                             <div class="wsus__quality_courses_img">
-                                <img src="{{ asset('frontend/images/quality_courses_img.png') }}" alt="Quality Courses" class="img-fluid w-100">
+                                <img src="{{ asset('frontend/assets/images/quality_courses_img.png') }}" alt="Quality Courses" class="img-fluid w-100">
                             </div>
                         </div>
                         <div class="col-xxl-3 col-xl-4 col-md-6 col-lg-5 wow fadeInUp">
@@ -2509,23 +2509,23 @@
                                 <div class="col-12">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
                                             <ul>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love"
+                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart"
+                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
@@ -2551,7 +2551,7 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                                 </div>
                                                 <h4>Hermann P. Schnitzel</h4>
                                             </a>
@@ -2565,23 +2565,23 @@
                                 <div class="col-12">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
                                             <ul>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love"
+                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart"
+                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
@@ -2609,7 +2609,7 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                                 </div>
                                                 <h4>Hugh Millie-Yate</h4>
                                             </a>
@@ -2623,23 +2623,23 @@
                                 <div class="col-12">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
                                             <ul>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love"
+                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart"
+                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
@@ -2667,7 +2667,7 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                                 </div>
                                                 <h4>Dominic L. Ement</h4>
                                             </a>
@@ -2702,7 +2702,7 @@
                         </div>
                         <div class="col-xxl-4 col-xl-4 col-md-6 col-lg-6 d-none d-xl-block wow fadeInUp">
                             <div class="wsus__quality_courses_img">
-                                <img src="{{ asset('frontend/images/quality_courses_img_2.png') }}" alt="Quality Courses"
+                                <img src="{{ asset('frontend/assets/images/quality_courses_img_2.png') }}" alt="Quality Courses"
                                     class="img-fluid w-100">
                             </div>
                         </div>
@@ -2711,23 +2711,23 @@
                                 <div class="col-12">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}" alt="Courses" class="img-fluid">
                                             <ul>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love"
+                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart"
+                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
@@ -2753,7 +2753,7 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                                 </div>
                                                 <h4>Hermann P. Schnitzel</h4>
                                             </a>
@@ -2767,23 +2767,23 @@
                                 <div class="col-12">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/courses_3_img_2.jpg') }}" alt="Courses" class="img-fluid">
                                             <ul>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love"
+                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart"
+                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
@@ -2811,7 +2811,7 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                                 </div>
                                                 <h4>Hugh Millie-Yate</h4>
                                             </a>
@@ -2825,23 +2825,23 @@
                                 <div class="col-12">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/courses_3_img_3.jpg') }}" alt="Courses" class="img-fluid">
                                             <ul>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/love_icon_black.png') }}" alt="Love"
+                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}" alt="Love"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/compare_icon_black.png') }}" alt="Compare"
+                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}" alt="Compare"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#">
-                                                        <img src="{{ asset('frontend/images/cart_icon_black_2.png') }}" alt="Cart"
+                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}" alt="Cart"
                                                             class="img-fluid">
                                                     </a>
                                                 </li>
@@ -2868,7 +2868,7 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
+                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}" alt="Author" class="img-fluid">
                                                 </div>
                                                 <h4>Dominic L. Ement</h4>
                                             </a>
@@ -2920,11 +2920,11 @@
                         urna.Morbi molestie purus egestas aliquam euismod utrum eget dapibus fames ac ante  orci ut
                         lectus.</p>
                     <div class="testimonial_logo">
-                        <img src="{{ asset('frontend/images/testimonial_logo.png') }}" alt="Testimonial" class="img-fluid">
+                        <img src="{{ asset('frontend/assets/images/testimonial_logo.png') }}" alt="Testimonial" class="img-fluid">
                     </div>
                     <div class="wsus__testimonial_footer">
                         <div class="img">
-                            <img src="{{ asset('frontend/images/testimonial_user_1.png') }}" alt="user" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/testimonial_user_1.png') }}" alt="user" class="img-fluid">
                         </div>
                         <h3>
                             Spruce Springclean
@@ -2947,11 +2947,11 @@
                         urna.Morbi molestie purus egestas aliquam euismod utrum eget dapibus fames ac ante  orci ut
                         lectus.</p>
                     <div class="testimonial_logo">
-                        <img src="{{ asset('frontend/images/testimonial_logo_2.png') }}" alt="Testimonial" class="img-fluid">
+                        <img src="{{ asset('frontend/assets/images/testimonial_logo_2.png') }}" alt="Testimonial" class="img-fluid">
                     </div>
                     <div class="wsus__testimonial_footer">
                         <div class="img">
-                            <img src="{{ asset('frontend/images/testimonial_user_2.png') }}" alt="user" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/testimonial_user_2.png') }}" alt="user" class="img-fluid">
                         </div>
                         <h3>
                             Ravi O'Leigh
@@ -2974,11 +2974,11 @@
                         urna.Morbi molestie purus egestas aliquam euismod utrum eget dapibus fames ac ante  orci ut
                         lectus.</p>
                     <div class="testimonial_logo">
-                        <img src="{{ asset('frontend/images/testimonial_logo_3.png') }}" alt="Testimonial" class="img-fluid">
+                        <img src="{{ asset('frontend/assets/images/testimonial_logo_3.png') }}" alt="Testimonial" class="img-fluid">
                     </div>
                     <div class="wsus__testimonial_footer">
                         <div class="img">
-                            <img src="{{ asset('frontend/images/testimonial_user_3.png') }}" alt="user" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/testimonial_user_3.png') }}" alt="user" class="img-fluid">
                         </div>
                         <h3>
                             Hanson Deck
@@ -3001,11 +3001,11 @@
                         urna.Morbi molestie purus egestas aliquam euismod utrum eget dapibus fames ac ante  orci ut
                         lectus.</p>
                     <div class="testimonial_logo">
-                        <img src="{{ asset('frontend/images/testimonial_logo_2.png') }}" alt="Testimonial" class="img-fluid">
+                        <img src="{{ asset('frontend/assets/images/testimonial_logo_2.png') }}" alt="Testimonial" class="img-fluid">
                     </div>
                     <div class="wsus__testimonial_footer">
                         <div class="img">
-                            <img src="{{ asset('frontend/images/testimonial_user_2.png') }}" alt="user" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/testimonial_user_2.png') }}" alt="user" class="img-fluid">
                         </div>
                         <h3>
                             Spruce Springclean
@@ -3039,17 +3039,17 @@
             <div class="col-xl-4 wow fadeInUp">
                 <div class="wsus__single_blog_4">
                     <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/images/blog_4_img_1.jpg') }}" alt="Blog" class="img-fluid">
+                        <img src="{{ asset('frontend/assets/images/blog_4_img_1.jpg') }}" alt="Blog" class="img-fluid">
                         <span class="date">March 23, 2024</span>
                     </a>
                     <div class="wsus__single_blog_4_text">
                         <ul>
                             <li>
-                                <span><img src="{{ asset('frontend/images/user_icon_black.png') }}" alt="User" class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="User" class="img-fluid"></span>
                                 By Richard Tea
                             </li>
                             <li>
-                                <span><img src="{{ asset('frontend/images/comment_icon_black.png') }}" alt="Comment" class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png') }}" alt="Comment" class="img-fluid"></span>
                                 3 Comments
                             </li>
                         </ul>
@@ -3062,17 +3062,17 @@
             <div class="col-xl-4 wow fadeInUp">
                 <div class="wsus__single_blog_4">
                     <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/images/blog_4_img_2.jpg') }}" alt="Blog" class="img-fluid">
+                        <img src="{{ asset('frontend/assets/images/blog_4_img_2.jpg') }}" alt="Blog" class="img-fluid">
                         <span class="date">April 28, 2024</span>
                     </a>
                     <div class="wsus__single_blog_4_text">
                         <ul>
                             <li>
-                                <span><img src="{{ asset('frontend/images/user_icon_black.png') }}" alt="User" class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="User" class="img-fluid"></span>
                                 By Doug Lyphe
                             </li>
                             <li>
-                                <span><img src="{{ asset('frontend/images/comment_icon_black.png') }}" alt="Comment" class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png') }}" alt="Comment" class="img-fluid"></span>
                                 21 Comments
                             </li>
                         </ul>
@@ -3085,17 +3085,17 @@
             <div class="col-xl-4 wow fadeInUp">
                 <div class="wsus__single_blog_4">
                     <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/images/blog_4_img_3.jpg') }}" alt="Blog" class="img-fluid">
+                        <img src="{{ asset('frontend/assets/images/blog_4_img_3.jpg') }}" alt="Blog" class="img-fluid">
                         <span class="date">Jan 12, 2024</span>
                     </a>
                     <div class="wsus__single_blog_4_text">
                         <ul>
                             <li>
-                                <span><img src="{{ asset('frontend/images/user_icon_black.png') }}" alt="User" class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="User" class="img-fluid"></span>
                                 By Eleanor Fant
                             </li>
                             <li>
-                                <span><img src="{{ asset('frontend/images/comment_icon_black.png') }}" alt="Comment" class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png') }}" alt="Comment" class="img-fluid"></span>
                                 48 Comments
                             </li>
                         </ul>
@@ -3108,17 +3108,17 @@
             <div class="col-xl-4 wow fadeInUp">
                 <div class="wsus__single_blog_4">
                     <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/images/blog_4_img_4.jpg') }}" alt="Blog" class="img-fluid">
+                        <img src="{{ asset('frontend/assets/images/blog_4_img_4.jpg') }}" alt="Blog" class="img-fluid">
                         <span class="date">April 28, 2024</span>
                     </a>
                     <div class="wsus__single_blog_4_text">
                         <ul>
                             <li>
-                                <span><img src="{{ asset('frontend/images/user_icon_black.png') }}" alt="User" class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="User" class="img-fluid"></span>
                                 By Doug Lyphe
                             </li>
                             <li>
-                                <span><img src="{{ asset('frontend/images/comment_icon_black.png') }}" alt="Comment" class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png') }}" alt="Comment" class="img-fluid"></span>
                                 21 Comments
                             </li>
                         </ul>

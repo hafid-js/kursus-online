@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\InstructorDashboardController;
+use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\StudentDashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,9 @@ Route::group(['middleware' => ['auth:web', 'verified','check_role:student'], 'pr
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
     Route::get('/become-instructor', [StudentDashboardController::class, 'becomeInstructor'])->name('become-instructor');
     Route::post('/become-instructor', [StudentDashboardController::class, 'becomeInstructorUpdate'])->name('become-instructor.update');
+
+    // profile routes
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
 
 });
 

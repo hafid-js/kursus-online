@@ -327,7 +327,7 @@
                 <p>Hi there</p>
                 <p>Your instructor request has been rejected. please resubmit your valid infos again!
                 </p>
-                <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="common_btn">
                 </table>
                 <p>Good luck!</p>
             </td>
