@@ -33,7 +33,7 @@
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
-                @include('frontend.student-dashboard.sidebar')
+                @include('frontend.instructor-dashboard.sidebar')
                 <div class="col-xl-9 col-md-8 wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;">
                     <div class="wsus__dashboard_contant">
                         <div class="wsus__dashboard_contant_top d-flex flex-wrap justify-content-between">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
 
-                        <form action="{{ route('student.profile.update') }}" method="POST" class="wsus__dashboard_profile_update" enctype="multipart/form-data">
+                        <form action="{{ route('instructor.profile.update') }}" method="POST" class="wsus__dashboard_profile_update" enctype="multipart/form-data">
                             @csrf
                             <div class="wsus__dashboard_profile wsus__dashboard_profile_avatar">
                                 <div class="img">
@@ -114,7 +114,7 @@
                             </div>
                         </div>
 
-                        <form action="{{ route('student.profile.update-password') }}" method="POST" class="wsus__dashboard_profile_update">
+                        <form action="{{ route('instructor.profile.update-password') }}" method="POST" class="wsus__dashboard_profile_update">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
@@ -154,7 +154,7 @@
                             </div>
                         </div>
 
-                        <form action="{{ route('student.profile.update-social') }}" method="POST" class="wsus__dashboard_profile_update">
+                        <form action="{{ route('instructor.profile.update-social') }}" method="POST" class="wsus__dashboard_profile_update">
                             @csrf
                             <div class="row">
                                 <div class="col-xl-12">

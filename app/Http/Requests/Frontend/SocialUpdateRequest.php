@@ -4,7 +4,7 @@ namespace App\Http\Requests\Frontend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileUpdateRequest extends FormRequest
+class SocialUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,11 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','max:255','string'],
-            'headline' => ['nullable', 'max:255', 'string'],
-            'email' => ['required','max:255','email','unique:users,email,'.auth()->user()->id],
-            'about' => ['nullable','string','max:6000'],
-            'gender' => ['nullable','in:male,female'],
-            'avatar' => ['nullable','mimes:jpg,png,jpeg','max:2000'],
+            'facebook' => ['nullable','url','max:255'],
+            'x' => ['nullable','url','max:255'],
+            'linkedin' => ['nullable','url','max:255'],
+            'website' => ['nullable','url','max:255'],
+
         ];
     }
 }
