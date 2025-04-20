@@ -59,15 +59,21 @@ class CourseLevelController extends Controller
      */
     public function edit(CourseLevel $course_level)
     {
-        return view('admin.course.course-level.update', compact('course_level'));
+        return view('admin.course.course-level.edit', compact('course_level'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, CourseLevel $course_level)
     {
-        //
+        $request->validate(['name' => ['required', 'max:255','unique:course_levels,name,'.$course_level->id]]);
+        $course_level->name = $request->name;
+        $course_level->save();
+
+        notyf()->success('Updated Successfully!');
+
+        return to_route('admin.course-levels.index');
     }
 
     /**

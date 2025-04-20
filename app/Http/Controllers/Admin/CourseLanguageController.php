@@ -59,15 +59,22 @@ class CourseLanguageController extends Controller
      */
     public function edit(CourseLanguage $course_language)
     {
-        return view('admin.course.course-language.update', compact('course_language'));
+
+        return view('admin.course.course-language.edit', compact('course_language'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, CourseLanguage $course_language)
     {
-        //
+        $request->validate(['name' => ['required', 'max:255','unique:course_languages,name,'.$course_language->id]]);
+        $course_language->name = $request->name;
+        $course_language->save();
+
+        notyf()->success('Updated Successfully!');
+
+        return to_route('admin.course-languages.index');
     }
 
     /**
