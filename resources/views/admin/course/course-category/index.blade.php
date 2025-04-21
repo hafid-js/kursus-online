@@ -25,8 +25,10 @@
                                                     <table class="table table-vcenter card-table">
                                                         <thead>
                                                             <tr>
+                                                                <th>Icon</th>
                                                                 <th>Name</th>
-                                                                <th>Slug</th>
+                                                                <th>Trending</th>
+                                                                <th>Status</th>
                                                                 <th>Action</th>
                                                                 {{-- <th class="w-1"></th> --}}
                                                             </tr>
@@ -34,8 +36,22 @@
                                                         <tbody>
                                                             @forelse ($categories as $category)
                                                                 <tr>
+                                                                    <td><i class="{{ $category->icon }}"></i></td>
                                                                     <td>{{ $category->name }}</td>
-                                                                    <td>{{ $category->slug }}</td>
+                                                                    <td>
+                                                                        @if ($category->show_at_trending == 1)
+                                                                        <span class="badge bg-lime text-lime-fg">Yes</span>
+                                                                        @else
+                                                                        <span class="badge bg-red text-red-fg">No</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if ($category->status == 1)
+                                                                        <span class="badge bg-lime text-lime-fg">Yes</span>
+                                                                        @else
+                                                                        <span class="badge bg-red text-red-fg">No</span>
+                                                                        @endif
+                                                                    </td>
                                                                     <td>
                                                                         <a href="{{ route('admin.course-categories.edit', $category->id) }}"
                                                                             class="text-blue">

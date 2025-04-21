@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Create Category</h4>
+                                <h4 class="card-title">Update Category</h4>
                                 <div class="card-actions">
                                     <a href="{{ route('admin.course-categories.index') }}" class="btn btn-primary">
                                         <i class="ti ti-arrow-left"></i>
@@ -17,29 +17,36 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('admin.course-categories.store') }}" method="POST"
-                                    enctype="multipart/form-data">
+                                <form action="{{ route('admin.course-categories.store', $course_category->id) }}"
+                                    method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
+                                        <x-image-preview class="" src="{{ $course_category->image }}" />
                                         <div class="col-md-6">
                                             <x-input-file-block name="image" />
                                         </div>
                                         <div class="col-md-6">
-                                            <x-input-block name="icon" placeholder="Enter icon name">
+                                            <x-input-block name="icon" :value="$course_category->icon"
+                                                placeholder="Enter icon name">
                                                 <x-slot name="hint">
                                                     <small class="hint">you can get icon classes from: <a target="_blank"
                                                             href="https://tabler.io/icons">https://tabler.io/icons</a></small>
                                                 </x-slot>
                                             </x-input-block>
                                         </div>
+                                        </x-slot>
+                                        </x-input-block>
                                         <div class="col-md-12">
-                                            <x-input-block name="name" placeholder="Enter category name" />
+                                            <x-input-block name="name" :value="$course_category->name"
+                                                placeholder="Enter category name" />
                                         </div>
                                         <div class="col-md-12">
-                                            <x-input-toggle-block name="show_at_trending" label="Show at Trending" />
+                                            <x-input-toggle-block name="show_at_trending" label="Show at Trending"
+                                                :checked="$course_category->show_at_trending == 1 " />
                                         </div>
                                         <div class="col-md-12">
-                                            <x-input-toggle-block name="status" label="Status" />
+                                            <x-input-toggle-block name="status" label="Status"
+                                                :checked="$course_category->status == 1 " />
                                         </div>
                                     </div>
                                     <div class="mb-3">

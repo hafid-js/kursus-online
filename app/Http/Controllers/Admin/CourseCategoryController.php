@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CourseCategoryStoreRequest;
 use App\Models\CourseCategory;
 use App\Traits\FileUpload;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -33,7 +34,7 @@ class CourseCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CourseCategoryStoreRequest $request)
+    public function store(CourseCategoryStoreRequest $request) : RedirectResponse
     {
         $imagePath = $this->uploadFile($request->file('image'));
         $category = new CourseCategory();
@@ -61,9 +62,9 @@ class CourseCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(CourseCategory $course_category)
     {
-        //
+        return view('admin.course.course-category.edit', compact('course_category'));
     }
 
     /**
