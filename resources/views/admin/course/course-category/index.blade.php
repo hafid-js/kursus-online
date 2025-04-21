@@ -31,13 +31,13 @@
                                                                 {{-- <th class="w-1"></th> --}}
                                                             </tr>
                                                         </thead>
-                                                        {{-- <tbody>
-                                                            @forelse ($languages as $language)
+                                                        <tbody>
+                                                            @forelse ($categories as $category)
                                                                 <tr>
-                                                                    <td>{{ $language->name }}</td>
-                                                                    <td>{{ $language->slug }}</td>
+                                                                    <td>{{ $category->name }}</td>
+                                                                    <td>{{ $category->slug }}</td>
                                                                     <td>
-                                                                        <a href="{{ route('admin.course-languages.edit', $language->id) }}"
+                                                                        <a href="{{ route('admin.course-categories.edit', $category->id) }}"
                                                                             class="text-blue">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                                 height="24" viewBox="0 0 24 24" fill="none"
@@ -53,7 +53,7 @@
                                                                                 <path d="M16 5l3 3" />
                                                                             </svg>
                                                                         </a>
-                                                                        <a href="{{ route('admin.course-languages.destroy', $language->id) }}" class="text-red delete-item">
+                                                                        <a href="{{ route('admin.course-categories.destroy', $category->id) }}" class="text-red delete-item">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                                 height="24" viewBox="0 0 24 24" fill="none"
                                                                                 stroke="currentColor" stroke-width="2"
@@ -76,12 +76,12 @@
                                                                     <td colspan="3" class="text-center">No Data Found!</td>
                                                                 </tr>
                                                             @endforelse
-                                                        </tbody> --}}
+                                                        </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- {{ $languages->links() }} --}}
+                                        {{-- {{ $categories->links() }} --}}
                                     </div>
                                 </div>
                             </div>

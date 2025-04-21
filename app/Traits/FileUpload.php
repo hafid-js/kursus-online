@@ -2,17 +2,22 @@
 
 namespace App\Traits;
 
+use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 
 trait FileUpload {
     public function uploadFile(UploadedFile $file, string $directory = 'uploads') : string {
-        $filename = 'ha_cource'.uniqid().'.'. $file->getClientOriginalExtension();
+        try {
+            $filename = 'ha_cource'.uniqid().'.'. $file->getClientOriginalExtension();
 
         // move the file to storage
         $file->move(public_path($directory), $filename);
 
         return '/'. $directory. '/'. $filename;
+        } catch(Exception $e) {
+            throw $e;
+        }
     }
 
     public function deleteFile(String $path) : bool {
