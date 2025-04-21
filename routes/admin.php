@@ -9,13 +9,14 @@ use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\CourseCategoryController;
 use App\Http\Controllers\Admin\CourseLanguageController;
 use App\Http\Controllers\Admin\CourseLevelController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InstructorRequestController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(["middleware" => "guest:admin", "prefix" => "admin", "as" => "admin."],function () {
+Route::group(["middleware" => "guest:admin", "prefix" => "admin", "as" => "admin."], function () {
     // Route::get('register', [RegisteredUserController::class, 'create'])
     //     ->name('register');
 
@@ -39,7 +40,7 @@ Route::group(["middleware" => "guest:admin", "prefix" => "admin", "as" => "admin
         ->name('password.store');
 });
 
-Route::group(["middleware" => "auth:admin","prefix" => "admin","as" => "admin."],function () {
+Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin."], function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -69,7 +70,9 @@ Route::group(["middleware" => "auth:admin","prefix" => "admin","as" => "admin."]
     // Course languages routes
     Route::resource('course-languages', CourseLanguageController::class);
 
-        // Course level routes
-        Route::resource('course-levels', CourseLevelController::class);
-});
+    // Course level routes
+    Route::resource('course-levels', CourseLevelController::class);
 
+    // Course categories route
+    Route::resource('course-categories', CourseCategoryController::class);
+});

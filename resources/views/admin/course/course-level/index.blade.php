@@ -88,6 +88,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        {{ $levels->links() }}
                                     </div>
                                 </div>
                             </div>
