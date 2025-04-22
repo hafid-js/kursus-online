@@ -17,9 +17,10 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('admin.course-categories.store', $course_category->id) }}"
+                                <form action="{{ route('admin.course-categories.update', $course_category->id) }}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
+                                    @method('PUT')
                                     <div class="row">
                                         <x-image-preview class="" src="{{ $course_category->image }}" />
                                         <div class="col-md-6">
@@ -34,8 +35,7 @@
                                                 </x-slot>
                                             </x-input-block>
                                         </div>
-                                        </x-slot>
-                                        </x-input-block>
+
                                         <div class="col-md-12">
                                             <x-input-block name="name" :value="$course_category->name"
                                                 placeholder="Enter category name" />
@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <button class="btn btn-primary" type="submit">
-                                            <i class="ti ti-device-floppy"></i> Create
+                                            <i class="ti ti-device-floppy"></i> Update
                                         </button>
                                     </div>
                                 </form>

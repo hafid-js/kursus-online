@@ -12,7 +12,7 @@ trait FileUpload {
             $filename = 'ha_cource'.uniqid().'.'. $file->getClientOriginalExtension();
 
         // move the file to storage
-        $file->move(public_path($directory), $filename);
+        $file->storeAs($directory, $filename, 'public');
 
         return '/'. $directory. '/'. $filename;
         } catch(Exception $e) {
