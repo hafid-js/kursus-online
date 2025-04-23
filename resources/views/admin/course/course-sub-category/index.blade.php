@@ -34,7 +34,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {{-- @forelse ($categories as $category)
+                                                            @forelse ($subCategories as $category)
                                                                 <tr>
                                                                     <td><i class="{{ $category->icon }}"></i></td>
                                                                     <td>{{ $category->name }}</td>
@@ -53,24 +53,23 @@
                                                                         @endif
                                                                     </td>
                                                                     <td>
-                                                                        <a href="{{ route('admin.course-categories.edit', $category->id) }}"
-                                                                            class="btn-sm text-warning">
-                                                                            <i class="ti ti-list"></i>
-                                                                        </a>
-                                                                        <a href="{{ route('admin.course-categories.edit', $category->id) }}"
+                                                                        <a href="{{ route('admin.course-sub-categories.edit', [
+                                                                        'course_category' => $course_category->id,
+                                                                        'course_sub_category' => $category->id
+                                                                        ])}}"
                                                                             class="btn-sm btn-primary">
                                                                             <i class="ti ti-edit"></i>
                                                                         </a>
-                                                                        <a href="{{ route('admin.course-categories.destroy', $category->id) }}" class="text-red delete-item">
+                                                                        {{-- <a href="{{ route('admin.course-sub-categories.destroy', $category->id) }}" class="text-red delete-item">
                                                                             <i class="ti ti-trash"></i>
-                                                                        </a>
+                                                                        </a> --}}
                                                                     </td>
                                                                 </tr>
                                                             @empty
                                                                 <tr>
                                                                     <td colspan="3" class="text-center">No Data Found!</td>
                                                                 </tr>
-                                                            @endforelse --}}
+                                                            @endforelse
                                                         </tbody>
                                                     </table>
                                                 </div>

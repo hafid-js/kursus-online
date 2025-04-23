@@ -10,14 +10,14 @@
                             <div class="card-header">
                                 <h4 class="card-title">Create Category</h4>
                                 <div class="card-actions">
-                                    <a href="{{ route('admin.course-categories.index') }}" class="btn btn-primary">
+                                    <a href="{{ route('admin.course-sub-categories.index', $course_category->id) }}" class="btn btn-primary">
                                         <i class="ti ti-arrow-left"></i>
                                         Back
                                     </a>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('admin.course-categories.store', $course_category->id) }}" method="POST"
+                                <form action="{{ route('admin.course-sub-categories.store', $course_category->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
