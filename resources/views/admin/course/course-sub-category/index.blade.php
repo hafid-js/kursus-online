@@ -8,9 +8,9 @@
                     <div class="col-12">
                         <form action="https://httpbin.org/post" method="post" class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Course Categories</h4>
+                                <h4 class="card-title">Course Sub Categories of: ({{ $course_category->name }})</h4>
                                 <div class="card-actions">
-                                    <a href="{{ route('admin.course-categories.create') }}" class="btn btn-primary">
+                                    <a href="{{ route('admin.course-sub-categories.create', $course_category->id) }}" class="btn btn-primary">
                                         <i class="ti ti-plus"></i>
                                         Add new
                                     </a>
@@ -34,7 +34,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @forelse ($categories as $category)
+                                                            {{-- @forelse ($categories as $category)
                                                                 <tr>
                                                                     <td><i class="{{ $category->icon }}"></i></td>
                                                                     <td>{{ $category->name }}</td>
@@ -53,7 +53,7 @@
                                                                         @endif
                                                                     </td>
                                                                     <td>
-                                                                        <a href="{{ route('admin.course-sub-categories.index', $category->id) }}"
+                                                                        <a href="{{ route('admin.course-categories.edit', $category->id) }}"
                                                                             class="btn-sm text-warning">
                                                                             <i class="ti ti-list"></i>
                                                                         </a>
@@ -70,7 +70,7 @@
                                                                 <tr>
                                                                     <td colspan="3" class="text-center">No Data Found!</td>
                                                                 </tr>
-                                                            @endforelse
+                                                            @endforelse --}}
                                                         </tbody>
                                                     </table>
                                                 </div>

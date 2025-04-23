@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseCategoryUpdateRequest extends FormRequest
+class CourseSubCategoryStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class CourseCategoryUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['required','image','max:3000'],
-            'name' => ['required','string','max:255','unique:course_categories,name,'. $this->course_category->id],
+            'image' => ['nullable','image','max:3000'],
+            'name' => ['required','string','max:255','unique:course_categories,name'],
             'icon' => ['required','max:40','string'],
             'show_at_trending' => ['nullable','boolean'],
             'status' => ['nullable','boolean'],

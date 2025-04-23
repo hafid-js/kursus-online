@@ -20,7 +20,7 @@ trait FileUpload {
         }
     }
 
-    public function deleteFile(String $path) : bool {
+    public function deleteFile(?String $path) : bool {
         if(File::exists(public_path($path))){
             File::delete(public_path($path));
             return true;
