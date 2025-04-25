@@ -10,6 +10,10 @@
                             <div class="card-header">
                                 <h4 class="card-title">Course Sub Categories of: ({{ $course_category->name }})</h4>
                                 <div class="card-actions">
+                                    <a href="{{ route('admin.course-categories.index',$course_category->id) }}" class="btn btn-dark">
+                                        <i class="ti ti-arrow-left"></i>
+                                        Back
+                                    </a>
                                     <a href="{{ route('admin.course-sub-categories.create', $course_category->id) }}" class="btn btn-primary">
                                         <i class="ti ti-plus"></i>
                                         Add new
@@ -60,14 +64,17 @@
                                                                             class="btn-sm btn-primary">
                                                                             <i class="ti ti-edit"></i>
                                                                         </a>
-                                                                        {{-- <a href="{{ route('admin.course-sub-categories.destroy', $category->id) }}" class="text-red delete-item">
+                                                                        <a href="{{ route('admin.course-sub-categories.destroy', [
+                                                                        'course_category' => $course_category->id,
+                                                                        'course_sub_category' => $category->id
+                                                                        ])}}" class="text-red delete-item">
                                                                             <i class="ti ti-trash"></i>
-                                                                        </a> --}}
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
                                                             @empty
                                                                 <tr>
-                                                                    <td colspan="3" class="text-center">No Data Found!</td>
+                                                                    <td colspan="5" class="text-center">No Data Found!</td>
                                                                 </tr>
                                                             @endforelse
                                                         </tbody>

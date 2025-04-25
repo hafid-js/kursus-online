@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\CourseSubCategoryStoreRequest;
 use App\Http\Requests\Admin\CourseSubCategoryUpdateRequest;
 use App\Models\CourseCategory;
 use App\Traits\FileUpload;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -96,8 +97,17 @@ class CourseSubCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(CourseCategory $course_category, CourseCategory $course_sub_category)
     {
-        //
+        try {
+            // throw ValidationException::withMessages(['you have error']);
+            $this->deleteFile($course_sub_category->image);
+            $course_sub_category->delete();
+            notyf()->success('Delete Succesfully!');
+            return response(['message' => 'Delete Successfully!'], 200);
+        } catch(Exception $e) {
+            logger("Course Level Error >> ".$e);
+            return response(['message' => 'Something went wrong!'], 500);
+        }
     }
 }

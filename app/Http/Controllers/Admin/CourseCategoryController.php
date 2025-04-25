@@ -21,7 +21,7 @@ class CourseCategoryController extends Controller
      */
     public function index()
     {
-        $categories = CourseCategory::paginate(15);
+        $categories = CourseCategory::whereNull('parent_id')->paginate(15);
         return view('admin.course.course-category.index', compact('categories'));
     }
 
@@ -98,6 +98,11 @@ class CourseCategoryController extends Controller
      */
     public function destroy(CourseCategory $course_category)
     {
+        if(CourseCategory::where('parent_id', $course_category->id)->exists()) {
+            return response([
+                'message' => 'Cannot delete a category with subcategory!'
+            ], 422);
+        }
         try {
             // throw ValidationException::withMessages(['you have error']);
             $this->deleteFile($course_category->image);
