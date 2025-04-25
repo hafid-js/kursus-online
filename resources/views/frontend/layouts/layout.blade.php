@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="base_url" content="{{ url('/') }}">
+        <meta name="csrf_token" content="{{ csrf_token() }}">
     <title>EduCore - Online Courses & Education HTML Template</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/all.min.css') }}">
@@ -29,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
     @vite(['resources/css/frontend.css']);
+    @stack('header_scripts')
 </head>
 
 <body class="home_3">
@@ -122,7 +125,10 @@
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
 
     <!--main/custom js-->
-    <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/main.js') }}"></script>\
+
+
+    @stack('scripts')
 
 </body>
 
