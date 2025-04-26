@@ -5,12 +5,18 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CourseBasicInfoCreateRequest;
 use App\Models\Course;
+use App\Models\CourseCategory;
+use App\Models\CourseLanguage;
+use App\Models\CourseLevel;
+use App\Traits\FileUpload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class CourseController extends Controller
 {
+    use FileUpload;
     function index() {
         return view('frontend.instructor-dashboard.course.index');
     }
@@ -20,11 +26,12 @@ class CourseController extends Controller
     }
 
     function storeBasicInfo(CourseBasicInfoCreateRequest $request) {
+        $thumbnailPath = $this->uploadFile($request->file('thumbnail'));
         $course = new Course();
         $course->title = $request->title;
         $course->slug = Str::of($request->title)->slug('-');
         $course->seo_description = $request->seo_description;
-        $course->thumbnail = '';
+        $course->thumbnail = $thumbnailPath;
         $course->demo_video_storage = $request->demo_video_storage;
         $course->demo_video_source = $request->demo_video_source;
         $course->price = $request->price;
@@ -33,10 +40,35 @@ class CourseController extends Controller
         $course->instructor_id = Auth::guard('web')->user()->id;
         $course->save();
 
+        // save course id on session
+        Session::put('course_create_id', $course->id);
+
         return response([
             'status' => 'success',
-            'message' => 'Created Successfully!.'
+            'message' => 'Updated Successfully!.',
+            'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
         ]);
+    }
+
+    function edit(Request $request) {
+
+        switch($request->step) {
+            case '1' :
+                // code
+                break;
+
+                case '2' :
+                    $categories = CourseCategory::where('status', 1)->get();
+                    $levels = CourseLevel::all();
+                    $languages = CourseLanguage::all();
+                    return view('frontend.instructor-dashboard.course.more-info', compact('categories','levels','languages'));
+                    break;
+
+                    default:
+                    // code
+                    break;
+
+        }
 
     }
 }
