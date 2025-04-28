@@ -17,15 +17,19 @@ use Illuminate\Support\Str;
 class CourseController extends Controller
 {
     use FileUpload;
-    function index() {
-        return view('frontend.instructor-dashboard.course.index');
+    function index()
+    {
+        $courses = Course::all();
+        return view('frontend.instructor-dashboard.course.index', compact('courses'));
     }
 
-    function create() {
+    function create()
+    {
         return view('frontend.instructor-dashboard.course.create');
     }
 
-    function storeBasicInfo(CourseBasicInfoCreateRequest $request) {
+    function storeBasicInfo(CourseBasicInfoCreateRequest $request)
+    {
         $thumbnailPath = $this->uploadFile($request->file('thumbnail'));
         $course = new Course();
         $course->title = $request->title;
@@ -50,25 +54,68 @@ class CourseController extends Controller
         ]);
     }
 
-    function edit(Request $request) {
+    function edit(Request $request)
+    {
 
-        switch($request->step) {
-            case '1' :
+        switch ($request->step) {
+            case '1':
                 // code
                 break;
 
-                case '2' :
-                    $categories = CourseCategory::where('status', 1)->get();
-                    $levels = CourseLevel::all();
-                    $languages = CourseLanguage::all();
-                    return view('frontend.instructor-dashboard.course.more-info', compact('categories','levels','languages'));
-                    break;
+            case '2':
+                $categories = CourseCategory::where('status', 1)->get();
+                $levels = CourseLevel::all();
+                $languages = CourseLanguage::all();
+                return view('frontend.instructor-dashboard.course.more-info', compact('categories', 'levels', 'languages'));
+                break;
 
-                    default:
-                    // code
-                    break;
-
+            default:
+                // code
+                break;
         }
+    }
 
+    function update(Request $request)
+    {
+        switch ($request->current_step) {
+            case '1':
+                // code
+                break;
+
+            case '2':
+                // validate
+                $request->validate([
+                    'capacity' => ['nullable','numeric'],
+                    'duration' => ['required','numeric'],
+                    'qna' => ['nullable','boolean'],
+                    'certificate' => ['nullable','boolean'],
+                    'category' => ['required','integer'],
+                    'course_level_id' => ['required','integer'],
+                    'course_language_id' => ['required','integer'],
+                ]);
+
+                // update course data
+                $course = Course::findOrFail($request->id);
+                $course->capacity = $request->capacity;
+                $course->duration = $request->duration;
+                $course->qna = $request->qna ? 1 : 0;
+                $course->certificate = $request->certificate ? 1 : 0;
+                $course->category_id = $request->category;
+                $course->course_level_id = $request->level;
+                $course->course_language_id = $request->language;
+                $course->save();
+
+                return response([
+                    'status' => 'success',
+                    'message' => 'Updated Successfully!.',
+                    'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
+                ]);
+
+                break;
+
+            default:
+                // code
+                break;
+        }
     }
 }
