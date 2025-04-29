@@ -59,14 +59,16 @@ class CourseController extends Controller
 
         switch ($request->step) {
             case '1':
-                // code
+                $course = Course::findOrFail($request->id);
+                return view('frontend.instructor-dashboard.course.edit', compact('course'));
                 break;
 
             case '2':
                 $categories = CourseCategory::where('status', 1)->get();
                 $levels = CourseLevel::all();
                 $languages = CourseLanguage::all();
-                return view('frontend.instructor-dashboard.course.more-info', compact('categories', 'levels', 'languages'));
+                $course = Course::findOrFail($request->id);
+                return view('frontend.instructor-dashboard.course.more-info', compact('categories', 'levels', 'languages', 'course'));
                 break;
 
             default:
@@ -79,19 +81,59 @@ class CourseController extends Controller
     {
         switch ($request->current_step) {
             case '1':
-                // code
+                $rules = [
+                    'title' => ['required', 'max:255', 'string'],
+                    'seo_description' => ['nullable', 'max:255', 'string'],
+                    'demo_video_storage' => ['nullable', 'in:youtube,vimeo,external_link,upload', 'string'],
+                    'price' => ['required', 'numeric'],
+                    'discount' => ['nullable', 'numeric'],
+                    'description' => ['required'],
+                    'thumbnail' => ['nullable', 'image', 'max:3000'],
+                    'demo_video_source' => ['nullable']
+                ];
+
+                $request->validate($rules);
+
+                // update course data
+                $course = Course::findOrFail($request->id);
+
+                if($request->hasFile('thumbnail')) {
+                    $thumbnailPath = $this->uploadFile($request->file('thumbnail'));
+                    $this->deleteFile($course->thumbnail);
+                    $course->thumbnail = $thumbnailPath;
+                }
+
+                $course->title = $request->title;
+                $course->slug = Str::of($request->title)->slug('-');
+                $course->seo_description = $request->seo_description;
+                $course->demo_video_storage = $request->demo_video_storage;
+                $course->demo_video_source = $request->demo_video_source;
+                $course->price = $request->price;
+                $course->discount = $request->discount;
+                $course->description = $request->description;
+                $course->instructor_id = Auth::guard('web')->user()->id;
+                $course->save();
+
+                // save course id on session
+                Session::put('course_create_id', $course->id);
+
+                return response([
+                    'status' => 'success',
+                    'message' => 'Updated Successfully!.',
+                    'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
+                ]);
                 break;
 
             case '2':
-                // validate
+                // validation
                 $request->validate([
                     'capacity' => ['nullable','numeric'],
                     'duration' => ['required','numeric'],
                     'qna' => ['nullable','boolean'],
                     'certificate' => ['nullable','boolean'],
                     'category' => ['required','integer'],
-                    'course_level_id' => ['required','integer'],
-                    'course_language_id' => ['required','integer'],
+                    'level' => ['required','integer'],
+                    'language' => ['required','integer']
                 ]);
 
                 // update course data
@@ -101,7 +143,6 @@ class CourseController extends Controller
                 $course->qna = $request->qna ? 1 : 0;
                 $course->certificate = $request->certificate ? 1 : 0;
                 $course->category_id = $request->category;
-                $course->course_level_id = $request->level;
                 $course->course_language_id = $request->language;
                 $course->save();
 
@@ -110,7 +151,6 @@ class CourseController extends Controller
                     'message' => 'Updated Successfully!.',
                     'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
                 ]);
-
                 break;
 
             default:
