@@ -92,6 +92,12 @@ class CourseController extends Controller
                     'demo_video_source' => ['nullable']
                 ];
 
+                if ($request->filled('file')) {
+                    $rules['file'] = ['required', 'string'];
+                } else {
+                    $rules['url'] = ['required', 'string'];
+                }
+
                 $request->validate($rules);
 
                 // update course data
@@ -107,7 +113,7 @@ class CourseController extends Controller
                 $course->slug = Str::of($request->title)->slug('-');
                 $course->seo_description = $request->seo_description;
                 $course->demo_video_storage = $request->demo_video_storage;
-                $course->demo_video_source = $request->demo_video_source;
+                $course->demo_video_source = $request->filled('file') ? $request->file : $request->url;
                 $course->price = $request->price;
                 $course->discount = $request->discount;
                 $course->description = $request->description;

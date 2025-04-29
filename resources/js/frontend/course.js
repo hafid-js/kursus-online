@@ -68,6 +68,10 @@ $('.basic_info_update_form').on('submit', function(e){
 
         },
         error: function(xhr, status, error) {
+            let errors = xhr.responseJSON.errors;
+            $.each(errors, function (key, value) {
+                notyf.error(value[0]);
+            })
         },
         complete: function() {
 
@@ -109,6 +113,7 @@ $('.more_info_form').on('submit', function (e) {
 $(document).ready(function() {
     $('.storage').on('change', function() {
         let value = $(this).val();
+        $('.source_input').val('');
 
         if(value == 'upload') {
             $('.upload_source').removeClass('d-none');
