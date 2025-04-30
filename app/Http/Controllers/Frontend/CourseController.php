@@ -19,7 +19,7 @@ class CourseController extends Controller
     use FileUpload;
     function index()
     {
-        $courses = Course::all();
+        $courses = Course::where('instructor_id', Auth::user()->id)->orderBy('id','DESC')->get();
         return view('frontend.instructor-dashboard.course.index', compact('courses'));
     }
 
@@ -70,6 +70,10 @@ class CourseController extends Controller
                 $course = Course::findOrFail($request->id);
                 return view('frontend.instructor-dashboard.course.more-info', compact('categories', 'levels', 'languages', 'course'));
                 break;
+
+                case '3':
+                    return view('frontend.instructor-dashboard.course.course-content');
+                    break;
 
             default:
                 // code

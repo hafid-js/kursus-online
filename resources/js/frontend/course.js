@@ -125,3 +125,7 @@ $(document).ready(function() {
     })
 })
 
+// course contents
+$('.dynamic-modal-btn').on('click', function() {
+    $('#dynamic-modal').modal("show");
+})
