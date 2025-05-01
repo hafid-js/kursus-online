@@ -20,7 +20,7 @@
             <div class="col-xxl-3 col-lg-5 col-md-4">
                 <ul class="wsus__header_right d-flex flex-wrap">
                     <li>
-                        <select class="select_js">
+                        <select class="add_course_basic_info_imput">
                             <option value="">English </option>
                             <option value="">Japanese</option>
                             <option value="">Korean</option>

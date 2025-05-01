@@ -33,7 +33,7 @@
                     <div class="col-xl-6">
                         <div class="add_course_basic_info_imput">
                             <label for="#">Demo Video Storage <b>(optional)</b></label>
-                            <select class="select_js storage" name="demo_video_storage">
+                            <select class="add_course_basic_info_imput storage" name="demo_video_storage">
                                 <option value=""> Please Select </option>
                                 <option @selected(old('demo_video_storage', $course->demo_video_storage) == 'upload') value="upload">Upload</option>
                                 <option @selected(old('demo_video_storage', $course->demo_video_storage) == 'youtube') value="youtube">Youtube</option>

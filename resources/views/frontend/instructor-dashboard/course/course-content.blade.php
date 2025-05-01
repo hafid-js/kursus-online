@@ -26,7 +26,8 @@
                                 <i class="far fa-plus" aria-hidden="true"></i>
                             </div>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">Add Lesson</a>
+                                <li><a class="dropdown-item add_lesson" data-chapter-id="{{ $chapter->id }}" data-course-id="{{ $chapter->course_id }}"
+                                    href="javascript:;">Add Lesson</a>
                                 </li>
                                 <li><a class="dropdown-item" href="#">Add Document</a>
                                 </li>
@@ -62,8 +63,7 @@
                                             </div>
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li><a class="dropdown-item add_lesson"
-                                                    data-chapter-id="{{ $chapter->id }}" data-course-id="{{ $chapter->course_id }}"
-                                                     href="javascript:;">Add Lesson</a>
+                                                    >Add Lesson</a>
                                                 </li>
                                                 <li><a class="dropdown-item" href="#">Add Document</a>
                                                 </li>

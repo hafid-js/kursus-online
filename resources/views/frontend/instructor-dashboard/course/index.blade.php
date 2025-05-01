@@ -51,12 +51,12 @@
                                 <button><i class="far fa-search" aria-hidden="true"></i></button>
                             </div>
                             <div class="selector">
-                                <select class="select_js" style="display: none;">
+                                <select class="add_course_basic_info_imput" style="display: none;">
                                     <option value="">Choose</option>
                                     <option value="">Choose 1</option>
                                     <option value="">Choose 2</option>
                                 </select>
-                                <div class="nice-select select_js" tabindex="0"><span class="current">Choose</span>
+                                <div class="nice-select add_course_basic_info_imput" tabindex="0"><span class="current">Choose</span>
                                     <ul class="list">
                                         <li data-value="" class="option selected">Choose</li>
                                         <li data-value="" class="option">Choose 1</li>
