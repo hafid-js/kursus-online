@@ -45,7 +45,8 @@
                             <li>
                                 <span>{{ $lesson->title }}</span>
                                 <div class="add_course_content_action_btn">
-                                    <a class="edit" href="#"><i class="far fa-edit" aria-hidden="true"></i></a>
+                                    <a class="edit edit_lesson" data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}" data-course-id="{{ $chapter->course_id }}"
+                                        href="javascript:;"><i class="far fa-edit" aria-hidden="true"></i></a>
                                     <a class="del" href="#"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
                                     <a class="arrow" href="#"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a>
                                 </div>

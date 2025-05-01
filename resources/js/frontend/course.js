@@ -156,7 +156,39 @@ $('.add_lesson').on('click', function() {
             $('.dynamic-modal-content').html(data);
         },
         error: function () {
+            let errors = xhr.responseJSON.errors;
+            $.each(errors, function (key, value) {
+                notyf.error(value[0]);
+            });
+        },
+    });
+})
 
+$('.edit_lesson').on('click', function() {
+    $("#dynamic-modal").modal("show");
+
+    let courseId = $(this).data('course-id');
+    let chapterId = $(this).data('chapter-id');
+    let lessonId = $(this).data('lesson-id');
+    $.ajax({
+        method: 'POST',
+        url: base_url + '/instructor/course-content/edit-lesson',
+        data: {
+            'course_id': courseId,
+            'chapter_id': chapterId,
+            'lesson_id': lessonId
+        },
+        beforeSend: function () {
+            $('.dynamic-modal-content').html(loader);
+        },
+        success: function (data) {
+            $('.dynamic-modal-content').html(data);
+        },
+        error: function () {
+            let errors = xhr.responseJSON.errors;
+            $.each(errors, function (key, value) {
+                notyf.error(value[0]);
+            });
         },
     });
 })
