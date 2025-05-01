@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:web', 'verified','check_role:instructor'], 
         Route::post('course-content/{course}/create-chapter', [CourseContentController::class, 'storeChapter'])->name('course-content.store-chapter');
 
         Route::get('course-content/create-lesson', [CourseContentController::class, 'createLesson'])->name('course-coontent.create-lesson');
+        Route::post('course-content/create-lesson', [CourseContentController::class, 'storeLesson'])->name('course-coontent.store-lesson');
 
 
         // lfm routes

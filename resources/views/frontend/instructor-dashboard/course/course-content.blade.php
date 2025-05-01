@@ -41,47 +41,18 @@
                 <div id="collapse-{{ $chapter->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <ul class="item_list">
+                            @foreach ($chapter->lessons ?? [] as $lesson)
                             <li>
-                                <span>Aut autem dolorem debitis mollitia.</span>
+                                <span>{{ $lesson->title }}</span>
                                 <div class="add_course_content_action_btn">
                                     <a class="edit" href="#"><i class="far fa-edit" aria-hidden="true"></i></a>
                                     <a class="del" href="#"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
                                     <a class="arrow" href="#"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a>
                                 </div>
                             </li>
+                            @endforeach
                         </ul>
-                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-{{ $chapter->id }}" aria-expanded="false" aria-controls="flush-{{ $chapter->id }}">
-                                        <span>Accordion Item #1</span>
-                                    </button>
-                                    <div class="add_course_content_action_btn">
-                                        <div class="dropdown">
-                                            <div class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="far fa-plus" aria-hidden="true"></i>
-                                            </div>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item add_lesson"
-                                                    >Add Lesson</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="#">Add Document</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="#">Add Quiz</a></li>
-                                            </ul>
-                                        </div>
-                                        <a class="edit" href="#"><i class="far fa-edit" aria-hidden="true"></i></a>
-                                        <a class="del" href="#"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
-                                    </div>
-                                </h2>
-                                <div id="flush-{{ $chapter->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">Placeholder content for
-                                        this accordion, which is intended to demonstrate
-                                        the <code>.accordion-flush</code> class. This is
-                                        the first item's accordion body.</div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
