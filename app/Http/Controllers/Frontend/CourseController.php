@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CourseBasicInfoCreateRequest;
 use App\Models\Course;
 use App\Models\CourseCategory;
+use App\Models\CourseChapter;
 use App\Models\CourseLanguage;
 use App\Models\CourseLevel;
 use App\Traits\FileUpload;
@@ -72,7 +73,12 @@ class CourseController extends Controller
                 break;
 
                 case '3':
-                    return view('frontend.instructor-dashboard.course.course-content');
+                    $courseId = $request->id;
+                    $chapters = CourseChapter::where([
+                        'course_id' => $courseId,
+                        'instructor_id' => Auth::user()->id
+                        ])->get();
+                    return view('frontend.instructor-dashboard.course.course-content', compact('courseId', 'chapters'));
                     break;
 
             default:
@@ -153,6 +159,7 @@ class CourseController extends Controller
                 $course->qna = $request->qna ? 1 : 0;
                 $course->certificate = $request->certificate ? 1 : 0;
                 $course->category_id = $request->category;
+                $course->course_level_id = $request->level;
                 $course->course_language_id = $request->language;
                 $course->save();
 
@@ -162,6 +169,14 @@ class CourseController extends Controller
                     'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
                 ]);
                 break;
+
+                case '3':
+
+                    return response([
+                        'status' => 'success',
+                        'message' => 'Updated Successfully!.',
+                        'redirect' => route('instructor.courses.edit', ['id' => $request->id, 'step' => $request->next_step])
+                    ]);
 
             default:
                 // code

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-        <meta name="base_url" content="{{ url('/') }}">
-        <meta name="csrf_token" content="{{ csrf_token() }}">
+    <meta name="base_url" content="{{ url('/') }}">
+    <meta name="csrf_token" content="{{ csrf_token() }}">
     <title>EduCore - Online Courses & Education HTML Template</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/all.min.css') }}">
@@ -32,7 +31,7 @@
     <link rel=" stylesheet" href="{{ asset('frontend/assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
-    @vite(['resources/css/frontend.css']);
+    @vite(['resources/css/frontend.css', 'resources/js/frontend/frontend.js']);
     @stack('header_scripts')
 </head>
 
@@ -47,7 +46,7 @@
     </div>
     <!--============ PRELOADER START ===========-->
 
-@include('frontend.layouts.header')
+    @include('frontend.layouts.header')
 
 
     <!--===========================
@@ -68,17 +67,17 @@
     ============================-->
 
 
-@yield('content')
+    @yield('content')
 
-<!-- Modal -->
-<div class="modal fade" id="dynamic-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg dynamic-modal-content">
+    <!-- Modal -->
+    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg dynamic-modal-content">
 
+        </div>
     </div>
-  </div>
 
 
-@include('frontend.layouts.footer')
+    @include('frontend.layouts.footer')
 
 
     <!--================================
@@ -141,6 +140,20 @@
 
 
     @stack('scripts')
+
+
+    <script>
+        var notyf = new Notyf({
+            duration: 5000,
+            dismissible: true,
+        });
+
+        @if ($errors->any())
+            @foreach ($errors as $error)
+                notyf.error("{{ $error }}")
+            @endforeach
+        @endif
+    </script>
 
 </body>
 
