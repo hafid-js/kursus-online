@@ -137,4 +137,17 @@ class CourseContentController extends Controller
     }
 
 
+    function destroyLesson(string $id) {
+        try {
+            $lesson = CourseChapterLession::findOrFail($id);
+            $lesson->delete();
+            notyf()->success('Delete Succesfully!');
+            return response(['message' => 'Deleted Successfully!'], 200);
+        } catch(Exception $e) {
+            logger("Course Language Error >> ".$e);
+            return response(['message' => 'Something went wrong!'], 500);
+        }
+    }
+
+
 }

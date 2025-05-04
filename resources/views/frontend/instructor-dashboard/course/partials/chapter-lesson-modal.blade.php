@@ -5,8 +5,8 @@
     </div>
     <div class="modal-body">
         <form action="{{ @$editMode == true ?
-    route('instructor.course-coontent.update-lesson',$lesson->id) :
-    route('instructor.course-coontent.store-lesson')
+    route('instructor.course-content.update-lesson',$lesson->id) :
+    route('instructor.course-content.store-lesson')
         }}" method="POST">
             @csrf
             <input type="hidden" name="course_id" id="" value="{{ $courseId }}">

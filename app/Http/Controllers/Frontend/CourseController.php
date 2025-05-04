@@ -7,13 +7,17 @@ use App\Http\Requests\Frontend\CourseBasicInfoCreateRequest;
 use App\Models\Course;
 use App\Models\CourseCategory;
 use App\Models\CourseChapter;
+use App\Models\CourseChapterLession;
 use App\Models\CourseLanguage;
 use App\Models\CourseLevel;
 use App\Traits\FileUpload;
+use Exception;
+use Flasher\Laravel\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use PhpParser\Node\Expr\Cast\String_;
 
 class CourseController extends Controller
 {
@@ -183,4 +187,7 @@ class CourseController extends Controller
                 break;
         }
     }
+
+
+
 }
