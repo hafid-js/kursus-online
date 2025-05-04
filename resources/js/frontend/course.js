@@ -155,7 +155,7 @@ $('.add_lesson').on('click', function() {
         success: function (data) {
             $('.dynamic-modal-content').html(data);
         },
-        error: function () {
+        error: function (xhr, status, error) {
             let errors = xhr.responseJSON.errors;
             $.each(errors, function (key, value) {
                 notyf.error(value[0]);
@@ -171,7 +171,7 @@ $('.edit_lesson').on('click', function() {
     let chapterId = $(this).data('chapter-id');
     let lessonId = $(this).data('lesson-id');
     $.ajax({
-        method: 'POST',
+        method: 'GET',
         url: base_url + '/instructor/course-content/edit-lesson',
         data: {
             'course_id': courseId,
@@ -184,7 +184,7 @@ $('.edit_lesson').on('click', function() {
         success: function (data) {
             $('.dynamic-modal-content').html(data);
         },
-        error: function () {
+        error: function (xhr, status, error) {
             let errors = xhr.responseJSON.errors;
             $.each(errors, function (key, value) {
                 notyf.error(value[0]);

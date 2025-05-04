@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 
 class CourseContentController extends Controller
@@ -80,15 +81,59 @@ class CourseContentController extends Controller
     }
 
     function editLesson(Request $request) : String {
+        $editMode = true;
         $courseId = $request->course_id;
         $chapterId = $request->chapter_id;
         $lessonId = $request->lesson_id;
+        $lessonId = $request->lesson_id;
         $lesson = CourseChapterLession::where([
+            'id' => $lessonId,
             'chapter_id' => $chapterId,
             'course_id' => $courseId,
             'instructor_id' => Auth::user()->id
             ])->first();
-        return view('frontend.instructor-dashboard.course.partials.chapter-lesson-modal', compact('courseId', 'chapterId','lesson'))->render();
+        return view('frontend.instructor-dashboard.course.partials.chapter-lesson-modal', compact('courseId', 'chapterId','lesson','editMode'))->render();
+    }
+
+    function updateLesson(Request $request, string $id): RedirectResponse {
+
+        $rules = [
+            'title' => ['required','string','max:255'],
+            'source' => ['required','string'],
+            'file_type' => ['required','in:video,audio,file,pdf,doc'],
+            'duration' => ['required'],
+            'is_preview' => ['nullable', 'boolean'],
+            'downloadable' => ['nullable','boolean'],
+            'description' => ['required']
+        ];
+
+        if($request->filled('file')) {
+            $rules['file'] = ['required'];
+        } else {
+            $rules['url'] = ['required'];
+        }
+
+    $request->validate($rules);
+
+    $lesson = CourseChapterLession::findOrFail($id);
+    $lesson->title = $request->title;
+    $lesson->slug = Str::of($request->title)->slug('-');
+    $lesson->storage = $request->source;
+    $lesson->file_path = $request->filled('file') ? $request->file : $request->url;
+    $lesson->file_type = $request->file_type;
+    $lesson->duration = $request->duration;
+    $lesson->is_preview = $request->filled('is_preview') ? 1 : 0;
+    $lesson->downloadable = $request->filled('downloadable') ? : 0;
+    $lesson->description = $request->description;
+    $lesson->instructor_id = Auth::user()->id;
+    $lesson->course_id = $request->course_id;
+    $lesson->chapter_id = $request->chapter_id;
+    $lesson->save();
+
+    notyf()->success('Updated Successfully!');
+
+    return redirect()->back();
+
     }
 
 
