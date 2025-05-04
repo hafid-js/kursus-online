@@ -11,6 +11,6 @@ class CourseChapter extends Model
     use HasFactory;
 
     function lessons(): HasMany {
-        return $this->hasMany(CourseChapterLession::class, 'chapter_id', 'id');
+        return $this->hasMany(CourseChapterLession::class, 'chapter_id', 'id')->orderBy('order');
     }
 }

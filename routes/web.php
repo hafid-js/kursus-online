@@ -57,6 +57,10 @@ Route::group(['middleware' => ['auth:web', 'verified','check_role:instructor'], 
         Route::delete('course-content/{id}/lesson', [CourseContentController::class, 'destroyLesson'])->name('course-content.destroy-lesson');
 
 
+
+        Route::post('course-chapter/{chapter}/sort-lesson', [CourseContentController::class, 'sortLesson'])->name('course-chapter.sort-lesson');
+
+
         // lfm routes
         Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
             \UniSharp\LaravelFilemanager\Lfm::routes();
