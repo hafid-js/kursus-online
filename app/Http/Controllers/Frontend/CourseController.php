@@ -81,7 +81,7 @@ class CourseController extends Controller
                     $chapters = CourseChapter::where([
                         'course_id' => $courseId,
                         'instructor_id' => Auth::user()->id
-                        ])->get();
+                        ])->orderBy('order')->get();
                     return view('frontend.instructor-dashboard.course.course-content', compact('courseId', 'chapters'));
                     break;
 
@@ -187,6 +187,7 @@ class CourseController extends Controller
                 break;
         }
     }
+
 
 
 
