@@ -1,9 +1,24 @@
 // const variables
+const csrf_token = $(`meta[name="csrf_token"]`).attr('content');
+const base_url = $(`meta[name="base_url"]`).attr("content");
 
 // reusable functions
 
 function updateApproveStatus(id, status) {
-    alert(id, status);
+    $.ajax({
+        method: 'PUT',
+        url: base_url + `/admin/courses/${id}/update-approval`,
+        data: {
+            _token: csrf_token,
+            status: status
+        },
+        success: function(data) {
+            window.location.reload()
+        },
+        error: function(xhr, status, error) {
+
+        }
+    })
 }
 
 $(function() {

@@ -58,9 +58,9 @@
                                                                     </td>
                                                                     <td>
                                                                         <select name="" class="form-control update-approval-status" data-id="{{ $course->id }}">
-                                                                            <option value="pending">Pending</option>
-                                                                            <option value="approved">Approved</option>
-                                                                            <option value="rejectd">Rejected</option>
+                                                                            <option @selected($course->is_approved == 'pending') value="pending">Pending</option>
+                                                                            <option @selected($course->is_approved == 'approved') value="approved">Approved</option>
+                                                                            <option @selected($course->is_approved == 'rejected') value="rejectd">Rejected</option>
                                                                         </select>
                                                                     </td>
 

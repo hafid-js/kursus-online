@@ -28,6 +28,17 @@ class CourseController extends Controller
         return view('admin.course.course-module.index', compact('courses'));
     }
 
+    // change approve status
+    function updateApproval(Request $request, Course $course) {
+        $course->is_approved = $request->status;
+        $course->save();
+
+        return response([
+            'status' => 'success',
+            'message' => 'Updated Successfully!'
+        ]);
+    }
+
     function create()
     {
         return view('frontend.instructor-dashboard.course.create');

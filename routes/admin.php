@@ -89,7 +89,7 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     // course module routes
     Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
-    Route::get('courses/create', [CourseController::class, 'create'])->name('courses.create');
+    Route::put('courses/{course}/update-approval', [CourseController::class, 'updateApproval'])->name('courses.update-approval');
     Route::post('courses/create', [CourseController::class, 'storeBasicInfo'])->name('courses.store-basic-info');
     Route::get('courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
     Route::post('courses/update', [CourseController::class, 'update'])->name('courses.update');
