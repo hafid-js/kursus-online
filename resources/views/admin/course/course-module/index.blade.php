@@ -36,7 +36,7 @@
                                                                 <th>Price</th>
                                                                 <th>Instructor</th>
                                                                 <th>Status</th>
-                                                                <th></th>
+                                                                <th>Approve</th>
                                                                 <th>Action</th>
                                                                 {{-- <th class="w-1"></th> --}}
                                                             </tr>
@@ -47,8 +47,22 @@
                                                                     <td>{{ $course->title }}</td>
                                                                     <td>{{ $course->price }}</td>
                                                                     <td>{{ $course->instructor->name }}</td>
-                                                                    <td></td>
-                                                                    <td></td>
+                                                                    <td>
+                                                                        @if ($course->is_approved == 'pending')
+                                                                        <span class="badge bg-yellow text-yellow-fg">Pending</span>
+                                                                            @elseif ($course->is_approved == 'approved')
+                                                                            <span class="badge bg-green text-green-fg">Approved</span>
+                                                                            @elseif ($course->is_approved == 'rejected')
+                                                                            <span class="badge bg-red text-red-fg">Rejected</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        <select name="" class="form-control update-approval-status" data-id="{{ $course->id }}">
+                                                                            <option value="pending">Pending</option>
+                                                                            <option value="approved">Approved</option>
+                                                                            <option value="rejectd">Rejected</option>
+                                                                        </select>
+                                                                    </td>
 
                                                                     <td>
                                                                         <a href="{{ route('admin.course-levels.edit', $course->id) }}"
@@ -108,3 +122,7 @@
     </div>
 
 @endsection
+
+@push('header_scripts')
+@vite('resources/js/admin/course.js')
+@endpush
