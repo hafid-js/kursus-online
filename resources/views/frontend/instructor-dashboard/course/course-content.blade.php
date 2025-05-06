@@ -29,9 +29,6 @@
                                 <li><a class="dropdown-item add_lesson" data-chapter-id="{{ $chapter->id }}" data-course-id="{{ $chapter->course_id }}"
                                     href="javascript:;">Add Lesson</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Add Document</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Add Quiz</a></li>
                             </ul>
                         </div>
                         <a class="edit edit_chapter" data-course-id="{{ $chapter->course_id }}" data-chapter-id="{{ $chapter->id }}" href="#"><i class="far fa-edit" aria-hidden="true"></i></a>

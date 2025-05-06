@@ -51,3 +51,8 @@
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
 }
+
+.wsus__dash_course_table .image img {
+	height: 120px !important;
+	object-fit: cover !important;
+}
