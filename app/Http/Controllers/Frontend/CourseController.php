@@ -24,7 +24,7 @@ class CourseController extends Controller
     use FileUpload;
     function index()
     {
-        $courses = Course::where('instructor_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $courses = Course::where('instructor_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         return view('frontend.instructor-dashboard.course.index', compact('courses'));
     }
 
@@ -76,17 +76,19 @@ class CourseController extends Controller
                 return view('frontend.instructor-dashboard.course.more-info', compact('categories', 'levels', 'languages', 'course'));
                 break;
 
-                case '3':
-                    $courseId = $request->id;
-                    $chapters = CourseChapter::where([
-                        'course_id' => $courseId,
-                        'instructor_id' => Auth::user()->id
-                        ])->orderBy('order')->get();
-                    return view('frontend.instructor-dashboard.course.course-content', compact('courseId', 'chapters'));
-                    break;
+            case '3':
+                $courseId = $request->id;
+                $chapters = CourseChapter::where([
+                    'course_id' => $courseId,
+                    'instructor_id' => Auth::user()->id
+                ])->orderBy('order')->get();
+                return view('frontend.instructor-dashboard.course.course-content', compact('courseId', 'chapters'));
+                break;
 
-            default:
-                // code
+            case '4':
+                $course = Course::findOrFail($request->id);
+                $editMode = true;
+                return view('frontend.instructor-dashboard.course.finish', compact('editMode','course'));
                 break;
         }
     }
@@ -117,7 +119,7 @@ class CourseController extends Controller
                 // update course data
                 $course = Course::findOrFail($request->id);
 
-                if($request->hasFile('thumbnail')) {
+                if ($request->hasFile('thumbnail')) {
                     $thumbnailPath = $this->uploadFile($request->file('thumbnail'));
                     $this->deleteFile($course->thumbnail);
                     $course->thumbnail = $thumbnailPath;
@@ -147,13 +149,13 @@ class CourseController extends Controller
             case '2':
                 // validation
                 $request->validate([
-                    'capacity' => ['nullable','numeric'],
-                    'duration' => ['required','numeric'],
-                    'qna' => ['nullable','boolean'],
-                    'certificate' => ['nullable','boolean'],
-                    'category' => ['required','integer'],
-                    'level' => ['required','integer'],
-                    'language' => ['required','integer']
+                    'capacity' => ['nullable', 'numeric'],
+                    'duration' => ['required', 'numeric'],
+                    'qna' => ['nullable', 'boolean'],
+                    'certificate' => ['nullable', 'boolean'],
+                    'category' => ['required', 'integer'],
+                    'level' => ['required', 'integer'],
+                    'language' => ['required', 'integer']
                 ]);
 
                 // update course data
@@ -174,21 +176,37 @@ class CourseController extends Controller
                 ]);
                 break;
 
-                case '3':
+            case '3':
 
-                    return response([
-                        'status' => 'success',
-                        'message' => 'Updated Successfully!.',
-                        'redirect' => route('instructor.courses.edit', ['id' => $request->id, 'step' => $request->next_step])
-                    ]);
+                return response([
+                    'status' => 'success',
+                    'message' => 'Updated Successfully!.',
+                    'redirect' => route('instructor.courses.edit', ['id' => $request->id, 'step' => $request->next_step])
+                ]);
 
-            default:
-                // code
+                break;
+
+            case '4':
+
+                            // validation
+                            $request->validate([
+                                'message' => ['nullable','max:1000','string'],
+                                'status' => ['required','in:active,inactive,draft']
+                            ]);
+
+                            // update course data
+                            $course = Course::findOrFail($request->id);
+                            $course->message_for_reviewer = $request->message;
+                            $course->status = $request->status;
+                            $course->save();
+
+                return response([
+                    'status' => 'success',
+                    'message' => 'Updated Successfully!.',
+                    'redirect' => route('instructor.courses.index')
+                ]);
+
                 break;
         }
     }
-
-
-
-
 }
