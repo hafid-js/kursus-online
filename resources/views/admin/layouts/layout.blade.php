@@ -21,7 +21,7 @@
     {{-- plugins --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <link href="{{ asset('admin/assets/css/tabler.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('admin/assets/css/demo.min.css?1692870487') }}" rel="stylesheet" />
@@ -106,9 +106,17 @@
     {{-- plugins --}}
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 
+    {{-- filemanager --}}
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+
 
     <script src="{{ asset('admin/assets/js/tabler.min.js?1692870487') }} " defer></script>
     <script src="{{ asset('admin/assets/js/demo.min.js?1692870487') }} " defer></script>
+
+
+
+    @stack('scripts')
 </body>
 
 </html>

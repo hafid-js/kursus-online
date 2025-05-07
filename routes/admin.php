@@ -90,7 +90,10 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     // course module routes
     Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
     Route::put('courses/{course}/update-approval', [CourseController::class, 'updateApproval'])->name('courses.update-approval');
+
+    Route::get('courses/create', [CourseController::class, 'create'])->name('courses.create');
     Route::post('courses/create', [CourseController::class, 'storeBasicInfo'])->name('courses.store-basic-info');
+
     Route::get('courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
     Route::post('courses/update', [CourseController::class, 'update'])->name('courses.update');
 
@@ -112,5 +115,11 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     Route::get('course-content/{course}/sort-chapter', [CourseContentController::class, 'sortChapter'])->name('course-content.sort-chapter');
     Route::post('course-content/{course}/sort-chapter', [CourseContentController::class, 'updateSortChapter'])->name('course-content.update-sort-chapter');
+
+
+     // lfm routes
+     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 
 });
