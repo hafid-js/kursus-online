@@ -1,6 +1,6 @@
-@extends('frontend.instructor-dashboard.course.course-app')
+@extends('admin.course.course-module.course-app')
 
-@section('course_content')
+@section('tab_content')
 
     <div class="tab-pane fade active show" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
         tabindex="0">
@@ -39,7 +39,7 @@
                     <div class="col-12">
                         <div class="add_course_more_info_input">
                             <label for="#">Category *</label>
-                            <select class="select_2 select2-hidden-accessible" name="category" data-select2-id="select2-data-1-ygmp"
+                            <select class="select2" name="category" data-select2-id="select2-data-1-ygmp"
                                 tabindex="-1" aria-hidden="true">
                                 <option value=""> Please Select </option>
                                 @foreach ($categories as $category)
@@ -55,8 +55,9 @@
                         </div>
                     </div>
                     <div class="col-xl-4">
-                        <div class="add_course_more_info_radio_box">
+                        <div class="add_course_more_info_radio_box card p-4">
                             <h3>Level</h3>
+                            <div class="borderd"></div>
                             @foreach ($levels as $level)
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="level" @checked($level->id == $course->course_level_id) value="{{ $level->id }}" id="id-{{ $level->id }}"
@@ -84,7 +85,7 @@
                     </div>
                     </div>
                     <div class="col-xl-12">
-                        <button type="submit" class="common_btn">Save</button>
+                        <button type="submit" class="btn btn-primary mt-3">Save</button>
                     </div>
                 </div>
             </form>

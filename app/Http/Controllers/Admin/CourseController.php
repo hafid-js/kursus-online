@@ -74,7 +74,7 @@ class CourseController extends Controller
         switch ($request->step) {
             case '1':
                 $course = Course::findOrFail($request->id);
-                return view('frontend.instructor-dashboard.course.edit', compact('course'));
+                return view('admin.course.course-module.edit', compact('course'));
                 break;
 
             case '2':
@@ -82,7 +82,7 @@ class CourseController extends Controller
                 $levels = CourseLevel::all();
                 $languages = CourseLanguage::all();
                 $course = Course::findOrFail($request->id);
-                return view('frontend.instructor-dashboard.course.more-info', compact('categories', 'levels', 'languages', 'course'));
+                return view('admin.course.course-module.more-info', compact('categories', 'levels', 'languages', 'course'));
                 break;
 
             case '3':
@@ -91,13 +91,13 @@ class CourseController extends Controller
                     'course_id' => $courseId,
                     'instructor_id' => Auth::user()->id
                 ])->orderBy('order')->get();
-                return view('frontend.instructor-dashboard.course.course-content', compact('courseId', 'chapters'));
+                return view('admin.course.course-module.course-content', compact('courseId', 'chapters'));
                 break;
 
             case '4':
                 $course = Course::findOrFail($request->id);
                 $editMode = true;
-                return view('frontend.instructor-dashboard.course.finish', compact('editMode','course'));
+                return view('admin.course.course-module.finish', compact('editMode','course'));
                 break;
         }
     }
@@ -151,7 +151,7 @@ class CourseController extends Controller
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',
-                    'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
+                    'redirect' => route('admin.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
                 ]);
                 break;
 
@@ -181,7 +181,7 @@ class CourseController extends Controller
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',
-                    'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
+                    'redirect' => route('admin.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
                 ]);
                 break;
 
@@ -190,7 +190,7 @@ class CourseController extends Controller
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',
-                    'redirect' => route('instructor.courses.edit', ['id' => $request->id, 'step' => $request->next_step])
+                    'redirect' => route('admin.courses.edit', ['id' => $request->id, 'step' => $request->next_step])
                 ]);
 
                 break;
@@ -212,7 +212,7 @@ class CourseController extends Controller
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',
-                    'redirect' => route('instructor.courses.index')
+                    'redirect' => route('admin.courses.index')
                 ]);
 
                 break;

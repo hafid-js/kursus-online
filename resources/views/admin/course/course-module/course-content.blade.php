@@ -1,6 +1,6 @@
 @extends('frontend.instructor-dashboard.course.course-app')
 
-@section('course_content')
+@section('tab_content')
 <div class="tab-pane fade show active" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
     <form action="" class="course-form more_info_form">
         @csrf
