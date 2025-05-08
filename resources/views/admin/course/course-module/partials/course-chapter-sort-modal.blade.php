@@ -11,7 +11,7 @@
                     <li class="" data-course-id="{{ $chapter->course_id }}" data-chapter-id="{{ $chapter->id }}">
                         <span>{{ $chapter->title }}</span>
                         <div class="add_course_content_action_btn">
-                            <a class="arrow dragger mt-2" href="javascript:;"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a>
+                            <a class="arrow dragger mt-2" href="javascript:;"><i class="ti ti-arrows-maximize"></i></a>
                         </div>
                     </li>
                 @endforeach
