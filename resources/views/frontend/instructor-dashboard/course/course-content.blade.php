@@ -26,8 +26,13 @@
                                 <i class="far fa-plus" aria-hidden="true"></i>
                             </div>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item add_lesson" data-chapter-id="{{ $chapter->id }}" data-course-id="{{ $chapter->course_id }}"
+                                {{-- <li><a class="dropdown-item add_lesson" data-chapter-id="{{ $chapter->id }}" data-course-id="{{ $chapter->course_id }}"
                                     href="javascript:;">Add Lesson</a>
+                                </li> --}}
+                                <li class="add_lesson" data-chapter-id="{{ $chapter->id }}"
+                                    data-course-id="{{ $chapter->course_id }}"><a class="dropdown-item"
+                                        href="javascript:;">
+                                        Add Lesson</a>
                                 </li>
                             </ul>
                         </div>

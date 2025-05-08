@@ -7,7 +7,7 @@ const update_url = base_url + "/instructor/courses/update";
 var loader = `
 <div class="modal-content text-center text-primary p-2" style="display:inline">
    <div class="spinner-border" role="status">
-  <span class="sr-only">Loading...</span>
+  <span class="sr-only"></span>
 </div>
   </div>
 
@@ -215,6 +215,7 @@ $('.edit_lesson').on('click', function() {
     });
 });
 
+$(document).ready(function () {
 if($('.sortable_list li').length) {
     $('.sortable_list').sortable({
         items: "li",
@@ -245,6 +246,7 @@ if($('.sortable_list li').length) {
         }
     })
 }
+})
 
 $('.sort_chapter_btn').on('click', function() {
     $('#dynamic-modal').modal("show");

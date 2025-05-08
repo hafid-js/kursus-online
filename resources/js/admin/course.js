@@ -1,3 +1,4 @@
+/** const variables */
 import $ from 'jquery';
 window.$ = window.jQuery = $;
 
@@ -15,7 +16,7 @@ var notyf = new Notyf({
 var loader = `
 <div class="modal-content text-center text-primary p-2" style="display:inline">
    <div class="spinner-border" role="status">
-  <span class="sr-only">Loading...</span>
+  <span class="sr-only"></span>
 </div>
   </div>
 
@@ -151,7 +152,7 @@ $(".dynamic-modal-btn").on("click", function (e) {
 
     $.ajax({
         method: "GET",
-        url: base_url + '/instructor/course-content/:id/create-chapter'.replace(':id', course_id),
+        url: base_url + '/admin/course-content/:id/create-chapter'.replace(':id', course_id),
         data: {},
         beforeSend: function () {
             $('.dynamic-modal-content').html(loader);
@@ -172,7 +173,7 @@ $(".edit_chapter").on("click", function (e) {
     let chapter_id = $(this).data('chapter-id');-
     $.ajax({
         method: "GET",
-        url: base_url + '/instructor/course-content/:id/edit-chapter'.replace(':id', chapter_id),
+        url: base_url + '/admin/course-content/:id/edit-chapter'.replace(':id', chapter_id),
         data: {},
         beforeSend: function () {
             $('.dynamic-modal-content').html(loader);
@@ -193,7 +194,7 @@ $('.add_lesson').on('click', function() {
     let chapterId = $(this).data('chapter-id');
     $.ajax({
         method: 'GET',
-        url: base_url + '/instructor/course-content/create-lesson',
+        url: base_url + '/admin/course-content/create-lesson',
         data: {
             'course_id': courseId,
             'chapter_id': chapterId
@@ -221,7 +222,7 @@ $('.edit_lesson').on('click', function() {
     let lessonId = $(this).data('lesson-id');
     $.ajax({
         method: 'GET',
-        url: base_url + '/instructor/course-content/edit-lesson',
+        url: base_url + '/admin/course-content/edit-lesson',
         data: {
             'course_id': courseId,
             'chapter_id': chapterId,
@@ -242,6 +243,7 @@ $('.edit_lesson').on('click', function() {
     });
 });
 
+$(document).ready(function () {
 if($('.sortable_list li').length) {
     $('.sortable_list').sortable({
         items: "li",
@@ -257,7 +259,7 @@ if($('.sortable_list li').length) {
 
             $.ajax({
                 method: 'POST',
-                url: base_url + `/instructor/course-chapter/${chapterId}/sort-lesson`,
+                url: base_url + `/admin/course-chapter/${chapterId}/sort-lesson`,
                 data: {
                     _token: csrf_token,
                     order_ids: orderIds
@@ -272,13 +274,14 @@ if($('.sortable_list li').length) {
         }
     })
 }
+})
 
 $('.sort_chapter_btn').on('click', function() {
     $('#dynamic-modal').modal("show");
     let courseId = $(this).data('id');
     $.ajax({
         method: 'GET',
-        url: base_url + `/instructor/course-content/${courseId}/sort-chapter`,
+        url: base_url + `/admin/course-content/${courseId}/sort-chapter`,
         data: {
         },
         beforeSend: function () {

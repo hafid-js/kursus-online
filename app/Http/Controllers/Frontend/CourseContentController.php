@@ -71,7 +71,7 @@ class CourseContentController extends Controller
         $lesson->file_type = $request->file_type;
         $lesson->duration = $request->duration;
         $lesson->is_preview = $request->filled('is_preview') ? 1 : 0;
-        $lesson->downloadable = $request->filled('downloadable') ?: 0;
+        $lesson->downloadable = $request->filled('downloadable') ? 1 : 0;
         $lesson->description = $request->description;
         $lesson->instructor_id = Auth::user()->id;
         $lesson->course_id = $request->course_id;

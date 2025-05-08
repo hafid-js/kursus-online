@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\CourseChapter;
 use App\Models\CourseChapterLession;
 use Exception;
@@ -16,7 +17,7 @@ class CourseContentController extends Controller
 {
     function createChapterModal(string $id): String
     {
-        return view('frontend.instructor-dashboard.course.partials.course-chapter-modal', compact('id'))->render();
+        return view('admin.course.course-module.partials.course-chapter-modal', compact('id'))->render();
     }
 
     function storeChapter(Request $request, string $courseId): RedirectResponse
@@ -25,12 +26,16 @@ class CourseContentController extends Controller
             'title' => ['required', 'max:255'],
         ]);
 
+        $course = Course::findOrFail($courseId);
+
         $chapter = new CourseChapter();
         $chapter->title = $request->title;
         $chapter->course_id = $courseId;
-        $chapter->instructor_id = Auth::user()->id;
+        $chapter->instructor_id = $course->instructor_id;
         $chapter->order = CourseChapter::where('course_id', $courseId)->count() + 1;
         $chapter->save();
+
+        notyf()->success('Created Successfully!');
 
         return redirect()->back();
     }
@@ -39,7 +44,7 @@ class CourseContentController extends Controller
     {
         $courseId = $request->course_id;
         $chapterId = $request->chapter_id;
-        return view('frontend.instructor-dashboard.course.partials.chapter-lesson-modal', compact('courseId', 'chapterId'))->render();
+        return view('admin.course.course-module.partials.chapter-lesson-modal', compact('courseId', 'chapterId'))->render();
     }
 
     function storeLesson(Request $request): RedirectResponse
@@ -71,7 +76,7 @@ class CourseContentController extends Controller
         $lesson->file_type = $request->file_type;
         $lesson->duration = $request->duration;
         $lesson->is_preview = $request->filled('is_preview') ? 1 : 0;
-        $lesson->downloadable = $request->filled('downloadable') ?: 0;
+        $lesson->downloadable = $request->filled('downloadable') ? 1 : 0;
         $lesson->description = $request->description;
         $lesson->instructor_id = Auth::user()->id;
         $lesson->course_id = $request->course_id;
@@ -91,7 +96,7 @@ class CourseContentController extends Controller
             'id' => $id,
             'instructor_id' => Auth::user()->id
         ])->firstOrFail();
-        return view('frontend.instructor-dashboard.course.partials.course-chapter-modal', compact('chapter', 'editMode'))->render();
+        return view('admin.course.course-module.partials.course-chapter-modal', compact('chapter', 'editMode'))->render();
     }
 
     function updateChapterModal(Request $request, string $id): RedirectResponse
@@ -135,7 +140,7 @@ class CourseContentController extends Controller
             'course_id' => $courseId,
             'instructor_id' => Auth::user()->id
         ])->first();
-        return view('frontend.instructor-dashboard.course.partials.chapter-lesson-modal', compact('courseId', 'chapterId', 'lesson', 'editMode'))->render();
+        return view('admin.course.course-module.partials.chapter-lesson-modal', compact('courseId', 'chapterId', 'lesson', 'editMode'))->render();
     }
 
     function updateLesson(Request $request, string $id): RedirectResponse
@@ -210,7 +215,7 @@ class CourseContentController extends Controller
     function sortChapter(string $id) : string {
         $chapters = CourseChapter::where('course_id', $id)->orderBy('order')->get();
 
-        return view('frontend.instructor-dashboard.course.partials.course-chapter-sort-modal', compact('chapters'))->render();
+        return view('admin.course.course-module.partials.course-chapter-sort-modal', compact('chapters'))->render();
     }
 
     function updateSortChapter(Request $request, string $id) {

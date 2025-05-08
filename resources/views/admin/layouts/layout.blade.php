@@ -87,13 +87,21 @@
                             <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
                                     Cancel
                                 </a></div>
-                            <div class="col"><a href="#" class="btn btn-danger delete-confirm w-100" >
+                            <div class="col"><a href="#" class="btn btn-danger delete-confirm w-100">
                                     Delete
                                 </a></div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg dynamic-modal-content">
+
         </div>
     </div>
 
@@ -105,10 +113,10 @@
 
     {{-- plugins --}}
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-
-    {{-- filemanager --}}
+    <!-- Filemanager JS -->
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+    <script src="{{ asset('frontend/assets/js/jquery-ui.min.js') }}" defer></script>
 
 
     <script src="{{ asset('admin/assets/js/tabler.min.js?1692870487') }} " defer></script>

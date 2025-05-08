@@ -1,4 +1,4 @@
-@extends('frontend.instructor-dashboard.course.course-app')
+@extends('admin.course.course-module.course-app')
 
 @section('tab_content')
 <div class="tab-pane fade show active" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
@@ -9,9 +9,9 @@
         <input type="hidden" name="next_step" value="4">
     </form>
     <div class="add_course_content">
-        <div class="add_course_content_btn_area d-flex flex-wrap justify-content-between">
-            <a class="common_btn dynamic-modal-btn" href="#" data-id="{{ $courseId }}"> Add New Chapter</a>
-            <a class="common_btn sort_chapter_btn" data-id="{{ $courseId }}" href="javascript:;">Sort Chapter</a>
+        <div class="add_course_content_btn_area d-flex flex-wrap justify-content-between mt-3">
+            <a class="common_btn dynamic-modal-btn btn btn-primary" href="#" data-id="{{ $courseId }}"> Add New Chapter</a>
+            <a class="common_btn sort_chapter_btn btn btn-primary" data-id="{{ $courseId }}" href="javascript:;">Sort Chapter</a>
         </div>
         <div class="accordion" id="accordionExample">
             @foreach ($chapters as $chapter)
@@ -23,7 +23,7 @@
                     <div class="add_course_content_action_btn">
                         <div class="dropdown">
                             <div class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="far fa-plus" aria-hidden="true"></i>
+                                <i class="ti ti-plus" aria-hidden="true"></i>
                             </div>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item add_lesson" data-chapter-id="{{ $chapter->id }}" data-course-id="{{ $chapter->course_id }}"
@@ -31,8 +31,8 @@
                                 </li>
                             </ul>
                         </div>
-                        <a class="edit edit_chapter" data-course-id="{{ $chapter->course_id }}" data-chapter-id="{{ $chapter->id }}" href="#"><i class="far fa-edit" aria-hidden="true"></i></a>
-                        <a class="del delete-item" href="{{ route('instructor.course-content.destroy-chapter', $chapter->id) }}"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
+                        <a class="edit edit_chapter" data-course-id="{{ $chapter->course_id }}" data-chapter-id="{{ $chapter->id }}" href="#"><i class="ti ti-edit" aria-hidden="true"></i></a>
+                        <a class="del delete-item" href="{{ route('admin.course-content.destroy-chapter', $chapter->id) }}"><i class="ti ti-trash-x text-red" aria-hidden="true"></i></a>
                     </div>
                 </h2>
                 <div id="collapse-{{ $chapter->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -42,10 +42,10 @@
                             <li class="" data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}">
                                 <span>{{ $lesson->title }}</span>
                                 <div class="add_course_content_action_btn">
-                                    <a class="edit edit_lesson" data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}" data-course-id="{{ $chapter->course_id }}"
-                                        href="javascript:;"><i class="far fa-edit" aria-hidden="true"></i></a>
-                                    <a class="del delete-item" href="{{ route('instructor.course-content.destroy-lesson', $lesson->id) }}"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
-                                    <a class="arrow dragger" href="javascript:;"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a>
+                                    <a class="edit_lesson" data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}"
+                                        data-course-id="{{ $chapter->course_id }}" class="edit" href="javascript:;"><i class="ti ti-edit"></i></a>
+                                    <a class="del delete-item" href="{{ route('admin.course-content.destroy-lesson', $lesson->id) }}"><i class="ti ti-trash-x"></i></a>
+                                    <a class="arrow dragger" href="javascript:;"><i class="ti ti-arrows-maximize"></i></a>
                                 </div>
                             </li>
                             @endforeach
