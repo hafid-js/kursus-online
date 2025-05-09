@@ -141,7 +141,7 @@ class CourseController extends Controller
                 $course->price = $request->price;
                 $course->discount = $request->discount;
                 $course->description = $request->description;
-                $course->instructor_id = Auth::guard('web')->user()->id;
+                $course->instructor_id = $course->instructor->id;
                 $course->save();
 
                 // save course id on session

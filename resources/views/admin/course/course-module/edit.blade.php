@@ -11,7 +11,7 @@
                 <input type="hidden" name="current_step" value="1">
                 <input type="hidden" name="next_step" value="2">
                 <div class="row">
-                    <div class="col-xl-12">
+                    <div class="col-xl-12 mt-4">
                         <div class="add_course_basic_info_imput">
                             <label for="#">Title *</label>
                             <input type="text" placeholder="Title" name="title" value="{{ $course->title }}">
@@ -43,18 +43,18 @@
                         </div>
                     </div>
                     <div class="col-xl-6">
-                        <div class="add_course_basic_info_imput upload_source {{ $course->demo_video_source == 'upload' ? '' : 'd-none' }}">
+                        <div class="add_course_basic_info_imput upload_source {{ $course->demo_video_storage == 'upload' ? '' : 'd-none' }}">
                             <label for="#">Path</label>
                             <div class="input-group">
                                 <span class="input-group-btn">
-                                    <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                                        <i class="fa fa-picture-o"></i> Choose
-                                    </a>
+                                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                    <i class="fa fa-picture-o"></i> Choose
+                                  </a>
                                 </span>
                                 <input id="thumbnail" class="form-control source_input" type="text" name="file" value="{{ $course->demo_video_source }}">
-                            </div>
+                              </div>
                         </div>
-                        <div class="add_course_basic_info_imput external_source {{ $course->demo_video_source != 'upload' ? '' : 'd-none'}}">
+                        <div class="add_course_basic_info_imput external_source {{ $course->demo_video_storage != 'upload' ? '' : 'd-none' }}">
                             <label for="#">Path</label>
                             <input type="text" name="url" class="source_input" value="{{ $course->demo_video_source }}">
                         </div>
@@ -77,7 +77,7 @@
                             <label for="#">Description</label>
                             <textarea rows="8" placeholder="Description"
                                 name="description">{!! $course->description !!}</textarea>
-                            <button type="submit" class="common_btn mt_20">Save</button>
+                            <button type="submit" class="btn btn-primary mt-3">Save</button>
                         </div>
                     </div>
                 </div>

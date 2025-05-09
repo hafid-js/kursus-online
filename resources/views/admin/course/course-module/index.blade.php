@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <form action="https://httpbin.org/post" method="post" class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Course Levels</h4>
+                                <h4 class="card-title">Course</h4>
                                 <div class="card-actions">
                                     <a href="{{ route('admin.courses.create') }}" class="btn btn-primary">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
@@ -65,7 +65,7 @@
                                                                     </td>
 
                                                                     <td>
-                                                                        <a href="{{ route('admin.course-levels.edit', $course->id) }}"
+                                                                        <a href="{{ route('admin.courses.edit', ['id' => $course->id, 'step' => 1]) }}"
                                                                             class="text-blue">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                                 height="24" viewBox="0 0 24 24" fill="none"
@@ -81,7 +81,7 @@
                                                                                 <path d="M16 5l3 3" />
                                                                             </svg>
                                                                         </a>
-                                                                        <a href="{{ route('admin.course-levels.destroy', $course->id) }}"
+                                                                        <a href="#"
                                                                             class="text-red delete-item">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                                 height="24" viewBox="0 0 24 24" fill="none"
