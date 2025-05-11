@@ -12,4 +12,13 @@ class CoursePageController extends Controller
         $courses = Course::where('is_approved','approved')->paginate(12);
         return view('frontend.pages.course-page', compact('courses'));
     }
+
+    function show(string $slug) {
+        $course = Course::where('slug', $slug)
+        ->where('is_approved', 'approved')
+        ->where('status', 'active')
+        ->firstOrFail();
+
+        return view('frontend.pages.course-details-page', compact('course'));
+    }
 }

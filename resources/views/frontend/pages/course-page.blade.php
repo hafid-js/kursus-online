@@ -372,7 +372,7 @@
                                     </p>
                                 </div>
 
-                                <a class="title" href="#">{{ $course->title }}</a>
+                                <a class="title" href="{{ route('courses.show', $course->slug) }}">{{ $course->title }}</a>
                                 <ul>
                                     <li>24 Lessons</li>
                                     <li>38 Student</li>
