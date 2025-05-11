@@ -24,7 +24,7 @@
                                     <div class="row">
                                         <x-image-preview class="" src="{{ $course_category->image }}" />
                                         <div class="col-md-6">
-                                            <x-input-file-block name="image" />
+                                            <x-input-file-block name="image" :value="$course_category->image"/>
                                         </div>
                                         <div class="col-md-6">
                                             <x-input-block name="icon" :value="$course_category->icon"

@@ -1,7 +1,7 @@
     <!--===========================
         BANNER 3 START
     ============================-->
-    <section class="wsus__banner_3" style="background: url(frontend/images/banner_3_bg.png);">
+    <section class="wsus__banner_3" style="background: url(frontend/assets/images/banner_3_bg.png);">
         <div class="row justify-content-between">
             <div class="col-xl-6 col-lg-6 wow fadeInUp">
                 <div class="wsus__banner_3_text">
