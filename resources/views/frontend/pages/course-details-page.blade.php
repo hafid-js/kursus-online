@@ -71,11 +71,6 @@
                                     aria-controls="pills-contact" aria-selected="false" tabindex="-1">Instructor</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-disabled" type="button" role="tab"
-                                    aria-controls="pills-disabled" aria-selected="false" tabindex="-1">FAQs</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-disabled-tab2" data-bs-toggle="pill"
                                     data-bs-target="#pills-disabled2" type="button" role="tab"
                                     aria-controls="pills-disabled2" aria-selected="false" tabindex="-1">Review</button>
@@ -97,32 +92,40 @@
                                     <h3>Course Curriculum</h3>
                                     <div class="accordion" id="accordionExample">
                                         @foreach ($course->chapters as $chapter)
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse-{{ $chapter->id }}" aria-expanded="true"
-                                                    aria-controls="collapse-{{ $chapter->id }}">
-                                                    {{ $chapter->title }}
-                                                </button>
-                                            </h2>
-                                            <div id="collapse-{{ $chapter->id }}" class="accordion-collapse collapse"
-                                                data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <ul>
-                                                        @foreach ($chapter->lessons as $lesson)
-                                                        <li class="{{ $lesson->is_preview == 1 ? 'active' : '' }}">
-                                                            <p>{{ $lesson->title }}</p>
-                                                            @if($lesson->is_preview == 1)
-                                                            <a href="{{ $lesson->file_path }}" class="right_text venobox vbox-item">Preview</a>
-                                                            @else
-                                                              <span class="right_text">{{ convertMinutesToHours($lesson->duration) }}</span>
-                                                            @endif
-                                                        </li>
-                                                         @endforeach
-                                                    </ul>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                    <button class="accordion-button" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapse-{{ $chapter->id }}"
+                                                        aria-expanded="true"
+                                                        aria-controls="collapse-{{ $chapter->id }}">
+                                                        {{ $chapter->title }}
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse-{{ $chapter->id }}"
+                                                    class="accordion-collapse collapse"
+                                                    data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <ul>
+                                                            @foreach ($chapter->lessons as $lesson)
+                                                                <li
+                                                                    class="{{ $lesson->is_preview == 1 ? 'active' : '' }}">
+                                                                    <p>{{ $lesson->title }}</p>
+                                                                    @if ($lesson->is_preview == 1)
+                                                                        <a href="{{ $lesson->file_path }}"
+                                                                            class="right_text venobox vbox-item"
+                                                                            data-autoplay="true"
+                                                                            data-vbtype="video">Preview</a>
+                                                                    @else
+                                                                        <span
+                                                                            class="right_text">{{ convertMinutesToHours($lesson->duration) }}</span>
+                                                                    @endif
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -134,161 +137,91 @@
                                     <div class="row align-items-center">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="wsus__courses_instructor_img">
-                                                <img src="{{ asset('frontend/assets/images/course_instructor_img.jpg') }}" alt="Instructor"
+                                                <img src="{{ asset($course->instructor->image) }}" alt="Instructor"
                                                     class="img-fluid">
                                             </div>
                                         </div>
                                         <div class="col-lg-8 col-md-6">
                                             <div class="wsus__courses_instructor_text">
-                                                <h4>Ravi O'Leigh</h4>
-                                                <p class="designation">IT Technician at IBM</p>
+                                                <h4>{{ $course->instructor->name }}</h4>
+                                                <p class="designation">{{ $course->instructor->headline }}</p>
                                                 <ul class="list">
                                                     <li><i class="fas fa-star" aria-hidden="true"></i> <b>74,537
                                                             Reviews</b></li>
                                                     <li><strong>4.7 Rating</strong></li>
                                                     <li>
-                                                        <span><img src="{{ asset('frontend/assets/images/book_icon.png') }}" alt="book"
-                                                                class="img-fluid"></span>
-                                                        8 Courses
+                                                        <span><img
+                                                                src="{{ asset('frontend/assets/images/book_icon.png') }}"
+                                                                alt="book" class="img-fluid"></span>
+                                                        {{ $course->instructor->courses()->count() }} Courses
                                                     </li>
                                                     <li>
-                                                        <span><img src="{{ asset('frontend/assets/images/user_icon_gray.png') }}" alt="user"
-                                                                class="img-fluid"></span>
+                                                        <span><img
+                                                                src="{{ asset('frontend/assets/images/user_icon_gray.png') }}"
+                                                                alt="user" class="img-fluid"></span>
                                                         32 Students
                                                     </li>
                                                 </ul>
                                                 <ul class="badge d-flex flex-wrap">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         data-bs-title="Exclusive Author">
-                                                        <img src="{{ asset('frontend/assets/images/badge_1.png') }}" alt="Badge" class="img-fluid">
+                                                        <img src="{{ asset('frontend/assets/images/badge_1.png') }}"
+                                                            alt="Badge" class="img-fluid">
                                                     </li>
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-title="Top Earning"><img src="{{ asset('frontend/assets/images/badge_2.png') }}"
+                                                        data-bs-title="Top Earning"><img
+                                                            src="{{ asset('frontend/assets/images/badge_2.png') }}"
                                                             alt="Badge" class="img-fluid"></li>
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-title="Trending"><img src="{{ asset('frontend/assets/images/badge_3.png') }}"
+                                                        data-bs-title="Trending"><img
+                                                            src="{{ asset('frontend/assets/images/badge_3.png') }}"
                                                             alt="Badge" class="img-fluid"></li>
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         data-bs-title="2 Years of Membership"><img
-                                                            src="{{ asset('frontend/assets/images/badge_4.png') }}" alt="Badge" class="img-fluid">
+                                                            src="{{ asset('frontend/assets/images/badge_4.png') }}"
+                                                            alt="Badge" class="img-fluid">
                                                     </li>
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         data-bs-title="Collector Lavel 1">
-                                                        <img src="{{ asset('frontend/assets/images/badge_5.png') }}" alt="Badge" class="img-fluid">
+                                                        <img src="{{ asset('frontend/assets/images/badge_5.png') }}"
+                                                            alt="Badge" class="img-fluid">
                                                     </li>
                                                 </ul>
                                                 <p class="description">
-                                                    Sed mi leo placerat nulla Donec pharetra rutrum ullamcorpe Ut eget
-                                                    convallis mi. Sed cursus aliquam Nula sed allium lectus fermentum
-                                                    enim Nam maximus pretium consectetu lacinia finibus.
+                                                    {{ $course->instructor->bio }}
                                                 </p>
+
                                                 <ul class="link d-flex flex-wrap">
-                                                    <li><a href="#"><i class="fab fa-twitter"
-                                                                aria-hidden="true"></i></a></li>
-                                                    <li><a href="#"><i class="fab fa-facebook-f"
-                                                                aria-hidden="true"></i></a></li>
-                                                    <li><a href="#"><i class="fab fa-linkedin-in"
-                                                                aria-hidden="true"></i></a></li>
-                                                    <li><a href="#"><i class="fab fa-pinterest-p"
-                                                                aria-hidden="true"></i></a></li>
+
+                                                    @if ($course->instructor->facebook)
+                                                        <li><a href="{{ $course->instructor->facebook }}"><i
+                                                                    class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                                                        </li>
+                                                    @endif
+                                                    @if ($course->instructor->x)
+                                                        <li><a href="{{ $course->instructor->twitter }}"><i
+                                                                    class="fab fa-twitter" aria-hidden="true"></i></a>
+                                                        </li>
+                                                    @endif
+                                                    @if ($course->instructor->linkedin)
+                                                        <li><a href="{{ $course->instructor->linkedin }}"><i
+                                                                    class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                                                        </li>
+                                                    @endif
+                                                    @if ($course->instructor->website)
+                                                        <li><a href="{{ $course->instructor->website }}"><i
+                                                                    class="fas fa-link" aria-hidden="true"></i></a></li>
+                                                    @endif
+                                                    @if ($course->instructor->github)
+                                                        <li><a href="{{ $course->instructor->github }}"><i
+                                                                    class="fab fa-github" aria-hidden="true"></i></a></li>
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="pills-disabled" role="tabpanel"
-                                aria-labelledby="pills-disabled-tab" tabindex="0">
-                                <div class="wsus__course_faq box_area">
-                                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#flush-collapse-{{ $chapter->id }}" aria-expanded="false"
-                                                    aria-controls="flush-collapse-{{ $chapter->id }}">
-                                                    How long it take to create a video course?
-                                                </button>
-                                            </h2>
-                                            <div id="flush-collapse-{{ $chapter->id }}" class="accordion-collapse collapse show"
-                                                data-bs-parent="#accordionFlushExample">
-                                                <div class="accordion-body">
-                                                    Sed mi leo, accumsan vel ante at, viverra placerat nulla. Donec
-                                                    pharetra rutrum
-                                                    ullamcorpe Ut eget convallis mi. Sed cursus aliquam eitu Nula sed
-                                                    allium lectus
-                                                    fermentum enim Nam maximus pretium consectetu lacinia finibus ipsum,
-                                                    eget
-                                                    fermentum nulla Pellentesque id facilisis magna dictum.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
-                                                    aria-expanded="false" aria-controls="flush-collapseTwo">
-                                                    What kind of support does EduCore provide?
-                                                </button>
-                                            </h2>
-                                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                                data-bs-parent="#accordionFlushExample">
-                                                <div class="accordion-body">
-                                                    Sed mi leo, accumsan vel ante at, viverra placerat nulla. Donec
-                                                    pharetra rutrum
-                                                    ullamcorpe Ut eget convallis mi. Sed cursus aliquam eitu Nula sed
-                                                    allium lectus
-                                                    fermentum enim Nam maximus pretium consectetu lacinia finibus ipsum,
-                                                    eget
-                                                    fermentum nulla Pellentesque id facilisis magna dictum.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
-                                                    aria-expanded="false" aria-controls="flush-collapseThree">
-                                                    How long do I get support &amp; updates?
-                                                </button>
-                                            </h2>
-                                            <div id="flush-collapseThree" class="accordion-collapse collapse"
-                                                data-bs-parent="#accordionFlushExample">
-                                                <div class="accordion-body">Placeholder content for this accordion,
-                                                    Sed mi leo, accumsan vel ante at, viverra placerat nulla. Donec
-                                                    pharetra rutrum
-                                                    ullamcorpe Ut eget convallis mi. Sed cursus aliquam eitu Nula sed
-                                                    allium lectus
-                                                    fermentum enim Nam maximus pretium consectetu lacinia finibus ipsum,
-                                                    eget
-                                                    fermentum nulla Pellentesque id facilisis magna dictum.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseThree3"
-                                                    aria-expanded="false" aria-controls="flush-collapseThree">
-                                                    How can I contact a school directly?
-                                                </button>
-                                            </h2>
-                                            <div id="flush-collapseThree3" class="accordion-collapse collapse"
-                                                data-bs-parent="#accordionFlushExample">
-                                                <div class="accordion-body">
-                                                    Sed mi leo, accumsan vel ante at, viverra placerat nulla. Donec
-                                                    pharetra rutrum
-                                                    ullamcorpe Ut eget convallis mi. Sed cursus aliquam eitu Nula sed
-                                                    allium lectus
-                                                    fermentum enim Nam maximus pretium consectetu lacinia finibus ipsum,
-                                                    eget
-                                                    fermentum nulla Pellentesque id facilisis magna dictum.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="tab-pane fade" id="pills-disabled2" role="tabpanel"
                                 aria-labelledby="pills-disabled-tab2" tabindex="0">
                                 <div class="wsus__courses_review box_area">
@@ -376,7 +309,8 @@
                                     <h3>Reviews</h3>
                                     <div class="wsus__course_single_reviews">
                                         <div class="wsus__single_review_img">
-                                            <img src="{{ asset('frontend/assets/images/testimonial_user_1.png') }}" alt="user" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/testimonial_user_1.png') }}"
+                                                alt="user" class="img-fluid">
                                         </div>
                                         <div class="wsus__single_review_text">
                                             <h4>Dominic L. Ement</h4>
@@ -397,7 +331,8 @@
                                     </div>
                                     <div class="wsus__course_single_reviews">
                                         <div class="wsus__single_review_img">
-                                            <img src="{{ asset('frontend/assets/images/testimonial_user_2.png') }}" alt="user" class="img-fluid">
+                                            <img src="{{ asset('frontend/assets/images/testimonial_user_2.png') }}"
+                                                alt="user" class="img-fluid">
                                         </div>
                                         <div class="wsus__single_review_text">
                                             <h4>Smith jhon</h4>
@@ -470,44 +405,45 @@
                             </a>
                         </div>
                         <h3 class="wsus__courses_sidebar_price">
-                            @if($course->discount > 0)
-                            Price: <del>${{ config('settings.currency_icon') }}{{ $course->price }}</del>${{ $course->discount }}
+                            @if ($course->discount > 0)
+                                Price:
+                                <del>${{ config('settings.currency_icon') }}{{ $course->price }}</del>${{ $course->discount }}
                             @elseif($course->price <= 0)
                                 FREE
                             @else
-                               Price: ${{ config('settings.currency_icon') }}{{ $course->price }}
+                                Price: ${{ config('settings.currency_icon') }}{{ $course->price }}
                             @endif
                         </h3>
                         <div class="wsus__courses_sidebar_list_info">
                             <ul>
                                 <li>
                                     <p>
-                                        <span><img src="{{ asset('frontend/assets/images/clock_icon_black.png') }}" alt="clock"
-                                                class="img-fluid"></span>
+                                        <span><img src="{{ asset('frontend/assets/images/clock_icon_black.png') }}"
+                                                alt="clock" class="img-fluid"></span>
                                         Course Duration
                                     </p>
                                     {{ convertMinutesToHours($course->duration) }}
                                 </li>
                                 <li>
                                     <p>
-                                        <span><img src="{{ asset('frontend/assets/images/network_icon_black.png') }}" alt="network"
-                                                class="img-fluid"></span>
+                                        <span><img src="{{ asset('frontend/assets/images/network_icon_black.png') }}"
+                                                alt="network" class="img-fluid"></span>
                                         Skill Level
                                     </p>
                                     {{ $course->level->name }}
                                 </li>
                                 <li>
                                     <p>
-                                        <span><img src="{{ asset('frontend/assets/images/user_icon_black_2.png') }}" alt="User"
-                                                class="img-fluid"></span>
+                                        <span><img src="{{ asset('frontend/assets/images/user_icon_black_2.png') }}"
+                                                alt="User" class="img-fluid"></span>
                                         Student Enrolled
                                     </p>
                                     47
                                 </li>
                                 <li>
                                     <p>
-                                        <span><img src="{{ asset('frontend/assets/images/language_icon_black.png') }}" alt="Language"
-                                                class="img-fluid"></span>
+                                        <span><img src="{{ asset('frontend/assets/images/language_icon_black.png') }}"
+                                                alt="Language" class="img-fluid"></span>
                                         Language
                                     </p>
                                     {{ $course->language->name }}
@@ -533,19 +469,20 @@
                             <h3>This Course Includes</h3>
                             <ul>
                                 <li>
-                                    <span><img src="{{ asset('frontend/assets/images/video_icon_black.png') }}" alt="video" class="img-fluid"></span>
+                                    <span><img src="{{ asset('frontend/assets/images/video_icon_black.png') }}"
+                                            alt="video" class="img-fluid"></span>
                                     {{ convertMinutesToHours($course->duration) }} Video Lectures
                                 </li>
-                                @if($course->certificate)
-                                <li>
-                                    <span><img src="{{ asset('frontend/assets/images/certificate_icon_black.png') }}" alt="Certificate"
-                                            class="img-fluid"></span>
-                                    Certificate of Completion
-                                </li>
+                                @if ($course->certificate)
+                                    <li>
+                                        <span><img src="{{ asset('frontend/assets/images/certificate_icon_black.png') }}"
+                                                alt="Certificate" class="img-fluid"></span>
+                                        Certificate of Completion
+                                    </li>
                                 @endif
                                 <li>
-                                    <span><img src="{{ asset('frontend/assets/images/life_time_icon.png') }}" alt="Certificate"
-                                            class="img-fluid"></span>
+                                    <span><img src="{{ asset('frontend/assets/images/life_time_icon.png') }}"
+                                            alt="Certificate" class="img-fluid"></span>
                                     Course Lifetime Access
                                 </li>
                             </ul>
@@ -554,7 +491,8 @@
                         <div class="wsus__courses_sidebar_instructor">
                             <div class="image_area d-flex flex-wrap align-items-center">
                                 <div class="img">
-                                    <img src="{{ asset($course->instructor->image) }}" alt="Instructor" class="img-fluid">
+                                    <img src="{{ asset($course->instructor->image) }}" alt="Instructor"
+                                        class="img-fluid">
                                 </div>
                                 <div class="text">
                                     <h3>{{ $course->instructor->name }}</h3>
@@ -563,55 +501,32 @@
                             </div>
                             <ul class="d-flex flex-wrap">
                                 <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Exclusive Author">
-                                    <img src="{{ asset('frontend/assets/images/badge_1.png') }}" alt="Badge" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/badge_1.png') }}" alt="Badge"
+                                        class="img-fluid">
                                 </li>
                                 <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Top Earning"><img
-                                        src="{{ asset('frontend/assets/images/badge_2.png') }}" alt="Badge" class="img-fluid"></li>
+                                        src="{{ asset('frontend/assets/images/badge_2.png') }}" alt="Badge"
+                                        class="img-fluid"></li>
                                 <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Trending"><img
-                                        src="{{ asset('frontend/assets/images/badge_3.png') }}" alt="Badge" class="img-fluid"></li>
+                                        src="{{ asset('frontend/assets/images/badge_3.png') }}" alt="Badge"
+                                        class="img-fluid"></li>
                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-title="2 Years of Membership"><img src="{{ asset('frontend/assets/images/badge_4.png') }}" alt="Badge"
+                                    data-bs-title="2 Years of Membership"><img
+                                        src="{{ asset('frontend/assets/images/badge_4.png') }}" alt="Badge"
                                         class="img-fluid"></li>
                                 <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Collector Lavel 1">
-                                    <img src="{{ asset('frontend/assets/images/badge_5.png') }}" alt="Badge" class="img-fluid">
+                                    <img src="{{ asset('frontend/assets/images/badge_5.png') }}" alt="Badge"
+                                        class="img-fluid">
                                 </li>
                             </ul>
                         </div>
                     </div>
-
-                    <!DOCTYPE html>
-<html>
-<head>
-    <title>Test ezShare</title>
-    <script src="https://cdn.jsdelivr.net/gh/shakilahmed0369/ez-share/dist/ez-share.min.js"></script>
-</head>
-<body>
-
-    <h1>Share this page</h1>
-
-    <button class="ez-facebook" data-url="{{ url()->current() }}">Share on Facebook</button>
-    <button class="ez-x" data-url="{{ url()->current() }}" data-text="Lihat ini!" data-hashtags="Laravel,PHP">Share on Twitter</button>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            if (typeof ezShare !== 'undefined') {
-                ezShare.execute(); // atau ezShare.init();
-            } else {
-                console.error("ezShare is not defined");
-            }
-        });
-    </script>
-
-</body>
-</html>
-
                 </div>
             </div>
         </div>
     </section>
-
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/gh/shakilahmed0369/ez-share/dist/ez-share.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/shakilahmed0369/ez-share/dist/ez-share.min.js"></script>
 @endpush

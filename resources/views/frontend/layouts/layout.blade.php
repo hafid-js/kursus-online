@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/sticky_menu.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/jquery-ui.min.css') }}">
+    <!-- CDN Font Awesome (versi 6) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 
