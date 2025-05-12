@@ -1,4 +1,12 @@
 @extends('frontend.layouts.layout')
+
+@push('meta')
+    <meta property="og:title" content="{{ $course->title }}">
+    <meta property="og:description" content="{{ $course->seo_description }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset($course->thumbnail) }}">
+    <meta property="og:type" content="Course">
+@endpush
 @section('content')
     <section class="wsus__breadcrumb course_details_breadcrumb"
         style="background: url({{ asset('frontend/assets/images/breadcrumb_bg.jpg') }});">
@@ -88,102 +96,34 @@
                                 <div class="wsus__courses_curriculum box_area">
                                     <h3>Course Curriculum</h3>
                                     <div class="accordion" id="accordionExample">
+                                        @foreach ($course->chapters as $chapter)
                                         <div class="accordion-item">
                                             <h2 class="accordion-header">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseOne" aria-expanded="true"
-                                                    aria-controls="collapseOne">
-                                                    Course Prelude &amp; EduCore Learning Presentation
+                                                    data-bs-target="#collapse-{{ $chapter->id }}" aria-expanded="true"
+                                                    aria-controls="collapse-{{ $chapter->id }}">
+                                                    {{ $chapter->title }}
                                                 </button>
                                             </h2>
-                                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                            <div id="collapse-{{ $chapter->id }}" class="accordion-collapse collapse"
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <ul>
-                                                        <li class="active">
-                                                            <p>Brush up on Java concepts</p>
-                                                            <span class="right_text">Preview</span>
+                                                        @foreach ($chapter->lessons as $lesson)
+                                                        <li class="{{ $lesson->is_preview == 1 ? 'active' : '' }}">
+                                                            <p>{{ $lesson->title }}</p>
+                                                            @if($lesson->is_preview == 1)
+                                                            <a href="{{ $lesson->file_path }}" class="right_text venobox vbox-item">Preview</a>
+                                                            @else
+                                                              <span class="right_text">{{ convertMinutesToHours($lesson->duration) }}</span>
+                                                            @endif
                                                         </li>
-                                                        <li>
-                                                            <a href="">User Experience Fundamentals Course</a>
-                                                            <span class="right_text">24 minutes</span>
-                                                        </li>
-                                                        <li>
-                                                            <p>Brisk Guide to Using Pivot Tables in Excel</p>
-                                                            <span class="right_text">7 minutes</span>
-                                                        </li>
-                                                        <li>
-                                                            <p>User-Centric Design Fundamentals</p>
-                                                            <span class="right_text">21 minutes</span>
-                                                        </li>
+                                                         @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                                    aria-expanded="false" aria-controls="collapseTwo">
-                                                    Essential HTML Building Elements
-                                                </button>
-                                            </h2>
-                                            <div id="collapseTwo" class="accordion-collapse collapse"
-                                                data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <ul>
-                                                        <li class="active">
-                                                            <p>Brush up on Java concepts</p>
-                                                            <span class="right_text">Preview</span>
-                                                        </li>
-                                                        <li>
-                                                            <a href="">User Experience Fundamentals Course</a>
-                                                            <span class="right_text">24 minutes</span>
-                                                        </li>
-                                                        <li>
-                                                            <p>Brisk Guide to Using Pivot Tables in Excel</p>
-                                                            <span class="right_text">7 minutes</span>
-                                                        </li>
-                                                        <li>
-                                                            <p>User-Centric Design Fundamentals</p>
-                                                            <span class="right_text">21 minutes</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                                    aria-expanded="false" aria-controls="collapseThree">
-                                                    Fundamental Programming Idea
-                                                </button>
-                                            </h2>
-                                            <div id="collapseThree" class="accordion-collapse collapse"
-                                                data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <ul>
-                                                        <li class="active">
-                                                            <p>Brush up on Java concepts</p>
-                                                            <span class="right_text">Preview</span>
-                                                        </li>
-                                                        <li>
-                                                            <a href="">User Experience Fundamentals Course</a>
-                                                            <span class="right_text">24 minutes</span>
-                                                        </li>
-                                                        <li>
-                                                            <p>Brisk Guide to Using Pivot Tables in Excel</p>
-                                                            <span class="right_text">7 minutes</span>
-                                                        </li>
-                                                        <li>
-                                                            <p>User-Centric Design Fundamentals</p>
-                                                            <span class="right_text">21 minutes</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -264,12 +204,12 @@
                                         <div class="accordion-item">
                                             <h2 class="accordion-header">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                                    aria-controls="flush-collapseOne">
+                                                    data-bs-target="#flush-collapse-{{ $chapter->id }}" aria-expanded="false"
+                                                    aria-controls="flush-collapse-{{ $chapter->id }}">
                                                     How long it take to create a video course?
                                                 </button>
                                             </h2>
-                                            <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                                            <div id="flush-collapse-{{ $chapter->id }}" class="accordion-collapse collapse show"
                                                 data-bs-parent="#accordionFlushExample">
                                                 <div class="accordion-body">
                                                     Sed mi leo, accumsan vel ante at, viverra placerat nulla. Donec
@@ -546,7 +486,7 @@
                                                 class="img-fluid"></span>
                                         Course Duration
                                     </p>
-                                    34 min 54 sec
+                                    {{ convertMinutesToHours($course->duration) }}
                                 </li>
                                 <li>
                                     <p>
@@ -583,10 +523,10 @@
                         <div class="wsus__courses_sidebar_share_area">
                             <span>Share:</span>
                             <ul>
-                                <li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-behance" aria-hidden="true"></i></a></li>
+                                <li class="ez-facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li class="ez-linkedin"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                <li class="ez-x"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li class="ez-reddit"><a href="#"><i class="fab fa-reddit"></i></a></li>
                             </ul>
                         </div>
                         <div class="wsus__courses_sidebar_info">
@@ -594,7 +534,7 @@
                             <ul>
                                 <li>
                                     <span><img src="{{ asset('frontend/assets/images/video_icon_black.png') }}" alt="video" class="img-fluid"></span>
-                                    54 min 24 sec Video Lectures
+                                    {{ convertMinutesToHours($course->duration) }} Video Lectures
                                 </li>
                                 @if($course->certificate)
                                 <li>
@@ -614,10 +554,10 @@
                         <div class="wsus__courses_sidebar_instructor">
                             <div class="image_area d-flex flex-wrap align-items-center">
                                 <div class="img">
-                                    <img src="{{ asset('frontend/assets/images/testimonial_user_1.png') }}" alt="Instructor" class="img-fluid">
+                                    <img src="{{ asset($course->instructor->image) }}" alt="Instructor" class="img-fluid">
                                 </div>
                                 <div class="text">
-                                    <h3>Dominic L. Ement</h3>
+                                    <h3>{{ $course->instructor->name }}</h3>
                                     <p><span>Instructor</span> Level 2</p>
                                 </div>
                             </div>
@@ -638,8 +578,40 @@
                             </ul>
                         </div>
                     </div>
+
+                    <!DOCTYPE html>
+<html>
+<head>
+    <title>Test ezShare</title>
+    <script src="https://cdn.jsdelivr.net/gh/shakilahmed0369/ez-share/dist/ez-share.min.js"></script>
+</head>
+<body>
+
+    <h1>Share this page</h1>
+
+    <button class="ez-facebook" data-url="{{ url()->current() }}">Share on Facebook</button>
+    <button class="ez-x" data-url="{{ url()->current() }}" data-text="Lihat ini!" data-hashtags="Laravel,PHP">Share on Twitter</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof ezShare !== 'undefined') {
+                ezShare.execute(); // atau ezShare.init();
+            } else {
+                console.error("ezShare is not defined");
+            }
+        });
+    </script>
+
+</body>
+</html>
+
                 </div>
             </div>
         </div>
     </section>
+
 @endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/gh/shakilahmed0369/ez-share/dist/ez-share.min.js"></script>
+@endpush
