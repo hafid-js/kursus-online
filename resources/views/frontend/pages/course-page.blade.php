@@ -385,10 +385,10 @@
                                 </a>
                             </div>
                             <div class="wsus__single_courses_3_footer">
-                                <a class="common_btn" href="#">Enroll <i class="far fa-arrow-right" aria-hidden="true"></i></a>
+                                <a class="common_btn add_to_cart" href="#" data-course-id="{{ $course->id }}">Add to Cart <i class="far fa-arrow-right" aria-hidden="true"></i></a>
                                 <p>
                                     @if($course->discount > 0)
-                                    <del>Rp.{{ $course->discount }}</del>
+                                    <del>$.{{ $course->discount }}</del> ${{ $course->price }}
                                 @else
                             ${{ $course->price }}
                                 @endif

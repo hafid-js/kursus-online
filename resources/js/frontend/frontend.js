@@ -1,9 +1,11 @@
+import './cart.js';
+
 const csrf_token = $(`meta[name="csrf_token"]`).attr('content');
 
 // notyf init
 var notyf = new Notyf({
     duration: 5000,
-    dismissible: true,
+    dismissible: true
 });
 
 // Ez Share init
