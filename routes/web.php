@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CourseContentController;
 use App\Http\Controllers\Frontend\CourseController;
 use App\Http\Controllers\Frontend\CoursePageController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\InstructorDashboardController;
+use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\StudentDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +24,13 @@ Route::get('/courses/{slug}', [CoursePageController::class, 'show'])->name('cour
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('add-to-cart/{course}', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::get('remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('remove-from-cart')->middleware('auth');
+
+// payment routes
+Route::get('checkout', CheckoutController::class)->name('checkout.index');
+
+Route::get('paypal/payment',[PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
+Route::get('paypal/success',[PaymentController::class, 'paypalSuccess'])->name('paypal.success');
+Route::get('paypal/cancel',[PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
 
 // Student Routes
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {

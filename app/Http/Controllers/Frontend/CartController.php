@@ -13,7 +13,11 @@ class CartController extends Controller
 {
     function index()
     {
-        $cart = Cart::with(['course'])->where(['user_id' => Auth::id()])->paginate();
+          if (!Auth::guard('web')->check()) {
+            notyf()->error('Please Login First!');
+              return redirect()->back();
+        }
+        $cart = Cart::with(['course'])->where(['user_id' => user()->id])->paginate();
         return view('frontend.pages.cart', compact('cart'));
     }
 
@@ -47,7 +51,7 @@ class CartController extends Controller
     }
 
     function removeFromCart(int $id) : RedirectResponse {
-        $cart = Cart::where(['id' => $id, 'user_id' => Auth::id()])->firstOrFail();
+        $cart = Cart::where(['id' => $id, 'user_id' => user()->id])->firstOrFail();
         $cart->delete();
         notyf()->success('Removed Successfully!');
         return redirect()->back();
