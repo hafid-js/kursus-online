@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Service\OrderService;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
@@ -35,6 +36,36 @@ class PaymentController extends Controller
                 if($link['rel'] == 'approve') {
                     return redirect()->away($link['href']);
                 }
+            }
+        }
+    }
+
+    function paypalSuccess(Request $request) {
+        $provider = new PayPalClient();
+        $provider->getAccessToken();
+
+        $response = $provider->capturePaymentOrder($request->token);
+
+        if(isset($response['status']) && $response['status'] === 'COMPLETED') {
+            $capture = $response['purchase_units'][0]['payments']['captures'][0];
+
+            $transactionId = $capture['id'];
+            $mainAmount = cartTotal();
+            $paidAmount = $capture['amount']['value'];
+            $currency = $capture['amount']['currency_code'];
+
+            try{
+                OrderService::storeOrder(
+                $transactionId,
+                auth()->user()->id,
+                'approved',
+                $mainAmount,
+                $paidAmount,
+                $currency,
+                'paypal'
+            );
+            } catch (\Throwable $th) {
+
             }
         }
     }
