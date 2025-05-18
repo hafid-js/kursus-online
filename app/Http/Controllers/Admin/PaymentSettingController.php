@@ -20,7 +20,7 @@ class PaymentSettingController extends Controller
             'paypal_client_id' => ['required'],
             'paypal_client_secret' => ['required'],
             'paypal_currency' => ['required'],
-            'paypal_rate' => ['required'],
+            'paypal_rate' => ['required','numeric'],
             'paypal_app_id' => ['required'],
         ]);
 
