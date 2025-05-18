@@ -26,6 +26,11 @@
     <link href="{{ asset('admin/assets/css/tabler.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('admin/assets/css/demo.min.css?1692870487') }}" rel="stylesheet" />
 
+<!-- jQuery (harus sebelum Select2) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css" rel="stylesheet" />
+
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -115,14 +120,20 @@
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <!-- Filemanager JS -->
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+        <!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script> --}}
     <script src="{{ asset('frontend/assets/js/jquery-ui.min.js') }}" defer></script>
 
 
     <script src="{{ asset('admin/assets/js/tabler.min.js?1692870487') }} " defer></script>
     <script src="{{ asset('admin/assets/js/demo.min.js?1692870487') }} " defer></script>
 
-
+<script>
+  $('.select2').select2({
+  theme: 'bootstrap4'
+});
+</script>
 
     @stack('scripts')
 </body>
