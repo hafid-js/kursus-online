@@ -118,13 +118,13 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::post('course-content/{course}/sort-chapter', [CourseContentController::class, 'updateSortChapter'])->name('course-content.update-sort-chapter');
 
     // payment setting routes
-    Route::get('payment-setting',[PaymentSettingController::class, 'index'])->name('payment-setting.index');
-    Route::post('paypal-setting',[PaymentSettingController::class, 'paypalSetting'])->name('paypal-setting.update');
+    Route::get('payment-setting', [PaymentSettingController::class, 'index'])->name('payment-setting.index');
+    Route::post('paypal-setting', [PaymentSettingController::class, 'paypalSetting'])->name('paypal-setting.update');
+    Route::post('stripe-setting', [PaymentSettingController::class, 'stripeSetting'])->name('stripe-setting.update');
 
 
-     // lfm routes
-     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
+    // lfm routes
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
     });
-
 });

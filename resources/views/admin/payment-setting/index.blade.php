@@ -26,8 +26,8 @@
                                                     aria-selected="true" role="tab">Paypal Setting</a>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <a href="#client-id" class="nav-link" data-bs-toggle="tab"
-                                                    aria-selected="false" role="tab" tabindex="-1">Profile</a>
+                                                <a href="#stripe-setting" class="nav-link" data-bs-toggle="tab"
+                                                    aria-selected="false" role="tab" tabindex="-1">Stripe Setting</a>
                                             </li>
                                             <li class="nav-item" role="presentation">
                                                 <a href="#client-server" class="nav-link" data-bs-toggle="tab"
@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="tab-content">
-                                            <div class="tab-pane active active" id="paypal-setting" role="tabpanel">
+                                            <div class="tab-pane active" id="paypal-setting" role="tabpanel">
                                                 <form action="{{ route('admin.paypal-setting.update') }}" method="POST">
                                                     @csrf
                                                     <div class="row">
@@ -104,17 +104,64 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="tab-pane" id="client-id" role="tabpanel">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="mb-3">
-                                                            <label for="form-label">Client ID</label>
-                                                            <input type="text" class="form-control" name="name"
-                                                                placeholder="Enter level name">
-                                                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                            <div class="tab-pane" id="stripe-setting" role="tabpanel">
+                                                <form action="{{ route('admin.stripe-setting.update') }}" method="POST">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <div class="mb-3">
+                                                                <label for="form-label">Stripe Status</label>
+                                                                <select name="stripe_status" class="form-control">
+                                                                    <option @selected(config('gateway_settings.stripe_status') == 'active') value="active">Active</option>
+                                                                    <option @selected(config('gateway_settings.stripe_status') == 'inactive') value="inactive">Inactive</option>
+                                                                </select>
+                                                                <x-input-error :messages="$errors->get('stripe_status')" class="mt-2" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <div class="mb-3">
+                                                                <label for="form-label">Currency</label>
+                                                                <select name="stripe_currency"
+                                                                    class="form-select select2 col-md-5">
+                                                                    @foreach (config('gateway_currencies.stripe_currencies') as $key => $value)
+                                                                        <option @selected(config('gateway_settings.stripe_currency') == $value) value="{{ $value }}">
+                                                                            {{ $value}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <x-input-error :messages="$errors->get('stripe_currency')" class="mt-2" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="mb-3">
+                                                                <label for="form-label">Rate (USD)</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="stripe_rate" placeholder="Enter Stripe Rate" value="{{ config('gateway_settings.stripe_rate') }}">
+                                                                <x-input-error :messages="$errors->get('stripe_rate')" class="mt-2" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-3">
+                                                                <label for="form-label">Publishable Key</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="stripe_publishable_key"
+                                                                    placeholder="Enter Stripe Publishable Key"  value="{{ config('gateway_settings.stripe_publishable_key') }}">
+                                                                <x-input-error :messages="$errors->get('stripe_publishable_key')" class="mt-2" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-3">
+                                                                <label for="form-label">Client Secret</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="stripe_secret"
+                                                                    placeholder="Enter Stripe Client Secret"  value="{{ config('gateway_settings.stripe_secret') }}">
+                                                                <x-input-error :messages="$errors->get('stripe_secret')" class="mt-2" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <div class="text-end">
+                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                             <div class="tab-pane" id="client-server" role="tabpanel">
                                                 <div class="row">
