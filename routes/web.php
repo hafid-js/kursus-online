@@ -32,6 +32,11 @@ Route::get('paypal/payment',[PaymentController::class, 'payWithPaypal'])->name('
 Route::get('paypal/success',[PaymentController::class, 'paypalSuccess'])->name('paypal.success');
 Route::get('paypal/cancel',[PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
 
+// stripe routes
+Route::get('stripe/payment',[PaymentController::class, 'payWithStripe'])->name('stripe.payment');
+Route::get('stripe/success',[PaymentController::class, 'stripeSuccess'])->name('stripe.success');
+Route::get('stripe/cancel',[PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
+
 Route::get('order-success',[PaymentController::class, 'orderSuccess'])->name('order.success');
 Route::get('order-failed',[PaymentController::class, 'orderFailed'])->name('order.failed');
 
