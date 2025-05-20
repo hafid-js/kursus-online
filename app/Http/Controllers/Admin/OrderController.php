@@ -12,4 +12,8 @@ class OrderController extends Controller
     $orders = Order::with(['customer'])->paginate(25);
      return view('admin.order.index', compact('orders'));
    }
+
+   function show(Order $order) {
+    return view('admin.order.show', compact('order'));
+   }
 }
