@@ -130,6 +130,7 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     // site setting route
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('general-settings', [SettingController::class, 'updateGeneralSettings'])->name('general-settings.update');
 
 
 
