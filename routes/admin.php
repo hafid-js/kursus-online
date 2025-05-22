@@ -132,6 +132,9 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('general-settings', [SettingController::class, 'updateGeneralSettings'])->name('general-settings.update');
 
+    Route::get('commision-settings', [SettingController::class, 'commisionSettingIndex'])->name('commision-settings.index');
+    Route::post('commision-settings', [SettingController::class, 'updateCommisionSetting'])->name('commision-settings.update');
+
 
 
     // lfm routes
