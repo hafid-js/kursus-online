@@ -8,9 +8,9 @@
                 <div class="row g-3">
                     <div class="col-md-12">
                         <div class="form-label">Instructor Commision Rate Per Sale (%)</div>
-                        <input type="text" class="form-control" name="commision_rate"
-                            value="{{ config('settings.commision_rate') }}">
-                        <x-input-error :messages="$errors->get('commision_rate')" class="mt-2" />
+                        <input type="text" class="form-control" name="commission_rate"
+                            value="{{ config('settings.commission_rate') }}">
+                        <x-input-error :messages="$errors->get('commission_rate')" class="mt-2" />
                     </div>
                 </div>
             </div>

@@ -45,3 +45,9 @@ if(!function_exists('cartTotal')) {
         return $total;
     }
 }
+
+if(function_exists('calculateCommission')) {
+    function calculateCommission($amount, $commision) {
+        return $amount == 0 ? 0 : ($amount * $commision) / 100;
+    }
+}

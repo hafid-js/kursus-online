@@ -46,7 +46,7 @@ class SettingController extends Controller
 
     function updateCommisionSetting(Request $request) : RedirectResponse {
         $validatedData = $request->validate([
-            'commision_rate' => ['required','numeric'],
+            'commission_rate' => ['required','numeric'],
         ]);
 
         foreach ($validatedData as $key => $value) {
