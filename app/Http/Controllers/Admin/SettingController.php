@@ -40,11 +40,11 @@ class SettingController extends Controller
         return redirect()->back();
     }
 
-    function commisionSettingIndex() {
-        return view('admin.setting.commision-settings');
+    function commissionSettingIndex() {
+        return view('admin.setting.commission-settings');
     }
 
-    function updateCommisionSetting(Request $request) : RedirectResponse {
+    function updatecommissionSetting(Request $request) : RedirectResponse {
         $validatedData = $request->validate([
             'commission_rate' => ['required','numeric'],
         ]);

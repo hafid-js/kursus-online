@@ -36,7 +36,7 @@ class OrderService
             foreach ($cartItems as $item) {
                 $orderItem = new OrderItem();
                 $orderItem->order_id = $order->id;
-                $orderItem->price = $item->course->price;
+                $orderItem->price = $item->course->discount > 0 ? $item->course->discount : $item->course->price;
                 $orderItem->course_id = $item->course->id;
                 $orderItem->commission_rate = config('settings.commission_rate');
                 $orderItem->save();
@@ -50,7 +50,8 @@ class OrderService
 
                 // add commission to instructor wallet
                 $instructorWallet = $item->course->instructor;
-                $instructorWallet->wallet += calculateCommission($item->course->price
+                $instructorWallet->wallet += calculateCommission($item->course->discount > 0 ? $item->course->discount : $item->course->price, config('settings.commission_rate'));
+                $instructorWallet->save();
             }
             // delete cart items
             $cart->delete();

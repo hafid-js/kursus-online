@@ -16,7 +16,8 @@
                 <li>
                     <a href="#">
                         <span>
-                            <img src="{{ asset('frontend/assets/images/menu_category_icon_1.png') }}" alt="Category" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/menu_category_icon_1.png') }}" alt="Category"
+                                class="img-fluid">
                         </span>
                         Development
                     </a>
@@ -30,7 +31,8 @@
                 <li>
                     <a href="#">
                         <span>
-                            <img src="{{ asset('frontend/assets/images/menu_category_icon_2.png') }}" alt="Category" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/menu_category_icon_2.png') }}" alt="Category"
+                                class="img-fluid">
                         </span>
                         Business
                     </a>
@@ -44,7 +46,8 @@
                 <li>
                     <a href="#">
                         <span>
-                            <img src="{{ asset('frontend/assets/images/menu_category_icon_3.png') }}" alt="Category" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/menu_category_icon_3.png') }}" alt="Category"
+                                class="img-fluid">
                         </span>
                         Marketing
                     </a>
@@ -58,7 +61,8 @@
                 <li>
                     <a href="#">
                         <span>
-                            <img src="{{ asset('frontend/assets/images/menu_category_icon_4.png') }}" alt="Category" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/menu_category_icon_4.png') }}" alt="Category"
+                                class="img-fluid">
                         </span>
                         Lifestyle
                     </a>
@@ -72,7 +76,8 @@
                 <li>
                     <a href="#">
                         <span>
-                            <img src="{{ asset('frontend/assets/images/menu_category_icon_5.png') }}" alt="Category" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/menu_category_icon_5.png') }}" alt="Category"
+                                class="img-fluid">
                         </span>
                         Health & Fitness
                     </a>
@@ -86,7 +91,8 @@
                 <li>
                     <a href="#">
                         <span>
-                            <img src="{{ asset('frontend/assets/images/menu_category_icon_6.png') }}" alt="Category" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/menu_category_icon_6.png') }}" alt="Category"
+                                class="img-fluid">
                         </span>
                         Design
                     </a>
@@ -100,7 +106,8 @@
                 <li>
                     <a href="#">
                         <span>
-                            <img src="{{ asset('frontend/assets/images/menu_category_icon_7.png') }}" alt="Category" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/menu_category_icon_7.png') }}" alt="Category"
+                                class="img-fluid">
                         </span>
                         Academics
                     </a>
@@ -136,7 +143,8 @@
                 <li>
                     <a class="menu_signin" href="{{ route('cart.index') }}">
                         <span>
-                            <img src="{{ asset('frontend/assets/images/cart_icon_black.png') }}" alt="user" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/cart_icon_black.png') }}" alt="user"
+                                class="img-fluid">
                         </span>
                         <b>06</b>
                     </a>
@@ -144,14 +152,26 @@
                 <li>
                     <a class="admin" href="#">
                         <span>
-                            <img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="user" class="img-fluid">
+                            <img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="user"
+                                class="img-fluid">
                         </span>
                         admin
                     </a>
                 </li>
-                <li>
-                    <a class="common_btn" href="{{ route('login') }}">Sign In</a>
-                </li>
+
+                @auth
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="common_btn">Log Out</button>
+                        </form>
+                    </li>
+                @else
+                    <li>
+                        <a class="common_btn" href="{{ route('login') }}">Sign In</a>
+                    </li>
+                @endauth
+
             </ul>
         </div>
 

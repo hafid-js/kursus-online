@@ -35,6 +35,14 @@
                     Courses
                 </a>
             </li>
+               <li>
+                <a href="{{ route('instructor.orders.index') }}">
+                    <div class="img">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                    </div>
+                    Orders
+                </a>
+            </li>
             <li>
                 <a href="javascript:;" onclick="event.preventDefault();
                                         $('#logout').submit();">

@@ -1,13 +1,13 @@
 @extends('admin.setting.layout')
 @section('setting-content')
     <div class="col-12 col-md-9 d-flex flex-column">
-        <form action="{{ route('admin.commision-settings.update') }}" method="POST">
+        <form action="{{ route('admin.commission-settings.update') }}" method="POST">
             @csrf
             <div class="card-body">
-                <h3 class="card-title mt-4">Commision Settings</h3>
+                <h3 class="card-title mt-4">commission Settings</h3>
                 <div class="row g-3">
                     <div class="col-md-12">
-                        <div class="form-label">Instructor Commision Rate Per Sale (%)</div>
+                        <div class="form-label">Instructor commission Rate Per Sale (%)</div>
                         <input type="text" class="form-control" name="commission_rate"
                             value="{{ config('settings.commission_rate') }}">
                         <x-input-error :messages="$errors->get('commission_rate')" class="mt-2" />
