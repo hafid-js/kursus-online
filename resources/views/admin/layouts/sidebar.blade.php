@@ -297,7 +297,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.orders.index') }}">
+                    <a class="nav-link" href="{{ route('admin.payout-gateway.index') }}">
                         <span
                             class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
                             <svg xmlns="http://www.w3.org/2000/svg') }}" class="icon" width="24"
