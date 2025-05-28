@@ -2,7 +2,8 @@
     <div class="wsus__dashboard_sidebar">
         <div class="wsus__dashboard_sidebar_top">
             <div class="dashboard_banner">
-                <img src="{{ asset('frontend/assets/images/single_topic_sidebar_banner.jpg') }}" alt="img" class="img-fluid">
+                <img src="{{ asset('frontend/assets/images/single_topic_sidebar_banner.jpg') }}" alt="img"
+                    class="img-fluid">
             </div>
             <div class="img">
                 <img src="{{ asset(auth()->user()->image) }}" alt="profile" class="img-fluid w-100">
@@ -14,7 +15,8 @@
             <li>
                 <a href="dashboard.html" class="active">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon"
+                            class="img-fluid w-100">
                     </div>
                     Dashboard
                 </a>
@@ -22,7 +24,8 @@
             <li>
                 <a href="{{ route('instructor.profile.index') }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon"
+                            class="img-fluid w-100">
                     </div>
                     Instructor Profile
                 </a>
@@ -30,24 +33,37 @@
             <li>
                 <a href="{{ route('instructor.courses.index') }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon"
+                            class="img-fluid w-100">
                     </div>
                     Courses
                 </a>
             </li>
-               <li>
+            <li>
                 <a href="{{ route('instructor.orders.index') }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon"
+                            class="img-fluid w-100">
                     </div>
                     Orders
                 </a>
             </li>
             <li>
-                <a href="javascript:;" onclick="event.preventDefault();
+                <a href="{{ route('instructor.withdraw.index') }}">
+                    <div class="img">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon"
+                            class="img-fluid w-100">
+                    </div>
+                    Withdrawals
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;"
+                    onclick="event.preventDefault();
                                         $('#logout').submit();">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_16.png') }}" alt="icon" class="img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_16.png') }}" alt="icon"
+                            class="img-fluid w-100">
                     </div>
                     Sign Out
                 </a>

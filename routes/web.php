@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\StudentDashboardController;
+use App\Http\Controllers\Frontend\WithdrawController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -89,6 +90,12 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
 
     // orders routes
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+
+
+    // withdrawal routes
+    Route::get('withdrawals', [WithdrawController::class, 'index'])->name('withdraw.index');
+    Route::get('withdrawals/request-payout', [WithdrawController::class, 'requestPayoutIndex'])->name('withdraw.request-payout');
+    Route::post('withdrawals/request-payout', [WithdrawController::class, 'requestPayout'])->name('withdraw.request-payout.create');
 
 
 

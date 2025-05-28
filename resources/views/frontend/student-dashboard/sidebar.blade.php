@@ -27,6 +27,14 @@
                     Profile
                 </a>
             </li>
+             <li>
+                <a href="{{ route('student.profile.index') }}">
+                    <div class="img">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                    </div>
+                    Enrolled Courses
+                </a>
+            </li>
             <li>
                 <a href="javascript:;" onclick="event.preventDefault();
                                         $('#logout').submit();">
