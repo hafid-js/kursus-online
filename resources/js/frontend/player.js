@@ -45,8 +45,8 @@ function updateWatchHistory(courseId, chapterId, lessonId) {
 // on DOM load
 
 $(".lesson").on("click", function () {
-    // ('.lesson').removeClass('active');
-    // $(this).addClass('active');
+   $(".lesson").removeClass("active");
+    $(this).addClass('active');
 
     let chapterId = $(this).data("chapter-id");
     let lessonId = $(this).data("lesson-id");
@@ -78,6 +78,31 @@ $(".lesson").on("click", function () {
 
             // update watch history
             updateWatchHistory(courseId, chapterId, lessonId);
+        },
+        error: function (xhr, status, error) {},
+    });
+});
+
+$(".make_completed").on("click", function () {
+   $(".lesson").removeClass("active");
+    $(this).addClass('active');
+
+    let chapterId = $(this).data("chapter-id");
+    let lessonId = $(this).data("lesson-id");
+    let courseId = $(this).data("course-id");
+
+    $.ajax({
+        method: "POST",
+        url: `${base_url}/student/update-lesson-completion`,
+        data: {
+             '_token': csrf_token,
+            'chapter_id': chapterId,
+            'lesson_id': lessonId,
+            'course_id': courseId
+        },
+        beforeSend: function () {},
+        success: function (data) {
+
         },
         error: function (xhr, status, error) {},
     });

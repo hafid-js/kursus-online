@@ -15721,3 +15721,8 @@ select {
   .file_type_inner div img {
     width: 80px !important;
   }
+
+  .form-check-label.lesson.active {
+    color: #356df1;
+    font-weight: 600;
+  }

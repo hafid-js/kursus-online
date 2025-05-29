@@ -23,8 +23,8 @@ class EnrolledCourseController extends Controller
         $course = Course::where('slug', $slug)->firstOrFail();
 
         if (!Enrollment::where('user_id', user()->id)->where('course_id', $course->id)->where('have_access', 1)->exists()) return abort(404);
-               $lastWatchHistory = WatchHistory::where(['user_id' => user()->id, 'course_id' => $course->id])->latest()->first();
-        return view('frontend.student-dashboard.enrolled-course.player-index', compact('course','lastWatchHistory'));
+        $lastWatchHistory = WatchHistory::where(['user_id' => user()->id, 'course_id' => $course->id])->orderBy('updated_at','desc')->first();
+        return view('frontend.student-dashboard.enrolled-course.player-index', compact('course', 'lastWatchHistory'));
     }
 
     function getLessonContent(Request $request)
@@ -37,12 +37,22 @@ class EnrolledCourseController extends Controller
 
         return response()->json($lesson);
     }
-    function updateWatchHistory(Request $request) {
+    function updateWatchHistory(Request $request)
+    {
         WatchHistory::updateOrCreate([
-            'user_id' => user()->id,
-            'course_id' => $request->course_id,
-            'chapter_id' => $request->chapter_id,
-            'lesson_id' => $request->lesson_id
+            [
+                'user_id' => user()->id,
+                'lesson_id' => $request->lesson_id
+            ],
+            [
+                'course_id' => $request->course_id,
+                'chapter_id' => $request->chapter_id,
+                'updated_at' => now()
+            ]
         ]);
+    }
+
+    function updateLessonCompletion(Request $request) {
+        dd($request->all);
     }
 }
