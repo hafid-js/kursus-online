@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="base_url" content="{{ url('/') }}">
+    <meta name="csrf_token" content="{{ csrf_token() }}">
     <title>EduCore - Online Courses & Education HTML Template</title>
     <link rel="icon" type="image/png" href="images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/all.min.css') }}">
@@ -29,6 +29,7 @@
     <link rel=" stylesheet" href="{{ asset('frontend/assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
+    @vite(['resources/js/frontend/player.js']);
 </head>
 
 <body class="home_3">
@@ -62,9 +63,8 @@
                 <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/webm" />
             </video> -->
 
-            <video id="vid1" class="video-js vjs-default-skin" controls autoplay width="640" height="264"
-                data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://youtu.be/fsSN6jDtJdY?si=E5_FJf6kT2d679GO"}] }'>
-            </video>
+            <div class="video_holder">
+            </div>
 
             <div class="video_tabs_area">
                 <ul class="nav nav-pills" id="pills-tab2" role="tablist">
@@ -80,18 +80,18 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-                            aria-selected="false">Q&A</button>
+                            data-bs-target="#pills-profile" type="button" role="tab"
+                            aria-controls="pills-profile" aria-selected="false">Q&A</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
-                            aria-selected="false">Announcements</button>
+                            data-bs-target="#pills-contact" type="button" role="tab"
+                            aria-controls="pills-contact" aria-selected="false">Announcements</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-disabled" type="button" role="tab" aria-controls="pills-disabled"
-                            aria-selected="false">Reviews</button>
+                            data-bs-target="#pills-disabled" type="button" role="tab"
+                            aria-controls="pills-disabled" aria-selected="false">Reviews</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
@@ -118,8 +118,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -129,8 +129,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -140,9 +140,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -165,8 +168,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -176,8 +179,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -187,9 +190,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -212,8 +218,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -223,8 +229,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -234,9 +240,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -259,8 +268,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -270,8 +279,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -281,9 +290,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -306,8 +318,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -317,8 +329,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -328,9 +340,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -353,8 +368,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -364,8 +379,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -375,9 +390,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -400,8 +418,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -411,8 +429,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -422,9 +440,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -447,8 +468,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -458,8 +479,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -469,9 +490,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -494,8 +518,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -505,8 +529,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -516,9 +540,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -541,8 +568,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -552,8 +579,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -563,9 +590,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -588,8 +618,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -599,8 +629,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -610,9 +640,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -635,8 +668,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -646,8 +679,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -657,9 +690,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -682,8 +718,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -693,8 +729,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -704,9 +740,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -729,8 +768,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -740,8 +779,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -751,9 +790,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -776,8 +818,8 @@
                                                     <label class="form-check-label">
                                                         1_Setting up Environment (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -787,8 +829,8 @@
                                                     <label class="form-check-label">
                                                         2_Environment Setup for Project (Part - 1)
                                                         <span>
-                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video"
-                                                                class="img-fluid">
+                                                            <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                                alt="video" class="img-fluid">
                                                             06.03
                                                         </span>
                                                     </label>
@@ -798,9 +840,12 @@
                                                         <i class="fas fa-folder-open"></i> Resources
                                                     </button>
                                                     <ul>
-                                                        <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                                        <li><a class="dropdown-item" href="#">Resources 03</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources File
+                                                                01</a></li>
+                                                        <li><a class="dropdown-item" href="#">Resources 02</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Resources 03</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -886,8 +931,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-                        tabindex="0">
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                        aria-labelledby="pills-profile-tab" tabindex="0">
                         <div class="video_qna">
 
                             <div class="qna_list_area">
@@ -922,10 +967,12 @@
                                     <h3>All questions in this course (14)</h3>
                                     <div class="video_qna_list_item">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/assets/images/testimonial_user_1.png') }}" alt="img">
+                                            <img src="{{ asset('frontend/assets/images/testimonial_user_1.png') }}"
+                                                alt="img">
                                         </div>
                                         <div class="text">
-                                            <a class="qna_title" href="#">mailtrap.io doe not send email verifications
+                                            <a class="qna_title" href="#">mailtrap.io doe not send email
+                                                verifications
                                                 directly to the user's
                                                 email?</a>
                                             <p>Hi, how do I make mailtrap.io send the email verification directly to the
@@ -940,10 +987,12 @@
                                     </div>
                                     <div class="video_qna_list_item">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/assets/images/testimonial_user_2.png') }}" alt="img">
+                                            <img src="{{ asset('frontend/assets/images/testimonial_user_2.png') }}"
+                                                alt="img">
                                         </div>
                                         <div class="text">
-                                            <a class="qna_title" href="#">mailtrap.io doe not send email verifications
+                                            <a class="qna_title" href="#">mailtrap.io doe not send email
+                                                verifications
                                                 directly to the user's
                                                 email?</a>
                                             <p>Hi, how do I make mailtrap.io send the email verification directly to the
@@ -958,10 +1007,12 @@
                                     </div>
                                     <div class="video_qna_list_item">
                                         <div class="img">
-                                            <img src="{{ asset('frontend/assets/images/testimonial_user_3.png') }}" alt="img">
+                                            <img src="{{ asset('frontend/assets/images/testimonial_user_3.png') }}"
+                                                alt="img">
                                         </div>
                                         <div class="text">
-                                            <a class="qna_title" href="#">mailtrap.io doe not send email verifications
+                                            <a class="qna_title" href="#">mailtrap.io doe not send email
+                                                verifications
                                                 directly to the user's
                                                 email?</a>
                                             <p>Hi, how do I make mailtrap.io send the email verification directly to the
@@ -983,10 +1034,12 @@
 
                                 <div class="video_qna_list_item">
                                     <div class="img">
-                                        <img src="{{ asset('frontend/assets/images/review-author.png') }}" alt="img">
+                                        <img src="{{ asset('frontend/assets/images/review-author.png') }}"
+                                            alt="img">
                                     </div>
                                     <div class="text">
-                                        <a class="qna_title" href="#">mailtrap.io doe not send email verifications
+                                        <a class="qna_title" href="#">mailtrap.io doe not send email
+                                            verifications
                                             directly to the user's
                                             email?</a>
                                         <p>Hi, how do I make mailtrap.io send the email verification directly to the
@@ -1006,7 +1059,8 @@
 
                                 <div class="qns_details_list_item video_qna_list_item">
                                     <div class="img">
-                                        <img src="{{ asset('frontend/assets/images/review-author.png') }}" alt="img">
+                                        <img src="{{ asset('frontend/assets/images/review-author.png') }}"
+                                            alt="img">
                                     </div>
                                     <div class="text">
                                         <a class="qna_title" href="#">Smith jhon</a>
@@ -1025,7 +1079,8 @@
 
                                 <div class="qns_details_list_item video_qna_list_item">
                                     <div class="img">
-                                        <img src="{{ asset('frontend/assets/images/review-author.png') }}" alt="img">
+                                        <img src="{{ asset('frontend/assets/images/review-author.png') }}"
+                                            alt="img">
                                     </div>
                                     <div class="text">
                                         <a class="qna_title" href="#">Smith jhon</a>
@@ -1044,7 +1099,8 @@
 
                                 <div class="qns_details_list_item video_qna_list_item">
                                     <div class="img">
-                                        <img src="{{ asset('frontend/assets/images/review-author.png') }}" alt="img">
+                                        <img src="{{ asset('frontend/assets/images/review-author.png') }}"
+                                            alt="img">
                                     </div>
                                     <div class="text">
                                         <a class="qna_title" href="#">Smith jhon</a>
@@ -1072,21 +1128,22 @@
 
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"
-                        tabindex="0">
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                        aria-labelledby="pills-contact-tab" tabindex="0">
                         <div class="video_announcement">
                             <h1>No announcements posted yet</h1>
                             <p>The instructor hasn’t added any announcements to this course yet. Announcements are used
                                 to inform you of updates or additions to the course.</p>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab"
-                        tabindex="0">
+                    <div class="tab-pane fade" id="pills-disabled" role="tabpanel"
+                        aria-labelledby="pills-disabled-tab" tabindex="0">
                         <div class="video_review">
                             <h2>Reviews (09)</h2>
                             <div class="course-review-head">
                                 <div class="review-author-thumb">
-                                    <img src="{{ asset('frontend/assets/images/review-author.png') }}" alt="img">
+                                    <img src="{{ asset('frontend/assets/images/review-author.png') }}"
+                                        alt="img">
                                 </div>
                                 <div class="review-author-content">
                                     <div class="author-name">
@@ -1107,7 +1164,8 @@
                             </div>
                             <div class="course-review-head">
                                 <div class="review-author-thumb">
-                                    <img src="{{ asset('frontend/assets/images/review-author.png') }}" alt="img">
+                                    <img src="{{ asset('frontend/assets/images/review-author.png') }}"
+                                        alt="img">
                                 </div>
                                 <div class="review-author-content">
                                     <div class="author-name">
@@ -1128,7 +1186,8 @@
                             </div>
                             <div class="course-review-head">
                                 <div class="review-author-thumb">
-                                    <img src="{{ asset('frontend/assets/images/review-author.png') }}" alt="img">
+                                    <img src="{{ asset('frontend/assets/images/review-author.png') }}"
+                                        alt="img">
                                 </div>
                                 <div class="review-author-content">
                                     <div class="author-name">
@@ -1174,70 +1233,34 @@
         <div class="wsus__course_sidebar d-none d-lg-block">
             <h2 class="video_heading">Course Content</h2>
             <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <b>Introduction</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <b>Project Setup and Multi Auth Setup</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
+                @foreach ($course->chapters as $chapter)
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse-{{ $chapter->id }}" aria-expanded="true"
+                                aria-controls="collapse-{{ $chapter->id }}">
+                                <b>{{ $chapter->title }}</b>
+                                <span>5/5</span>
+                            </button>
+                        </h2>
+                        <div id="collapse-{{ $chapter->id }}" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                @foreach ($chapter->lessons as $lesson)
+                                    <div class="form-check lesson" data-course-id="{{ $course->id }}"
+                                        data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}">
+                                        <input class="form-check-input" type="checkbox" value="">
+                                        <label class="form-check-label">
+                                            {{ $lesson->title }}
+                                            <span>
+                                                <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}"
+                                                    alt="video" class="img-fluid">
+                                                {{ convertMinutesToHours($lesson->duration) }}
+                                            </span>
+                                        </label>
+                                    </div>
+                                @endforeach
+                                {{-- <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="">
                                 <label class="form-check-label">
                                     2_Environment Setup for Project (Part - 1)
@@ -1246,8 +1269,8 @@
                                         06.03
                                     </span>
                                 </label>
-                            </div>
-                            <div class="dropdown">
+                            </div> --}}
+                                {{-- <div class="dropdown">
                                 <button class="btn btn-secondary" type="button">
                                     <i class="fas fa-folder-open"></i> Resources
                                 </button>
@@ -1256,569 +1279,11 @@
                                     <li><a class="dropdown-item" href="#">Resources 02</a></li>
                                     <li><a class="dropdown-item" href="#">Resources 03</a></li>
                                 </ul>
+                            </div> --}}
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <b>Admin Panel Setup and Mastering</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree1" aria-expanded="false" aria-controls="collapseThree1">
-                            <b>Frontend Template Setup and Mastering</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree2" aria-expanded="false" aria-controls="collapseThree2">
-                            <b>Project Road Map Planning</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree2" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree3" aria-expanded="false" aria-controls="collapseThree3">
-                            <b>Company Profile Setup</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree3" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree4" aria-expanded="false" aria-controls="collapseThree4">
-                            <b>Source and Database</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree5" aria-expanded="false" aria-controls="collapseThree5">
-                            <b>Congratulations! You did it!</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree5" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTwo6" aria-expanded="false" aria-controls="collapseTwo6">
-                            <b>Project Setup and Multi Auth Setup</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseTwo6" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree7" aria-expanded="false" aria-controls="collapseThree7">
-                            <b>Admin Panel Setup and Mastering</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree7" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree8" aria-expanded="false" aria-controls="collapseThree8">
-                            <b>Frontend Template Setup and Mastering</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree8" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree9" aria-expanded="false" aria-controls="collapseThree9">
-                            <b>Project Road Map Planning</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree9" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree10" aria-expanded="false" aria-controls="collapseThree10">
-                            <b>Company Profile Setup</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree10" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree11" aria-expanded="false" aria-controls="collapseThree11">
-                            <b>Source and Database</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree11" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree12" aria-expanded="false" aria-controls="collapseThree12">
-                            <b>Congratulations! You did it!</b>
-                            <span>5/5</span>
-                        </button>
-                    </h2>
-                    <div id="collapseThree12" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    1_Setting up Environment (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <label class="form-check-label">
-                                    2_Environment Setup for Project (Part - 1)
-                                    <span>
-                                        <img src="{{ asset('frontend/assets/images/video_icon_black_2.png') }}" alt="video" class="img-fluid">
-                                        06.03
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-folder-open"></i> Resources
-                                </button>
-                                <ul>
-                                    <li><a class="dropdown-item" href="#">Resources File 01</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 02</a></li>
-                                    <li><a class="dropdown-item" href="#">Resources 03</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
