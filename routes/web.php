@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CourseContentController;
 use App\Http\Controllers\Frontend\CourseController;
 use App\Http\Controllers\Frontend\CoursePageController;
+use App\Http\Controllers\Frontend\EnrolledCourseController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\InstructorDashboardController;
 use App\Http\Controllers\Frontend\OrderController;
@@ -30,17 +31,17 @@ Route::get('remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->
 // payment routes
 Route::get('checkout', CheckoutController::class)->name('checkout.index');
 
-Route::get('paypal/payment',[PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
-Route::get('paypal/success',[PaymentController::class, 'paypalSuccess'])->name('paypal.success');
-Route::get('paypal/cancel',[PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
+Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
+Route::get('paypal/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.success');
+Route::get('paypal/cancel', [PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
 
 // stripe routes
-Route::get('stripe/payment',[PaymentController::class, 'payWithStripe'])->name('stripe.payment');
-Route::get('stripe/success',[PaymentController::class, 'stripeSuccess'])->name('stripe.success');
-Route::get('stripe/cancel',[PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
+Route::get('stripe/payment', [PaymentController::class, 'payWithStripe'])->name('stripe.payment');
+Route::get('stripe/success', [PaymentController::class, 'stripeSuccess'])->name('stripe.success');
+Route::get('stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
 
-Route::get('order-success',[PaymentController::class, 'orderSuccess'])->name('order.success');
-Route::get('order-failed',[PaymentController::class, 'orderFailed'])->name('order.failed');
+Route::get('order-success', [PaymentController::class, 'orderSuccess'])->name('order.success');
+Route::get('order-failed', [PaymentController::class, 'orderFailed'])->name('order.failed');
 
 // Student Routes
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {
@@ -53,6 +54,10 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'p
     Route::post('profile/update', [ProfileController::class, 'profileUpdate'])->name('profile.update');
     Route::post('profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
     Route::post('profile/update-social', [ProfileController::class, 'updateSocial'])->name('profile.update-social');
+
+    // enroll course routes
+    Route::get('enrolled-courses', [EnrolledCourseController::class, 'index'])->name('enrolled-courses.index');
+    Route::get('course-player/{slug}', [EnrolledCourseController::class, 'playerIndex'])->name('course-player.index');
 });
 
 // Instructor Routes
