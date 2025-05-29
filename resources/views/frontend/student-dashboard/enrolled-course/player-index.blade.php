@@ -1336,6 +1336,26 @@
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
+    <script>
+        $(function() {
+            let lessons = $('.lesson');
+
+            $.each(lessons, function(index, lesson) {
+                let chapterId = $(lesson).data('chapter-id');
+                let courseId = $(lesson).data('course-id');
+                let lessonId = $(lesson).data('lesson-id');
+
+                if (
+                    chapterId == {{  $lastWatchHistory->chapter_id }} &&
+                    courseId == {{ $lastWatchHistory->course_id }} &&
+                    lessonId == {{ $lastWatchHistory->lesson_id }}
+                ) {
+                    $(lesson).click();
+                }
+            })
+        })
+    </script>
+
 </body>
 
 </html>
