@@ -8,12 +8,16 @@ var youtubeHtml = `<video id="vid1" class="video-js vjs-default-skin" controls a
 
 // reusables function
 function playerHtml(source_type, source) {
-    if(source_type == 'youtube') {
+    if (source_type == "youtube") {
         let player = `<video id="vid1" class="video-js vjs-default-skin" controls autoplay width="640" height="264"
                 data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "${source}"}] }'>
             </video>`;
-
-            return player;
+        return player;
+    } else if (source_type == "vimeo") {
+        let player = `<video id="vid1" class="video-js" width="640" height="264"
+    data-setup='{ "techOrder": ["vimeo"], "sources": [{ "type": "video/vimeo", "src": "${source}"}], "vimeo": { "color": "#fbc51b"} }'>
+  </video>`;
+        return player;
     }
 }
 
@@ -37,18 +41,18 @@ $(".lesson").on("click", function () {
         },
         beforeSend: function () {},
         success: function (data) {
-            $('.video_holder').html(playerHtml(data.storage, data.file_path));
+            $(".video_holder").html(playerHtml(data.storage, data.file_path));
 
             // resetting any existing player
-            if(videojs.getPlayers()["vid1"]){
+            if (videojs.getPlayers()["vid1"]) {
                 videojs.getPlayers()["vid1"].dispose();
             }
 
             // initializing the player
-            if($("#vid1").length > 0) {
-                videojs("vid1").ready(function() {
+            if ($("#vid1").length > 0) {
+                videojs("vid1").ready(function () {
                     this.play();
-                })
+                });
             }
         },
         error: function (xhr, status, error) {},

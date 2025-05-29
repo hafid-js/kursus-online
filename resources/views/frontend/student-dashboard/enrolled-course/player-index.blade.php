@@ -64,6 +64,7 @@
             </video> -->
 
             <div class="video_holder">
+
             </div>
 
             <div class="video_tabs_area">
@@ -1328,6 +1329,7 @@
     <!--Video player js-->
     <script src="{{ asset('frontend/assets/js/video_player.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/video_player_youtube.js') }}"></script>
+        <script src="{{ asset('frontend/assets/js/videojs-vimeo.umd.js') }}"></script>
     <!--wow js-->
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
 

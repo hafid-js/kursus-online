@@ -4,7 +4,7 @@ return [
     'video_sources' => [
         'upload' => 'Upload',
         'youtube' => 'Youtube',
-        'vimeo' => 'Vimep',
+        'vimeo' => 'Vimeo',
         'external_link' => 'External Link'
     ],
     'file_type' => [
