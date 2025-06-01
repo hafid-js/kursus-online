@@ -4,7 +4,7 @@ const base_url = $(`meta[name="base_url"]`).attr("content");
 // notyf init
 var notyf = new Notyf({
     duration: 5000,
-    dismissible: true
+    dismissible: true,
 });
 
 // html
@@ -13,7 +13,7 @@ var youtubeHtml = `<video id="vid1" class="video-js vjs-default-skin" controls a
             </video>`;
 
 // reusables function
-function playerHtml(source_type, source, file_type) {
+function playerHtml(id, source_type, source, file_type) {
     if (source_type == "youtube") {
         let player = `<video id="vid1" class="video-js vjs-default-skin" controls autoplay width="640" height="264"
                 data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "${source}"}] }'>
@@ -24,11 +24,21 @@ function playerHtml(source_type, source, file_type) {
     data-setup='{ "techOrder": ["vimeo"], "sources": [{ "type": "video/vimeo", "src": "${source}"}], "vimeo": { "color": "#fbc51b"} }'>
   </video>`;
         return player;
-    }
-    else if (source_type == "upload" || source_type == "external_link") {
-        if(file_type == 'doc') {
+    } else if (source_type == "upload" || source_type == "external_link") {
+        if (file_type == "doc") {
             renderDocPreview(source);
             return;
+        } else if (file_type == "file") {
+            let player = `
+    <div class="file_type">
+            <div class="file_type_inner">
+                    <div><img src="${base_url}/default-files/folder.png" alt=""></div>
+                    <h6 class="mt-2">Type: File</h6>
+                    ${source_type == 'external_link' ? `<a href="${source}" target="_blank" class="common_btn mt-3">Download</a>` : `<a href="${base_url}/student/file-download/${id}" class="common_btn mt-3">Download</a>`}
+
+            </div>
+        </div>`;
+            return player;
         }
         let player = `<iframe src="${source}" width="640" height="264" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`;
         return player;
@@ -38,15 +48,16 @@ function playerHtml(source_type, source, file_type) {
 async function renderDocPreview(url) {
     const response = await fetch(url);
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
     }
 
     const blob = await response.blob();
 
-    docx.renderAsync(blob, document.getElementsByClassName("video_holder")[0]).then(
-        x => console.log('docx: finished')
-    );
+    docx.renderAsync(
+        blob,
+        document.getElementsByClassName("video_holder")[0]
+    ).then((x) => console.log("docx: finished"));
 }
 
 function updateWatchHistory(courseId, chapterId, lessonId) {
@@ -54,14 +65,13 @@ function updateWatchHistory(courseId, chapterId, lessonId) {
         method: "POST",
         url: `${base_url}/student/update-watch-history`,
         data: {
-            '_token': csrf_token,
-           'chapter_id': chapterId,
-            'lesson_id': lessonId,
-            'course_id': courseId
+            _token: csrf_token,
+            chapter_id: chapterId,
+            lesson_id: lessonId,
+            course_id: courseId,
         },
         beforeSend: function () {},
-        success: function (data) {
-        },
+        success: function (data) {},
         error: function (xhr, status, error) {},
     });
 }
@@ -69,8 +79,8 @@ function updateWatchHistory(courseId, chapterId, lessonId) {
 // on DOM load
 
 $(".lesson").on("click", function () {
-   $(".lesson").removeClass("active");
-    $(this).addClass('active');
+    $(".lesson").removeClass("active");
+    $(this).addClass("active");
 
     let chapterId = $(this).data("chapter-id");
     let lessonId = $(this).data("lesson-id");
@@ -80,18 +90,20 @@ $(".lesson").on("click", function () {
         method: "GET",
         url: `${base_url}/student/get-lesson-content`,
         data: {
-            'chapter_id': chapterId,
-            'lesson_id': lessonId,
-            'course_id': courseId
+            chapter_id: chapterId,
+            lesson_id: lessonId,
+            course_id: courseId,
         },
         beforeSend: function () {
-            $('.about_lecture').text('Loading...');
+            $(".about_lecture").text("Loading...");
         },
         success: function (data) {
-            $(".video_holder").html(playerHtml(data.storage, data.file_path, data.file_type));
+            $(".video_holder").html(
+                playerHtml(data.id, data.storage, data.file_path, data.file_type)
+            );
 
             // load about lecture description
-            $('.about_lecture').text(data.description);
+            $(".about_lecture").text(data.description);
 
             // resetting any existing player
             if (videojs.getPlayers()["vid1"]) {
@@ -112,20 +124,19 @@ $(".lesson").on("click", function () {
     });
 });
 
-$('.make_completed').on('click', function () {
-
-    let chapterId = $(this).data('chapter-id');
-    let lessonId = $(this).data('lesson-id');
-    let courseId = $(this).data('course-id');
+$(".make_completed").on("click", function () {
+    let chapterId = $(this).data("chapter-id");
+    let lessonId = $(this).data("lesson-id");
+    let courseId = $(this).data("course-id");
 
     $.ajax({
-        method: 'POST',
+        method: "POST",
         url: `${base_url}/student/update-lesson-completion`,
         data: {
-             '_token': csrf_token,
-            'chapter_id': chapterId,
-            'lesson_id': lessonId,
-            'course_id': courseId
+            _token: csrf_token,
+            chapter_id: chapterId,
+            lesson_id: lessonId,
+            course_id: courseId,
         },
         beforeSend: function () {},
         success: function (data) {
@@ -134,4 +145,4 @@ $('.make_completed').on('click', function () {
         error: function (xhr, status, error) {},
     });
 });
-x
+x;

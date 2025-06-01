@@ -53,7 +53,7 @@
             <div class="wsus__course_header">
                 <a href="index.html"><i class="fas fa-angle-left"></i> Speaking English for Beginners</a>
                 <p>Your Progress: {{ $lessonCount }} of {{ count($watchedLessonIds) }}
-                    ({{ (count($watchedLessonIds) / $lessonCount) * 100 }}%)</p>
+                    ({{ round((count($watchedLessonIds) / $lessonCount) * 100) }}%)</p>
             </div>
         </div>
 
@@ -66,7 +66,6 @@
             </video> -->
 
             <div class="video_holder">
-
             </div>
 
             <div class="video_tabs_area">
