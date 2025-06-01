@@ -15726,3 +15726,8 @@ select {
     color: #356df1;
     font-weight: 600;
   }
+
+  .video_holder inframe {
+    width: 100%;
+    height: 700px;
+  }
