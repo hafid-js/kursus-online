@@ -8,6 +8,7 @@ use App\Models\CourseChapterLession;
 use App\Models\Enrollment;
 use App\Models\WatchHistory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class EnrolledCourseController extends Controller
 {
@@ -24,7 +25,9 @@ class EnrolledCourseController extends Controller
 
         if (!Enrollment::where('user_id', user()->id)->where('course_id', $course->id)->where('have_access', 1)->exists()) return abort(404);
         $lastWatchHistory = WatchHistory::where(['user_id' => user()->id, 'course_id' => $course->id])->orderBy('updated_at','desc')->first();
-        return view('frontend.student-dashboard.enrolled-course.player-index', compact('course', 'lastWatchHistory'));
+        // dd($lastWatchHistory);
+        $watchedLessonIds = WatchHistory::where(['user_id' => user()->id, 'course_id' => $course->id, 'is_completed' => 1])->pluck('lesson_id')->toArray();
+        return view('frontend.student-dashboard.enrolled-course.player-index', compact('course', 'lastWatchHistory','watchedLessonIds'));
     }
 
     function getLessonContent(Request $request)
@@ -39,7 +42,7 @@ class EnrolledCourseController extends Controller
     }
     function updateWatchHistory(Request $request)
     {
-        WatchHistory::updateOrCreate([
+        WatchHistory::updateOrCreate(
             [
                 'user_id' => user()->id,
                 'lesson_id' => $request->lesson_id
@@ -49,10 +52,28 @@ class EnrolledCourseController extends Controller
                 'chapter_id' => $request->chapter_id,
                 'updated_at' => now()
             ]
-        ]);
+        );
     }
 
-    function updateLessonCompletion(Request $request) {
-        dd($request->all);
+    function updateLessonCompletion(Request $request) : Response
+    {
+        $watchedLesson = WatchHistory::where([
+            'user_id' => user()->id,
+            'lesson_id' => $request->lesson_id
+        ])->first();
+
+        WatchHistory::updateOrCreate(
+            [
+                'user_id' => user()->id,
+                'lesson_id' => $request->lesson_id
+            ],
+            [
+                'course_id' => $request->course_id,
+                'chapter_id' => $request->chapter_id,
+                'is_completed' => $watchedLesson->is_completed == 1 ? 0 : 1,
+            ]);
+
+            return response(['status' => 'success','message' => 'Updated Successfully!']);
+
     }
 }

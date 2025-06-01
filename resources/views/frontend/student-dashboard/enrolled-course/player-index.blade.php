@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/sticky_menu.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.css') }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 
     <link rel=" stylesheet" href="{{ asset('frontend/assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
@@ -1248,9 +1249,8 @@
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 @foreach ($chapter->lessons as $lesson)
-                                    <div class="form-check lesson">
-                                        <input class="form-check-input make_completed" data-course-id="{{ $course->id }}"
-                                        data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}" type="checkbox" value="">
+                                    <div class="form-check">
+                                        <input @checked(in_array($lesson->id, $watchedLessonIds)) class="form-check-input make_completed" data-course-id="{{ $course->id }}" data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}" name="" type="checkbox" value="">
                                         <label class="form-check-label lesson" data-course-id="{{ $course->id }}"
                                         data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}">
                                             {{ $lesson->title }}
@@ -1333,6 +1333,7 @@
         <script src="{{ asset('frontend/assets/js/videojs-vimeo.umd.js') }}"></script>
     <!--wow js-->
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
