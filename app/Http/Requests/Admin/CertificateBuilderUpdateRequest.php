@@ -11,7 +11,7 @@ class CertificateBuilderUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,8 +25,8 @@ class CertificateBuilderUpdateRequest extends FormRequest
             'title' => ['nullable','max:255','string'],
             'sub_title' => ['nullable','max:255','string'],
             'description' => ['nullable','string'],
-            'signature' => ['nullable','string','image'],
-            'background' => ['nullable','string','image'],
+            'signature' => ['nullable','image', 'max:3000'],
+            'background' => ['nullable','image', 'max:3000'],
         ];
     }
 }

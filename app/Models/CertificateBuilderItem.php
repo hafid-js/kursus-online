@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CertificateBuilder extends Model
+class CertificateBuilderItem extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'sub_title',
-        'description',
-        'signature',
-        'background',
+        'element_id',
+        'x_position',
+        'y_position'
     ];
 }

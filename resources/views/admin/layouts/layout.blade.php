@@ -42,6 +42,7 @@
             font-feature-settings: "cv03", "cv04", "cv11";
         }
     </style>
+    @stack('styles')
     @vite(['resources/css/admin.css', 'resources/js/admin/login.js', 'resources/js/admin/admin.js'])
     @stack('header_scripts')
 </head>
