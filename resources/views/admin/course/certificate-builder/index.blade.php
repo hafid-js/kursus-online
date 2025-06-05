@@ -11,6 +11,10 @@
                                 <h4 class="card-title">Certificate Builder</h4>
                             </div>
                             <div class="card-body">
+                                <div class="alert alert-primary">
+                                    <h4 class="alert-heading">Default Variables</h4>
+                                              <p>[student_name], [course_name], [date], [platform_name], [instructor_name]</p>
+                                </div>
                                 <form action="{{ route('admin.certificate-builder.update') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
@@ -85,8 +89,8 @@
 <style>
     @foreach ($certificateItems as $item)
         #{{ $item->element_id }} {
-            left: {{ $item->x_position }};
-            top: {{ $item->y_position }}
+            left: {{ $item->x_position }}px;
+            top: {{ $item->y_position }}px;
         }
     @endforeach
 </style>

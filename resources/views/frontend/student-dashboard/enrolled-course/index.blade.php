@@ -74,8 +74,14 @@
                                                             <span>(5.0)</span>
                                                         </p>
                                                         <a class="title" href="{{ route('student.course-player.index', $enrollment->course->slug) }}">{{ $enrollment->course->title }}</a>
-                                                        <div class="text-muted">By {{ $enrollment->course->instructor->name }}</div>
-
+                                                                                                                <div class="text-muted">By {{ $enrollment->course->instructor->name }}</div>
+                                                        @php
+                                                            $watchedLessonCount = \App\Models\WatchHistory::where(['user_id' => user()->id, 'course_id' => $enrollment->course->id, 'is_completed' => 1])->count();
+                                                            $lessonCount = $enrollment->course->lessons()->count();
+                                                        @endphp
+                                                        @if($lessonCount == $watchedLessonCount)
+                                                        <a target="_blank" href="{{ route('student.certificate.download', $enrollment->course->id) }}" class="btn btn-sm btn-warning">Download Certificate</a>
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-primary" href="{{ route('student.course-player.index', $enrollment->course->slug) }}"><i class="fas fa-eye"></i> Watch Course</a>
