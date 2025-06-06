@@ -9,12 +9,6 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Create Level</h4>
-                                <div class="card-actions">
-                                    <a href="{{ route('admin.course-levels.index') }}" class="btn btn-primary">
-                                        <i class="ti ti-arrow-left"></i>
-                                        Back
-                                    </a>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('admin.hero.store') }}" method="POST" enctype="multipart/form-data">
@@ -94,9 +88,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="form-label">Rounded Text</label>
-                                                <input type="text" class="form-control" name="rounded_text" placeholder="" value="{{ $hero->round_text }}">
-                                                <x-input-error :messages="$errors->get('rounded_text')" class="mt-2" />
+                                                <label for="form-label">Round Text</label>
+                                                <input type="text" class="form-control" name="round_text" placeholder="" value="{{ $hero->round_text }}">
+                                                <x-input-error :messages="$errors->get('round_text')" class="mt-2" />
                                             </div>
                                         </div>
                                         <div class="col-md-12">

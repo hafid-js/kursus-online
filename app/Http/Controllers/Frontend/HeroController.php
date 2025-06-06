@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\HeroUpdateRequest;
+use App\Models\Feature;
 use App\Models\Hero;
 use App\Traits\FileUpload;
 use Illuminate\Http\RedirectResponse;

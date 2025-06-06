@@ -15721,31 +15721,3 @@ select {
   .file_type_inner div img {
     width: 80px !important;
   }
-
-  .form-check-label.lesson.active {
-    color: #356df1;
-    font-weight: 600;
-  }
-
-  .video_holder inframe {
-    width: 100%;
-    height: 700px;
-  }
-
-  .file_type {
-    width: 100%;
-    height: 600px;
-    position: relative;
-  }
-
-  .file_type_inner {
-    width: 300px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .file_type_inner div img {
-    width: 80px;
-  }

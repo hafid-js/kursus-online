@@ -368,6 +368,11 @@
                                     Hero
                                 </a>
                             </div>
+                            <div class="dropdown-menu-column">
+                                <a class="dropdown-item" href="{{ route('admin.feature.index') }}">
+                                    Features
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </li>
