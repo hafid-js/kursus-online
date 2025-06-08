@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Create Level</h4>
+                                <h4 class="card-title">Feature</h4>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('admin.feature.store') }}" method="POST" enctype="multipart/form-data">
@@ -25,7 +25,6 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                 <x-image-preview src="{{ asset($feature->image_two) }}" style="background-color: rgb(197, 197, 197)"/>
                                                 <label for="form-label">Title One</label>
                                                 <input type="text" class="form-control" name="title_one" placeholder=""
                                                     value="{{ $feature->title_one }}">
@@ -45,7 +44,7 @@
                                         <br>
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <x-image-preview src="{{ asset($feature->image_two) }}"style="background-color: rgb(197, 197, 197)" />
+                                                 <x-image-preview src="{{ asset($feature->image_two) }}" style="background-color: rgb(197, 197, 197)"/>
                                                 <label for="form-label">Image Two</label>
                                                 <input type="file" class="form-control" name="image_two" placeholder="">
                                                 <input type="hidden" name="old_image_two" value="{{ $feature->image_two }}">

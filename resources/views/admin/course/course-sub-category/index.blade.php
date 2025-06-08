@@ -29,7 +29,6 @@
                                                     <table class="table table-vcenter card-table">
                                                         <thead>
                                                             <tr>
-                                                                <th>Icon</th>
                                                                 <th>Name</th>
                                                                 <th>Trending</th>
                                                                 <th>Status</th>
@@ -40,7 +39,6 @@
                                                         <tbody>
                                                             @forelse ($subCategories as $category)
                                                                 <tr>
-                                                                    <td><i class="{{ $category->icon }}"></i></td>
                                                                     <td>{{ $category->name }}</td>
                                                                     <td>
                                                                         @if ($category->show_at_trending == 1)

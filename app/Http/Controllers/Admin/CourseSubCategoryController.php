@@ -46,7 +46,6 @@ class CourseSubCategoryController extends Controller
             $imagePath = $this->uploadFile($request->file('image'));
             $category->image = $imagePath;
         }
-        $category->icon = $request->icon;
         $category->name = $request->name;
         $category->slug = Str::of($request->name)->slug('-');
         $category->parent_id = $course_category->id;
@@ -81,7 +80,6 @@ class CourseSubCategoryController extends Controller
             $this->deleteFile($category->image);
             $category->image = $imagePath;
         }
-        $category->icon = $request->icon;
         $category->name = $request->name;
         $category->slug = Str::of($request->name)->slug('-');
         $category->parent_id = $course_category->id;

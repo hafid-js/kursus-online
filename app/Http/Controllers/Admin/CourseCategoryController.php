@@ -41,7 +41,6 @@ class CourseCategoryController extends Controller
         $imagePath = $this->uploadFile($request->file('image'));
         $category = new CourseCategory();
         $category->image = $imagePath;
-        $category->icon = $request->icon;
         $category->name = $request->name;
         $category->slug = Str::of($request->name)->slug('-');
         $category->show_at_trending = $request->show_at_trending ?? 0;
@@ -80,8 +79,6 @@ class CourseCategoryController extends Controller
             $this->deleteFile($category->image);
             $category->image = $imagePath;
         }
-
-        $category->icon = $request->icon;
         $category->name = $request->name;
         $category->slug = Str::of($request->name)->slug('-');
         $category->show_at_trending = $request->show_at_trending ?? 0;

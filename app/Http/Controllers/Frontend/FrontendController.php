@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutUsSection;
 use App\Models\CourseCategory;
 use App\Models\Feature;
 use App\Models\Hero;
@@ -20,6 +21,7 @@ class FrontendController extends Controller
                 $query->where(['is_approved' => 'approved', 'status' => 'active']);
             });
         }])->where(['parent_id' => null, 'show_at_trending' => 1])->limit(12)->get();
-        return view('frontend.pages.index', compact('hero', 'feature','featureCategories'));
+        $about = AboutUsSection::first();
+        return view('frontend.pages.index', compact('hero', 'feature','featureCategories','about'));
     }
 }

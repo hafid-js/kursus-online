@@ -119,6 +119,8 @@
 
     {{-- plugins --}}
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    {{-- tinymce --}}
+    <script src="{{ asset('admin/assets/libs/tinymce/tinymce.min.js') }}"></script>
     <!-- Filemanager JS -->
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js" defer></script>
         <!-- Select2 JS -->

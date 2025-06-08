@@ -18,7 +18,7 @@
                 <div class="col-xxl-3 col-md-6 col-lg-4 wow fadeInUp">
                     <a href="#" class="wsus__single_category_4">
                         <div class="icon">
-                            <img src="{{ asset($category->icon) }}" alt="category" class="img-fluid w-100">
+                            <img src="{{ asset($category->image) }}" alt="category" class="img-fluid w-100">
                         </div>
                         <div class="text">
                             <h4>{{ $category->name }}</h4>

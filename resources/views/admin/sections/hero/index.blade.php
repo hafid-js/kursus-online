@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Create Level</h4>
+                                <h4 class="card-title">Hero</h4>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('admin.hero.store') }}" method="POST" enctype="multipart/form-data">
