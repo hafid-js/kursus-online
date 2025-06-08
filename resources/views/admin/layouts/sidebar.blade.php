@@ -378,6 +378,11 @@
                                     About Us
                                 </a>
                             </div>
+                            <div class="dropdown-menu-column">
+                                <a class="dropdown-item" href="{{ route('admin.latest-courses-section.index') }}">
+                                    Latest Courses
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </li>

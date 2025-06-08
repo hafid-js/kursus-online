@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\CourseSubCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\InstructorRequestController;
+use App\Http\Controllers\Admin\LatestCourseSectionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentSettingController;
 use App\Http\Controllers\Admin\PayoutGatewayController;
@@ -161,6 +162,9 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     // about us routes
     Route::resource('about-section', AboutUsSectionController::class);
+
+    // latest courses
+    Route::resource('latest-courses-section', LatestCourseSectionController::class);
 
     // lfm routes
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
