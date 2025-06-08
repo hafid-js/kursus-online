@@ -34,6 +34,15 @@ class FeatureController extends Controller
      */
     public function store(FeatureUpdateRequest $request)
     {
+        $data = [
+            'title_one' => $request->title_one,
+            'title_two' => $request->title_two,
+            'title_three' => $request->title_three,
+            'subtitle_one' => $request->subtitle_one,
+            'subtitle_two' => $request->subtitle_two,
+            'subtitle_three' => $request->subtitle_three,
+        ];
+
 
         if ($request->hasFile('image_one')) {
             $image_one = $this->uploadFile($request->file('image_one'));
@@ -47,26 +56,21 @@ class FeatureController extends Controller
             $data['image_two'] = $image_two;
         }
 
-        if ($request->hasFile('$image_three')) {
-            $image_three = $this->uploadFile($request->file('$image_three'));
+        if ($request->hasFile('image_three')) {
+            $image_three = $this->uploadFile($request->file('image_three'));
             $this->deleteFile($request->old_image_three);
-            $data['$image_three'] = $$image_three;
+            $data['image_three'] = $image_three;
         }
-        $data = [
-            'title_one' => $request->title_one,
-            'title_two' => $request->title_two,
-            'title_three' => $request->title_three,
-            'subtitle_one' => $request->subtitle_one,
-            'subtitle_two' => $request->subtitle_two,
-            'subtitle_three' => $request->subtitle_three,
-        ];
-
         Feature::updateOrCreate(
             [
                 'id' => 1
             ],
             $data
         );
+
+        notyf()->success("Created Successfully!");
+
+        return redirect()->back();
     }
 
     /**

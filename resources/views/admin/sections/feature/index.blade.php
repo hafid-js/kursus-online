@@ -25,6 +25,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
+                                                 <x-image-preview src="{{ asset($feature->image_two) }}" style="background-color: rgb(197, 197, 197)"/>
                                                 <label for="form-label">Title One</label>
                                                 <input type="text" class="form-control" name="title_one" placeholder=""
                                                     value="{{ $feature->title_one }}">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\CourseCategory;
 use App\Models\Feature;
 use App\Models\Hero;
 use Illuminate\Contracts\View\View;
@@ -14,6 +15,11 @@ class FrontendController extends Controller
     {
         $hero = Hero::first();
         $feature = Feature::first() ?? new Feature();
-        return view('frontend.pages.index', compact('hero', 'feature'));
+        $featureCategories = CourseCategory::withCount(['subCategories as active_course_count' => function($query) {
+            $query->whereHas('courses', function($query) {
+                $query->where(['is_approved' => 'approved', 'status' => 'active']);
+            });
+        }])->where(['parent_id' => null, 'show_at_trending' => 1])->limit(12)->get();
+        return view('frontend.pages.index', compact('hero', 'feature','featureCategories'));
     }
 }

@@ -24,11 +24,10 @@
                                     <div class="row">
                                         <x-image-preview class="" src="{{ $course_category->image }}" />
                                         <div class="col-md-6">
-                                            <x-input-file-block name="image" :value="$course_category->image"/>
+                                            <x-input-file-block name="image" :value="$course_category->image" />
                                         </div>
                                         <div class="col-md-6">
-                                            <x-input-block name="icon" :value="$course_category->icon"
-                                                placeholder="Enter icon name">
+                                            <x-input-block name="icon" :value="$course_category->icon" placeholder="Enter icon name">
                                                 <x-slot name="hint">
                                                     <small class="hint">you can get icon classes from: <a target="_blank"
                                                             href="https://tabler.io/icons">https://tabler.io/icons</a></small>
@@ -42,11 +41,10 @@
                                         </div>
                                         <div class="col-md-12">
                                             <x-input-toggle-block name="show_at_trending" label="Show at Trending"
-                                                :checked="$course_category->show_at_trending == 1 " />
+                                                :checked="$course_category->show_at_trending == 1" />
                                         </div>
                                         <div class="col-md-12">
-                                            <x-input-toggle-block name="status" label="Status"
-                                                :checked="$course_category->status == 1 " />
+                                            <x-input-toggle-block name="status" label="Status" :checked="$course_category->status == 1" />
                                         </div>
                                     </div>
                                     <div class="mb-3">
