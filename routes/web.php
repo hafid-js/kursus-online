@@ -44,6 +44,8 @@ Route::get('stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('s
 Route::get('order-success', [PaymentController::class, 'orderSuccess'])->name('order.success');
 Route::get('order-failed', [PaymentController::class, 'orderFailed'])->name('order.failed');
 
+Route::post('newsletter-subscribe', [FrontendController::class,'subscribe'])->name('newsletter.subscribe');
+
 // Student Routes
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');

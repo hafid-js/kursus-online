@@ -1,6 +1,7 @@
 import './cart.js';
 
 const csrf_token = $(`meta[name="csrf_token"]`).attr('content');
+const base_url = $(`meta[name="base_url"]`).attr("content");
 
 // notyf init
 var notyf = new Notyf({
@@ -46,3 +47,34 @@ $(function () {
         });
     });
 });
+
+// subscribe to newsletter
+$(".newsletter").on('submit', function(e) {
+    e.preventDefault();
+
+    let formData = $(this).serialize();
+    $.ajax({
+        method: "POST",
+        url: `${base_url}/newsletter-subscribe`,
+        data: formData,
+        beforeSend: function(){
+            $('.newsletter-btn').text('Subscribing...');
+            //disable button
+            $('.newsletter-btn').prop('disabled', true);
+        },
+        success: function(data) {
+            notyf.success(data.message);
+            $('.newsletter').trigger('reset');
+            $('.newsletter-btn').text('Subscribe');
+            $('.newsletter-btn').prop('disabled', false);
+            notyf.success(data.message);
+        },
+        error: function (xhr, status, error) {
+            notyf.error(xhr.responseJSON.message);
+            $('.newsletter').trigger('reset');
+            $('.newsletter-btn').text('Subscribe');
+            $('.newsletter-btn').prop('disabled', false);
+            notyf.error(error);
+        }
+    })
+})

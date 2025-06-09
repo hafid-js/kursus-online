@@ -10,8 +10,8 @@
 
 @section('content')
     <!--===========================
-                COUESES 3 START
-            ============================-->
+                    COUESES 3 START
+                ============================-->
     @php
         $categoryOne = \App\Models\CourseCategory::where('id', $latestCourses->category_one)->first();
         $categoryTwo = \App\Models\CourseCategory::where('id', $latestCourses->category_two)->first();
@@ -77,12 +77,316 @@
             </div>
 
             <div class="tab-content" id="pills-tabContent">
-                @if ($categoryOne)
-                    <div class="tab-pane fade show active" id="pills-{{ $categoryOne->id }}" role="tabpanel" aria-labelledby="pills-{{ $categoryOne->id }}-tab"
-                        tabindex="0">
+                 @if ($categoryOne)
+                    <div class="tab-pane fade show" id="pills-{{ $categoryOne->id }}" role="tabpanel"
+                        aria-labelledby="pills-{{ $categoryOne->id }}-tab" tabindex="0">
                         <div class="row">
-                            @foreach ($categoryOne->courses as $course)
+                            @foreach ($categoryOne->courses()->latest()->take(8)->get() as $course)
+                               <div class="col-xl-3 col-md-6 col-lg-4">
+                                    <div class="wsus__single_courses_3">
+                                        <div class="wsus__single_courses_3_img">
+                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
+                                                alt="Courses" class="img-fluid">
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}"
+                                                            alt="Love" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}"
+                                                            alt="Compare" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}"
+                                                            alt="Cart" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <span class="time"><i class="far fa-clock"></i> 15 Hours</span>
+                                        </div>
+                                        <div class="wsus__single_courses_text_3">
+                                            <div class="rating_area">
+                                                <!-- <a href="#" class="category">Design</a> -->
+                                                <p class="rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <span>(4.8 Rating)</span>
+                                                </p>
+                                            </div>
+
+                                            <a class="title" href="#">Complete Blender Creator Learn 3D
+                                                Modelling.</a>
+                                            <ul>
+                                                <li>24 Lessons</li>
+                                                <li>38 Student</li>
+                                            </ul>
+                                            <a class="author" href="#">
+                                                <div class="img">
+                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}"
+                                                        alt="Author" class="img-fluid">
+                                                </div>
+                                                <h4>Hermann P. Schnitzel</h4>
+                                            </a>
+                                        </div>
+                                        <div class="wsus__single_courses_3_footer">
+                                            <a class="common_btn" href="#">Enroll <i
+                                                    class="far fa-arrow-right"></i></a>
+                                            <p><del>$254</del> $156.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="row mt_60 wow fadeInUp">
+                            <div class="col-12 text-center">
+                                <a class="common_btn" href="#">Browse More Courses <i
+                                        class="far fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if ($categoryTwo)
+                    <div class="tab-pane fade show" id="pills-{{ $categoryTwo->id }}" role="tabpanel"
+                        aria-labelledby="pills-{{ $categoryTwo->id }}-tab" tabindex="0">
+                        <div class="row">
+                            @foreach ($categoryTwo->courses()->latest()->take(8)->get() as $course)
+                               <div class="col-xl-3 col-md-6 col-lg-4">
+                                    <div class="wsus__single_courses_3">
+                                        <div class="wsus__single_courses_3_img">
+                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
+                                                alt="Courses" class="img-fluid">
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}"
+                                                            alt="Love" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}"
+                                                            alt="Compare" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}"
+                                                            alt="Cart" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <span class="time"><i class="far fa-clock"></i> 15 Hours</span>
+                                        </div>
+                                        <div class="wsus__single_courses_text_3">
+                                            <div class="rating_area">
+                                                <!-- <a href="#" class="category">Design</a> -->
+                                                <p class="rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <span>(4.8 Rating)</span>
+                                                </p>
+                                            </div>
+
+                                            <a class="title" href="#">Complete Blender Creator Learn 3D
+                                                Modelling.</a>
+                                            <ul>
+                                                <li>24 Lessons</li>
+                                                <li>38 Student</li>
+                                            </ul>
+                                            <a class="author" href="#">
+                                                <div class="img">
+                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}"
+                                                        alt="Author" class="img-fluid">
+                                                </div>
+                                                <h4>Hermann P. Schnitzel</h4>
+                                            </a>
+                                        </div>
+                                        <div class="wsus__single_courses_3_footer">
+                                            <a class="common_btn" href="#">Enroll <i
+                                                    class="far fa-arrow-right"></i></a>
+                                            <p><del>$254</del> $156.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="row mt_60 wow fadeInUp">
+                            <div class="col-12 text-center">
+                                <a class="common_btn" href="#">Browse More Courses <i
+                                        class="far fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if ($categoryThree)
+                    <div class="tab-pane fade show" id="pills-{{ $categoryThree->id }}" role="tabpanel"
+                        aria-labelledby="pills-{{ $categoryThree->id }}-tab" tabindex="0">
+                        <div class="row">
+                            @foreach ($categoryThree->courses()->latest()->take(8)->get() as $course)
+                              <div class="col-xl-3 col-md-6 col-lg-4">
+                                    <div class="wsus__single_courses_3">
+                                        <div class="wsus__single_courses_3_img">
+                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
+                                                alt="Courses" class="img-fluid">
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}"
+                                                            alt="Love" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}"
+                                                            alt="Compare" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}"
+                                                            alt="Cart" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <span class="time"><i class="far fa-clock"></i> 15 Hours</span>
+                                        </div>
+                                        <div class="wsus__single_courses_text_3">
+                                            <div class="rating_area">
+                                                <!-- <a href="#" class="category">Design</a> -->
+                                                <p class="rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <span>(4.8 Rating)</span>
+                                                </p>
+                                            </div>
+
+                                            <a class="title" href="#">Complete Blender Creator Learn 3D
+                                                Modelling.</a>
+                                            <ul>
+                                                <li>24 Lessons</li>
+                                                <li>38 Student</li>
+                                            </ul>
+                                            <a class="author" href="#">
+                                                <div class="img">
+                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}"
+                                                        alt="Author" class="img-fluid">
+                                                </div>
+                                                <h4>Hermann P. Schnitzel</h4>
+                                            </a>
+                                        </div>
+                                        <div class="wsus__single_courses_3_footer">
+                                            <a class="common_btn" href="#">Enroll <i
+                                                    class="far fa-arrow-right"></i></a>
+                                            <p><del>$254</del> $156.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="row mt_60 wow fadeInUp">
+                            <div class="col-12 text-center">
+                                <a class="common_btn" href="#">Browse More Courses <i
+                                        class="far fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if ($categoryFour)
+                    <div class="tab-pane fade show" id="pills-{{ $categoryFour->id }}" role="tabpanel"
+                        aria-labelledby="pills-{{ $categoryFour->id }}-tab" tabindex="0">
+                        <div class="row">
+                            @foreach ($categoryFour->courses()->latest()->take(8)->get() as $course)
                                 <div class="col-xl-3 col-md-6 col-lg-4">
+                                    <div class="wsus__single_courses_3">
+                                        <div class="wsus__single_courses_3_img">
+                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
+                                                alt="Courses" class="img-fluid">
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}"
+                                                            alt="Love" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}"
+                                                            alt="Compare" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}"
+                                                            alt="Cart" class="img-fluid">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <span class="time"><i class="far fa-clock"></i> 15 Hours</span>
+                                        </div>
+                                        <div class="wsus__single_courses_text_3">
+                                            <div class="rating_area">
+                                                <!-- <a href="#" class="category">Design</a> -->
+                                                <p class="rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <span>(4.8 Rating)</span>
+                                                </p>
+                                            </div>
+
+                                            <a class="title" href="#">Complete Blender Creator Learn 3D
+                                                Modelling.</a>
+                                            <ul>
+                                                <li>24 Lessons</li>
+                                                <li>38 Student</li>
+                                            </ul>
+                                            <a class="author" href="#">
+                                                <div class="img">
+                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}"
+                                                        alt="Author" class="img-fluid">
+                                                </div>
+                                                <h4>Hermann P. Schnitzel</h4>
+                                            </a>
+                                        </div>
+                                        <div class="wsus__single_courses_3_footer">
+                                            <a class="common_btn" href="#">Enroll <i
+                                                    class="far fa-arrow-right"></i></a>
+                                            <p><del>$254</del> $156.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="row mt_60 wow fadeInUp">
+                            <div class="col-12 text-center">
+                                <a class="common_btn" href="#">Browse More Courses <i
+                                        class="far fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if ($categoryFive)
+                    <div class="tab-pane fade show" id="pills-{{ $categoryFive->id }}" role="tabpanel"
+                        aria-labelledby="pills-{{ $categoryFive->id }}-tab" tabindex="0">
+                        <div class="row">
+                            @foreach ($categoryFive->courses()->latest()->take(8)->get() as $course)
+                              <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
                                             <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
@@ -157,14 +461,14 @@
         </div>
     </section>
     <!--===========================
-                COUESES 3 END
-            ============================-->
+                    COUESES 3 END
+                ============================-->
 
 
 
     <!--===========================
-                OFFER START
-            ============================-->
+                    OFFER START
+                ============================-->
     <section class="wsus__offer" style="background: url('frontend/assets/images/offer_bg.jpg');">
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -177,9 +481,10 @@
                 <div class="col-xl-6 col-md-6 wow fadeInRight">
                     <div class="wsus__offer_text">
                         <h2>Eager to Receive Special Offers & Updates on Courses?</h2>
-                        <form action="#">
-                            <input type="text" placeholder="Your email address...">
-                            <button type="submit" class="common_btn">Subscribe</button>
+                        <form action="#" class="newsletter" method="POST">
+                            @csrf
+                            <input type="text" name="email" placeholder="Your email address...">
+                            <button type="submit" class="common_btn newsletter-btn">Subscribe</button>
                         </form>
                     </div>
                 </div>
@@ -187,13 +492,13 @@
         </div>
     </section>
     <!--===========================
-                OFFER END
-            ============================-->
+                    OFFER END
+                ============================-->
 
 
     <!--===========================
-                BECOME INSTRUCTOR START
-            ============================-->
+                    BECOME INSTRUCTOR START
+                ============================-->
     <section class="wsus__become_instructor mt_120 xs_mt_100">
         <div class="container">
             <div class="row justify-content-between align-items-center">
@@ -218,13 +523,13 @@
         </div>
     </section>
     <!--===========================
-                BECOME INSTRUCTOR END
-            ============================-->
+                    BECOME INSTRUCTOR END
+                ============================-->
 
 
     <!--===========================
-                VIDEO START
-            ============================-->
+                    VIDEO START
+                ============================-->
     <section class="wsus__video mt_120 xs_mt_100">
         <img src="{{ asset('frontend/assets/images/video_bg.jpg') }}" alt="Video" class="img-fluid w-100">
         <a class="play_btn venobox" data-autoplay="true" data-vbtype="video"
@@ -239,13 +544,13 @@
         </div>
     </section>
     <!--===========================
-                VIDEO END
-            ============================-->
+                    VIDEO END
+                ============================-->
 
 
     <!--===========================
-                BRAND START
-            ============================-->
+                    BRAND START
+                ============================-->
     <section class="wsus__brand mt_45 pt_120 xs_pt_100">
         <div class="container">
             <div class="row">
@@ -304,13 +609,13 @@
         </div>
     </section>
     <!--===========================
-                BRAND END
-            ============================-->
+                    BRAND END
+                ============================-->
 
 
     <!--===========================
-                QUALITY COURSES START
-            ============================-->
+                    QUALITY COURSES START
+                ============================-->
     <section class="wsus__quality_courses mt_120 xs_mt_100">
         <div class="row quality_course_slider">
             <div class="quality_course_slider_item"
@@ -741,13 +1046,13 @@
         </div>
     </section>
     <!--===========================
-                QUALITY COURSES END
-            ============================-->
+                    QUALITY COURSES END
+                ============================-->
 
 
     <!--===========================
-                TESTIMONIAL START
-            ============================-->
+                    TESTIMONIAL START
+                ============================-->
     <section class="wsus__testimonial pt_120 xs_pt_80">
         <div class="container">
             <div class="row">
@@ -879,13 +1184,13 @@
         </div>
     </section>
     <!--===========================
-                TESTIMONIAL END
-            ============================-->
+                    TESTIMONIAL END
+                ============================-->
 
 
     <!--===========================
-                BLOG 4 START
-            ============================-->
+                    BLOG 4 START
+                ============================-->
     <section class="blog_4 mt_110 xs_mt_90 pt_120 xs_pt_100 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -908,8 +1213,8 @@
                     <div class="wsus__single_blog_4_text">
                         <ul>
                             <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="User"
-                                        class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}"
+                                        alt="User" class="img-fluid"></span>
                                 By Richard Tea
                             </li>
                             <li>
@@ -934,8 +1239,8 @@
                     <div class="wsus__single_blog_4_text">
                         <ul>
                             <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="User"
-                                        class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}"
+                                        alt="User" class="img-fluid"></span>
                                 By Doug Lyphe
                             </li>
                             <li>
@@ -960,8 +1265,8 @@
                     <div class="wsus__single_blog_4_text">
                         <ul>
                             <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="User"
-                                        class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}"
+                                        alt="User" class="img-fluid"></span>
                                 By Eleanor Fant
                             </li>
                             <li>
@@ -986,8 +1291,8 @@
                     <div class="wsus__single_blog_4_text">
                         <ul>
                             <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="User"
-                                        class="img-fluid"></span>
+                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}"
+                                        alt="User" class="img-fluid"></span>
                                 By Doug Lyphe
                             </li>
                             <li>
@@ -1005,6 +1310,6 @@
         </div>
     </section>
     <!--===========================
-                BLOG 4 END
-            ============================-->
+                    BLOG 4 END
+                ============================-->
 @endsection
