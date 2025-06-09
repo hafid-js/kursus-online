@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\AboutUsSection;
+use App\Models\BecomeInstructorSection;
 use App\Models\CourseCategory;
 use App\Models\Feature;
 use App\Models\Hero;
@@ -19,20 +20,23 @@ class FrontendController extends Controller
     {
         $hero = Hero::first();
         $feature = Feature::first() ?? new Feature();
-        $featureCategories = CourseCategory::withCount(['subCategories as active_course_count' => function($query) {
-            $query->whereHas('courses', function($query) {
+        $featureCategories = CourseCategory::withCount(['subCategories as active_course_count' => function ($query) {
+            $query->whereHas('courses', function ($query) {
                 $query->where(['is_approved' => 'approved', 'status' => 'active']);
             });
         }])->where(['parent_id' => null, 'show_at_trending' => 1])->limit(12)->get();
         $about = AboutUsSection::first();
         $latestCourses = LatestCourseSection::first();
-        return view('frontend.pages.index', compact('hero', 'feature','featureCategories','about','latestCourses'));
+        $becomeInstructorBanner = BecomeInstructorSection::first();
+
+        return view('frontend.pages.index', compact('hero', 'feature', 'featureCategories', 'about', 'latestCourses', 'becomeInstructorBanner'));
     }
 
-    function subscribe(Request $request) : Response {
+    function subscribe(Request $request): Response
+    {
         $request->validate([
             'email' => 'required|email|unique:newsletters,email'
-        ],[
+        ], [
             'email.required' => 'Email is required',
             'email.email' => 'Email is invalid',
             'email.unique' => 'Email is already subscribed'

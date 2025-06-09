@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\BecomeInstructorSectionController;
 use App\Http\Controllers\Admin\CertificateBuilderController;
 use App\Http\Controllers\Admin\CourseCategoryController;
 use App\Http\Controllers\Admin\CourseContentController;
@@ -165,6 +166,9 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     // latest courses
     Route::resource('latest-courses-section', LatestCourseSectionController::class);
+
+    // become instructor section
+    Route::resource('become-instructor-section', BecomeInstructorSectionController::class);
 
     // lfm routes
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
