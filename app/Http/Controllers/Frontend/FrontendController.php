@@ -10,6 +10,7 @@ use App\Models\Feature;
 use App\Models\Hero;
 use App\Models\LatestCourseSection;
 use App\Models\Newsletter;
+use App\Models\VideoSection;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -28,8 +29,9 @@ class FrontendController extends Controller
         $about = AboutUsSection::first();
         $latestCourses = LatestCourseSection::first();
         $becomeInstructorBanner = BecomeInstructorSection::first();
+        $video = VideoSection::first();
 
-        return view('frontend.pages.index', compact('hero', 'feature', 'featureCategories', 'about', 'latestCourses', 'becomeInstructorBanner'));
+        return view('frontend.pages.index', compact('hero', 'feature', 'featureCategories', 'about', 'latestCourses', 'becomeInstructorBanner','video'));
     }
 
     function subscribe(Request $request): Response
