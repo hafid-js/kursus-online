@@ -395,6 +395,11 @@
                                     Video
                                 </a>
                             </div>
+                             <div class="dropdown-menu-column">
+                                <a class="dropdown-item" href="{{ route('admin.brand-section.index') }}">
+                                    Brand
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </li>

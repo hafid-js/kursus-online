@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\BecomeInstructorSectionController;
+use App\Http\Controllers\Admin\BrandSectionController;
 use App\Http\Controllers\Admin\CertificateBuilderController;
 use App\Http\Controllers\Admin\CourseCategoryController;
 use App\Http\Controllers\Admin\CourseContentController;
@@ -171,8 +172,11 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     // become instructor section
     Route::resource('become-instructor-section', BecomeInstructorSectionController::class);
 
-    // video section routes
+    // video section
     Route::resource('video-section', VideoSectionController::class);
+
+    // brand section
+    Route::resource('brand-section', BrandSectionController::class);
 
 
     // lfm routes
