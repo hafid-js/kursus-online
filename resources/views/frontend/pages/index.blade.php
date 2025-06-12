@@ -10,8 +10,8 @@
 
 @section('content')
     <!--===========================
-                    COUESES 3 START
-                ============================-->
+                        COUESES 3 START
+                    ============================-->
     @php
         $categoryOne = \App\Models\CourseCategory::where('id', $latestCourses->category_one)->first();
         $categoryTwo = \App\Models\CourseCategory::where('id', $latestCourses->category_two)->first();
@@ -77,12 +77,12 @@
             </div>
 
             <div class="tab-content" id="pills-tabContent">
-                 @if ($categoryOne)
+                @if ($categoryOne)
                     <div class="tab-pane fade show" id="pills-{{ $categoryOne->id }}" role="tabpanel"
                         aria-labelledby="pills-{{ $categoryOne->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryOne->courses()->latest()->take(8)->get() as $course)
-                               <div class="col-xl-3 col-md-6 col-lg-4">
+                                <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
                                             <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
@@ -158,7 +158,7 @@
                         aria-labelledby="pills-{{ $categoryTwo->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryTwo->courses()->latest()->take(8)->get() as $course)
-                               <div class="col-xl-3 col-md-6 col-lg-4">
+                                <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
                                             <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
@@ -234,7 +234,7 @@
                         aria-labelledby="pills-{{ $categoryThree->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryThree->courses()->latest()->take(8)->get() as $course)
-                              <div class="col-xl-3 col-md-6 col-lg-4">
+                                <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
                                             <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
@@ -386,7 +386,7 @@
                         aria-labelledby="pills-{{ $categoryFive->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryFive->courses()->latest()->take(8)->get() as $course)
-                              <div class="col-xl-3 col-md-6 col-lg-4">
+                                <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
                                             <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
@@ -461,14 +461,14 @@
         </div>
     </section>
     <!--===========================
-                    COUESES 3 END
-                ============================-->
+                        COUESES 3 END
+                    ============================-->
 
 
 
     <!--===========================
-                    OFFER START
-                ============================-->
+                        OFFER START
+                    ============================-->
     <section class="wsus__offer" style="background: url('frontend/assets/images/offer_bg.jpg');">
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -492,13 +492,13 @@
         </div>
     </section>
     <!--===========================
-                    OFFER END
-                ============================-->
+                        OFFER END
+                    ============================-->
 
 
     <!--===========================
-                    BECOME INSTRUCTOR START
-                ============================-->
+                        BECOME INSTRUCTOR START
+                    ============================-->
     <section class="wsus__become_instructor mt_120 xs_mt_100">
         <div class="container">
             <div class="row justify-content-between align-items-center">
@@ -509,45 +509,45 @@
                             <h2>{{ $becomeInstructorBanner->title }}</h2>
                         </div>
                         <p>{{ $becomeInstructorBanner->subtitle }}</p>
-                        <a class="common_btn" href="{{ $becomeInstructorBanner->button_url }}">{{ $becomeInstructorBanner->button_text }} <i class="far fa-arrow-right"></i></a>
+                        <a class="common_btn"
+                            href="{{ $becomeInstructorBanner->button_url }}">{{ $becomeInstructorBanner->button_text }}
+                            <i class="far fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-xl-5 col-md-6 wow fadeInRight">
                     <div class="wsus__become_instructor_img">
-                        <img src="{{ asset($becomeInstructorBanner->image) }}" alt="Instructor"
-                            class="img-fluid w-100">
+                        <img src="{{ asset($becomeInstructorBanner->image) }}" alt="Instructor" class="img-fluid w-100">
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!--===========================
-                    BECOME INSTRUCTOR END
-                ============================-->
+                        BECOME INSTRUCTOR END
+                    ============================-->
 
 
     <!--===========================
-                    VIDEO START
-                ============================-->
+                        VIDEO START
+                    ============================-->
     <section class="wsus__video mt_120 xs_mt_100">
         <img src="{{ asset($video->background) }}" alt="Video" class="img-fluid w-100">
-        <a class="play_btn venobox" data-autoplay="true" data-vbtype="video"
-            href="{{ $video->video_url }}">
+        <a class="play_btn venobox" data-autoplay="true" data-vbtype="video" href="{{ $video->video_url }}">
             <img src="{{ asset('frontend/assets/images/play_icon_white.png') }}" alt="Play" class="img-fluid">
         </a>
         <div class="text wow fadeInLeft">
-            <p>{{ $video->description}}</p>
+            <p>{{ $video->description }}</p>
             <a href="{{ $video->button_url }}">{{ $video->button_text }} <i class="far fa-arrow-right"></i></a>
         </div>
     </section>
     <!--===========================
-                    VIDEO END
-                ============================-->
+                        VIDEO END
+                    ============================-->
 
 
     <!--===========================
-                    BRAND START
-                ============================-->
+                        BRAND START
+                    ============================-->
     <section class="wsus__brand mt_45 pt_120 xs_pt_100">
         <div class="container">
             <div class="row">
@@ -556,48 +556,14 @@
                         <h6>Trusted by Over 24,758 Outstanding Teams</h6>
                         <div class="marquee_animi">
                             <ul class="d-flex flex-wrap">
-                                <li>
-                                    <a href="#">
-                                        <img src="{{ asset('frontend/assets/images/brand_icon_1.png') }}" alt="brand"
-                                            class="img-fluid w-100">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="{{ asset('frontend/assets/images/brand_icon_2.png') }}" alt="brand"
-                                            class="img-fluid w-100">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="{{ asset('frontend/assets/images/brand_icon_3.png') }}" alt="brand"
-                                            class="img-fluid w-100">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="{{ asset('frontend/assets/images/brand_icon_4.png') }}" alt="brand"
-                                            class="img-fluid w-100">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="{{ asset('frontend/assets/images/brand_icon_5.png') }}" alt="brand"
-                                            class="img-fluid w-100">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="{{ asset('frontend/assets/images/brand_icon_6.png') }}" alt="brand"
-                                            class="img-fluid w-100">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="{{ asset('frontend/assets/images/brand_icon_7.png') }}" alt="brand"
-                                            class="img-fluid w-100">
-                                    </a>
-                                </li>
+                                @foreach ($brands as $brand)
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset($brand->image) }}"
+                                                alt="brand" class="img-fluid w-100">
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -606,13 +572,13 @@
         </div>
     </section>
     <!--===========================
-                    BRAND END
-                ============================-->
+                        BRAND END
+                    ============================-->
 
 
     <!--===========================
-                    QUALITY COURSES START
-                ============================-->
+                        QUALITY COURSES START
+                    ============================-->
     <section class="wsus__quality_courses mt_120 xs_mt_100">
         <div class="row quality_course_slider">
             <div class="quality_course_slider_item"
@@ -1043,13 +1009,13 @@
         </div>
     </section>
     <!--===========================
-                    QUALITY COURSES END
-                ============================-->
+                        QUALITY COURSES END
+                    ============================-->
 
 
     <!--===========================
-                    TESTIMONIAL START
-                ============================-->
+                        TESTIMONIAL START
+                    ============================-->
     <section class="wsus__testimonial pt_120 xs_pt_80">
         <div class="container">
             <div class="row">
@@ -1181,13 +1147,13 @@
         </div>
     </section>
     <!--===========================
-                    TESTIMONIAL END
-                ============================-->
+                        TESTIMONIAL END
+                    ============================-->
 
 
     <!--===========================
-                    BLOG 4 START
-                ============================-->
+                        BLOG 4 START
+                    ============================-->
     <section class="blog_4 mt_110 xs_mt_90 pt_120 xs_pt_100 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -1307,6 +1273,6 @@
         </div>
     </section>
     <!--===========================
-                    BLOG 4 END
-                ============================-->
+                        BLOG 4 END
+                    ============================-->
 @endsection

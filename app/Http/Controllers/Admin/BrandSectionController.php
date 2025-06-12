@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Traits\FileUpload;
+use Exception;
 use Illuminate\Http\Request;
 
 class BrandSectionController extends Controller
@@ -63,9 +64,10 @@ class BrandSectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Brand $brand_section)
     {
-        //
+        $brand = $brand_section;
+        return view('admin.sections.brand-section.edit', compact('brand'));
     }
 
     /**
@@ -73,14 +75,41 @@ class BrandSectionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $request->validate([
+            'image' => ['nullable', 'image', 'max:3000'],
+            'url' => ['required', 'url'],
+            'status' => ['required', 'boolean'],
+        ]);
+
+        $brand = Brand::findOrFail($id);
+        if ($request->hasFile('image')) {
+            $imagePath = $this->uploadFile($request->file('image'));
+            $brand->image = $imagePath;
+        }
+        $brand->url = $request->url;
+        $brand->status = $request->status;
+        $brand->save();
+
+        notyf()->success("Updated Successfully!");
+
+        return redirect()->route('admin.brand-section.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Brand $brand_section)
     {
-        //
+        try {
+            // throw ValidationException::withMessages(['you have error']);
+            $this->deleteFile($brand_section->image);
+            $brand_section->delete();
+            notyf()->success('Delete Succesfully!');
+            return response(['message' => 'Delete Successfully!'], 200);
+        } catch(Exception $e) {
+            logger("Error >> ".$e);
+            return response(['message' => 'Something went wrong!'], 500);
+        }
     }
 }

@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Create Level</h4>
+                                <h4 class="card-title">Brand Section</h4>
                                 <div class="card-actions">
                                     <a href="{{ route('admin.brand-section.index') }}" class="btn btn-primary">
                                         <i class="ti ti-arrow-left"></i>
@@ -17,13 +17,12 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('admin.brand-section.store') }}" method="POST">
+                                <form action="{{ route('admin.brand-section.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                         <div class="mb-3">
                                             <x-image-preview src="" />
                                             <label for="form-label">Image</label>
                                             <input type="file" class="form-control" name="image" placeholder="">
-                                            <input type="hidden" name="old_image" value="">
                                             <x-input-error :messages="$errors->get('image')" class="mt-2" />
                                         </div>
                                         <div class="mb-3">

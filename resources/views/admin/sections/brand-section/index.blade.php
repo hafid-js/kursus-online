@@ -46,7 +46,7 @@
                                                                     <td>{{ $brand->url }}</td>
                                                                     <td>
                                                                         @if($brand->status = 1)
-                                                                        <span class="badge bg-line text-lime-fg">Active</span>
+                                                                        <span class="badge bg-green text-lime-fg">Active</span>
                                                                         @else
                                                                         <span class="badge bg-red text-red-fg">Inactive</span>
                                                                         @endif
