@@ -18,7 +18,7 @@ class BrandSectionController extends Controller
     public function index()
     {
         $brands = Brand::paginate(15);
-        return view('admin.sections.brand-section.index', compact('brands'));
+        return view('admin.sections.brand.index', compact('brands'));
     }
 
     /**
@@ -26,7 +26,7 @@ class BrandSectionController extends Controller
      */
     public function create()
     {
-       return view('admin.sections.brand-section.create');
+       return view('admin.sections.brand.create');
     }
 
     /**
@@ -67,7 +67,7 @@ class BrandSectionController extends Controller
     public function edit(Brand $brand_section)
     {
         $brand = $brand_section;
-        return view('admin.sections.brand-section.edit', compact('brand'));
+        return view('admin.sections.brand.edit', compact('brand'));
     }
 
     /**

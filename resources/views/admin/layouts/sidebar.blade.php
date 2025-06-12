@@ -369,7 +369,7 @@
                                 </a>
                             </div>
                             <div class="dropdown-menu-column">
-                                <a class="dropdown-item" href="{{ route('admin.feature.index') }}">
+                                <a class="dropdown-item" href="{{ route('admin.featured-instructor-section.index') }}">
                                     Features
                                 </a>
                             </div>
@@ -398,6 +398,11 @@
                              <div class="dropdown-menu-column">
                                 <a class="dropdown-item" href="{{ route('admin.brand-section.index') }}">
                                     Brand
+                                </a>
+                            </div>
+                             <div class="dropdown-menu-column">
+                                <a class="dropdown-item" href="{{ route('admin.featured-instructor-section.index') }}">
+                                    Featured Instructor
                                 </a>
                             </div>
                         </div>

@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\CourseLevelController;
 use App\Http\Controllers\Admin\CourseSubCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\FeaturedInstructorController;
 use App\Http\Controllers\Admin\InstructorRequestController;
 use App\Http\Controllers\Admin\LatestCourseSectionController;
 use App\Http\Controllers\Admin\OrderController;
@@ -177,6 +178,9 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     // brand section
     Route::resource('brand-section', BrandSectionController::class);
+
+    // featured instructor section
+    Route::resource('featured-instructor-section', FeaturedInstructorController::class);
 
 
     // lfm routes

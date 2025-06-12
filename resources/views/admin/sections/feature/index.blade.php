@@ -11,7 +11,7 @@
                                 <h4 class="card-title">Feature</h4>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('admin.feature.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('admin.featured-instructor-section.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">
