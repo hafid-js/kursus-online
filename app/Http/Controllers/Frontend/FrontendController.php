@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\AboutUsSection;
 use App\Models\BecomeInstructorSection;
 use App\Models\Brand;
+use App\Models\Course;
 use App\Models\CourseCategory;
 use App\Models\Feature;
+use App\Models\FeaturedInstructor;
 use App\Models\Hero;
 use App\Models\LatestCourseSection;
 use App\Models\Newsletter;
@@ -31,9 +33,10 @@ class FrontendController extends Controller
         $latestCourses = LatestCourseSection::first();
         $becomeInstructorBanner = BecomeInstructorSection::first();
         $video = VideoSection::first();
-        $brands = Brand::where('status',1)->get();
-
-        return view('frontend.pages.index', compact('hero', 'feature', 'featureCategories', 'about', 'latestCourses', 'becomeInstructorBanner','video','brands'));
+        $brands = Brand::where('status', 1)->get();
+        $featuredInstructor = FeaturedInstructor::first();
+              $featuredInstructorCourses = Course::whereIn('id', json_decode($featuredInstructor?->featured_courses ?? '[]'))->get();
+        return view('frontend.pages.index', compact('hero', 'feature', 'featureCategories', 'about', 'latestCourses', 'becomeInstructorBanner', 'video', 'brands', 'featuredInstructor','featuredInstructorCourses'));
     }
 
     function subscribe(Request $request): Response
