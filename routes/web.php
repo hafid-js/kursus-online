@@ -44,7 +44,10 @@ Route::get('stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('s
 Route::get('order-success', [PaymentController::class, 'orderSuccess'])->name('order.success');
 Route::get('order-failed', [PaymentController::class, 'orderFailed'])->name('order.failed');
 
-Route::post('newsletter-subscribe', [FrontendController::class,'subscribe'])->name('newsletter.subscribe');
+Route::post('newsletter-subscribe', [FrontendController::class, 'subscribe'])->name('newsletter.subscribe');
+
+// about route
+Route::get('about', [FrontendController::class, 'about'])->name('about.index');
 
 // Student Routes
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {
@@ -67,9 +70,7 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'p
     Route::get('file-download/{id}', [EnrolledCourseController::class, 'fileDownload'])->name('file-download');
 
     // certificate routes
-    Route::get('certificate/{course}', [CertificateController::class,'download'])->name('certificate.download');
-
-
+    Route::get('certificate/{course}', [CertificateController::class, 'download'])->name('certificate.download');
 });
 
 // Instructor Routes

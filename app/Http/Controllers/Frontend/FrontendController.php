@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AboutUsSection;
 use App\Models\BecomeInstructorSection;
 use App\Models\Brand;
+use App\Models\Counter;
 use App\Models\Course;
 use App\Models\CourseCategory;
 use App\Models\Feature;
@@ -13,6 +14,7 @@ use App\Models\FeaturedInstructor;
 use App\Models\Hero;
 use App\Models\LatestCourseSection;
 use App\Models\Newsletter;
+use App\Models\Testimonial;
 use App\Models\VideoSection;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -35,8 +37,17 @@ class FrontendController extends Controller
         $video = VideoSection::first();
         $brands = Brand::where('status', 1)->get();
         $featuredInstructor = FeaturedInstructor::first();
-              $featuredInstructorCourses = Course::whereIn('id', json_decode($featuredInstructor?->featured_courses ?? '[]'))->get();
-        return view('frontend.pages.index', compact('hero', 'feature', 'featureCategories', 'about', 'latestCourses', 'becomeInstructorBanner', 'video', 'brands', 'featuredInstructor','featuredInstructorCourses'));
+        $featuredInstructorCourses = Course::whereIn('id', json_decode($featuredInstructor?->featured_courses ?? '[]'))->get();
+        $testimonials = Testimonial::all();
+
+        return view('frontend.pages.index', compact('hero', 'feature', 'featureCategories', 'about', 'latestCourses', 'becomeInstructorBanner', 'video', 'brands', 'featuredInstructor', 'featuredInstructorCourses','testimonials'));
+    }
+
+    function about() {
+        $about = AboutUsSection::first();
+        $counter = Counter::first();
+        $testimonials = Testimonial::all();
+        return view('frontend.pages.about', compact('about','counter','testimonials'));
     }
 
     function subscribe(Request $request): Response
