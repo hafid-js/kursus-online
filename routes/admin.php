@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentSettingController;
 use App\Http\Controllers\Admin\PayoutGatewayController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\VideoSectionController;
 use App\Http\Controllers\Admin\WithdrawRequestController;
 use App\Http\Controllers\Frontend\HeroController;
@@ -179,9 +180,13 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     // brand section
     Route::resource('brand-section', BrandSectionController::class);
 
+
     // featured instructor section
     Route::get('get-instructor-courses/{id}', [FeaturedInstructorController::class, 'getInstructorCourses'])->name('featured-instructor.index');
     Route::resource('featured-instructor-section', FeaturedInstructorController::class);
+
+    // testimonial route
+    Route::resource('testimonial-section', TestimonialController::class);
 
 
     // lfm routes
