@@ -8,9 +8,9 @@
                     <div class="col-12">
                         <form action="https://httpbin.org/post" method="post" class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Course Levels</h4>
+                                <h4 class="card-title">Contact Cards</h4>
                                 <div class="card-actions">
-                                    <a href="{{ route('admin.course-levels.create') }}" class="btn btn-primary">
+                                    <a href="{{ route('admin.contact.create') }}" class="btn btn-primary">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -32,24 +32,35 @@
                                                     <table class="table table-vcenter card-table">
                                                         <thead>
                                                             <tr>
+                                                                <th>Icon</th>
                                                                 <th>Name</th>
-                                                                <th>Slug</th>
+                                                                <th>Status</th>
                                                                 <th>Action</th>
                                                                 {{-- <th class="w-1"></th> --}}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {{-- @forelse ($levels as $level)
+                                                            @forelse ($contactCards as $card)
                                                                 <tr>
-                                                                    <td>{{ $level->name }}</td>
-                                                                    <td>{{ $level->slug }}</td>
+                                                                    <td><img src="{{ asset($card->icon) }}" alt=""
+                                                                            width="50"></td>
+                                                                    <td>{{ $card->title }}</td>
                                                                     <td>
-                                                                        <a href="{{ route('admin.course-levels.edit', $level->id) }}"
+                                                                        @if ($card->status == 1)
+                                                                            <span class="badge bg-lime text-lime-fg">Yes</span>
+                                                                        @else
+                                                                            <span class="badge bg-red text-red-fg">No</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="{{ route('admin.contact.edit', $card->id) }}"
                                                                             class="text-blue">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" fill="none"
                                                                                 stroke="currentColor" stroke-width="2"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round"
                                                                                 class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
                                                                                 <path stroke="none" d="M0 0h24v24H0z"
                                                                                     fill="none" />
@@ -60,11 +71,14 @@
                                                                                 <path d="M16 5l3 3" />
                                                                             </svg>
                                                                         </a>
-                                                                        <a href="{{ route('admin.course-levels.destroy', $level->id) }}" class="text-red delete-item">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                                        <a href="{{ route('admin.contact.destroy', $card->id) }}"
+                                                                            class="text-red delete-item">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" fill="none"
                                                                                 stroke="currentColor" stroke-width="2"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round"
                                                                                 class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x">
                                                                                 <path stroke="none" d="M0 0h24v24H0z"
                                                                                     fill="none" />
@@ -80,15 +94,15 @@
                                                                 </tr>
                                                             @empty
                                                                 <tr>
-                                                                    <td colspan="3" class="text-center">No Data Found!</td>
+                                                                    <td colspan="3" class="text-center">No Data Found!
+                                                                    </td>
                                                                 </tr>
-                                                            @endforelse --}}
+                                                            @endforelse
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- {{ $levels->links() }} --}}
                                     </div>
                                 </div>
                             </div>
@@ -98,5 +112,4 @@
             </div>
         </div>
     </div>
-
 @endsection

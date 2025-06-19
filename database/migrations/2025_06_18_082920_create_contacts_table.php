@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('icon');
             $table->string('title');
             $table->string('line_one')->nullable();
-            $table->string('line_nullable')->nullable();
+            $table->string('line_two')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
