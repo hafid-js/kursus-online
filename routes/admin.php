@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\BecomeInstructorSectionController;
 use App\Http\Controllers\Admin\BrandSectionController;
 use App\Http\Controllers\Admin\CertificateBuilderController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\ContactSettingController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\CourseCategoryController;
 use App\Http\Controllers\Admin\CourseContentController;
@@ -149,6 +150,9 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::get('commission-settings', [SettingController::class, 'commissionSettingIndex'])->name('commission-settings.index');
     Route::post('commission-settings', [SettingController::class, 'updatecommissionSetting'])->name('commission-settings.update');
 
+    Route::get('smtp-settings', [SettingController::class, 'smtpSetting'])->name('smtp-settings.index');
+    Route::post('smtp-settings', [SettingController::class, 'updateSmtpSetting'])->name('smtp-settings.update');
+
     Route::resource('payout-gateway', PayoutGatewayController::class);
 
     // Withdrawal routes
@@ -195,6 +199,9 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     // contact route
     Route::resource('contact', ContactController::class);
+
+    // contact setting routes
+    Route::resource('contact-setting', ContactSettingController::class);
 
 
     // lfm routes

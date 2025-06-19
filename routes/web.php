@@ -52,6 +52,7 @@ Route::get('about', [FrontendController::class, 'about'])->name('about.index');
 
 // contact route
 Route::get('contact', [FrontendContactController::class,'index'])->name('contact.index');
+Route::post('contact', [FrontendContactController::class,'sendMail'])->name('send.contact');
 
 // Student Routes
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {

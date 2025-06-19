@@ -503,6 +503,11 @@
                                     Contact Cards
                                 </a>
                             </div>
+                             <div class="dropdown-menu-column">
+                                <a class="dropdown-item" href="{{ route('admin.contact-setting.index') }}">
+                                    Contact Setting
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </li>

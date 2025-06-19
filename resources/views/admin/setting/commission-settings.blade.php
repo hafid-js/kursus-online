@@ -4,7 +4,7 @@
         <form action="{{ route('admin.commission-settings.update') }}" method="POST">
             @csrf
             <div class="card-body">
-                <h3 class="card-title mt-4">commission Settings</h3>
+                <h3 class="card-title mt-4">Commission Settings</h3>
                 <div class="row g-3">
                     <div class="col-md-12">
                         <div class="form-label">Instructor commission Rate Per Sale (%)</div>
