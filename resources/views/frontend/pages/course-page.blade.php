@@ -133,22 +133,12 @@
                     <div class="wsus__page_courses_header wow fadeInUp"
                         style="visibility: visible; animation-name: fadeInUp;">
                         <p>Showing <span>1-9</span> Of <span>62</span> Results</p>
-                        <form action="#">
+                        <form action="">
                             <p>Sort-by:</p>
-                            <select class="select_js" style="display: none;">
-                                <option value="">Regular</option>
-                                <option value="">Top Rated</option>
-                                <option value="">Popular Courses</option>
-                                <option value="">Recent Courses</option>
+                            <select class="select_js" name="order" onchange="this.form.submit()">
+                                <option value="desc" @selected(request()->order == 'desc')>New to Old</option>
+                                <option value="asc" @selected(request()->order == 'asc')>Old to New</option>
                             </select>
-                            <div class="nice-select select_js" tabindex="0"><span class="current">Regular</span>
-                                <ul class="list">
-                                    <li data-value="" class="option selected">Regular</li>
-                                    <li data-value="" class="option">Top Rated</li>
-                                    <li data-value="" class="option">Popular Courses</li>
-                                    <li data-value="" class="option">Recent Courses</li>
-                                </ul>
-                            </div>
                         </form>
                     </div>
                     <div class="row">

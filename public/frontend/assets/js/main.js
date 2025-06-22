@@ -724,8 +724,8 @@ $(function () {
     // Range Slider
     $('.basic').alRangeSlider();
     const options = {
-        range: { min: 10, max: 1000, step: 1 },
-        initialSelectedValues: { from: 200, to: 800 },
+        range: { min: 0, max: 1000, step: 1 },
+        initialSelectedValues: { from: 0, to: 1000 },
         grid: { minTicksStep: 1, marksStep: 5 },
         theme: "dark",
     };
