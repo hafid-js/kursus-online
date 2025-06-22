@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\LatestCourseSectionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentSettingController;
 use App\Http\Controllers\Admin\PayoutGatewayController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\VideoSectionController;
@@ -202,6 +203,9 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     // contact setting routes
     Route::resource('contact-setting', ContactSettingController::class);
+
+    // review routes
+    Route::resource('reviews', ReviewController::class);
 
 
     // lfm routes

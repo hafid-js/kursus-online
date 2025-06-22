@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
 use App\Models\Contact;
 use App\Models\ContactSetting;
+use App\Models\Enrollment;
+use App\Models\Review;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\Mail;
 
 class FrontendContactController extends Controller

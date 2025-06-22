@@ -276,6 +276,11 @@
                                     Course Levels
                                 </a>
                             </div>
+                            <div class="dropdown-menu-column">
+                                <a class="dropdown-item" href="{{ route('admin.reviews.index') }}">
+                                    Course Reviews
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </li>

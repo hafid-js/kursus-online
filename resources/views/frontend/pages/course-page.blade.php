@@ -132,8 +132,8 @@
                 <div class="col-xl-9 col-lg-8 order-lg-1">
                     <div class="wsus__page_courses_header wow fadeInUp"
                         style="visibility: visible; animation-name: fadeInUp;">
-                        <p>Showing <span>1-9</span> Of <span>62</span> Results</p>
-                        <form action="">
+                        <p>Showing <span>1-{{ $courses->count() }}</span> Of <span>{{ $courses->total() }}</span> Results</p>
+                        <form action="{{ route('courses.index') }}">
                             <p>Sort-by:</p>
                             <select class="select_js" name="order" onchange="this.form.submit()">
                                 <option value="desc" @selected(request()->order == 'desc')>New to Old</option>
@@ -217,8 +217,9 @@
                             <p>No Data Found</p>
                         @endforelse
                     </div>
-                    <div class="wsus__pagination mt_50 wow fadeInUp" style="visibility: hidden; animation-name: none;">
-                        <nav aria-label="Page navigation example">
+                    <div class="wsus__pagination mt_50 wow fadeInUp"
+                    {{ $courses->withQueryString()->links() }}>
+                        {{-- <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Previous">
@@ -234,7 +235,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav> --}}
                     </div>
                 </div>
             </div>

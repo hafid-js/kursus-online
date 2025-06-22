@@ -309,28 +309,6 @@
                                     <h3>Reviews</h3>
                                     <div class="wsus__course_single_reviews">
                                         <div class="wsus__single_review_img">
-                                            <img src="{{ asset('frontend/assets/images/testimonial_user_1.png') }}"
-                                                alt="user" class="img-fluid">
-                                        </div>
-                                        <div class="wsus__single_review_text">
-                                            <h4>Dominic L. Ement</h4>
-                                            <h6> March 23,2024 at 8:37 pm
-                                                <span>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                </span>
-                                            </h6>
-                                            <p>Donec vel mauris at lectus iaculis elementum vel vel
-                                                lacus. Sed finibus velit vitae risus imperdiet placerat. Ut posuere eros
-                                                ut molestie rhoncus. Duis eget ex elementum, ultricies dolor sed,
-                                                hendrerit diam. Donec ut blandit nunc, et tempus lorem.</p>
-                                        </div>
-                                    </div>
-                                    <div class="wsus__course_single_reviews">
-                                        <div class="wsus__single_review_img">
                                             <img src="{{ asset('frontend/assets/images/testimonial_user_2.png') }}"
                                                 alt="user" class="img-fluid">
                                         </div>
@@ -352,44 +330,31 @@
                                         </div>
                                     </div>
                                 </div>
+                              @auth
                                 <div class="wsus__courses_review_input box_area mt_40">
                                     <h3>Write a Review</h3>
                                     <p class="short_text">Your email address will not be published. Required fields are
                                         marked *</p>
                                     <div class="select_rating d-flex flex-wrap">Your Rating:
-                                        <ul id="starRating" data-stars="5" class="starrating-init">
-                                            <li class="star"><i class="fa fa-star" aria-hidden="true"></i></li>
-                                            <li class="star"><i class="fa fa-star" aria-hidden="true"></i></li>
-                                            <li class="star"><i class="fa fa-star" aria-hidden="true"></i></li>
-                                            <li class="star"><i class="fa fa-star" aria-hidden="true"></i></li>
-                                            <li class="star"><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        </ul>
+                                        <ul id="starRating" data-stars="5"></ul>
                                     </div>
-                                    <form action="#">
+                                    <form action="{{ route('review.store') }}" method="POST">
+                                        @csrf
                                         <div class="row">
-                                            <div class="col-xl-6">
-                                                <input type="text" placeholder="Name">
-                                            </div>
-                                            <div class="col-xl-6">
-                                                <input type="email" placeholder="Email">
-                                            </div>
+                                            <input type="hidden" name="rating" value="" id="rating">
+                                            <input type="hidden" name="course" value="{{ $course->id }}">
                                             <div class="col-xl-12">
-                                                <textarea rows="7" placeholder="Comments"></textarea>
+                                                <textarea rows="7" placeholder="Review" name="review"></textarea>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Save my name, email, and website in this browser for the next
-                                                        time I comment.
-                                                    </label>
-                                                </div>
-                                                <a href="#" class="common_btn">Post Comment</a>
+                                            <div class="col-12 mt-3">
+                                                <button type="submit" class="common_btn">Submit Now</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
+                                @else
+                                <div class="alert alert-info mt-3 text-center" role="alert">Please <a href="{{ route('login') }}">Login</a> First To Write A Review</div>
+                                @endauth
                             </div>
                         </div>
                     </div>
@@ -529,4 +494,14 @@
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/gh/shakilahmed0369/ez-share/dist/ez-share.min.js"></script>
+
+    <script>
+        $(function() {
+            $('#starRating li').on('click', function() {
+                var $starRating = $('#starRating').find('.active').length;
+
+                $('#rating').val($starRating);
+            })
+        })
+    </script>
 @endpush

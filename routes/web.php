@@ -54,6 +54,9 @@ Route::get('about', [FrontendController::class, 'about'])->name('about.index');
 Route::get('contact', [FrontendContactController::class,'index'])->name('contact.index');
 Route::post('contact', [FrontendContactController::class,'sendMail'])->name('send.contact');
 
+// review routes
+Route::post('review', [CoursePageController::class,'storeReview'])->name('review.store');
+
 // Student Routes
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
