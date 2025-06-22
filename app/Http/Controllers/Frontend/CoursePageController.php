@@ -39,12 +39,13 @@ class CoursePageController extends Controller
     }
 
     function show(string $slug) {
-        $course = Course::where('slug', $slug)
+        $course = Course::with('reviews')->where('slug', $slug)
         ->where('is_approved', 'approved')
         ->where('status', 'active')
         ->firstOrFail();
+        $reviews = Review::where('course_id', $course->id)->where('status',1)->get();
 
-        return view('frontend.pages.course-details-page', compact('course'));
+        return view('frontend.pages.course-details-page', compact('course','reviews'));
     }
 
      function storeReview(Request $request) : RedirectResponse

@@ -229,13 +229,11 @@
                                     <div class="row align-items-center mb_50">
                                         <div class="col-xl-4 col-md-6">
                                             <div class="total_review">
-                                                <h2>4.7</h2>
+                                                <h2>{{ number_format($course->reviews()->avg('rating'),2) ?? 0 }}</h2>
                                                 <p>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                                   @for($i = 1; $i <= number_format($course->reviews()->avg('rating'), 2) ?? 0; $i++)
+                                                    <i class="fas fa-star"></i>
+                                                    @endfor
                                                 </p>
                                                 <h4>3 Ratings</h4>
                                             </div>
@@ -246,89 +244,74 @@
                                                     <p>5 <i class="fas fa-star" aria-hidden="true"></i></p>
                                                     <div id="bar1" class="barfiller">
                                                         <div class="tipWrap" style="display: inline;">
-                                                            <span class="tip"
-                                                                style="left: 8px; transition: left 1s ease-in-out;">85%</span>
+                                                            <span class="tip"></span>
                                                         </div>
-                                                        <span class="fill" data-percentage="85"
-                                                            style="background: rgb(22, 181, 151); width: 0px; transition: width 1s ease-in-out;"></span>
+                                                        <span class="fill" data-percentage="85"></span>
                                                     </div>
-                                                    <span class="qnty">87</span>
+                                                    <span class="qnty">{{ $course->reviews()->where('rating', 5)->count() }}</span>
                                                 </div>
                                                 <div class="review_bar_single">
                                                     <p>4 <i class="fas fa-star" aria-hidden="true"></i></p>
                                                     <div id="bar2" class="barfiller">
                                                         <div class="tipWrap" style="display: inline;">
-                                                            <span class="tip"
-                                                                style="left: 8px; transition: left 1s ease-in-out;">70%</span>
+                                                            <span class="tip"></span>
                                                         </div>
-                                                        <span class="fill" data-percentage="70"
-                                                            style="background: rgb(22, 181, 151); width: 0px; transition: width 1s ease-in-out;"></span>
+                                                        <span class="fill" data-percentage="70"></span>
                                                     </div>
-                                                    <span class="qnty">69</span>
+                                                    <span class="qnty">{{ $course->reviews()->where('rating', 4)->count() }}</span>
                                                 </div>
                                                 <div class="review_bar_single">
                                                     <p>3 <i class="fas fa-star" aria-hidden="true"></i></p>
                                                     <div id="bar3" class="barfiller">
-                                                        <div class="tipWrap" style="display: inline;">
-                                                            <span class="tip"
-                                                                style="left: 8px; transition: left 1s ease-in-out;">50%</span>
+                                                        <div class="tipWrap"></span>
                                                         </div>
-                                                        <span class="fill" data-percentage="50"
-                                                            style="background: rgb(22, 181, 151); width: 0px; transition: width 1s ease-in-out;"></span>
+                                                        <span class="fill" data-percentage="50"></span>
                                                     </div>
-                                                    <span class="qnty">44</span>
+                                                    <span class="qnty">{{ $course->reviews()->where('rating', 3)->count() }}</span>
                                                 </div>
                                                 <div class="review_bar_single">
                                                     <p>2 <i class="fas fa-star" aria-hidden="true"></i></p>
                                                     <div id="bar4" class="barfiller">
-                                                        <div class="tipWrap" style="display: inline;">
-                                                            <span class="tip"
-                                                                style="left: 8px; transition: left 1s ease-in-out;">30%</span>
+                                                        <div class="tipWrap"></span>
                                                         </div>
-                                                        <span class="fill" data-percentage="30"
-                                                            style="background: rgb(22, 181, 151); width: 0px; transition: width 1s ease-in-out;"></span>
+                                                        <span class="fill" data-percentage="30"></span>
                                                     </div>
-                                                    <span class="qnty">29</span>
+                                                    <span class="qnty">{{ $course->reviews()->where('rating', 2)->count() }}</span>
                                                 </div>
                                                 <div class="review_bar_single">
                                                     <p>1 <i class="fas fa-star" aria-hidden="true"></i></p>
                                                     <div id="bar5" class="barfiller">
                                                         <div class="tipWrap" style="display: inline;">
-                                                            <span class="tip"
-                                                                style="left: 8px; transition: left 1s ease-in-out;">10%</span>
+                                                            <span class="tip"></span>
                                                         </div>
-                                                        <span class="fill" data-percentage="10"
-                                                            style="background: rgb(22, 181, 151); width: 0px; transition: width 1s ease-in-out;"></span>
+                                                        <span class="fill"></span>
                                                     </div>
-                                                    <span class="qnty">12</span>
+                                                    <span class="qnty">{{ $course->reviews()->where('rating', 1)->count() }}</span>
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
                                     <h3>Reviews</h3>
+                                    @foreach ($reviews as $review)
                                     <div class="wsus__course_single_reviews">
                                         <div class="wsus__single_review_img">
-                                            <img src="{{ asset('frontend/assets/images/testimonial_user_2.png') }}"
+                                            <img src="{{ asset($review->user->image) }}"
                                                 alt="user" class="img-fluid">
                                         </div>
                                         <div class="wsus__single_review_text">
-                                            <h4>Smith jhon</h4>
-                                            <h6> March 23,2024 at 8:37 pm
+                                            <h4>{{ $review->user->name }}</h4>
+                                            <h6> {{ date('d M Y', strtotime($review->created_at))}}
                                                 <span>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
-                                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                                    @for($i = 1; $i <= $review->rating; $i++)
+                                                    <i class="fas fa-star"></i>
+                                                    @endfor
                                                 </span>
                                             </h6>
-                                            <p>Donec vel mauris at lectus iaculis elementum vel vel
-                                                lacus. Sed finibus velit vitae risus imperdiet placerat. Ut posuere eros
-                                                ut molestie rhoncus. Duis eget ex elementum, ultricies dolor sed,
-                                                hendrerit diam. Donec ut blandit nunc, et tempus lorem.</p>
+                                            <p>{{ $review->review }}</p>
                                         </div>
                                     </div>
+                                      @endforeach
                                 </div>
                               @auth
                                 <div class="wsus__courses_review_input box_area mt_40">
