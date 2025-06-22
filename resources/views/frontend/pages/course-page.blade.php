@@ -38,13 +38,13 @@
                                 <h3>Categories</h3>
                                 <ul class="categoty_list">
                                     @foreach ($categories as $category)
-                                        <li class="">{{ $category->name }}
+                                        <li class="active">{{ $category->name }}
                                             <div class="wsus__sidebar_sub_category">
                                                 @foreach ($category->subCategories as $subCategory)
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckDefaultc1">
-                                                        <label class="form-check-label" for="flexCheckDefaultc1">
+                                                        <input class="form-check-input" type="checkbox" name="category[]" value="{{ $subCategory->id }}"
+                                                            id="category-{{ $subCategory->id }}" @checked(in_array($subCategory->id, request()->category ?? []))>
+                                                        <label class="form-check-label" for="category-{{ $subCategory->id }}">
                                                             {{ $subCategory->name }}
                                                         </label>
                                                     </div>
@@ -59,8 +59,8 @@
                                 <h3>Difficulty Level</h3>
                                 @foreach ($levels as $level)
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="level-{{ $level->id }}">
+                                        <input class="form-check-input" type="checkbox" value="{{ $level->id }}" name="level[]"
+                                            id="level-{{ $level->id }}" @checked(in_array($level->id, request()->level ?? []))>
                                         <label class="form-check-label" for="level-{{ $level->id }}">
                                             {{ $level->name }}
                                         </label>
@@ -106,8 +106,8 @@
                                 <h3>Language</h3>
                                 @foreach ($languages as $language)
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="language-{{ $language->id }}">
+                                        <input class="form-check-input" type="checkbox" value="{{ $language->id }}"
+                                            id="language-{{ $language->id }}" name="language[]"  @checked(in_array($language->id, request()->language ?? []))>
                                         <label class="form-check-label" for="language-{{ $language->id }}">
                                             {{ $language->name }}
                                         </label>
@@ -119,6 +119,11 @@
                                 <h3>Price Range</h3>
                                 <div class="range_slider">
                                 </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <button type="submit" class="btn btn-primary">Search</button>
                             </div>
 
                         </form>

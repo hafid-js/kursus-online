@@ -14,7 +14,17 @@ class CoursePageController extends Controller
     function index(Request $request) {
         $courses = Course::where('is_approved','approved')->where('status','active')->when($request->has('search') && $request->filled('search'), function($query) use ($request) {
             $query->where('title','like','%'.$request->search.'%')->orWhere('description','like','%'.$request->search.'%');
-        })->paginate(12);
+        })
+        ->when($request->has('category') && $request->filled('category'), function($query) use ($request) {
+            $query->whereIn('category_id', $request->category);
+        })
+        ->when($request->has('level') && $request->filled('level'), function($query) use ($request) {
+            $query->whereIn('course_level_id', $request->level);
+        })
+        ->when($request->has('language') && $request->filled('language'), function($query) use ($request) {
+            $query->whereIn('course_language_id', $request->language);
+        })
+        ->paginate(12);
         $categories = CourseCategory::where('status','1')->whereNull('parent_id')->get();
         $levels = CourseLevel::all();
         $languages = CourseLanguage::all();
