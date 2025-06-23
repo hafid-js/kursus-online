@@ -51,11 +51,11 @@ Route::post('newsletter-subscribe', [FrontendController::class, 'subscribe'])->n
 Route::get('about', [FrontendController::class, 'about'])->name('about.index');
 
 // contact route
-Route::get('contact', [FrontendContactController::class,'index'])->name('contact.index');
-Route::post('contact', [FrontendContactController::class,'sendMail'])->name('send.contact');
+Route::get('contact', [FrontendContactController::class, 'index'])->name('contact.index');
+Route::post('contact', [FrontendContactController::class, 'sendMail'])->name('send.contact');
 
 // review routes
-Route::post('review', [CoursePageController::class,'storeReview'])->name('review.store');
+Route::post('review', [CoursePageController::class, 'storeReview'])->name('review.store');
 
 // Student Routes
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {
@@ -79,6 +79,10 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'p
 
     // certificate routes
     Route::get('certificate/{course}', [CertificateController::class, 'download'])->name('certificate.download');
+
+    // review routes
+    Route::get('review', [StudentDashboardController::class, 'review'])->name('review.index');
+    Route::delete('review/{id}', [StudentDashboardController::class, 'reviewDestroy'])->name('review.destroy');
 });
 
 // Instructor Routes
