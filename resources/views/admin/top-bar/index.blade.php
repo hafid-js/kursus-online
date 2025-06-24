@@ -24,7 +24,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="form-label">Phone</label>
-                                                <input type="text" class="form-control" name="phone" placeholder="" value="{{ $topbar->phone }}"">
+                                                <input type="text" class="form-control" name="phone" placeholder="" value="{{ $topbar->phone }}">
                                                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                             </div>
                                         </div>
