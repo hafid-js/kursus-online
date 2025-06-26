@@ -13,9 +13,9 @@ class CartController extends Controller
 {
     function index()
     {
-          if (!Auth::guard('web')->check()) {
+        if (!Auth::guard('web')->check()) {
             notyf()->error('Please Login First!');
-              return redirect()->back();
+            return redirect()->back();
         }
         $cart = Cart::with(['course'])->where(['user_id' => user()->id])->paginate();
         return view('frontend.pages.cart', compact('cart'));
@@ -30,11 +30,11 @@ class CartController extends Controller
             ], 401);
         }
 
-        if(Cart::where([
+        if (Cart::where([
             'course_id' => $id,
             'user_id' => Auth::guard('web')->user()->id
         ])->exists()) {
-            return response ([
+            return response([
                 'message' => 'Already Added!'
             ], 401);
         }
@@ -50,11 +50,11 @@ class CartController extends Controller
         ], 200);
     }
 
-    function removeFromCart(int $id) : RedirectResponse {
+    function removeFromCart(int $id): RedirectResponse
+    {
         $cart = Cart::where(['id' => $id, 'user_id' => user()->id])->firstOrFail();
         $cart->delete();
         notyf()->success('Removed Successfully!');
         return redirect()->back();
     }
-
 }

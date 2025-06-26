@@ -1,5 +1,5 @@
 @php
-    $categories = \App\Models\CourseCategory::whereNull('parent_id')->where('status',1)->get();
+    $categories = \App\Models\CourseCategory::whereNull('parent_id')->where('status', 1)->get();
 @endphp
 
 <nav class="navbar navbar-expand-lg main_menu main_menu_3">
@@ -18,22 +18,23 @@
             Category
             <ul>
                 @foreach ($categories as $category)
-                <li>
-                    <a href="javascript:;">
-                        <span>
-                            <img src="{{ asset($category->image) }}" alt="Category"
-                                class="img-fluid">
-                        </span>
-                        {{ $category->name }}
-                    </a>
-                    @if ($category->subCategories->count() > 0)
-                    <ul class="category_sub_menu">
-                        @foreach ($category->subCategories as $subCategory)
-                        <li><a href="{{ route('courses.index', ['category' => $subCategory->id]) }}">{{ $subCategory->name }}</a></li>
-                           @endforeach
-                    </ul>
-                      @endif
-                </li>
+                    <li>
+                        <a href="javascript:;">
+                            <span>
+                                <img src="{{ asset($category->image) }}" alt="Category" class="img-fluid">
+                            </span>
+                            {{ $category->name }}
+                        </a>
+                        @if ($category->subCategories->count() > 0)
+                            <ul class="category_sub_menu">
+                                @foreach ($category->subCategories as $subCategory)
+                                    <li><a
+                                            href="{{ route('courses.index', ['category' => $subCategory->id]) }}">{{ $subCategory->name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -48,7 +49,7 @@
                 <a class="nav-link" href="{{ route('courses.index') }}">Courses</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('contact.index') }}">contact us</a>
+                <a class="nav-link" href="{{ route('contact.index') }}">Contact Us</a>
             </li>
         </ul>
 
@@ -64,15 +65,6 @@
                                 class="img-fluid">
                         </span>
                         <b>06</b>
-                    </a>
-                </li>
-                <li>
-                    <a class="admin" href="#">
-                        <span>
-                            <img src="{{ asset('frontend/assets/images/user_icon_black.png') }}" alt="user"
-                                class="img-fluid">
-                        </span>
-                        admin
                     </a>
                 </li>
 

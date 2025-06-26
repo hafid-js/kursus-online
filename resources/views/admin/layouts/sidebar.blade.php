@@ -545,9 +545,14 @@
                                     Top Bar
                                 </a>
                             </div>
-                             <div class="dropdown-menu-column">
-                                <a class="dropdown-item" href="{{ route('admin.contact-setting.index') }}">
-                                    Contact Setting
+                            <div class="dropdown-menu-column">
+                                <a class="dropdown-item" href="{{ route('admin.footer.index') }}">
+                                    Footer
+                                </a>
+                            </div>
+                            <div class="dropdown-menu-column">
+                                <a class="dropdown-item" href="{{ route('admin.social-links.index') }}">
+                                    Social Links
                                 </a>
                             </div>
                         </div>
