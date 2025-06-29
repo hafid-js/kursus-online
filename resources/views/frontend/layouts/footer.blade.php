@@ -4,6 +4,8 @@
     @php
         $footer = \App\Models\Footer::first();
         $socialLinks = \App\Models\SocialLink::where('status',1)->get();
+        $footerColumnOne = \App\Models\FooterColumnOne::where('status',1)->get();
+                $footerColumnTwo = \App\Models\FooterColumnTwo::where('status',1)->get();
     @endphp
     <footer class="footer_3" style="background: 'frontend/assets/images/footer_3_bg.jpg'">
         <div class="footer_3_overlay pt_120 xs_pt_100">
@@ -15,7 +17,7 @@
                                 <a class="logo" href="index.html">
                                     <img src="{{ asset('frontend/assets/images/footer_logo.png') }}" alt="EduCore" class="img-fluid">
                                 </a>
-                                <p>{{ $footer->decsription }}</p>
+                                <p>{{ $footer->description }}</p>
                                 <h2>Follow Us On</h2>
                                 <ul class="d-flex flex-wrap">
                                     @foreach ($socialLinks as $socialLink)
@@ -31,25 +33,21 @@
                         </div>
                         <div class="col-lg-2 col-sm-6 col-md-3 wow fadeInUp">
                             <div class="wsus__footer_link">
-                                <h2>Courses</h2>
+                                <h2>Help Links</h2>
                                 <ul>
-                                    <li><a href="#">Life Coach</a></li>
-                                    <li><a href="#">Business Coach</a></li>
-                                    <li><a href="#">Health Coach</a></li>
-                                    <li><a href="#">Development</a></li>
-                                    <li><a href="#">SEO Optimize</a></li>
+                                    @foreach ($footerColumnOne as $footerColumn)
+                                        <li><a href="{{ $footerColumn->url }}">{{ $footerColumn->title }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
                         <div class="col-lg-2 col-sm-6 col-md-3 wow fadeInUp">
                             <div class="wsus__footer_link">
-                                <h2>Programs</h2>
+                                <h2>More Links</h2>
                                 <ul>
-                                    <li><a href="#">The Arts</a></li>
-                                    <li><a href="#">Human Sciences</a></li>
-                                    <li><a href="#">Economics</a></li>
-                                    <li><a href="#">Natural Sciences</a></li>
-                                    <li><a href="#">Business</a></li>
+                                    @foreach ($footerColumnTwo as $footerColumn)
+                                        <li><a href="{{ $footerColumn->url }}">{{ $footerColumn->title }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

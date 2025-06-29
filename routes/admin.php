@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\BecomeInstructorSectionController;
 use App\Http\Controllers\Admin\BrandSectionController;
@@ -25,6 +24,8 @@ use App\Http\Controllers\Admin\CourseSubCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\FeaturedInstructorController;
+use App\Http\Controllers\Admin\FooterColumnOneController;
+use App\Http\Controllers\Admin\FooterColumnTwoController;
 use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\InstructorRequestController;
 use App\Http\Controllers\Admin\LatestCourseSectionController;
@@ -165,8 +166,8 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::post('withdraw-requests/{withdraw}/status', [WithdrawRequestController::class, 'updateStatus'])->name('withdraw-request.update');
 
     // lfm routes
-    Route::get('certificate-builder', [CertificateBuilderController::class,'index'])->name('certificate-builder.index');
-    Route::post('certificate-builder', [CertificateBuilderController::class,'update'])->name('certificate-builder.update');
+    Route::get('certificate-builder', [CertificateBuilderController::class, 'index'])->name('certificate-builder.index');
+    Route::post('certificate-builder', [CertificateBuilderController::class, 'update'])->name('certificate-builder.update');
     Route::post('certificate-item', [CertificateBuilderController::class, 'itemUpdate'])->name('certificate-item.update');
 
     // hero routes
@@ -216,8 +217,15 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     // footer routes
     Route::resource('footer', FooterController::class);
 
+    // footer column one routes
+    Route::resource('footer-column-one', FooterColumnOneController::class);
+
+        // footer column two routes
+    Route::resource('footer-column-two', FooterColumnTwoController::class);
+
     // social links routes
-    Route::resource('social-links',SocialLinkController::class);
+    Route::resource('social-links', SocialLinkController::class);
+
 
 
     // lfm routes
