@@ -57,6 +57,9 @@ Route::post('contact', [FrontendContactController::class, 'sendMail'])->name('se
 // review routes
 Route::post('review', [CoursePageController::class, 'storeReview'])->name('review.store');
 
+// custom page routes
+Route::get('page/{slug}', [FrontendController::class,'customPage'])->name('custom-page');
+
 // Student Routes
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
