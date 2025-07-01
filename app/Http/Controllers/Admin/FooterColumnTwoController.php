@@ -40,7 +40,7 @@ class FooterColumnTwoController extends Controller
         $columnTwo = new FooterColumnTwo();
         $columnTwo->title = $request->title;
         $columnTwo->url = $request->url;
-        $columnTwo->status = $request->status;
+        $columnTwo->status = $request->status ?? 0;
         $columnTwo->save();
 
         notyf()->success('Created Successfully');

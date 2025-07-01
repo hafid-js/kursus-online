@@ -40,7 +40,7 @@ class FooterColumnOneController extends Controller
         $columnOne = new FooterColumnOne();
         $columnOne->title = $request->title;
         $columnOne->url = $request->url;
-        $columnOne->status = $request->status;
+        $columnOne->status = $request->status ?? 0;
         $columnOne->save();
 
         notyf()->success('Created Successfully');

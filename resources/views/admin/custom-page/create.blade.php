@@ -40,6 +40,9 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
+                                            <x-input-toggle-block name="show_at_nav" label="Show at Navigation" />
+                                        </div>
+                                        <div class="col-md-12">
                                             <x-input-toggle-block name="status" label="Status" />
                                         </div>
                                     </div>

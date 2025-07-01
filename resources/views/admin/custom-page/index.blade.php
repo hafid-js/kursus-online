@@ -33,26 +33,34 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>Title</th>
-                                                                <th>Url</th>
+                                                                <th>Slug</th>
+                                                                <th>Show at Nav</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
                                                                 {{-- <th class="w-1"></th> --}}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {{-- @forelse ($columnTwo as $column)
+                                                            @forelse ($pages as $page)
                                                                 <tr>
-                                                                    <td>{{ $column->title }}</td>
-                                                                    <td>{{ $column->url }}</td>
+                                                                    <td>{{ $page->title }}</td>
+                                                                    <td><code class="text-danger">{{ url('/') }}/page/{{ $page->slug }}</code></td>
                                                                     <td>
-                                                                        @if ($column->status == 1)
+                                                                        @if ($page->show_at_nav == 1)
+                                                                        <span class="badge bg-lime text-lime-fg">Yes</span>
+                                                                        @else
+                                                                        <span class="badge bg-red text-red-fg">No</span>
+                                                                        @endif
+                                                                    </td>
+                                                                     <td>
+                                                                        @if ($page->status == 1)
                                                                         <span class="badge bg-lime text-lime-fg">Yes</span>
                                                                         @else
                                                                         <span class="badge bg-red text-red-fg">No</span>
                                                                         @endif
                                                                     </td>
                                                                     <td>
-                                                                        <a href="{{ route('admin.custom-page.edit', $column->id) }}"
+                                                                        <a href="{{ route('admin.custom-page.edit', $page->id) }}"
                                                                             class="text-blue">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                                 height="24" viewBox="0 0 24 24" fill="none"
@@ -68,7 +76,7 @@
                                                                                 <path d="M16 5l3 3" />
                                                                             </svg>
                                                                         </a>
-                                                                        <a href="{{ route('admin.custom-page.destroy', $column->id) }}" class="text-red delete-item">
+                                                                        <a href="{{ route('admin.custom-page.destroy', $page->id) }}" class="text-red delete-item">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                                 height="24" viewBox="0 0 24 24" fill="none"
                                                                                 stroke="currentColor" stroke-width="2"
@@ -88,15 +96,15 @@
                                                                 </tr>
                                                             @empty
                                                                 <tr>
-                                                                    <td colspan="3" class="text-center">No Data Found!</td>
+                                                                    <td colspan="5" class="text-center">No Data Found!</td>
                                                                 </tr>
-                                                            @endforelse --}}
+                                                            @endforelse
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- {{ $columnTwo->links() }} --}}
+                                        {{ $pages->links() }}
                                     </div>
                                 </div>
                             </div>
