@@ -25,47 +25,47 @@
                                                     <table class="table table-vcenter card-table">
                                                         <thead>
                                                             <tr>
-                                                                <th>Name</th>
-                                                                <th>Slug</th>
+                                                                <th>Title</th>
+                                                                <th>Category</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
                                                                 {{-- <th class="w-1"></th> --}}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {{-- @forelse ($categories as $category)
+                                                            @forelse ($blogs as $blog)
                                                                 <tr>
-
-                                                                    <td>{{ $category->name }}</td>
-                                                                    <td>{{ $category->slug }}</td>
+                                                                    <td><img src="{{ asset($blog->image) }}" width="100" alt=""></td>
+                                                                    <td>{{ $blog->title }}</td>
+                                                                    <td>{{ $blog->category->name }}</td>
                                                                     <td>
-                                                                        @if ($category->status == 1)
+                                                                        @if ($blog->status == 1)
                                                                         <span class="badge bg-lime text-lime-fg">Yes</span>
                                                                         @else
                                                                         <span class="badge bg-red text-red-fg">No</span>
                                                                         @endif
                                                                     </td>
                                                                     <td>
-                                                                        <a href="{{ route('admin.blogs.edit', $category->id) }}"
+                                                                        <a href="{{ route('admin.blogs.edit', $blog->id) }}"
                                                                             class="btn-sm btn-primary">
                                                                             <i class="ti ti-edit"></i>
                                                                         </a>
-                                                                        <a href="{{ route('admin.blogs.destroy', $category->id) }}" class="text-red delete-item">
+                                                                        <a href="{{ route('admin.blogs.destroy', $blog->id) }}" class="text-red delete-item">
                                                                             <i class="ti ti-trash"></i>
                                                                         </a>
                                                                     </td>
                                                                 </tr>
                                                             @empty
                                                                 <tr>
-                                                                    <td colspan="3" class="text-center">No Data Found!</td>
+                                                                    <td colspan="4" class="text-center">No Data Found!</td>
                                                                 </tr>
-                                                            @endforelse --}}
+                                                            @endforelse
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- {{ $categories->links() }} --}}
+                                        {{ $blogs->links() }}
                                     </div>
                                 </div>
                             </div>

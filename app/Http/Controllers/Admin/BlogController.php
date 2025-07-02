@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Traits\FileUpload;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -17,7 +19,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('admin.blog.index');
+        $blogs = Blog::with('category')->paginate(20);
+        return view('admin.blog.index', compact('blogs'));
     }
 
     /**
@@ -72,15 +75,44 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $categories = BlogCategory::all();
+        return view('admin.blog.edit', compact('blog','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id) : RedirectResponse
     {
-        //
+        $request->validate([
+            'title' => ['required','string','max:255','unique:blogs,title,'.$id],
+            'image' => ['nullable','image','max:3000'],
+            'description' => ['required','string'],
+            'category' => ['required','exists:blog_categories,id'],
+            'status' => ['nullable','boolean'],
+        ]);
+
+
+        $blog = Blog::findOrFail($id);
+
+        if($request->hasFile('image')) {
+            $image = $this->uploadFile($request->file('image'));
+            $this->deleteFile($request->old_image);
+            $blog->image = $image;
+        }
+
+        $blog->title = $request->title;
+        $blog->slug = \Str::slug($request->title);
+        $blog->description = $request->description;
+        $blog->blog_category_id = $request->category;
+        $blog->user_id = adminUser()->id;
+        $blog->status = $request->status ?? 0;
+        $blog->save();
+
+        notyf()->success('Updated Successfully!');
+
+        return to_route('admin.blogs.index');
     }
 
     /**
@@ -88,6 +120,14 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+         try {
+            $blog->delete();
+            notyf()->success('Delete Succesfully!');
+            return response(['message' => 'Delete Successfully!'], 200);
+        } catch(Exception $e) {
+            logger("Blog Error >> ".$e);
+            return response(['message' => 'Something went wrong!'], 500);
+        }
     }
 }
