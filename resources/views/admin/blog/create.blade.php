@@ -22,7 +22,10 @@
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <x-input-block name="name" placeholder="Enter name" />
+                                            <x-input-block name="title" placeholder="Enter title" />
+                                        </div>
+                                        <div class="col-md-12">
+                                            <x-input-file-block name="image"/>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -33,12 +36,14 @@
                                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                     @endforeach
                                                 </select>
+                                                <x-input-error :messages="$errors->get('category')" class="mt-2"/>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                            <div class="form-group mt-3">
                                             <label for="" class="mb-2">Description</label>
                                             <textarea name="description" class="editor" id=""></textarea>
+                                               <x-input-error :messages="$errors->get('description')" class="mt-2"/>
                                            </div>
                                         </div>
                                         <div class="col-md-3 mt-2">
