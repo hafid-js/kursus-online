@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CertificateController;
+use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CourseContentController;
@@ -58,7 +59,13 @@ Route::post('contact', [FrontendContactController::class, 'sendMail'])->name('se
 Route::post('review', [CoursePageController::class, 'storeReview'])->name('review.store');
 
 // custom page routes
-Route::get('page/{slug}', [FrontendController::class,'customPage'])->name('custom-page');
+Route::get('page/{slug}', [FrontendController::class, 'customPage'])->name('custom-page');
+
+// blog routes
+Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::post('blog/comment/{id}', [BlogController::class, 'storeComment'])->name('blog.comment.store');
+
 
 // Student Routes
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {

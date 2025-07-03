@@ -50,6 +50,9 @@
                 <a class="nav-link" href="{{ route('courses.index') }}">Courses</i></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('blog.index') }}">Blog</a>
+            </li>
+             <li class="nav-item">
                 <a class="nav-link" href="{{ route('contact.index') }}">Contact Us</a>
             </li>
              @foreach ($customPages as $page)
