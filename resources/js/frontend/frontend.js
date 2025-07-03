@@ -67,14 +67,12 @@ $(".newsletter").on('submit', function(e) {
             $('.newsletter').trigger('reset');
             $('.newsletter-btn').text('Subscribe');
             $('.newsletter-btn').prop('disabled', false);
-            notyf.success(data.message);
         },
         error: function (xhr, status, error) {
             notyf.error(xhr.responseJSON.message);
             $('.newsletter').trigger('reset');
             $('.newsletter-btn').text('Subscribe');
             $('.newsletter-btn').prop('disabled', false);
-            notyf.error(error);
         }
     })
 })
