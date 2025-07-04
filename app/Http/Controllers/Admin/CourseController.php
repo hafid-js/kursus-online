@@ -11,6 +11,7 @@ use App\Models\CourseLanguage;
 use App\Models\CourseLevel;
 use App\Models\User;
 use App\Traits\FileUpload;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;

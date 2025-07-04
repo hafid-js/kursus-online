@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-lg-3 wow fadeInUp">
                             <div class="wsus__footer_3_logo_area">
-                                <a class="logo" href="index.html">
+                                <a class="logo" href="{{ url('/') }}">
                                     <img src="{{ asset(config('settings.site_footer_logo')) }}" alt="EduCore" class="img-fluid">
                                 </a>
                                 <p>{{ $footer->description }}</p>
@@ -23,11 +23,11 @@
                                     @foreach ($socialLinks as $socialLink)
                                     <li>
                                         <a href="{{ $socialLink->url }}" target="_blank">
-                                           <img src="{{ asset($socialLink->icon) }}" alt="" style="width: 20px !important; height: 20px !important;">
+                                           <img src="{{ asset($socialLink->icon) }}" alt="">
+                                           {{-- <i class="fab fa-facebook-f" aria-hidden="true"></i> --}}
                                         </a>
                                     </li>
                                     @endforeach
-
                                 </ul>
                             </div>
                         </div>

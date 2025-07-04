@@ -53,7 +53,7 @@
             <div class="col-xxl-5 col-xl-6 col-lg-6 wow fadeInLeft">
                 <div class="wsus__sign_img">
                     <img src="{{ asset('frontend/assets/images/login_img_1.jpg') }}" alt="login" class="img-fluid">
-                    <a href="index.html">
+                    <a href="{{ url('/') }}">
                         <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="EduCore" class="img-fluid">
                     </a>
                 </div>

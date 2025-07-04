@@ -4,7 +4,7 @@
 @endphp
 
 <nav class="navbar navbar-expand-lg main_menu main_menu_3">
-    <a class="navbar-brand" href="index_3.html">
+    <a class="navbar-brand" href="{{ url('/') }}">
         <img src="{{ asset(config('settings.site_logo')) }}" alt="EduCore" class="img-fluid">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -73,7 +73,7 @@
                             <img src="{{ asset('frontend/assets/images/cart_icon_black.png') }}" alt="user"
                                 class="img-fluid">
                         </span>
-                        <b>06</b>
+                        <b class="cart_count">{{ cartCount() }}</b>
                     </a>
                 </li>
 

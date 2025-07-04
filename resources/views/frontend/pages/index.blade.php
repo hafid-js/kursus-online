@@ -78,68 +78,57 @@
 
             <div class="tab-content" id="pills-tabContent">
                 @if ($categoryOne)
-                    <div class="tab-pane fade show" id="pills-{{ $categoryOne->id }}" role="tabpanel"
+                    <div class="tab-pane fade show active" id="pills-{{ $categoryOne->id }}" role="tabpanel"
                         aria-labelledby="pills-{{ $categoryOne->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryOne->courses()->latest()->take(8)->get() as $course)
                                 <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
+                                            <img src="{{ asset($course->thumbnail) }}"
                                                 alt="Courses" class="img-fluid">
-                                            <ul>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}"
-                                                            alt="Love" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}"
-                                                            alt="Compare" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}"
-                                                            alt="Cart" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <span class="time"><i class="far fa-clock"></i> 15 Hours</span>
+
+                                            <span class="time"><i class="far fa-clock"></i> {{ convertMinutesToHours($course->duration) }}</span>
                                         </div>
                                         <div class="wsus__single_courses_text_3">
                                             <div class="rating_area">
                                                 <!-- <a href="#" class="category">Design</a> -->
-                                                <p class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span>(4.8 Rating)</span>
+                                               <p class="rating">
+                                                 @for($i = 1; $i <= 5; $i++)
+                                                 @if ($i <= $course->reviews()->avg('rating'))
+                                                      <i class="fas fa-star"></i>
+                                                 @else
+                                                  <i class="far fa-star"></i>
+                                                  @endif
+
+                                                  @endfor
+                                                    <span>({{ number_format($course->reviews()->avg('rating'),2) ?? 0 }} Rating)</span>
                                                 </p>
                                             </div>
 
-                                            <a class="title" href="#">Complete Blender Creator Learn 3D
-                                                Modelling.</a>
+                                            <a class="title" href="{{ route('courses.show', $course->slug) }}">{{ $course->title }}</a>
                                             <ul>
-                                                <li>24 Lessons</li>
-                                                <li>38 Student</li>
+                                                <li>{{ $course->lessons()->count() }} Lessons</li>
+                                                <li>{{ $course->enrollments->count() }} Student</li>
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}"
+                                                    <img src="{{ asset($course->instructor->image) }}"
                                                         alt="Author" class="img-fluid">
                                                 </div>
-                                                <h4>Hermann P. Schnitzel</h4>
+                                                <h4>{{ $course->instructor->name }}</h4>
                                             </a>
                                         </div>
                                         <div class="wsus__single_courses_3_footer">
-                                            <a class="common_btn" href="#">Enroll <i
+                                            <a class="common_btn add_to_cart" href="#" data-course-id="{{ $course->id }}">Add to Cart<i
                                                     class="far fa-arrow-right"></i></a>
-                                            <p><del>$254</del> $156.00</p>
+                                            <p>
+                                                @if($course->discount > 0)
+                                                <del>${{ $course->price }}</del> ${{ $course->discount }}
+                                                @else
+                                                ${{ $course->price }}
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -158,64 +147,53 @@
                         aria-labelledby="pills-{{ $categoryTwo->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryTwo->courses()->latest()->take(8)->get() as $course)
-                                <div class="col-xl-3 col-md-6 col-lg-4">
+                               <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
+                                            <img src="{{ asset($course->thumbnail) }}"
                                                 alt="Courses" class="img-fluid">
-                                            <ul>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}"
-                                                            alt="Love" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}"
-                                                            alt="Compare" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}"
-                                                            alt="Cart" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <span class="time"><i class="far fa-clock"></i> 15 Hours</span>
+
+                                            <span class="time"><i class="far fa-clock"></i> {{ convertMinutesToHours($course->duration) }}</span>
                                         </div>
                                         <div class="wsus__single_courses_text_3">
                                             <div class="rating_area">
                                                 <!-- <a href="#" class="category">Design</a> -->
-                                                <p class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span>(4.8 Rating)</span>
+                                               <p class="rating">
+                                                 @for($i = 1; $i <= 5; $i++)
+                                                 @if ($i <= $course->reviews()->avg('rating'))
+                                                      <i class="fas fa-star"></i>
+                                                 @else
+                                                  <i class="far fa-star"></i>
+                                                  @endif
+
+                                                  @endfor
+                                                    <span>({{ number_format($course->reviews()->avg('rating'),2) ?? 0 }} Rating)</span>
                                                 </p>
                                             </div>
 
-                                            <a class="title" href="#">Complete Blender Creator Learn 3D
-                                                Modelling.</a>
+                                            <a class="title" href="{{ route('courses.show', $course->slug) }}">{{ $course->title }}</a>
                                             <ul>
-                                                <li>24 Lessons</li>
-                                                <li>38 Student</li>
+                                                <li>{{ $course->lessons()->count() }} Lessons</li>
+                                                <li>{{ $course->enrollments->count() }} Student</li>
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}"
+                                                    <img src="{{ asset($course->instructor->image) }}"
                                                         alt="Author" class="img-fluid">
                                                 </div>
-                                                <h4>Hermann P. Schnitzel</h4>
+                                                <h4>{{ $course->instructor->name }}</h4>
                                             </a>
                                         </div>
                                         <div class="wsus__single_courses_3_footer">
-                                            <a class="common_btn" href="#">Enroll <i
+                                            <a class="common_btn add_to_cart" href="#" data-course-id="{{ $course->id }}">Add to Cart<i
                                                     class="far fa-arrow-right"></i></a>
-                                            <p><del>$254</del> $156.00</p>
+                                            <p>
+                                                @if($course->discount > 0)
+                                                <del>${{ $course->price }}</del> ${{ $course->discount }}
+                                                @else
+                                                ${{ $course->price }}
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -234,64 +212,53 @@
                         aria-labelledby="pills-{{ $categoryThree->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryThree->courses()->latest()->take(8)->get() as $course)
-                                <div class="col-xl-3 col-md-6 col-lg-4">
+                               <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
+                                            <img src="{{ asset($course->thumbnail) }}"
                                                 alt="Courses" class="img-fluid">
-                                            <ul>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}"
-                                                            alt="Love" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}"
-                                                            alt="Compare" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}"
-                                                            alt="Cart" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <span class="time"><i class="far fa-clock"></i> 15 Hours</span>
+
+                                            <span class="time"><i class="far fa-clock"></i> {{ convertMinutesToHours($course->duration) }}</span>
                                         </div>
                                         <div class="wsus__single_courses_text_3">
                                             <div class="rating_area">
                                                 <!-- <a href="#" class="category">Design</a> -->
-                                                <p class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span>(4.8 Rating)</span>
+                                               <p class="rating">
+                                                 @for($i = 1; $i <= 5; $i++)
+                                                 @if ($i <= $course->reviews()->avg('rating'))
+                                                      <i class="fas fa-star"></i>
+                                                 @else
+                                                  <i class="far fa-star"></i>
+                                                  @endif
+
+                                                  @endfor
+                                                    <span>({{ number_format($course->reviews()->avg('rating'),2) ?? 0 }} Rating)</span>
                                                 </p>
                                             </div>
 
-                                            <a class="title" href="#">Complete Blender Creator Learn 3D
-                                                Modelling.</a>
+                                            <a class="title" href="{{ route('courses.show', $course->slug) }}">{{ $course->title }}</a>
                                             <ul>
-                                                <li>24 Lessons</li>
-                                                <li>38 Student</li>
+                                                <li>{{ $course->lessons()->count() }} Lessons</li>
+                                                <li>{{ $course->enrollments->count() }} Student</li>
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}"
+                                                    <img src="{{ asset($course->instructor->image) }}"
                                                         alt="Author" class="img-fluid">
                                                 </div>
-                                                <h4>Hermann P. Schnitzel</h4>
+                                                <h4>{{ $course->instructor->name }}</h4>
                                             </a>
                                         </div>
                                         <div class="wsus__single_courses_3_footer">
-                                            <a class="common_btn" href="#">Enroll <i
+                                            <a class="common_btn add_to_cart" href="#" data-course-id="{{ $course->id }}">Add to Cart<i
                                                     class="far fa-arrow-right"></i></a>
-                                            <p><del>$254</del> $156.00</p>
+                                            <p>
+                                                @if($course->discount > 0)
+                                                <del>${{ $course->price }}</del> ${{ $course->discount }}
+                                                @else
+                                                ${{ $course->price }}
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -313,61 +280,50 @@
                                 <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
+                                            <img src="{{ asset($course->thumbnail) }}"
                                                 alt="Courses" class="img-fluid">
-                                            <ul>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}"
-                                                            alt="Love" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}"
-                                                            alt="Compare" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}"
-                                                            alt="Cart" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <span class="time"><i class="far fa-clock"></i> 15 Hours</span>
+
+                                            <span class="time"><i class="far fa-clock"></i> {{ convertMinutesToHours($course->duration) }}</span>
                                         </div>
                                         <div class="wsus__single_courses_text_3">
                                             <div class="rating_area">
                                                 <!-- <a href="#" class="category">Design</a> -->
-                                                <p class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span>(4.8 Rating)</span>
+                                               <p class="rating">
+                                                 @for($i = 1; $i <= 5; $i++)
+                                                 @if ($i <= $course->reviews()->avg('rating'))
+                                                      <i class="fas fa-star"></i>
+                                                 @else
+                                                  <i class="far fa-star"></i>
+                                                  @endif
+
+                                                  @endfor
+                                                    <span>({{ number_format($course->reviews()->avg('rating'),2) ?? 0 }} Rating)</span>
                                                 </p>
                                             </div>
 
-                                            <a class="title" href="#">Complete Blender Creator Learn 3D
-                                                Modelling.</a>
+                                            <a class="title" href="{{ route('courses.show', $course->slug) }}">{{ $course->title }}</a>
                                             <ul>
-                                                <li>24 Lessons</li>
-                                                <li>38 Student</li>
+                                                <li>{{ $course->lessons()->count() }} Lessons</li>
+                                                <li>{{ $course->enrollments->count() }} Student</li>
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}"
+                                                    <img src="{{ asset($course->instructor->image) }}"
                                                         alt="Author" class="img-fluid">
                                                 </div>
-                                                <h4>Hermann P. Schnitzel</h4>
+                                                <h4>{{ $course->instructor->name }}</h4>
                                             </a>
                                         </div>
                                         <div class="wsus__single_courses_3_footer">
-                                            <a class="common_btn" href="#">Enroll <i
+                                            <a class="common_btn add_to_cart" href="#" data-course-id="{{ $course->id }}">Add to Cart<i
                                                     class="far fa-arrow-right"></i></a>
-                                            <p><del>$254</del> $156.00</p>
+                                            <p>
+                                                @if($course->discount > 0)
+                                                <del>${{ $course->price }}</del> ${{ $course->discount }}
+                                                @else
+                                                ${{ $course->price }}
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -389,61 +345,50 @@
                                 <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
-                                            <img src="{{ asset('frontend/assets/images/courses_3_img_1.jpg') }}"
+                                            <img src="{{ asset($course->thumbnail) }}"
                                                 alt="Courses" class="img-fluid">
-                                            <ul>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/love_icon_black.png') }}"
-                                                            alt="Love" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/compare_icon_black.png') }}"
-                                                            alt="Compare" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="{{ asset('frontend/assets/images/cart_icon_black_2.png') }}"
-                                                            alt="Cart" class="img-fluid">
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <span class="time"><i class="far fa-clock"></i> 15 Hours</span>
+
+                                            <span class="time"><i class="far fa-clock"></i> {{ convertMinutesToHours($course->duration) }}</span>
                                         </div>
                                         <div class="wsus__single_courses_text_3">
                                             <div class="rating_area">
                                                 <!-- <a href="#" class="category">Design</a> -->
-                                                <p class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span>(4.8 Rating)</span>
+                                               <p class="rating">
+                                                 @for($i = 1; $i <= 5; $i++)
+                                                 @if ($i <= $course->reviews()->avg('rating'))
+                                                      <i class="fas fa-star"></i>
+                                                 @else
+                                                  <i class="far fa-star"></i>
+                                                  @endif
+
+                                                  @endfor
+                                                    <span>({{ number_format($course->reviews()->avg('rating'),2) ?? 0 }} Rating)</span>
                                                 </p>
                                             </div>
 
-                                            <a class="title" href="#">Complete Blender Creator Learn 3D
-                                                Modelling.</a>
+                                            <a class="title" href="{{ route('courses.show', $course->slug) }}">{{ $course->title }}</a>
                                             <ul>
-                                                <li>24 Lessons</li>
-                                                <li>38 Student</li>
+                                                <li>{{ $course->lessons()->count() }} Lessons</li>
+                                                <li>{{ $course->enrollments->count() }} Student</li>
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ asset('frontend/assets/images/author_img_2.jpg') }}"
+                                                    <img src="{{ asset($course->instructor->image) }}"
                                                         alt="Author" class="img-fluid">
                                                 </div>
-                                                <h4>Hermann P. Schnitzel</h4>
+                                                <h4>{{ $course->instructor->name }}</h4>
                                             </a>
                                         </div>
                                         <div class="wsus__single_courses_3_footer">
-                                            <a class="common_btn" href="#">Enroll <i
+                                            <a class="common_btn add_to_cart" href="#" data-course-id="{{ $course->id }}">Add to Cart<i
                                                     class="far fa-arrow-right"></i></a>
-                                            <p><del>$254</del> $156.00</p>
+                                            <p>
+                                                @if($course->discount > 0)
+                                                <del>${{ $course->price }}</del> ${{ $course->discount }}
+                                                @else
+                                                ${{ $course->price }}
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -644,7 +589,7 @@
                                 <a class="title" href="{{ route('courses.show', $course->slug) }}">{{ $course->title }}</a>
                                 <ul>
                                     <li>24 Lessons</li>
-                                    <li>38 Student</li>
+                                     <li>{{ $course->enrollments->count() }} Student</li>
                                 </ul>
                                 <a class="author" href="#">
                                     <div class="img">

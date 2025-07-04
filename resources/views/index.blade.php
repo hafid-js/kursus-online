@@ -5,7 +5,7 @@
  <!--===========================
         BREADCRUMB START
     ============================-->
-    <section class="wsus__breadcrumb" style="background: 'frontend/assets/{{ asset('frontend/assets/js/') }}">
+    <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
                 <div class="row">

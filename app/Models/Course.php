@@ -40,4 +40,10 @@ class Course extends Model
     function reviews() : HasMany {
         return $this->hasMany(Review::class, 'course_id', 'id');
     }
+
+    function enrollments() : HasMany {
+        return $this->hasMany(Enrollment::class, 'course_id', 'id');
+    }
+
+
 }

@@ -1147,7 +1147,7 @@
                             <a class="dropdown-item" href="./job-listing.html"> Job listing </a>
                             <a class="dropdown-item" href="./license.html"> License </a>
                             <a class="dropdown-item" href="./logs.html"> Logs </a>
-                            <a class="dropdown-item" href="./marketing/index.html"> Marketing </a>
+                            <a class="dropdown-item" href="./marketing/{{ url('/') }}"> Marketing </a>
                             <a class="dropdown-item" href="./music.html"> Music </a>
                             <a class="dropdown-item" href="./page-loader.html"> Page loader </a>
                           </div>
