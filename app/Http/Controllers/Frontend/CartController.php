@@ -39,6 +39,10 @@ class CartController extends Controller
             ], 401);
         }
 
+        if(Cart::where(['course_id' => $id,'user_id' => Auth::guard('web')->user()->id])->exists()) {
+            return response(['message' => 'Already Added!']);
+        }
+
         $course = Course::findOrFail($id);
         $cart = new Cart();
         $cart->course_id = $course->id;

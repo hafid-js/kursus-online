@@ -16,13 +16,16 @@
                     <div class="col-12 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
                         <div class="wsus__breadcrumb_text">
                             <p class="rating">
-                                <i class="fas fa-star" aria-hidden="true"></i>
-                                <i class="fas fa-star" aria-hidden="true"></i>
-                                <i class="fas fa-star" aria-hidden="true"></i>
-                                <i class="fas fa-star" aria-hidden="true"></i>
-                                <i class="fas fa-star" aria-hidden="true"></i>
-                                <span>(4 Reviews)</span>
-                            </p>
+                                                 @for($i = 1; $i <= 5; $i++)
+                                                 @if ($i <= $course->reviews()->avg('rating'))
+                                                      <i class="fas fa-star"></i>
+                                                 @else
+                                                  <i class="far fa-star"></i>
+                                                  @endif
+
+                                                  @endfor
+                                                    <span>({{ number_format($course->reviews()->avg('rating'),2) ?? 0 }} Rating)</span>
+                                                </p>
                             <h1>{{ $course->title }}</h1>
                             <ul class="list">
                                 <li>
@@ -146,8 +149,11 @@
                                                 <h4>{{ $course->instructor->name }}</h4>
                                                 <p class="designation">{{ $course->instructor->headline }}</p>
                                                 <ul class="list">
-                                                    <li><i class="fas fa-star" aria-hidden="true"></i> <b>74,537
-                                                            Reviews</b></li>
+                                                    @php
+                                                        $coursesId = $course->instructor->courses()->pluck('id')->toArray();
+                                                        $reviewsCount = \App\Models\Review::whereIn('course_id', $coursesId)->count();
+                                                    @endphp
+                                                    <li><i class="fas fa-star" aria-hidden="true"></i> <b>{{ $reviewsCount }} Reviews</b></li>
                                                     <li><strong>4.7 Rating</strong></li>
                                                     <li>
                                                         <span><img
@@ -159,7 +165,7 @@
                                                         <span><img
                                                                 src="{{ asset('frontend/assets/images/user_icon_gray.png') }}"
                                                                 alt="user" class="img-fluid"></span>
-                                                        32 Students
+                                                        {{ $course->instructor->students()->count() }} Students
                                                     </li>
                                                 </ul>
                                                 <ul class="badge d-flex flex-wrap">
@@ -386,7 +392,7 @@
                                                 alt="User" class="img-fluid"></span>
                                         Student Enrolled
                                     </p>
-                                    47
+                                    {{ $course->enrollments()->count() }}
                                 </li>
                                 <li>
                                     <p>
@@ -397,12 +403,8 @@
                                     {{ $course->language->name }}
                                 </li>
                             </ul>
-                            <a class="common_btn" href="#">Enroll The Course <i class="far fa-arrow-right"
+                            <a class="common_btn add_to_cart" href="#" data-course-id="{{  $course->id }}">Add to Cart <i class="far fa-arrow-right"
                                     aria-hidden="true"></i></a>
-                        </div>
-                        <div class="wsus__courses_sidebar_share_btn d-flex flex-wrap justify-content-between">
-                            <a href="#" class="common_btn"><i class="far fa-heart" aria-hidden="true"></i> Add to
-                                Wishlist</a>
                         </div>
                         <div class="wsus__courses_sidebar_share_area">
                             <span>Share:</span>
