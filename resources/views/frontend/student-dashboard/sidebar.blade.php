@@ -12,7 +12,7 @@
         </div>
         <ul class="wsus__dashboard_sidebar_menu">
             <li>
-                <a href="dashboard.html" class="active">
+                <a href="{{ route('student.dashboard') }}" class="{{ sidebarItemActive(['student.dashboard']) }}">
                     <div class="img">
                         <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
                     </div>
@@ -20,7 +20,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('student.profile.index') }}">
+                <a href="{{ route('student.profile.index') }}" class="{{ sidebarItemActive(['instructor.profile.index']) }}">
                     <div class="img">
                         <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
                     </div>
@@ -28,7 +28,7 @@
                 </a>
             </li>
              <li>
-                <a href="{{ route('student.enrolled-courses.index') }}">
+                <a href="{{ route('student.enrolled-courses.index') }}" class="{{ sidebarItemActive(['instructor.enrolled-courses.index']) }}">
                     <div class="img">
                         <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
                     </div>
@@ -36,7 +36,7 @@
                 </a>
             </li>
              <li>
-                <a href="{{ route('student.review.index') }}">
+                <a href="{{ route('student.review.index') }}" class="{{ sidebarItemActive(['instructor.review.index']) }}">
                     <div class="img">
                         <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
                     </div>

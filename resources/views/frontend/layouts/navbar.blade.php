@@ -77,18 +77,17 @@
                     </a>
                 </li>
 
-                @auth
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="common_btn">Log Out</button>
-                        </form>
-                    </li>
-                @else
-                    <li>
-                        <a class="common_btn" href="{{ route('login') }}">Sign In</a>
-                    </li>
-                @endauth
+            <li>
+                @if(!auth()->guard('web')->check())
+                 <a class="common_btn" href="{{ route('login') }}">Sign In</a>
+                 @endif
+                 @if(user()?->role == 'student')
+                  <a class="common_btn" href="{{ route('student.dashboard') }}">Dashboard</a>
+                  @endif
+                  @if(user()?->role == 'instructor')
+                  <a class="common_btn" href="{{ route('instructor.dashboard') }}">Dashboard</a>
+                  @endif
+            </li>
 
             </ul>
         </div>

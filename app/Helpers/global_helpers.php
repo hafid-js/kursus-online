@@ -52,3 +52,12 @@ if(!function_exists('calculateCommission')) {
         return $amount == 0 ? 0 : ($amount * $commission) / 100;
     }
 }
+
+// sidebar item active
+if(!function_exists('sidebarItemActive')) {
+    function sidebarItemActive(array $routes) {
+        return in_array(request()->route()->getName(), $routes) ? 'active' : '';
+    }
+}
+
+
