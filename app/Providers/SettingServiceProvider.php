@@ -37,5 +37,10 @@ class SettingServiceProvider extends ServiceProvider
         ]);
 
         Config::set('mail_queue.is_queue', config('settings.mail_queue'));
+
+        Config::set('mail.from',[
+            'address' => config('settings.sender_email'),
+            'name' => config('settings.site_name'),
+        ]);
     }
 }

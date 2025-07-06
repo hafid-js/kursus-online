@@ -1,6 +1,6 @@
 @php
     $categories = \App\Models\CourseCategory::whereNull('parent_id')->where('status', 1)->get();
-     $customPages = \App\Models\CustomPage::where('status',1)->where('show_at_nav',1)->get();
+    $customPages = \App\Models\CustomPage::where('status', 1)->where('show_at_nav', 1)->get();
 @endphp
 
 <nav class="navbar navbar-expand-lg main_menu main_menu_3">
@@ -52,13 +52,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('blog.index') }}">Blog</a>
             </li>
-             <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('contact.index') }}">Contact Us</a>
             </li>
-             @foreach ($customPages as $page)
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('custom-page', $page->slug) }}">{{ $page->title }}</a>
-            </li>
+            @foreach ($customPages as $page)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('custom-page', $page->slug) }}">{{ $page->title }}</a>
+                </li>
             @endforeach
         </ul>
 
@@ -77,17 +77,27 @@
                     </a>
                 </li>
 
-            <li>
-                @if(!auth()->guard('web')->check())
-                 <a class="common_btn" href="{{ route('login') }}">Sign In</a>
-                 @endif
-                 @if(user()?->role == 'student')
-                  <a class="common_btn" href="{{ route('student.dashboard') }}">Dashboard</a>
-                  @endif
-                  @if(user()?->role == 'instructor')
-                  <a class="common_btn" href="{{ route('instructor.dashboard') }}">Dashboard</a>
-                  @endif
-            </li>
+                <li>
+                    @if (!auth()->guard('web')->check())
+                        <a class="common_btn" href="{{ route('login') }}">Sign In</a>
+                    @endif
+                    @if (user()?->role == 'student')
+                        <a class="common_btn" href="{{ route('student.dashboard') }}">Dashboard</a>
+                    @endif
+                    @if (user()?->role == 'instructor')
+                        <a class="common_btn" href="{{ route('instructor.dashboard') }}">Dashboard</a>
+                    @endif
+                    @auth
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                            class="common_btn">
+                            Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @endauth
+                </li>
 
             </ul>
         </div>
