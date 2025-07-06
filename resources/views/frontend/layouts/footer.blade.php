@@ -17,7 +17,7 @@
                                 <a class="logo" href="{{ url('/') }}">
                                     <img src="{{ asset(config('settings.site_footer_logo')) }}" alt="EduCore" class="img-fluid">
                                 </a>
-                                <p>{{ $footer->description }}</p>
+                                <p>{{ $footer?->description }}</p>
                                 <h2>Follow Us On</h2>
                                 <ul class="d-flex flex-wrap">
                                     @foreach ($socialLinks as $socialLink)
@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="text">
                                             <h4>Email us:</h4>
-                                            <a href="mailto:{{ $footer->email }}">{{ $footer->email }}</a>
+                                            <a href="mailto:{{ $footer?->email }}">{{ $footer?->email }}</a>
                                         </div>
                                     </li>
                                     <li>
@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="text">
                                             <h4>Call us:</h4>
-                                            <a href="callto:{{ $footer->phone }}">{{ $footer->phone }}</a>
+                                            <a href="callto:{{ $footer?->phone }}">{{ $footer?->phone }}</a>
                                         </div>
                                     </li>
                                     <li>
@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="text">
                                             <h4>Office:</h4>
-                                            <p>{{ $footer->address }}</p>
+                                            <p>{{ $footer?->address }}</p>
                                         </div>
                                     </li>
                                 </ul>
@@ -93,7 +93,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="wsus__footer_copyright_text text-center" style="display: block;">
-                                <p>Copyright © 2024 All Rights Reserved by {{ $footer->copyright }}</p>
+                                <p>Copyright © 2024 All Rights Reserved by {{ $footer?->copyright }}</p>
                                 {{-- <ul>
                                     <li><a href="#">Privacy Policy</a></li>
                                     <li><a href="#">Term of Service</a></li>

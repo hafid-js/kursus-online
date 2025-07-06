@@ -7,11 +7,11 @@
                 <div class="col-lg-6 wow fadeInLeft">
                     <div class="wsus__about_3_img">
 
-                        <img src="{{ asset($about->image) }}" alt="About us" class="about_3_large img-fluid w-100">
+                        <img src="{{ asset($about?->image) }}" alt="About us" class="about_3_large img-fluid w-100">
 
                         <div class="text">
-                            <h4> <span>{{ $about->learner_count }}</span> {{ $about->learner_test }}</h4>
-                            <img src="{{ asset($about->learner_image) }}" alt="Photo" class="img-fluid">
+                            <h4> <span>{{ $about?->learner_count }}</span> {{ $about?->learner_test }}</h4>
+                            <img src="{{ asset($about?->learner_image) }}" alt="Photo" class="img-fluid">
                         </div>
 
                         <div class="circle_box">
@@ -25,7 +25,7 @@
                                 </defs>
                                 <text>
                                     <textPath xlink:href="#circle">
-                                        {{ $about->rounded_text }}
+                                        {{ $about?->rounded_text }}
                                     </textPath>
                                 </text>
                             </svg>
@@ -36,14 +36,14 @@
                     <div class="wsus__about_3_text">
                         <div class="wsus__section_heading heading_left mb_15">
                             <h5>Learn More About Us</h5>
-                            <h2>{{ $about->title }}</h2>
+                            <h2>{{ $about?->title }}</h2>
                         </div>
-{!! $about->description !!}
-                        @if($about->button_text)
-                        <a class="common_btn" href="{{ $about->button_url }}">{{ $about->button_text }}</a>
+{!! $about?->description !!}
+                        @if($about?->button_text)
+                        <a class="common_btn" href="{{ $about->button_url }}">{{ $about?->button_text }}</a>
                         @endif
 
-                        @if($about->video_url)
+                        @if($about?->video_url)
                         <div class="about_video">
                             <img src="{{ asset( $about->video_image) }}" alt="Video" class="img-fluid w-100">
                             <span>live</span>

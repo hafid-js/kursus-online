@@ -13,11 +13,11 @@
                         COUESES 3 START
                     ============================-->
     @php
-        $categoryOne = \App\Models\CourseCategory::where('id', $latestCourses->category_one)->first();
-        $categoryTwo = \App\Models\CourseCategory::where('id', $latestCourses->category_two)->first();
-        $categoryThree = \App\Models\CourseCategory::where('id', $latestCourses->category_three)->first();
-        $categoryFour = \App\Models\CourseCategory::where('id', $latestCourses->category_four)->first();
-        $categoryFive = \App\Models\CourseCategory::where('id', $latestCourses->category_five)->first();
+        $categoryOne = \App\Models\CourseCategory::where('id', $latestCourses?->category_one)->first();
+        $categoryTwo = \App\Models\CourseCategory::where('id', $latestCourses?->category_two)->first();
+        $categoryThree = \App\Models\CourseCategory::where('id', $latestCourses?->category_three)->first();
+        $categoryFour = \App\Models\CourseCategory::where('id', $latestCourses?->category_four)->first();
+        $categoryFive = \App\Models\CourseCategory::where('id', $latestCourses?->category_five)->first();
     @endphp
     <section class="wsus__courses_3 pt_120 xs_pt_100 mt_120 xs_mt_90 pb_120 xs_pb_100">
         <div class="container">
@@ -451,17 +451,17 @@
                     <div class="wsus__become_instructor_text">
                         <div class="wsus__section_heading heading_left mb_20">
                             <h5>Become An Instructor</h5>
-                            <h2>{{ $becomeInstructorBanner->title }}</h2>
+                            <h2>{{ $becomeInstructorBanner?->title }}</h2>
                         </div>
-                        <p>{{ $becomeInstructorBanner->subtitle }}</p>
+                        <p>{{ $becomeInstructorBanner?->subtitle }}</p>
                         <a class="common_btn"
-                            href="{{ $becomeInstructorBanner->button_url }}">{{ $becomeInstructorBanner->button_text }}
+                            href="{{ $becomeInstructorBanner?->button_url }}">{{ $becomeInstructorBanner?->button_text }}
                             <i class="far fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-xl-5 col-md-6 wow fadeInRight">
                     <div class="wsus__become_instructor_img">
-                        <img src="{{ asset($becomeInstructorBanner->image) }}" alt="Instructor" class="img-fluid w-100">
+                        <img src="{{ asset($becomeInstructorBanner?->image) }}" alt="Instructor" class="img-fluid w-100">
                     </div>
                 </div>
             </div>
@@ -476,13 +476,13 @@
                         VIDEO START
                     ============================-->
     <section class="wsus__video mt_120 xs_mt_100">
-        <img src="{{ asset($video->background) }}" alt="Video" class="img-fluid w-100">
-        <a class="play_btn venobox" data-autoplay="true" data-vbtype="video" href="{{ $video->video_url }}">
+        <img src="{{ asset($video?->background) }}" alt="Video" class="img-fluid w-100">
+        <a class="play_btn venobox" data-autoplay="true" data-vbtype="video" href="{{ $video?->video_url }}">
             <img src="{{ asset('frontend/assets/images/play_icon_white.png') }}" alt="Play" class="img-fluid">
         </a>
         <div class="text wow fadeInLeft">
-            <p>{{ $video->description }}</p>
-            <a href="{{ $video->button_url }}">{{ $video->button_text }} <i class="far fa-arrow-right"></i></a>
+            <p>{{ $video?->description }}</p>
+            <a href="{{ $video?->button_url }}">{{ $video?->button_text }} <i class="far fa-arrow-right"></i></a>
         </div>
     </section>
     <!--===========================
@@ -534,16 +534,16 @@
                             <div class="wsus__quality_courses_text">
                                 <div class="wsus__section_heading heading_left mb_30">
                                     <h5>100% QUALITY COURSES</h5>
-                                    <h2>{{ $featuredInstructor->title }}</h2>
+                                    <h2>{{ $featuredInstructor?->title }}</h2>
                                 </div>
-                                <p>{{ $featuredInstructor->subtitle }}</p>
-                                <a class="common_btn" href="{{ $featuredInstructor->url }}">{{ $featuredInstructor->button_text }} <i
+                                <p>{{ $featuredInstructor?->subtitle }}</p>
+                                <a class="common_btn" href="{{ $featuredInstructor?->url }}">{{ $featuredInstructor?->button_text }} <i
                                         class="far fa-arrow-right"></i></a>
                             </div>
                         </div>
                         <div class="col-xxl-4 col-xl-4 col-md-6 col-lg-6 d-none d-xl-block wow fadeInUp">
                             <div class="wsus__quality_courses_img">
-                                <img src="{{ asset($featuredInstructor->instructor_image) }}"
+                                <img src="{{ asset($featuredInstructor?->instructor_image) }}"
                                     alt="Quality Courses" class="img-fluid w-100">
                             </div>
                         </div>
@@ -683,110 +683,35 @@
             </div>
         </div>
         <div class="row blog_4_slider">
-            <div class="col-xl-4 wow fadeInUp">
-                <div class="wsus__single_blog_4">
-                    <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/assets/images/blog_4_img_1.jpg') }}" alt="Blog"
-                            class="img-fluid">
-                        <span class="date">March 23, 2024</span>
-                    </a>
-                    <div class="wsus__single_blog_4_text">
-                        <ul>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}"
-                                        alt="User" class="img-fluid"></span>
-                                By Richard Tea
-                            </li>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png') }}"
-                                        alt="Comment" class="img-fluid"></span>
-                                3 Comments
-                            </li>
-                        </ul>
-                        <a href="#" class="title">Exploring Learning Landscapes in Academic.</a>
-                        <p>Suspends dictum sed sem allium convallis Proin dictum ipsum.</p>
-                        <a href="#" class="common_btn">Read More <i class="far fa-arrow-right"></i></a>
+
+            @forelse ($blogs as $blog)
+                        <div class="col-xl-6 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                    <div class="wsus__single_blog_4">
+                        <a href="{{ route('blog.show', $blog->slug) }}" class="wsus__single_blog_4_img">
+                            <img src="{{ asset($blog->image) }}" alt="Blog" class="img-fluid">
+                            <span class="date">{{ date('M d, Y', strtotime($blog->created_at)) }}</span>
+                        </a>
+                        <div class="wsus__single_blog_4_text">
+                            <ul>
+                                <li>
+                                    <span><img src="{{ asset('frontend/assets/images/user_icon_black.png ') }}" alt="User" class="img-fluid"></span>
+                                    By {{ $blog->author->name }}
+                                </li>
+                                <li>
+                                    <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png ') }}" alt="Comment" class="img-fluid"></span>
+                                     {{ $blog->comments()->count() }} Comments
+                                </li>
+                            </ul>
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="title">{{ $blog->title }}</a>
+                            <p>{{ Str::limit(strip_tags($blog->description), 100) }}</p>
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="common_btn">Read More <i class="far fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-4 wow fadeInUp">
-                <div class="wsus__single_blog_4">
-                    <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/assets/images/blog_4_img_2.jpg') }}" alt="Blog"
-                            class="img-fluid">
-                        <span class="date">April 28, 2024</span>
-                    </a>
-                    <div class="wsus__single_blog_4_text">
-                        <ul>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}"
-                                        alt="User" class="img-fluid"></span>
-                                By Doug Lyphe
-                            </li>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png') }}"
-                                        alt="Comment" class="img-fluid"></span>
-                                21 Comments
-                            </li>
-                        </ul>
-                        <a href="#" class="title">Uncovering Learning Opportunities in Academia.</a>
-                        <p>Suspends dictum sed sem allium convallis Proin dictum ipsum.</p>
-                        <a href="#" class="common_btn">Read More <i class="far fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 wow fadeInUp">
-                <div class="wsus__single_blog_4">
-                    <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/assets/images/blog_4_img_3.jpg') }}" alt="Blog"
-                            class="img-fluid">
-                        <span class="date">Jan 12, 2024</span>
-                    </a>
-                    <div class="wsus__single_blog_4_text">
-                        <ul>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}"
-                                        alt="User" class="img-fluid"></span>
-                                By Eleanor Fant
-                            </li>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png') }}"
-                                        alt="Comment" class="img-fluid"></span>
-                                48 Comments
-                            </li>
-                        </ul>
-                        <a href="#" class="title">Internationally Distinguished Skillful Educators.</a>
-                        <p>Suspends dictum sed sem allium convallis Proin dictum ipsum.</p>
-                        <a href="#" class="common_btn">Read More <i class="far fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 wow fadeInUp">
-                <div class="wsus__single_blog_4">
-                    <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/assets/images/blog_4_img_4.jpg') }}" alt="Blog"
-                            class="img-fluid">
-                        <span class="date">April 28, 2024</span>
-                    </a>
-                    <div class="wsus__single_blog_4_text">
-                        <ul>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png') }}"
-                                        alt="User" class="img-fluid"></span>
-                                By Doug Lyphe
-                            </li>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png') }}"
-                                        alt="Comment" class="img-fluid"></span>
-                                21 Comments
-                            </li>
-                        </ul>
-                        <a href="#" class="title">Uncovering Learning Opportunities in Academia.</a>
-                        <p>Suspends dictum sed sem allium convallis Proin dictum ipsum.</p>
-                        <a href="#" class="common_btn">Read More <i class="far fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+            @empty
+                <div>No Blog Found</div>
+            @endforelse
+
         </div>
     </section>
     <!--===========================

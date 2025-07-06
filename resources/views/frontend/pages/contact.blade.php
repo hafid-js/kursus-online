@@ -39,7 +39,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-4 col-lg-5 d-md-none d-lg-block">
                         <div class="wsus__contact_form_img">
-                            <img src="{{ asset($contactSetting->image) }}" alt="contact" class="img-fluid">
+                            <img src="{{ asset($contactSetting?->image) }}" alt="contact" class="img-fluid">
                         </div>
                     </div>
                     <div class="col-xl-8 col-lg-7">
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        @if($contactSetting->map_url)
+        @if($contactSetting?->map_url)
         <div class="wsus__contact_map mt_120 xs_mt_100 wow fadeInUp" style="visibility: hidden; animation-name: none;">
             <iframe src="{{ $contactSetting->map_url }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>

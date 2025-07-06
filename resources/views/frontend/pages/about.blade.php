@@ -35,11 +35,11 @@
                 <div class="col-lg-6 wow fadeInLeft">
                     <div class="wsus__about_3_img">
 
-                        <img src="{{ asset($about->image) }}" alt="About us" class="about_3_large img-fluid w-100">
+                        <img src="{{ asset($about?->image) }}" alt="About us" class="about_3_large img-fluid w-100">
 
                         <div class="text">
-                            <h4> <span>{{ $about->learner_count }}</span> {{ $about->learner_test }}</h4>
-                            <img src="{{ asset($about->learner_image) }}" alt="Photo" class="img-fluid">
+                            <h4> <span>{{ $about?->learner_count }}</span> {{ $about?->learner_test }}</h4>
+                            <img src="{{ asset($about?->learner_image) }}" alt="Photo" class="img-fluid">
                         </div>
 
                         <div class="circle_box">
@@ -53,7 +53,7 @@
                                 </defs>
                                 <text>
                                     <textPath xlink:href="#circle">
-                                        {{ $about->rounded_text }}
+                                        {{ $about?->rounded_text }}
                                     </textPath>
                                 </text>
                             </svg>
@@ -64,14 +64,14 @@
                     <div class="wsus__about_3_text">
                         <div class="wsus__section_heading heading_left mb_15">
                             <h5>Learn More About Us</h5>
-                            <h2>{{ $about->title }}</h2>
+                            <h2>{{ $about?->title }}</h2>
                         </div>
-{!! $about->description !!}
-                        @if($about->button_text)
-                        <a class="common_btn" href="{{ $about->button_url }}">{{ $about->button_text }}</a>
+{!! $about?->description !!}
+                        @if($about?->button_text)
+                        <a class="common_btn" href="{{ $about->button_url }}">{{ $about?->button_text }}</a>
                         @endif
 
-                        @if($about->video_url)
+                        @if($about?->video_url)
                         <div class="about_video">
                             <img src="{{ asset( $about->video_image) }}" alt="Video" class="img-fluid w-100">
                             <span>live</span>
@@ -201,26 +201,26 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6 wow fadeInUp">
                         <div class="wsus__single_counter">
-                            <h2><span class="counter">{{ $counter->counter_one }}</span></h2>
-                            <p>{{ $counter->title_one }}</p>
+                            <h2><span class="counter">{{ $counter?->counter_one }}</span></h2>
+                            <p>{{ $counter?->title_one }}</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp">
                         <div class="wsus__single_counter">
-                            <h2><span class="counter">{{ $counter->counter_two }}</span></h2>
-                            <p>{{ $counter->title_two }}</p>
+                            <h2><span class="counter">{{ $counter?->counter_two }}</span></h2>
+                            <p>{{ $counter?->title_two }}</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp">
                         <div class="wsus__single_counter">
-                            <h2><span class="counter">{{ $counter->three }}</span></h2>
-                            <p>{{ $counter->title_three }}</p>
+                            <h2><span class="counter">{{ $counter?->three }}</span></h2>
+                            <p>{{ $counter?->title_three }}</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp">
                         <div class="wsus__single_counter">
-                            <h2><span class="counter">{{ $counter->counter_four }}</span></h2>
-                            <p>{{ $counter->title_four }}</p>
+                            <h2><span class="counter">{{ $counter?->counter_four }}</span></h2>
+                            <p>{{ $counter?->title_four }}</p>
                         </div>
                     </div>
                 </div>
@@ -291,98 +291,34 @@
             </div>
         </div>
         <div class="row blog_4_slider">
-            <div class="col-xl-4 wow fadeInUp">
-                <div class="wsus__single_blog_4">
-                    <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/assets/images/blog_4_img_1.jpg ') }}" alt="Blog" class="img-fluid">
-                        <span class="date">March 23, 2024</span>
-                    </a>
-                    <div class="wsus__single_blog_4_text">
-                        <ul>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png ') }}" alt="User" class="img-fluid"></span>
-                                By Richard Tea
-                            </li>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png ') }}" alt="Comment" class="img-fluid"></span>
-                                3 Comments
-                            </li>
-                        </ul>
-                        <a href="#" class="title">Exploring Learning Landscapes in Academic.</a>
-                        <p>Suspends dictum sed sem allium convallis Proin dictum ipsum.</p>
-                        <a href="#" class="common_btn">Read More <i class="far fa-arrow-right"></i></a>
+
+            @forelse ($blogs as $blog)
+                        <div class="col-xl-6 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                    <div class="wsus__single_blog_4">
+                        <a href="{{ route('blog.show', $blog->slug) }}" class="wsus__single_blog_4_img">
+                            <img src="{{ asset($blog->image) }}" alt="Blog" class="img-fluid">
+                            <span class="date">{{ date('M d, Y', strtotime($blog->created_at)) }}</span>
+                        </a>
+                        <div class="wsus__single_blog_4_text">
+                            <ul>
+                                <li>
+                                    <span><img src="{{ asset('frontend/assets/images/user_icon_black.png ') }}" alt="User" class="img-fluid"></span>
+                                    By {{ $blog->author->name }}
+                                </li>
+                                <li>
+                                    <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png ') }}" alt="Comment" class="img-fluid"></span>
+                                     {{ $blog->comments()->count() }} Comments
+                                </li>
+                            </ul>
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="title">{{ $blog->title }}</a>
+                            <p>{{ Str::limit(strip_tags($blog->description), 100) }}</p>
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="common_btn">Read More <i class="far fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-4 wow fadeInUp">
-                <div class="wsus__single_blog_4">
-                    <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/assets/images/blog_4_img_2.jpg ') }}" alt="Blog" class="img-fluid">
-                        <span class="date">April 28, 2024</span>
-                    </a>
-                    <div class="wsus__single_blog_4_text">
-                        <ul>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png ') }}" alt="User" class="img-fluid"></span>
-                                By Doug Lyphe
-                            </li>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png ') }}" alt="Comment" class="img-fluid"></span>
-                                21 Comments
-                            </li>
-                        </ul>
-                        <a href="#" class="title">Uncovering Learning Opportunities in Academia.</a>
-                        <p>Suspends dictum sed sem allium convallis Proin dictum ipsum.</p>
-                        <a href="#" class="common_btn">Read More <i class="far fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 wow fadeInUp">
-                <div class="wsus__single_blog_4">
-                    <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/assets/images/blog_4_img_3.jpg ') }}" alt="Blog" class="img-fluid">
-                        <span class="date">Jan 12, 2024</span>
-                    </a>
-                    <div class="wsus__single_blog_4_text">
-                        <ul>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png ') }}" alt="User" class="img-fluid"></span>
-                                By Eleanor Fant
-                            </li>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png ') }}" alt="Comment" class="img-fluid"></span>
-                                48 Comments
-                            </li>
-                        </ul>
-                        <a href="#" class="title">Internationally Distinguished Skillful Educators.</a>
-                        <p>Suspends dictum sed sem allium convallis Proin dictum ipsum.</p>
-                        <a href="#" class="common_btn">Read More <i class="far fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 wow fadeInUp">
-                <div class="wsus__single_blog_4">
-                    <a href="#" class="wsus__single_blog_4_img">
-                        <img src="{{ asset('frontend/assets/images/blog_4_img_4.jpg ') }}" alt="Blog" class="img-fluid">
-                        <span class="date">April 28, 2024</span>
-                    </a>
-                    <div class="wsus__single_blog_4_text">
-                        <ul>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/user_icon_black.png ') }}" alt="User" class="img-fluid"></span>
-                                By Doug Lyphe
-                            </li>
-                            <li>
-                                <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png ') }}" alt="Comment" class="img-fluid"></span>
-                                21 Comments
-                            </li>
-                        </ul>
-                        <a href="#" class="title">Uncovering Learning Opportunities in Academia.</a>
-                        <p>Suspends dictum sed sem allium convallis Proin dictum ipsum.</p>
-                        <a href="#" class="common_btn">Read More <i class="far fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+            @empty
+                <div>No Blog Found</div>
+            @endforelse
         </div>
     </section>
     <!--===========================

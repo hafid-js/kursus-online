@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\CourseLevelController;
 use App\Http\Controllers\Admin\CourseSubCategoryController;
 use App\Http\Controllers\Admin\CustomPageController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DatabaseClearController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\FeaturedInstructorController;
 use App\Http\Controllers\Admin\FooterColumnOneController;
@@ -247,6 +248,10 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     // blog routes
     Route::resource('blogs', BlogController::class);
+
+    // database clear routes
+    Route::get('database-clear',[DatabaseClearController::class,'index'])->name('database-clear.index');
+    Route::delete('database-clear',[DatabaseClearController::class,'destroy'])->name('database-clear.destroy');
 
 
 

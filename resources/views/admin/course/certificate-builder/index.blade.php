@@ -21,24 +21,24 @@
                                     <div class="form-group mt-3">
                                         <label for="" class="form-label">Certificate Title</label>
                                         <input type="text" class="form-control" name="title"
-                                            value="{{ $certificate->title }}" placeholder="Enter Cerfiticate Title">
+                                            value="{{ $certificate?->title }}" placeholder="Enter Cerfiticate Title">
                                         <x-input-error :messages="$errors->get('title')" class="mt-2" />
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="" class="form-label">Certificate Subtitle</label>
                                         <input type="text" class="form-control" name="subtitle"
-                                            value="{{ $certificate->sub_title }}" placeholder="Enter Cerfiticate Subtitle">
+                                            value="{{ $certificate?->sub_title }}" placeholder="Enter Cerfiticate Subtitle">
                                         <x-input-error :messages="$errors->get('subtitle')" class="mt-2" />
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="" class="form-label">Certificate Description</label>
                                         <input type="text" class="form-control" name="description"
-                                            value="{{ $certificate->description }}"
+                                            value="{{ $certificate?->description }}"
                                             placeholder="Enter Cerfiticate Description">
                                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                     </div>
                                     <div class="form-group mt-3">
-                                        @if ($certificate->background)
+                                        @if ($certificate?->background)
                                             <x-image-preview src="{{ asset($certificate->background) }}" />
                                         @endif
                                         <label for="" class="form-label">Certificate Background</label>
@@ -46,7 +46,7 @@
                                         <x-input-error :messages="$errors->get('background')" class="mt-2" />
                                     </div>
                                     <div class="form-group mt-3">
-                                        @if ($certificate->signature)
+                                        @if ($certificate?->signature)
                                             <x-image-preview src="{{ asset($certificate->signature) }}" />
                                         @endif
                                         <label for="" class="form-label">Certificate Signature</label>
