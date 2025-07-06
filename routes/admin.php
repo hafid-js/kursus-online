@@ -87,7 +87,7 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+    // Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
@@ -97,6 +97,7 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     // profile update routes
     Route::get('profile', [ProfileUpdateController::class,'index'])->name('profile.index');
     Route::post('profile', [ProfileUpdateController::class, 'profileUpdate'])->name('profile.update');
+    Route::post('update-password', [ProfileUpdateController::class,'updatePassword'])->name('password.update');
 
     Route::get('instructor-doc-download/{user}', [InstructorRequestController::class, 'download'])->name('instructor-doc-download');
     Route::resource('instructor-requests', InstructorRequestController::class);
