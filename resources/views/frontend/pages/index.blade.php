@@ -639,8 +639,9 @@
             </div>
         </div>
         <div class="row testimonial_slider">
+                         @foreach ($testimonials as $testimonial)
             <div class="col-xl-4 wow fadeInUp">
-                @foreach ($testimonials as $testimonial)
+
                 <div class="wsus__single_testimonial">
                     <p class="rating">
                         @for($i = 1; $i <= $testimonial->rating; $i++)
@@ -659,8 +660,9 @@
                         </h3>
                     </div>
                 </div>
-                @endforeach
+
             </div>
+                      @endforeach
         </div>
     </section>
     <!--===========================

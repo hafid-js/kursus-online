@@ -23,15 +23,15 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <x-input-file-block name="image" />
+
                                         </div>
                                         <div class="col-md-6">
-                                            <x-input-block name="name" placeholder="Enter category name" />
-                                        </div>
-                                        <div class="col-md-12">
-                                            <x-input-toggle-block name="show_at_trending" label="Show at Trending" />
+                                            <x-input-block name="name" placeholder="Enter sub category name" />
+
                                         </div>
                                         <div class="col-md-12">
                                             <x-input-toggle-block name="status" label="Status" />
+
                                         </div>
                                     </div>
                                     <div class="mb-3">

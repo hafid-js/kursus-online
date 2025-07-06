@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CourseCategoryStoreRequest;
 use App\Http\Requests\Admin\CourseSubCategoryStoreRequest;
 use App\Http\Requests\Admin\CourseSubCategoryUpdateRequest;
 use App\Models\CourseCategory;
@@ -36,7 +37,7 @@ class CourseSubCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CourseSubCategoryStoreRequest $request, CourseCategory $course_category)
+    public function store(CourseCategoryStoreRequest $request, CourseCategory $course_category)
     {
 
 
