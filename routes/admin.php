@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\LatestCourseSectionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentSettingController;
 use App\Http\Controllers\Admin\PayoutGatewayController;
+use App\Http\Controllers\Admin\ProfileUpdateController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialLinkController;
@@ -93,6 +94,10 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // profile update routes
+    Route::get('profile', [ProfileUpdateController::class,'index'])->name('profile.index');
+    Route::post('profile', [ProfileUpdateController::class, 'profileUpdate'])->name('profile.update');
+
     Route::get('instructor-doc-download/{user}', [InstructorRequestController::class, 'download'])->name('instructor-doc-download');
     Route::resource('instructor-requests', InstructorRequestController::class);
 
@@ -122,7 +127,7 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     Route::get('courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
     Route::post('courses/update', [CourseController::class, 'update'])->name('courses.update');
-    Route::delete('courses/update', [CourseController::class, 'update'])->name('courses.update');
+    // Route::delete('courses/update', [CourseController::class, 'update'])->name('courses.update');
 
     Route::get('course-content/{course}/create-chapter', [CourseContentController::class, 'createChapterModal'])->name('course-content.create-chapter');
     Route::post('course-content/{chapter}/create-chapter', [CourseContentController::class, 'storeChapter'])->name('course-content.store-chapter');
