@@ -56,7 +56,12 @@ if(!function_exists('calculateCommission')) {
 // sidebar item active
 if(!function_exists('sidebarItemActive')) {
     function sidebarItemActive(array $routes) {
-        return in_array(request()->route()->getName(), $routes) ? 'active' : '';
+
+        foreach($routes as $route) {
+            if(request()->routeIs($route)){
+                return 'active';
+            }
+        }
     }
 }
 
