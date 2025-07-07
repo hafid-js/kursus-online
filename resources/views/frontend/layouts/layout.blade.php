@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/jquery-ui.min.css') }}">
     <!-- CDN Font Awesome (versi 6) -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
@@ -74,7 +74,8 @@
     @yield('content')
 
     <!-- Modal -->
-    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg dynamic-modal-content">
 
         </div>
@@ -144,9 +145,12 @@
 
     {{-- sweetalert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{--
+               <script src="{{ asset('admin/assets/js/demo.min.js?1692870487') }} " defer></script> --}}
+    <script src="{{ asset('admin/assets/libs/tinymce/tinymce.min.js') }}"></script>
 
     <!--main/custom js-->
-    <script src="{{ asset('frontend/assets/js/main.js') }}"></script>\
+    <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
 
     @stack('scripts')

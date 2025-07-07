@@ -73,7 +73,7 @@
                     <div class="col-md-12">
                         <div class="add_course_basic_info_imput mb-0">
                             <label for="#">Description</label>
-                            <textarea rows="8" placeholder="Description" name="description"></textarea>
+                            <textarea rows="8" placeholder="Description" name="description" class="editor"></textarea>
                             <button type="submit" class="common_btn mt_20">Save</button>
                         </div>
                     </div>

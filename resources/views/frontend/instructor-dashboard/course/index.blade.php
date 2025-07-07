@@ -110,7 +110,7 @@
 
                                                     </td>
                                                     <td class="sale">
-                                                        <p>3400</p>
+                                                        <p>{{ $course->enrollments()->count() }}</p>
                                                     </td>
                                                     <td class="status">
                                                         <p class="active">Active</p>
