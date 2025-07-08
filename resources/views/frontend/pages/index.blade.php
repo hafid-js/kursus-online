@@ -571,7 +571,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <span class="time"><i class="far fa-clock" aria-hidden="true"></i> 15 Hours</span>
+                                <span class="time"><i class="far fa-clock" aria-hidden="true"></i> {{ convertMinutesToHours($course->duration) }}</span>
                             </div>
                             <div class="wsus__single_courses_text_3">
                                 <div class="rating_area">

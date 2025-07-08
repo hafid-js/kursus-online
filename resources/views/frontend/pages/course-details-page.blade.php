@@ -16,16 +16,15 @@
                     <div class="col-12 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
                         <div class="wsus__breadcrumb_text">
                             <p class="rating">
-                                                 @for($i = 1; $i <= 5; $i++)
-                                                 @if ($i <= $course->reviews()->avg('rating'))
-                                                      <i class="fas fa-star"></i>
-                                                 @else
-                                                  <i class="far fa-star"></i>
-                                                  @endif
-
-                                                  @endfor
-                                                    <span>({{ number_format($course->reviews()->avg('rating'),2) ?? 0 }} Rating)</span>
-                                                </p>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= $course->reviews()->avg('rating'))
+                                        <i class="fas fa-star"></i>
+                                    @else
+                                        <i class="far fa-star"></i>
+                                    @endif
+                                @endfor
+                                <span>({{ number_format($course->reviews()->avg('rating'), 2) ?? 0 }} Rating)</span>
+                            </p>
                             <h1>{{ $course->title }}</h1>
                             <ul class="list">
                                 <li>
@@ -150,10 +149,17 @@
                                                 <p class="designation">{{ $course->instructor->headline }}</p>
                                                 <ul class="list">
                                                     @php
-                                                        $coursesId = $course->instructor->courses()->pluck('id')->toArray();
-                                                        $reviewsCount = \App\Models\Review::whereIn('course_id', $coursesId)->count();
+                                                        $coursesId = $course->instructor
+                                                            ->courses()
+                                                            ->pluck('id')
+                                                            ->toArray();
+                                                        $reviewsCount = \App\Models\Review::whereIn(
+                                                            'course_id',
+                                                            $coursesId,
+                                                        )->count();
                                                     @endphp
-                                                    <li><i class="fas fa-star" aria-hidden="true"></i> <b>{{ $reviewsCount }} Reviews</b></li>
+                                                    <li><i class="fas fa-star" aria-hidden="true"></i>
+                                                        <b>{{ $reviewsCount }} Reviews</b></li>
                                                     <li><strong>4.7 Rating</strong></li>
                                                     <li>
                                                         <span><img
@@ -235,10 +241,10 @@
                                     <div class="row align-items-center mb_50">
                                         <div class="col-xl-4 col-md-6">
                                             <div class="total_review">
-                                                <h2>{{ number_format($course->reviews()->avg('rating'),2) ?? 0 }}</h2>
+                                                <h2>{{ number_format($course->reviews()->avg('rating'), 2) ?? 0 }}</h2>
                                                 <p>
-                                                   @for($i = 1; $i <= number_format($course->reviews()->avg('rating'), 2) ?? 0; $i++)
-                                                    <i class="fas fa-star"></i>
+                                                    @for ($i = 1; $i <= number_format($course->reviews()->avg('rating'), 2) ?? 0; $i++)
+                                                        <i class="fas fa-star"></i>
                                                     @endfor
                                                 </p>
                                                 <h4>3 Ratings</h4>
@@ -254,7 +260,8 @@
                                                         </div>
                                                         <span class="fill" data-percentage="85"></span>
                                                     </div>
-                                                    <span class="qnty">{{ $course->reviews()->where('rating', 5)->count() }}</span>
+                                                    <span
+                                                        class="qnty">{{ $course->reviews()->where('rating', 5)->count() }}</span>
                                                 </div>
                                                 <div class="review_bar_single">
                                                     <p>4 <i class="fas fa-star" aria-hidden="true"></i></p>
@@ -264,7 +271,8 @@
                                                         </div>
                                                         <span class="fill" data-percentage="70"></span>
                                                     </div>
-                                                    <span class="qnty">{{ $course->reviews()->where('rating', 4)->count() }}</span>
+                                                    <span
+                                                        class="qnty">{{ $course->reviews()->where('rating', 4)->count() }}</span>
                                                 </div>
                                                 <div class="review_bar_single">
                                                     <p>3 <i class="fas fa-star" aria-hidden="true"></i></p>
@@ -273,7 +281,8 @@
                                                         </div>
                                                         <span class="fill" data-percentage="50"></span>
                                                     </div>
-                                                    <span class="qnty">{{ $course->reviews()->where('rating', 3)->count() }}</span>
+                                                    <span
+                                                        class="qnty">{{ $course->reviews()->where('rating', 3)->count() }}</span>
                                                 </div>
                                                 <div class="review_bar_single">
                                                     <p>2 <i class="fas fa-star" aria-hidden="true"></i></p>
@@ -282,7 +291,8 @@
                                                         </div>
                                                         <span class="fill" data-percentage="30"></span>
                                                     </div>
-                                                    <span class="qnty">{{ $course->reviews()->where('rating', 2)->count() }}</span>
+                                                    <span
+                                                        class="qnty">{{ $course->reviews()->where('rating', 2)->count() }}</span>
                                                 </div>
                                                 <div class="review_bar_single">
                                                     <p>1 <i class="fas fa-star" aria-hidden="true"></i></p>
@@ -292,7 +302,8 @@
                                                         </div>
                                                         <span class="fill"></span>
                                                     </div>
-                                                    <span class="qnty">{{ $course->reviews()->where('rating', 1)->count() }}</span>
+                                                    <span
+                                                        class="qnty">{{ $course->reviews()->where('rating', 1)->count() }}</span>
                                                 </div>
 
                                             </div>
@@ -300,49 +311,50 @@
                                     </div>
                                     <h3>Reviews</h3>
                                     @foreach ($reviews as $review)
-                                    <div class="wsus__course_single_reviews">
-                                        <div class="wsus__single_review_img">
-                                            <img src="{{ asset($review->user->image) }}"
-                                                alt="user" class="img-fluid">
-                                        </div>
-                                        <div class="wsus__single_review_text">
-                                            <h4>{{ $review->user->name }}</h4>
-                                            <h6> {{ date('d M Y', strtotime($review->created_at))}}
-                                                <span>
-                                                    @for($i = 1; $i <= $review->rating; $i++)
-                                                    <i class="fas fa-star"></i>
-                                                    @endfor
-                                                </span>
-                                            </h6>
-                                            <p>{{ $review->review }}</p>
-                                        </div>
-                                    </div>
-                                      @endforeach
-                                </div>
-                              @auth
-                                <div class="wsus__courses_review_input box_area mt_40">
-                                    <h3>Write a Review</h3>
-                                    <p class="short_text">Your email address will not be published. Required fields are
-                                        marked *</p>
-                                    <div class="select_rating d-flex flex-wrap">Your Rating:
-                                        <ul id="starRating" data-stars="5"></ul>
-                                    </div>
-                                    <form action="{{ route('review.store') }}" method="POST">
-                                        @csrf
-                                        <div class="row">
-                                            <input type="hidden" name="rating" value="" id="rating">
-                                            <input type="hidden" name="course" value="{{ $course->id }}">
-                                            <div class="col-xl-12">
-                                                <textarea rows="7" placeholder="Review" name="review"></textarea>
+                                        <div class="wsus__course_single_reviews">
+                                            <div class="wsus__single_review_img">
+                                                <img src="{{ asset($review->user->image) }}" alt="user"
+                                                    class="img-fluid">
                                             </div>
-                                            <div class="col-12 mt-3">
-                                                <button type="submit" class="common_btn">Submit Now</button>
+                                            <div class="wsus__single_review_text">
+                                                <h4>{{ $review->user->name }}</h4>
+                                                <h6> {{ date('d M Y', strtotime($review->created_at)) }}
+                                                    <span>
+                                                        @for ($i = 1; $i <= $review->rating; $i++)
+                                                            <i class="fas fa-star"></i>
+                                                        @endfor
+                                                    </span>
+                                                </h6>
+                                                <p>{{ $review->review }}</p>
                                             </div>
                                         </div>
-                                    </form>
+                                    @endforeach
                                 </div>
+                                @auth
+                                    <div class="wsus__courses_review_input box_area mt_40">
+                                        <h3>Write a Review</h3>
+                                        <p class="short_text">Your email address will not be published. Required fields are
+                                            marked *</p>
+                                        <div class="select_rating d-flex flex-wrap">Your Rating:
+                                            <ul id="starRating" data-stars="5"></ul>
+                                        </div>
+                                        <form action="{{ route('review.store') }}" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                                <input type="hidden" name="rating" value="" id="rating">
+                                                <input type="hidden" name="course" value="{{ $course->id }}">
+                                                <div class="col-xl-12">
+                                                    <textarea rows="7" placeholder="Review" name="review"></textarea>
+                                                </div>
+                                                <div class="col-12 mt-3">
+                                                    <button type="submit" class="common_btn">Submit Now</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 @else
-                                <div class="alert alert-info mt-3 text-center" role="alert">Please <a href="{{ route('login') }}">Login</a> First To Write A Review</div>
+                                    <div class="alert alert-info mt-3 text-center" role="alert">Please <a
+                                            href="{{ route('login') }}">Login</a> First To Write A Review</div>
                                 @endauth
                             </div>
                         </div>
@@ -403,8 +415,8 @@
                                     {{ $course->language->name }}
                                 </li>
                             </ul>
-                            <a class="common_btn add_to_cart" href="#" data-course-id="{{  $course->id }}">Add to Cart <i class="far fa-arrow-right"
-                                    aria-hidden="true"></i></a>
+                            <a class="common_btn add_to_cart" href="#" data-course-id="{{ $course->id }}">Add to
+                                Cart <i class="far fa-arrow-right" aria-hidden="true"></i></a>
                         </div>
                         <div class="wsus__courses_sidebar_share_area">
                             <span>Share:</span>

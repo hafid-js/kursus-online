@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained('courses');
             $table->foreignId('chapter_id')->constrained('course_chapters')->onDelete('cascade');
             $table->text('file_path');
-            $table->enum('storage', ['upload','youtune','vimeo','external_link']);
+            $table->enum('storage', ['upload','youtube','vimeo','external_link']);
             $table->string('volume')->nullable();
             $table->string('duration');
             $table->enum('file_type',['video','audio','doc','file','pdf']);
