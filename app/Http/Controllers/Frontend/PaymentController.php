@@ -107,6 +107,7 @@ class PaymentController extends Controller
                 throw $th;
             }
         }
+
         return redirect()->route('order.failed');
     }
 

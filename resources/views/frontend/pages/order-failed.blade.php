@@ -21,7 +21,7 @@
 
     <section class="payment pt_95 xs_pt_75 pb_120 xs_pb_100">
         <div class="container">
-            <h1>Thank Failed!</h1>
+            <h1>Order Failed!</h1>
         </div>
     </section>
 

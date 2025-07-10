@@ -148,6 +148,7 @@
     {{--
                <script src="{{ asset('admin/assets/js/demo.min.js?1692870487') }} " defer></script> --}}
     <script src="{{ asset('admin/assets/libs/tinymce/tinymce.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/shakilahmed0369/ez-share/dist/ez-share.min.js"></script>
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
