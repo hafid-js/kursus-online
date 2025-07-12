@@ -15,6 +15,7 @@ use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\StudentDashboardController;
+use App\Http\Controllers\Frontend\StudentOrderController;
 use App\Http\Controllers\Frontend\WithdrawController;
 use Illuminate\Support\Facades\Route;
 
@@ -93,6 +94,9 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'p
     // review routes
     Route::get('review', [StudentDashboardController::class, 'review'])->name('review.index');
     Route::delete('review/{id}', [StudentDashboardController::class, 'reviewDestroy'])->name('review.destroy');
+
+    Route::get('orders', [StudentOrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{order}', [StudentOrderController::class,'index'])->name('orders.show');
 });
 
 // Instructor Routes
