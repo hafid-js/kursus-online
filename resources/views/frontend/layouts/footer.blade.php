@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-lg-2 col-sm-6 col-md-3 wow fadeInUp">
                             <div class="wsus__footer_link">
-                                <h2>Help Links</h2>
+                                <h2>Courses</h2>
                                 <ul>
                                     @foreach ($footerColumnOne as $footerColumn)
                                         <li><a href="{{ $footerColumn->url }}">{{ $footerColumn->title }}</a></li>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-lg-2 col-sm-6 col-md-3 wow fadeInUp">
                             <div class="wsus__footer_link">
-                                <h2>More Links</h2>
+                                <h2>Programs</h2>
                                 <ul>
                                     @foreach ($footerColumnTwo as $footerColumn)
                                         <li><a href="{{ $footerColumn->url }}">{{ $footerColumn->title }}</a></li>

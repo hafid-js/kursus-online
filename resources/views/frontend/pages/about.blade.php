@@ -213,7 +213,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp">
                         <div class="wsus__single_counter">
-                            <h2><span class="counter">{{ $counter?->three }}</span></h2>
+                            <h2><span class="counter">{{ $counter?->counter_three }}</span></h2>
                             <p>{{ $counter?->title_three }}</p>
                         </div>
                     </div>
@@ -247,8 +247,8 @@
             </div>
         </div>
         <div class="row testimonial_slider">
+                            @foreach ($testimonials as $testimonial)
             <div class="col-xl-4 wow fadeInUp">
-                @foreach ($testimonials as $testimonial)
                 <div class="wsus__single_testimonial">
                     <p class="rating">
                         @for($i = 1; $i <= $testimonial->rating; $i++)
@@ -267,8 +267,9 @@
                         </h3>
                     </div>
                 </div>
-                @endforeach
+
             </div>
+                     @endforeach
         </div>
     </section>
     <!--===========================

@@ -57,7 +57,6 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $order->invoice_id }}</td>
                                             <td>{{ $order->total_amount }} {{ $order->currency }}</td>
-                                            <td>{{ $order->order }}</td>
                                             <td>
                                                <span class="badge bg-success text-green-fg">{{ $order->status }}</span>
                                             </td>

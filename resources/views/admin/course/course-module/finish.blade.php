@@ -1,9 +1,7 @@
 @extends('admin.course.course-module.course-app')
 
 @section('tab_content')
-
-    <div class="tab-pane fade active show" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-        tabindex="0">
+    <div class="tab-pane fade active show" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
         <div class="dashboard_add_courses">
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade active show" id="pills-contact2" role="tabpanel"
@@ -11,8 +9,9 @@
                     <div class="dashboard_add_course_finish">
                         <form action="#" class="more_info_form">
                             @csrf
-                            <input type="hidden" name="id" value="{{ @$course->id }}">
+                            <input type="hidden" name="id" value="{{ @$course?->id }}">
                             <input type="hidden" name="current_step" value="4">
+
                             <div class="row">
                                 <div class="col-xl-12 mt-4">
                                     <div class="add_course_more_info_input">
@@ -40,5 +39,4 @@
             </div>
         </div>
     </div>
-
 @endsection

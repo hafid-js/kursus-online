@@ -80,8 +80,10 @@
                         </div>
                     </div>
                     <div class="card mt-4">
-                            <table class="table">
-                            <thead>
+                             <div class="wsus__dash_course_table">
+
+                               <table class="table">
+                                <thead>
                                 <th>No.</th>
                                 <th>Invoice</th>
                                 <th>Amount</th>
@@ -93,9 +95,9 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $order->invoice_id }}</td>
-                                        <td>{{ $order->price }}</td>
                                         <td>{{ $order->total_amount }} {{ $order->currency }}</td>
-                                        <td><span class="badge bg-green text-green-fg">{{ $order->status }}</span></td>
+                                        <td><span class="badge bg-success text-green-fg">{{ $order->status }}</span></td>
+                                        <td><a href="{{ route('student.orders.show', $order->id) }}">View</a></td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -107,6 +109,7 @@
                             </tbody>
                         </table>
                         </div>
+                          </div>
                 </div>
             </div>
         </div>

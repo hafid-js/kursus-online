@@ -45,10 +45,6 @@
                                                                         @endif
                                                                     </td>
                                                                     <td>
-                                                                        <a href="{{ route('admin.social-links.index', $socialLink->id) }}"
-                                                                            class="btn-sm text-warning">
-                                                                            <i class="ti ti-list"></i>
-                                                                        </a>
                                                                         <a href="{{ route('admin.social-links.edit', $socialLink->id) }}"
                                                                             class="btn-sm btn-primary">
                                                                             <i class="ti ti-edit"></i>

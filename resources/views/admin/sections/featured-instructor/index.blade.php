@@ -60,7 +60,7 @@
                                         <option @selected($featuredInstructor?->instructor_id == $instructor->id) value="{{ $instructor?->id }}">{{ $instructor?->name }}</option>
                                         @endforeach
                                     </select>
-                                    <x-input-error :messages="$errors->get('instructor')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('instructor_id')" class="mt-2" />
                                 </div>
                             </div>
 
@@ -72,7 +72,7 @@
                                       <option @selected(in_array($course->id, $selectedCourses)) value="{{ $course?->id }}" >{{ $course?->title }}</option>
                                       @endforeach
                                     </select>
-                                    <x-input-error :messages="$errors->get('courses')" class="mt-2" />
+                         <x-input-error :messages="$errors->get('featured_courses')" class="mt-2" />
                                 </div>
                             </div>
 
@@ -82,7 +82,7 @@
                                     <label class="form-label">Instructor Image</label>
                                     <input type="file" class="form-control" name="instructor_image"
                                         placeholder="">
-                                    <input type="hidden" name="old_instructor_image" value="">
+                                    <input type="hidden" name="old_instructor_image" value="{{ $featuredInstructor?->instructor_image }}">
                                     <x-input-error :messages="$errors->get('instructor_image')" class="mt-2" />
                                 </div>
                             </div>

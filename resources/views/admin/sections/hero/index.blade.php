@@ -74,13 +74,6 @@
                                         </div>
                                          <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="form-label">Banner Item Url</label>
-                                                <input type="text" class="form-control" name="banner_item_url" placeholder="" value="{{ $hero?->banner_item_url }}">
-                                                <x-input-error :messages="$errors->get('banner_item_url')" class="mt-2" />
-                                            </div>
-                                        </div>
-                                         <div class="col-md-6">
-                                            <div class="mb-3">
                                                 <label for="form-label">Banner Item Subtitle</label>
                                                 <input type="text" class="form-control" name="banner_item_subtitle" placeholder="" value="{{ $hero?->banner_item_subtitle }}">
                                                 <x-input-error :messages="$errors->get('banner_item_subtitle')" class="mt-2" />

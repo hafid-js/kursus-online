@@ -12,7 +12,9 @@ use App\Models\CourseLevel;
 use App\Models\User;
 use App\Traits\FileUpload;
 use Exception;
+use Flasher\Laravel\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -216,6 +218,19 @@ class CourseController extends Controller
                 ]);
 
                 break;
+        }
+    }
+
+   public function destroy(Course $course)
+    {
+        try {
+            // throw ValidationException::withMessages(['you have error']);
+            $course->delete();
+            notyf()->success('Delete Succesfully!');
+            return response(['message' => 'Delete Successfully!'], 200);
+        } catch(Exception $e) {
+            logger("Course Error >> ".$e);
+            return response(['message' => 'Something went wrong!'], 500);
         }
     }
 }

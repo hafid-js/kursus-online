@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="wsus__dash_course_table">
-                            <div class="container-xl">
+                            <div class="container-xl mb-3">
                                 <div class="card card-lg">
                                     <div class="card-body">
                                         <div class="row">
@@ -101,9 +101,9 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div class="wsus__pagination mt_50 wow fadeInUp"
+                                        {{-- <div class="wsus__pagination mt_50 wow fadeInUp"
                                             {{ $orders->withQueryString()->links() }}>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class StudentOrderController extends Controller
 {
     function index() {
-        $orders = Order::where('buyer_id', user()->id)->paginate(25)->get();
+        $orders = Order::where('buyer_id', user()->id)->get();
         return view('frontend.student-dashboard.order.index', compact('orders'));
     }
 

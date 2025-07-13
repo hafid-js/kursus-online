@@ -38,20 +38,21 @@
                             <h5>Learn More About Us</h5>
                             <h2>{{ $about?->title }}</h2>
                         </div>
-{!! $about?->description !!}
-                        @if($about?->button_text)
-                        <a class="common_btn" href="{{ $about->button_url }}">{{ $about?->button_text }}</a>
+                        {!! $about?->description !!}
+                        @if ($about?->button_text)
+                            <a class="common_btn" href="{{ $about->button_url }}">{{ $about?->button_text }}</a>
                         @endif
 
-                        @if($about?->video_url)
-                        <div class="about_video">
-                            <img src="{{ asset( $about->video_image) }}" alt="Video" class="img-fluid w-100">
-                            <span>live</span>
-                            <a class="play_btn venobox" data-autoplay="true" data-vbtype="video"
-                                href="$about->video_url">
-                                <img src="{{ asset('frontend/assets/images/play_icon.png') }}" alt="Play" class="img-fluid">
-                            </a>
-                        </div>
+                        @if ($about?->video_url)
+                            <div class="about_video">
+                                <img src="{{ asset($about?->video_image) }}" alt="Video" class="img-fluid w-100">
+                                <span>live</span>
+                                <a class="play_btn venobox" data-autoplay="true" data-vbtype="video"
+                                    href="$about->video_url">
+                                    <img src="{{ asset('frontend/assets/images/play_icon.png') }}" alt="Play"
+                                        class="img-fluid">
+                                </a>
+                            </div>
                         @endif
                     </div>
                 </div>

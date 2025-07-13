@@ -45,7 +45,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="form-label">Button Text</label>
-                                                <input type="text" class="form-control" name="offer_button_text" placeholder="" value="{{ $topbar?->offer_short_text }}">
+                                                <input type="text" class="form-control" name="offer_button_text" placeholder="" value="{{ $topbar?->offer_button_text }}">
                                                 <x-input-error :messages="$errors->get('offer_button_text')" class="mt-2" />
                                             </div>
                                         </div>

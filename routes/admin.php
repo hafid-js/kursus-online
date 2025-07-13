@@ -122,6 +122,8 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     // course module routes
     Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
+//  Route::resource('courses', CourseController::class);
+
     Route::put('courses/{course}/update-approval', [CourseController::class, 'updateApproval'])->name('courses.update-approval');
 
     Route::get('courses/create', [CourseController::class, 'create'])->name('courses.create');

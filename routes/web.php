@@ -96,7 +96,7 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'p
     Route::delete('review/{id}', [StudentDashboardController::class, 'reviewDestroy'])->name('review.destroy');
 
     Route::get('orders', [StudentOrderController::class, 'index'])->name('orders.index');
-    Route::get('orders/{order}', [StudentOrderController::class,'index'])->name('orders.show');
+    Route::get('orders/{order}', [StudentOrderController::class,'show'])->name('orders.show');
 });
 
 // Instructor Routes

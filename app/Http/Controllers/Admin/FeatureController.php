@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\FeatureUpdateRequest;
 use App\Models\Feature;
 use App\Traits\FileUpload;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class FeatureController extends Controller
@@ -32,7 +33,7 @@ class FeatureController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(FeatureUpdateRequest $request)
+    public function store(FeatureUpdateRequest $request): RedirectResponse
     {
         $data = [
             'title_one' => $request->title_one,
