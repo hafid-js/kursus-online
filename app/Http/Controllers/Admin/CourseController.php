@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
+use function Laravel\Prompts\alert;
+
 class CourseController extends Controller
 {
     use FileUpload;
@@ -28,7 +30,7 @@ class CourseController extends Controller
         return view('admin.course.course-module.index', compact('courses'));
     }
 
-    // change approve status
+// change approve status
     function updateApproval(Request $request, Course $course) {
         $course->is_approved = $request->status;
         $course->save();
@@ -221,7 +223,8 @@ class CourseController extends Controller
         }
     }
 
-   public function destroy(Course $course)
+
+public function destroy(Course $course)
     {
         try {
             // throw ValidationException::withMessages(['you have error']);

@@ -49,6 +49,7 @@ function updateApproveStatus(id, status) {
     })
 }
 
+
 $(".basic_info_form").on("submit", function (e) {
     e.preventDefault();
     let formData = new FormData(this);
