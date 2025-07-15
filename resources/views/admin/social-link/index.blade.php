@@ -35,7 +35,8 @@
                                                         <tbody>
                                                             @forelse ($socialLinks as $socialLink)
                                                                 <tr>
-                                                                    <td><img width="50" style="background-color: gray;" src="{{ asset($socialLink->icon) }}" alt=""></td>
+
+                                                                    <td>{{ $socialLink->icon }}</td>
                                                                     <td>{{ $socialLink->url }}</td>
                                                                     <td>
                                                                         @if ($socialLink->status == 1)

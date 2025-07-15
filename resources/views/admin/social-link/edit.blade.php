@@ -17,15 +17,13 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('admin.social-links.update', $socialLink->id) }}" method="POST"
-                                    enctype="multipart/form-data">
+                                <form action="{{ route('admin.social-links.update', $socialLink->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <x-image-preview src="{{ asset($socialLink->icon) }}"/>
-                                                <input type="hidden" name="old_icon" value="{{ $socialLink->icon }}">
-                                            <x-input-file-block name="icon"/>
+                                             <x-input-block name="icon" placeholder="Enter icon" value="{{ $socialLink->icon }}" />
+                                                 <p>Search Icon : <a href="https://fontawesome.com/icons" target="_blank" class="text-red">FontAwesome.com</a> </p>
                                         </div>
                                         <div class="col-md-6">
                                             <x-input-block name="url" placeholder="Enter url" value="{{ $socialLink->url }}" />

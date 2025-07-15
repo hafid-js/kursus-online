@@ -17,12 +17,12 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('admin.social-links.store') }}" method="POST"
-                                    enctype="multipart/form-data">
+                                <form action="{{ route('admin.social-links.store') }}" method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <x-input-file-block name="icon" />
+                                              <x-input-block name="icon" label="icon" />
+                                              <p>Search Icon : <a href="https://fontawesome.com/icons" target="_blank" class="text-red">FontAwesome.com</a> </p>
                                         </div>
                                         <div class="col-md-6">
                                             <x-input-block name="url" placeholder="Enter url" />

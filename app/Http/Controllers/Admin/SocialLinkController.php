@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 
 class SocialLinkController extends Controller
 {
-
-    use FileUpload;
     /**
      * Display a listing of the resource.
      */
@@ -35,15 +33,13 @@ class SocialLinkController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'icon' => ['required','image','max:3000'],
+            'icon' => ['required','string','max:20'],
             'url' => ['required','url'],
             'status' => ['nullable','boolean'],
         ]);
 
-        $icon = $this->uploadFile($request->file('icon'));
-
         $social = new SocialLink();
-        $social->icon = $icon;
+        $social->icon = $request->icon;
         $social->url = $request->url;
         $social->status = $request->status ?? 0;
         $social->save();
@@ -75,18 +71,14 @@ class SocialLinkController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'icon' => ['nullable','image','max:3000'],
+            'icon' => ['nullable','string','max:30'],
             'url' => ['required','url'],
             'status' => ['nullable','boolean'],
         ]);
 
         $social = SocialLink::findOrFail($id);
-        if($request->hasFile('icon')) {
-            $icon = $this->uploadFile($request->file('icon'));
-            $this->deleteFile($request->old_icon);
-            $social->icon = $icon;
-        }
 
+        $social->icon = $request->icon;
         $social->url = $request->url;
         $social->status = $request->status ?? 0;
         $social->save();
@@ -101,7 +93,6 @@ class SocialLinkController extends Controller
     public function destroy(SocialLink $social_link)
     {
         try {
-            $this->deleteFile($social_link->icon);
             $social_link->delete();
             notyf()->success('Deleted Successfully!');
             return response(['message' => 'Deleted Successfully!'],200);

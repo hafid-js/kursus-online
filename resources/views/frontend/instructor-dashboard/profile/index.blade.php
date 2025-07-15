@@ -119,7 +119,7 @@
                             </div>
                         </div>
 
-                        <form action="{{ route('instructor.profile.update-password') }}" method="POST"
+                        <form action="{{ route('instructor.profile.update-gateway-info') }}" method="POST"
                             class="wsus__dashboard_profile_update">
                             @csrf
                             <div class="row">
@@ -129,12 +129,11 @@
                                             <span class="d-none gateway-{{ $gateway->id }}">{!! $gateway->description !!}</span>
                                         @endforeach
                                         <label>Gateway</label>
-                                        <select name="" id="" class="form-control gateway">
+                                        <select name="gateway" id="" class="form-control gateway">
                                             <option value="">Select</option>
                                             @foreach ($gateways as $gateway)
-                                                <option value="{{ $gateway->name }}" data-id="{{ $gateway->id }}">{{ $gateway->name }}</option>
+                                                <option @selected($gatewayInfo?->gateway == $gateway->name) value="{{ $gateway->name }}" data-id="{{ $gateway->id }}">{{ $gateway->name }}</option>
                                             @endforeach
-
                                         </select>
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
@@ -142,8 +141,8 @@
                                 <div class="col-md-12">
                                     <div class="wsus__dashboard_profile_update_info">
                                         <label>Gateway Information</label>
-                                        <textarea name="gateway_info" id="" style="height: 300px" class="form-control gateway_description"></textarea>
-                                        <x-input-error :messages="$errors->get('gateway_info')" class="mt-2" />
+                                        <textarea name="information" id="" style="height: 300px" class="form-control gateway_description">{{ $gatewayInfo->information ? $gatewayInfo->information : 'Deskripsi belum diisi.' }}</textarea>
+                                        <x-input-error :messages="$errors->get('information')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="col-xl-12">

@@ -23,8 +23,7 @@
                                     @foreach ($socialLinks as $socialLink)
                                     <li>
                                         <a href="{{ $socialLink->url }}" target="_blank">
-                                           <img src="{{ asset($socialLink->icon) }}" alt="">
-                                           {{-- <i class="fab fa-facebook-f" aria-hidden="true"></i> --}}
+                                           <i class="{{ $socialLink->icon }}" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     @endforeach

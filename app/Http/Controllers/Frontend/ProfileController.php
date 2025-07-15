@@ -6,31 +6,36 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\PasswordUpdateRequest;
 use App\Http\Requests\Frontend\ProfileUpdateRequest;
 use App\Http\Requests\Frontend\SocialUpdateRequest;
+use App\Models\InstructorPayoutInformation;
 use App\Models\PayoutGateway;
 use App\Traits\FileUpload;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
     use FileUpload;
-    function index() {
+    function index()
+    {
         return view('frontend.student-dashboard.profile.index');
     }
 
-    function instructorIndex() {
+    function instructorIndex()
+    {
         $gateways = PayoutGateway::where('status', 1)->get();
-        return view('frontend.instructor-dashboard.profile.index', compact('gateways'));
+        $gatewayInfo = InstructorPayoutInformation::where('instructor_id', 2)->first();
+        return view('frontend.instructor-dashboard.profile.index', compact('gateways', 'gatewayInfo'));
     }
 
-    function profileUpdate(ProfileUpdateRequest $request) : RedirectResponse {
+    function profileUpdate(ProfileUpdateRequest $request): RedirectResponse
+    {
         $user = Auth::user();
 
-        if($request->hasFile('avatar')) {
+        if ($request->hasFile('avatar')) {
             $avatarPath = $this->uploadFile($request->file('avatar'));
             $this->deleteFile($user->image);
             $user->image = $avatarPath;
-
         }
         $user->name = $request->name;
         $user->email = $request->email;
@@ -44,7 +49,8 @@ class ProfileController extends Controller
         return redirect()->back();
     }
 
-    function updatePassword(PasswordUpdateRequest $request) : RedirectResponse {
+    function updatePassword(PasswordUpdateRequest $request): RedirectResponse
+    {
         $user = Auth::user();
         $user->password = bcrypt($request->password);
         $user->save();
@@ -52,10 +58,10 @@ class ProfileController extends Controller
         notyf()->success('Update Successfully');
 
         return redirect()->back();
-
     }
 
-    function updateSocial(SocialUpdateRequest $request) : RedirectResponse {
+    function updateSocial(SocialUpdateRequest $request): RedirectResponse
+    {
         $user = Auth::user();
         $user->facebook = $request->facebook;
         $user->x = $request->x;
@@ -66,6 +72,20 @@ class ProfileController extends Controller
         notyf()->success('Update Successfully');
 
         return redirect()->back();
+    }
 
+    function updateGatewayInfo(Request $request)
+    {
+        InstructorPayoutInformation::updateOrCreate(
+            ['instructor_id' => user()->id],
+            [
+                'gateway' => $request->gateway,
+                'information' => $request->information
+            ]
+        );
+
+        notyf()->success('Updated Successfully');
+
+        return redirect()->back();
     }
 }

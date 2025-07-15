@@ -27,6 +27,10 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/sticky_menu.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/jquery-ui.min.css') }}">
+
+    <link rel=" stylesheet" href="css/spacing.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <!-- CDN Font Awesome (versi 6) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
@@ -148,7 +152,6 @@
     {{--
                <script src="{{ asset('admin/assets/js/demo.min.js?1692870487') }} " defer></script> --}}
     <script src="{{ asset('admin/assets/libs/tinymce/tinymce.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/gh/shakilahmed0369/ez-share/dist/ez-share.min.js"></script>
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
