@@ -27,6 +27,15 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/courses', [CoursePageController::class, 'index'])->name('courses.index');
 Route::get('/courses/{slug}', [CoursePageController::class, 'show'])->name('courses.show');
 
+Route::post('newsletter-subscribe', [FrontendController::class, 'subscribe'])->name('newsletter.subscribe');
+
+// about route
+Route::get('about', [FrontendController::class, 'about'])->name('about.index');
+
+// contact route
+Route::get('contact', [FrontendContactController::class, 'index'])->name('contact.index');
+Route::post('contact', [FrontendContactController::class, 'sendMail'])->name('send.contact');
+
 // cart routes
 Route::get('cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
 Route::post('add-to-cart/{course}', [CartController::class, 'addToCart'])->name('add-to-cart')->middleware('auth');
@@ -47,14 +56,8 @@ Route::get('stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('s
 Route::get('order-success', [PaymentController::class, 'orderSuccess'])->name('order.success');
 Route::get('order-failed', [PaymentController::class, 'orderFailed'])->name('order.failed');
 
-Route::post('newsletter-subscribe', [FrontendController::class, 'subscribe'])->name('newsletter.subscribe');
-
-// about route
-Route::get('about', [FrontendController::class, 'about'])->name('about.index');
-
-// contact route
-Route::get('contact', [FrontendContactController::class, 'index'])->name('contact.index');
-Route::post('contact', [FrontendContactController::class, 'sendMail'])->name('send.contact');
+// comment blog routes
+Route::post('blog/comment/{id}', [BlogController::class, 'storeComment'])->name('blog.comment.store');
 
 // review routes
 Route::post('review', [CoursePageController::class, 'storeReview'])->name('review.store');
@@ -65,11 +68,10 @@ Route::get('page/{slug}', [FrontendController::class, 'customPage'])->name('cust
 // blog routes
 Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
-Route::post('blog/comment/{id}', [BlogController::class, 'storeComment'])->name('blog.comment.store');
 
 
 // Student Routes
-Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {
+Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student','password.set'], 'prefix' => 'student', 'as' => 'student.'], function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
     Route::get('/become-instructor', [StudentDashboardController::class, 'becomeInstructor'])->name('become-instructor');
     Route::post('/become-instructor', [StudentDashboardController::class, 'becomeInstructorUpdate'])->name('become-instructor.update');
@@ -100,7 +102,7 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'p
 });
 
 // Instructor Routes
-Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
+Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor','password.set'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
     Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');
     // profile routes
     Route::get('profile', [ProfileController::class, 'instructorIndex'])->name('profile.index');

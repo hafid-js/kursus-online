@@ -65,4 +65,18 @@ if(!function_exists('sidebarItemActive')) {
     }
 }
 
+// navbar item active
+if(!function_exists('navbarItemActive')) {
+    function navbarItemActive(string $route) {
+            return request()->routeIs($route) ? 'active' : '';
+    }
+}
+// navbar index item active
+if (!function_exists('navbarItemIndexActive')) {
+    function navbarItemIndexActive(string $url)
+    {
+        return request()->is($url) ? 'active' : '';
+    }
+}
+
 

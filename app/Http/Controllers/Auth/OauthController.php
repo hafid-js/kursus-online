@@ -32,10 +32,8 @@ class OauthController extends Controller
                 Auth::login($finduser);
 
                 if ($finduser->role == 'student') {
-                    Auth::login($finduser);
                     return redirect()->intended(route('student.dashboard', absolute: false));
                 } elseif ($finduser->role == 'instructor') {
-                    Auth::login($finduser);
                     return redirect()->intended(route('instructor.dashboard', absolute: false));
                 } else {
                     return abort(404);
@@ -58,44 +56,45 @@ class OauthController extends Controller
                 // return redirect()->intended(route('student.dashboard', absolute: false));
             }
         } catch (Exception $e) {
-            dd($e->getMessage());
+            \Log::error('Google OAuth Error: ' . $e->getMessage());
+            return redirect()->route('login')->with('error', 'Something went wrong with Google login.');
         }
     }
 
     public function formPassword()
     {
         return view('auth.set-password', [
-        'email' => Auth::user()->email,
-    ]);
+            'email' => Auth::user()->email,
+        ]);
     }
 
     public function storePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-        'password' => 'required|min:8|confirmed',
-    ], [
-        'password.confirmed' => 'Password confirmation does not match.',
-    ]);
+            'password' => 'required|min:8|confirmed',
+        ], [
+            'password.confirmed' => 'Password confirmation does not match.',
+        ]);
 
-    if ($validator->fails()) {
-        $errors = $validator->errors();
+        if ($validator->fails()) {
+            $errors = $validator->errors();
 
-        if ($errors->has('password')) {
-            $messages = $errors->get('password');
+            if ($errors->has('password')) {
+                $messages = $errors->get('password');
 
-            foreach ($messages as $key => $message) {
-                if (str_contains($message, 'confirmation')) {
-                    $errors->forget('password');
+                foreach ($messages as $key => $message) {
+                    if (str_contains($message, 'confirmation')) {
+                        $errors->forget('password');
 
-                    $errors->add('password_confirmation', $message);
+                        $errors->add('password_confirmation', $message);
+                    }
                 }
             }
-        }
 
-        return redirect()->back()
-            ->withErrors($errors)
-            ->withInput();
-    }
+            return redirect()->back()
+                ->withErrors($errors)
+                ->withInput();
+        }
         $user = Auth::user();
 
         $user->password = Hash::make($request->password);
@@ -104,6 +103,6 @@ class OauthController extends Controller
 
         Auth::logout();
 
-        return redirect()->route('login')->with('status', 'Password berhasil disimpan. Silakan login ulang.');
+        return redirect()->route('login')->with('status', 'Your password has been set. Please log in to continue.');
     }
 }

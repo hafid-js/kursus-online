@@ -78,7 +78,7 @@
                         <form action="{{ route('register',['type' => 'student']) }}" method="POST">
                             @csrf
                             <h2>Student Sign Up<span>!</span></h2>
-                            <p class="new_user">Already have an account? <a href="sign_in.html">Sign In</a></p>
+                            <p class="new_user">Already have an account? <a href="{{ url('login') }}">Sign In</a></p>
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="wsus__login_form_input">

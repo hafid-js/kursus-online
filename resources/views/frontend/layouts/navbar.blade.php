@@ -41,19 +41,19 @@
         </div>
         <ul class="navbar-nav m-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="{{ url('/') }}">Home</a>
+                <a class="nav-link {{ navbarItemIndexActive('/') }}" href="{{ url('/') }}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('about.index') }}">About Us</a>
+                <a class="nav-link {{ navbarItemActive('about.index') }}" href="{{ route('about.index') }}">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('courses.index') }}">Courses</i></a>
+                <a class="nav-link {{ navbarItemActive('courses.index') }}" href="{{ route('courses.index') }}">Courses</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('blog.index') }}">Blog</a>
+                <a class="nav-link {{ navbarItemActive('blog.index') }}" href="{{ route('blog.index') }}">Blog</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('contact.index') }}">Contact Us</a>
+                <a class="nav-link {{ navbarItemActive('contact.index') }}" href="{{ route('contact.index') }}">Contact Us</a>
             </li>
             @foreach ($customPages as $page)
                 <li class="nav-item">
