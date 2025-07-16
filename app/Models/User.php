@@ -25,7 +25,9 @@ class User extends Authenticatable
         'password',
         'role',
         'approve_status',
-        'document'
+        'document',
+        'gauth_id',
+        'gauth_type',
 
     ];
 

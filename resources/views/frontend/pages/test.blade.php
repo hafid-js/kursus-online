@@ -1,10 +1,14 @@
-
 @extends('frontend.layouts.layout')
-@section('content')
+
 @include('frontend.pages.home.sections.menu')
+
 @include('frontend.pages.home.sections.banner');
+
 @include('frontend.pages.home.sections.category');
+
 @include('frontend.pages.home.sections.about');
+
+@section('content')
     <!--===========================
                             COUESES 3 START
                         ============================-->

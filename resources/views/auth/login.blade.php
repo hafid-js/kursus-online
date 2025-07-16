@@ -8,7 +8,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <title>EduCore - Online Courses & Education HTML Template</title>
-    <link rel="icon" type="image/png" href="images/favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('frontend/assets/images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animated_barfiller.css') }}">
@@ -98,14 +98,14 @@
                                 </div>
                             </form>
                             <p class="or">or</p>
-                            {{-- <ul class="social_login d-flex flex-wrap">
+                            <ul class="social_login d-flex flex-wrap">
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ route('oauth.google') }}">
                                         <span><img src="{{ asset('frontend/assets/images/google_icon.png') }}" alt="Google" class="img-fluid"></span>
                                         Google
                                     </a>
                                 </li>
-                            </ul> --}}
+                            </ul>
                             <p class="create_account">Don't have an account? <a href="{{ route('register') }}">Create free
                                     account</a></p>
                         </div>
@@ -166,11 +166,7 @@
     <script src="{{ asset('frontend/assets/js/jquery.simple-bar-graph.min.js') }}"></script>
     <!--select2 js-->
     <script src="{{ asset('frontend/assets/js/select2.min.js') }}"></script>
-    <!--Video player js-->
-    <script src="{{ asset('frontend/assets/js/video_player.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/video_player_youtube.js') }}"></script>
-    <!--wow js-->
-    <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
+
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>

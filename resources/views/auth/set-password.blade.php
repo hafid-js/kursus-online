@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,11 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <meta name="base_url" content="{{ url('/') }}">
-    <meta name="csrf_token" content="{{ csrf_token() }}">
-    @stack('meta')
     <title>EduCore - Online Courses & Education HTML Template</title>
-    <link rel="icon" type="image/png" href="{{ asset(config('settings.site_favicon')) }}">
+    <link rel="icon" type="image/png" href="{{ asset('frontend/assets/images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animated_barfiller.css') }}">
@@ -26,14 +25,12 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/sticky_menu.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/assets/css/jquery-ui.min.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
     <link rel=" stylesheet" href="{{ asset('frontend/assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
-    @vite(['resources/css/frontend.css', 'resources/js/frontend/frontend.js']);
-    @stack('header_scripts')
+
+
 </head>
 
 <body class="home_3">
@@ -47,36 +44,79 @@
     </div>
     <!--============ PRELOADER START ===========-->
 
-    @include('frontend.layouts.header')
-
 
     <!--===========================
-        MAIN MENU 3 START
+        SIGN IN START
     ============================-->
-
-    @include('frontend.layouts.navbar');
-    <div class="wsus__menu_3_search_area">
-        <form action="{{ route('courses.index') }}">
-            <input type="text" name="search" placeholder="Search School, Online.....">
-            <button class="common_btn" type="submit">Search</button>
-            <span class="close_search"><i class="far fa-times"></i></span>
-        </form>
-    </div>
-    <!--===========================
-        MAIN MENU 3 END
-    ============================-->
-    @yield('content')
-
-    <!-- Modal -->
-    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered modal-lg dynamic-modal-content">
-
+    <section class="wsus__sign_in">
+        <div class="row align-items-center">
+            <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-9 m-auto wow fadeInRight">
+                <div class="wsus__sign_form_area">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                            aria-labelledby="pills-home-tab" tabindex="0">
+                            <x-auth-session-status class="mb-4" :status="session('status')" />
+                            <form action="{{ route('store.password') }}" method="POST">
+                                @csrf
+                                <h2>Set Password<span>!</span></h2>
+                                {{-- <p class="new_user">Welcome Back!, Please provide your credentials for login</p> --}}
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="wsus__login_form_input">
+                                            <label>Email</label>
+                                            <input type="email" name="email" value="{{ session('email') }}" placeholder="{{ $email }}" readonly>
+                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                        </div>
+                                    </div>
+                                     <div class="col-xl-12">
+                                    <div class="wsus__login_form_input">
+                                        <label>New Password</label>
+                                        <input type="password" placeholder="Your password" name="password">
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="wsus__login_form_input">
+                                        <label>Confirm Password</label>
+                                        <input type="password" placeholder="Confirm password" name="password_confirmation">
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                    </div>
+                                </div>
+                                    <div class="col-xl-12">
+                                        <div class="wsus__login_form_input">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" name="remember"
+                                                    id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Remember Me
+                                                </label>
+                                            </div>
+                                            <button type="submit" class="common_btn">Sign In</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <p class="or">or</p>
+                            <ul class="social_login d-flex flex-wrap">
+                                <li>
+                                    <a href="{{ route('oauth.google') }}">
+                                        <span><img src="{{ asset('frontend/assets/images/google_icon.png') }}" alt="Google" class="img-fluid"></span>
+                                        Google
+                                    </a>
+                                </li>
+                            </ul>
+                            <p class="create_account">Don't have an account? <a href="{{ route('register') }}">Create free
+                                    account</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-
-    @include('frontend.layouts.footer')
+        <a class="back_btn" href="{{ url('/') }}">Back to Home</a>
+    </section>
+    <!--===========================
+        SIGN IN END
+    ============================-->
 
 
     <!--================================
@@ -125,43 +165,10 @@
     <script src="{{ asset('frontend/assets/js/jquery.simple-bar-graph.min.js') }}"></script>
     <!--select2 js-->
     <script src="{{ asset('frontend/assets/js/select2.min.js') }}"></script>
-    <!--Video player js-->
-    <script src="{{ asset('frontend/assets/js/video_player.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/video_player_youtube.js') }}"></script>
-    <!--wow js-->
-    <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
 
-    {{-- jquery ui --}}
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
-    <script src="{{ asset('frontend/assets/js/jquery-ui.min.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-
-    {{-- sweetalert2 --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{--
-               <script src="{{ asset('admin/assets/js/demo.min.js?1692870487') }} " defer></script> --}}
-    <script src="{{ asset('admin/assets/libs/tinymce/tinymce.min.js') }}"></script>
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
-
-
-    @stack('scripts')
-
-
-    <script>
-        var notyf = new Notyf({
-            duration: 5000,
-            dismissible: true,
-        });
-
-        @if ($errors->any())
-            @foreach ($errors as $error)
-                notyf.error("{{ $error }}")
-            @endforeach
-        @endif
-    </script>
 
 </body>
 

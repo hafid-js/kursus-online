@@ -16,5 +16,3 @@
     </div>
 </x-app-layout> --}}
 
-
-kntl
