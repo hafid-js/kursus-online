@@ -2,8 +2,8 @@
 
 @section('content')
     <!--===========================
-                                    BREADCRUMB START
-                                ============================-->
+                                        BREADCRUMB START
+                                    ============================-->
     <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
@@ -22,91 +22,116 @@
         </div>
     </section>
     <!--===========================
-                                    BREADCRUMB END
-                                ============================-->
+                                        BREADCRUMB END
+                                    ============================-->
 
 
     <!--===========================
-                                    DASHBOARD OVERVIEW START
-                                ============================-->
+                                        DASHBOARD OVERVIEW START
+                                    ============================-->
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
                 @include('frontend.student-dashboard.sidebar')
+
                 <div class="col-xl-9 col-md-8 wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;">
                     <div class="wsus__dashboard_contant">
-                        <div class="wsus__dashboard_contant_top">
-                            <div class="wsus__dashboard_heading relative">
-                                <h5>Reviews</h5>
-                                <p>Manage your reviews from here.</p>
+                        <div class="wsus__invoice_top">
+                            <div class="wsus__invoice_logo">
+                                <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="logo"
+                                    class="img-fluid w-100">
+                            </div>
+                            <div class="wsus__invoice_heading">
+                                <h2>INVOICE</h2>
                             </div>
                         </div>
-                        <div class="wsus__dash_course_table">
-                            <div class="container-xl mb-3">
-                                <div class="card card-lg">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <p class="h3">Company</p>
-                                                <address>
-                                                    {{ config('settings.site_name') }}<br>
-                                                    {{ config('settings.phone') }}<br>
-                                                    {{ config('settings.location') }}<br>
+                        <div class="wsus__invoice_description">
+                            <h4>Invoice to:</h4>
+                            <div class="row justify-content-between">
+                                <div class="col-xl-6 col-sm-6">
+                                    <div class="wsus__invoice_address">
+                                        <h5> {{ $order->customer->name }}</h5>
+                                        <p> {{ $order->customer->email }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-sm-5">
+                                    <div class="wsus__invoice_date">
+                                        <h5>Invoice#<span>{{ $order->invoice_id }}</span></h5>
+                                        <h5 class="date">Date<span>{{ $order->created_at }}</span></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                                </address>
-                                            </div>
-                                            <div class="col-6 text-end">
-                                                <p class="h3">Client</p>
-                                                <address>
-                                                    {{ $order->customer->name }} <br>
-                                                    {{ $order->customer->email }}
-                                                </address>
-                                            </div>
-                                            <div class="col-12 my-5">
-                                                <h4>Invoice #{{ $order->invoice_id }}</h4>
-                                            </div>
-                                        </div>
-                                        <table class="table table-transparent table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" style="width: 1%"></th>
-                                                    <th>Product</th>
-                                                    <th class="text-center" style="width: 1%">Qnt</th>
-                                                    <th class="text-end" style="width: 4%">Amount</th>
-                                                </tr>
-                                            </thead>
+                        <div class="wsus__invoice_table">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table">
                                             <tbody>
+                                                <tr>
+                                                    <th class="serial">
+                                                        SL
+                                                    </th>
+                                                    <th class="description">
+                                                        Item Description
+                                                    </th>
+
+                                                    <th class="price">
+                                                    </th>
+                                                     <th class="quantity">
+                                                        Quantity
+                                                    </th>
+                                                     <th class="total">
+                                                        Price
+                                                    </th>
+                                                </tr>
                                                 @foreach ($order->orderItems as $item)
                                                     <tr>
-                                                        <td class="text-center">1</td>
-                                                        <td>
+                                                        <td class="serial">
+                                                            <p>1</p>
+                                                        </td>
+                                                        <td class="description">
                                                             <p class="strong mb-1">{{ $item->course->title }}</p>
                                                             <div class="text-secondary">By
                                                                 {{ $item->course->instructor->name }}</div>
                                                         </td>
-                                                        <td class="text-center">
-                                                            1
+                                                        <td class="price">
+
                                                         </td>
-                                                        <td class="text-end">${{ $item->price }}</td>
+                                                        <td class="quantity">
+                                                            <p>1</p>
+                                                        </td>
+                                                        <td class="total">
+                                                            <p>${{ $item->price }}</p>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
-                                                <tr>
-                                                    <td colspan="3" class="strong text-end">Subtotal</td>
-                                                    <td class="text-end">${{ $order->total_amount }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3" class="strong text-end">Paid Amount</td>
-                                                    <td class="text-end">${{ $order->paid_amount }}
-                                                        {{ $order->currency }}</td>
-                                                </tr>
                                             </tbody>
                                         </table>
-                                        {{-- <div class="wsus__pagination mt_50 wow fadeInUp"
-                                            {{ $orders->withQueryString()->links() }}>
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="wsus__invoice_final_total">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="wsus__invoice_final_total_left">
+                                        {{-- <p>Thank you for your business</p> --}}
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="wsus__invoice_final_total_right">
+                                        <h6>Subtotal:<span>${{ $order->total_amount }}</span></h6>
+                                        <h5>Paid Amount: <span>${{ $order->paid_amount }}
+                                                {{ $order->currency }}</span></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wsus__invoice_bottom">
+                            <p>{{ config('settings.location') }} <span> {{ config('settings.phone') }}</span></p>
                         </div>
                     </div>
                 </div>
@@ -114,6 +139,6 @@
         </div>
     </section>
     <!--===========================
-                                    DASHBOARD OVERVIEW END
-                                ============================-->
+                                        DASHBOARD OVERVIEW END
+                                    ============================-->
 @endsection

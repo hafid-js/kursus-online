@@ -15,7 +15,10 @@ class EnrolledCourseController extends Controller
 
     function index()
     {
-        $enrollments = Enrollment::with('course')->where('user_id', user()->id)->get();
+        $enrollments = Enrollment::with('course')
+    ->where('user_id', user()->id)
+    ->whereHas('course')
+    ->get();
         return view('frontend.student-dashboard.enrolled-course.index', compact('enrollments'));
     }
 

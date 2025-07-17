@@ -54,23 +54,33 @@ class User extends Authenticatable
         ];
     }
 
-    function courses() : HasMany {
-        return $this->hasMany(Course::class, 'instructor_id','id');
+    function courses(): HasMany
+    {
+        return $this->hasMany(Course::class, 'instructor_id', 'id');
     }
 
-    function gatewayInfo() : HasOne {
-       return $this->hasOne(InstructorPayoutInformation::class, 'instructor_id', 'id');
+    function gatewayInfo(): HasOne
+    {
+        return $this->hasOne(InstructorPayoutInformation::class, 'instructor_id', 'id');
     }
 
-    function students() : HasMany {
-        return $this->hasMany(Enrollment::class,'instructor_id','id');
+    function students(): HasMany
+    {
+        return $this->hasMany(Enrollment::class, 'instructor_id', 'id');
     }
 
-    function reviews() : HasMany {
-        return $this->hasMany(Review::class,'instructor_id','id');
+    function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'instructor_id', 'id');
     }
 
-    function enrollments() : HasMany {
-        return $this->hasMany(Enrollment::class,'user_id','id');
+    function enrollments(): HasMany
+    {
+        return $this->hasMany(Enrollment::class, 'user_id', 'id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'buyer_id');
     }
 }

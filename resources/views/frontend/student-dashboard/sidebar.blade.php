@@ -14,39 +14,43 @@
             <li>
                 <a href="{{ route('student.dashboard') }}" class="{{ sidebarItemActive(['student.dashboard']) }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon"
+                            class="img-fluid w-100">
                     </div>
                     Dashboard
                 </a>
             </li>
             <li>
-                <a href="{{ route('student.profile.index') }}" class="{{ sidebarItemActive(['instructor.profile.index']) }}">
+                <a href="{{ route('student.profile.index') }}" class="{{ sidebarItemActive(['student.profile.index']) }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                       <img src="{{ asset('frontend/assets/images/dash_icon_1.png') }}" alt="icon"
+                            class="img-fluid w-100">
                     </div>
                     Profile
                 </a>
             </li>
              <li>
-                <a href="{{ route('student.enrolled-courses.index') }}" class="{{ sidebarItemActive(['instructor.enrolled-courses.index']) }}">
+                <a href="{{ route('student.enrolled-courses.index') }}" class="{{ sidebarItemActive(['student.enrolled-courses.index']) }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_3.png') }}" alt="icon"
+                            class="img-fluid w-100">
                     </div>
                     Enrolled Courses
                 </a>
             </li>
              <li>
-                <a href="{{ route('student.review.index') }}" class="{{ sidebarItemActive(['instructor.review.index']) }}">
+                <a href="{{ route('student.review.index') }}" class="{{ sidebarItemActive(['student.review.index']) }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_4.png') }}" alt="icon" class="img-fluid w-100">
                     </div>
                     Reviews
                 </a>
             </li>
             <li>
-                <a href="{{ route('student.orders.index') }}" class="{{ sidebarItemActive(['instructor.review.index']) }}">
+                <a href="{{ route('student.orders.index') }}" class="{{ sidebarItemActive(['student.orders.index']) }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon" class="img-fluid w-100">
+                         <img src="{{ asset('frontend/assets/images/dash_icon_5.png') }}" alt="icon"
+                            class="img-fluid w-100">
                     </div>
                     Orders
                 </a>

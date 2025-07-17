@@ -24,7 +24,7 @@
             <li>
                 <a href="{{ route('instructor.profile.index') }}" class="{{ sidebarItemActive(['instructor.profile.index']) }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon"
+                        <img src="{{ asset('frontend/assets/images/dash_icon_1.png') }}" alt="icon"
                             class="img-fluid w-100">
                     </div>
                     Instructor Profile
@@ -33,7 +33,7 @@
             <li>
                 <a href="{{ route('instructor.courses.index') }}" class="{{ sidebarItemActive(['instructor.courses.index']) }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon"
+                        <img src="{{ asset('frontend/assets/images/dash_icon_3.png') }}" alt="icon"
                             class="img-fluid w-100">
                     </div>
                     Courses
@@ -42,10 +42,19 @@
             <li>
                 <a href="{{ route('instructor.orders.index') }}" class="{{ sidebarItemActive(['instructor.orders.index']) }}">
                     <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon"
+                        <img src="{{ asset('frontend/assets/images/dash_icon_5.png') }}" alt="icon"
                             class="img-fluid w-100">
                     </div>
                     Orders
+                </a>
+            </li>
+                    <li>
+                <a href="{{ route('instructor.courses.students') }}" class="{{ sidebarItemActive(['instructor.courses.students']) }}">
+                    <div class="img">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_6.png') }}" alt="icon"
+                            class="img-fluid w-100">
+                    </div>
+                    Students
                 </a>
             </li>
             <li>

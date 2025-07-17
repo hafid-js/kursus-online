@@ -49,7 +49,7 @@
                                         <i class="fa fa-picture-o"></i> Choose
                                     </a>
                                 </span>
-                                <input id="thumbnail" class="form-control source_input" type="text" name="file">
+                                <input id="thumbnail" class="form-control source_input" type="text" name="demo_video_source">
                             </div>
                         </div>
                         <div class="add_course_basic_info_imput external_source d-none">

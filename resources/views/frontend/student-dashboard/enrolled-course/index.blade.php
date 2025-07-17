@@ -61,30 +61,33 @@
                                                 <tr>
                                                     <td class="image">
                                                         <div class="image_category">
-                                                            <img src="{{ asset($enrollment->course->thumbnail) }}" alt="img" class="img-fluid w-100">
+                                                            <img src="{{ asset($enrollment->course?->thumbnail) }}" alt="img" class="img-fluid w-100">
                                                         </div>
                                                     </td>
                                                     <td class="details">
                                                         <p class="rating">
-                                                            <i class="fas fa-star" aria-hidden="true"></i>
-                                                            <i class="fas fa-star" aria-hidden="true"></i>
-                                                            <i class="fas fa-star" aria-hidden="true"></i>
-                                                            <i class="fas fa-star-half-alt" aria-hidden="true"></i>
-                                                            <i class="far fa-star" aria-hidden="true"></i>
-                                                            <span>(5.0)</span>
-                                                        </p>
-                                                        <a class="title" href="{{ route('student.course-player.index', $enrollment->course->slug) }}">{{ $enrollment->course->title }}</a>
-                                                                                                                <div class="text-muted">By {{ $enrollment->course->instructor->name }}</div>
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $enrollment->course?->reviews()->avg('rating'))
+                                                        <i class="fas fa-star"></i>
+                                                    @else
+                                                        <i class="far fa-star"></i>
+                                                    @endif
+                                                @endfor
+                                                <span>({{ number_format($enrollment->course?->reviews()->avg('rating'), 2) ?? 0 }}
+                                                    Rating)</span>
+                                            </p>
+                                                        <a class="title" href="{{ route('student.course-player.index', $enrollment->course?->slug) }}">{{ $enrollment->course?->title }}</a>
+                                                                                                                <div class="text-muted">By {{ $enrollment->course?->instructor->name }}</div>
                                                         @php
-                                                            $watchedLessonCount = \App\Models\WatchHistory::where(['user_id' => user()->id, 'course_id' => $enrollment->course->id, 'is_completed' => 1])->count();
-                                                            $lessonCount = $enrollment->course->lessons()->count();
+                                                            $watchedLessonCount = \App\Models\WatchHistory::where(['user_id' => user()->id, 'course_id' => $enrollment->course?->id, 'is_completed' => 1])->count();
+                                                            $lessonCount = $enrollment->course?->lessons()->count();
                                                         @endphp
                                                         @if($lessonCount == $watchedLessonCount)
-                                                        <a target="_blank" href="{{ route('student.certificate.download', $enrollment->course->id) }}" class="btn btn-sm btn-warning">Download Certificate</a>
+                                                        <a target="_blank" href="{{ route('student.certificate.download', $enrollment->course?->id) }}" class="btn btn-sm btn-warning">Download Certificate</a>
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <a class="btn btn-primary" href="{{ route('student.course-player.index', $enrollment->course->slug) }}"><i class="fas fa-eye"></i> Watch Course</a>
+                                                        <a class="btn btn-primary" href="{{ route('student.course-player.index', $enrollment->course?->slug) }}"><i class="fas fa-eye"></i> Watch Course</a>
                                                     </td>
                                                     @empty
                                                     <td colspan="5" class="text-center">No Data Found!</td>

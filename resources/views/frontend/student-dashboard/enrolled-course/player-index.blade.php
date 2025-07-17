@@ -855,7 +855,7 @@
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                         aria-labelledby="pills-home-tab" tabindex="0">
                         <div class="video_about">
-                            <h1>About this lecture</h1>
+                            <h1>Description</h1>
                             <p class="short_description about_lecture"></p>
                         </div>
                     </div>
@@ -893,50 +893,6 @@
                                         ipsum primis in faucibus.</p>
                                 </div>
                             </div>
-                            <div class="course-review-head">
-                                <div class="review-author-thumb">
-                                    <img src="{{ asset('frontend/assets/images/review-author.png') }}"
-                                        alt="img">
-                                </div>
-                                <div class="review-author-content">
-                                    <div class="author-name">
-                                        <h5 class="name">Jura Hujaor <span>2 Days ago</span></h5>
-                                        <div class="author-rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <h4 class="title">The best LMS Design System</h4>
-                                    <p>Maximus ligula eleifend id nisl quis interdum. Sed malesuada tortor non turpis
-                                        semper bibendum nisi porta, malesuada risus nonerviverra dolor. Vestibulum ante
-                                        ipsum primis in faucibus.</p>
-                                </div>
-                            </div>
-                            <div class="course-review-head">
-                                <div class="review-author-thumb">
-                                    <img src="{{ asset('frontend/assets/images/review-author.png') }}"
-                                        alt="img">
-                                </div>
-                                <div class="review-author-content">
-                                    <div class="author-name">
-                                        <h5 class="name">Jura Hujaor <span>2 Days ago</span></h5>
-                                        <div class="author-rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <h4 class="title">The best LMS Design System</h4>
-                                    <p>Maximus ligula eleifend id nisl quis interdum. Sed malesuada tortor non turpis
-                                        semper bibendum nisi porta, malesuada risus nonerviverra dolor. Vestibulum ante
-                                        ipsum primis in faucibus.</p>
-                                </div>
-                            </div>
 
 
                             <div class="video_review_imput">
@@ -951,7 +907,7 @@
                                 </p>
                                 <form action="#">
                                     <textarea name="" id="" cols="30" rows="5" placeholder="Youe coment..."></textarea>
-                                    <button type="submit" class="btn arrow-btn back_qna_list">Submit</button>
+                                    <button type="submit" class="btn arrow-btn back_qna_list btn-primary">Submit</button>
                                 </form>
                             </div>
 
@@ -1084,9 +1040,9 @@
                 let lessonId = $(lesson).data('lesson-id');
 
                 if (
-                    chapterId == {{ $lastWatchHistory->chapter_id }} &&
-                    courseId == {{ $lastWatchHistory->course_id }} &&
-                    lessonId == {{ $lastWatchHistory->lesson_id }}
+                    chapterId == {{ $lastWatchHistory?->chapter_id }} &&
+                    courseId == {{ $lastWatchHistory?->course_id }} &&
+                    lessonId == {{ $lastWatchHistory?->lesson_id }}
                 ) {
                     $(lesson).click();
                     $(lesson).addClass('active');

@@ -224,16 +224,16 @@ class CourseController extends Controller
     }
 
 
-public function destroy(Course $course)
-    {
-        try {
-            // throw ValidationException::withMessages(['you have error']);
-            $course->delete();
-            notyf()->success('Delete Succesfully!');
-            return response(['message' => 'Delete Successfully!'], 200);
-        } catch(Exception $e) {
-            logger("Course Error >> ".$e);
-            return response(['message' => 'Something went wrong!'], 500);
-        }
-    }
+// public function destroy(Course $course)
+//     {
+//         try {
+//             // throw ValidationException::withMessages(['you have error']);
+//             $course->delete();
+//             notyf()->success('Delete Succesfully!');
+//             return response(['message' => 'Delete Successfully!'], 200);
+//         } catch(Exception $e) {
+//             logger("Course Error >> ".$e);
+//             return response(['message' => 'Something went wrong!'], 500);
+//         }
+//     }
 }

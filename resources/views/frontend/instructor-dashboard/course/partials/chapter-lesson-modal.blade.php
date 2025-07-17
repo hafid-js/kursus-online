@@ -4,7 +4,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        <form action="{{ @$editMode == true ?
+        <form action="{{ $editMode == true ?
     route('instructor.course-content.update-lesson',$lesson->id) :
     route('instructor.course-content.store-lesson')
         }}" method="POST">
@@ -31,23 +31,33 @@
                     </div>
                 </div>
                 <div class="col-md-6 mt-3">
-                    <div class="add_course_basic_info_imput upload_source {{ @$lesson->storage == 'upload' ? '' : 'd-none' }}">
-                        <label for="#">Path</label>
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                                    <i class="fa fa-picture-o"></i> Choose
-                                </a>
-                            </span>
-                            <input id="thumbnail" class="form-control source_input" type="text" name="file"
-                                value="{{ @$lesson->file_path }}">
-                        </div>
-                    </div>
-                    <div class="add_course_basic_info_imput external_source {{ @$lesson->storage != 'upload' ? '' : 'd-none' }}">
-                        <label for="#">Path</label>
-                        <input type="text" name="url" class="source_input" value="{{ @$lesson->file_path }}">
-                    </div>
-                </div>
+    <div class="add_course_basic_info_imput upload_source {{ @$lesson->storage == 'upload' ? '' : 'd-none' }}">
+        <label for="#">Path</label>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                    <i class="fa fa-picture-o"></i> Choose
+                </a>
+            </span>
+            <input id="thumbnail"
+                   class="form-control source_input"
+                   type="text"
+                   name="file"
+                   value="{{ @$lesson->storage == 'upload' ? @$lesson->file_path : '' }}"
+                   {{ @$lesson->storage != 'upload' ? 'disabled' : '' }}>
+        </div>
+    </div>
+
+    <div class="add_course_basic_info_imput external_source {{ @$lesson->storage != 'upload' ? '' : 'd-none' }}">
+        <label for="#">Path</label>
+        <input type="text"
+               name="url"
+               class="source_input"
+               value="{{ @$lesson->storage != 'upload' ? @$lesson->file_path : '' }}"
+               {{ @$lesson->storage == 'upload' ? 'disabled' : '' }}>
+    </div>
+</div>
+
                 <div class="col-md-6">
                     <div class="form-group mb-3">
                         <label for="">File Type</label>

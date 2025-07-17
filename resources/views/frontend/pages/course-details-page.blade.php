@@ -84,7 +84,7 @@
                                 aria-labelledby="pills-home-tab" tabindex="0">
                                 <div class="wsus__courses_overview box_area">
                                     <h3>Course Description</h3>
-                                    <p>{{ $course->description }}
+                                    <p>{!! $course->description !!}
                                     </p>
                                 </div>
                             </div>
@@ -159,7 +159,8 @@
                                                         )->count();
                                                     @endphp
                                                     <li><i class="fas fa-star" aria-hidden="true"></i>
-                                                        <b>{{ $reviewsCount }} Reviews</b></li>
+                                                        <b>{{ $reviewsCount }} Reviews</b>
+                                                    </li>
                                                     <li><strong>4.7 Rating</strong></li>
                                                     <li>
                                                         <span><img
@@ -331,31 +332,55 @@
                                     @endforeach
                                 </div>
                                 @auth
-                                    <div class="wsus__courses_review_input box_area mt_40">
-                                        <h3>Write a Review</h3>
-                                        <p class="short_text">Your email address will not be published. Required fields are
-                                            marked *</p>
-                                        <div class="select_rating d-flex flex-wrap">Your Rating:
-                                            <ul id="starRating" data-stars="5"></ul>
+                                    @php
+                                        $user = auth()->user();
+                                        $isOwner = $course->instructor_id == $user->id;
+                                        $hasPurchased = \App\Models\OrderItem::whereHas('order', function ($query) use (
+                                            $user,
+                                        ) {
+                                            $query->where('buyer_id', $user->id)->where('status', 'approved');
+                                        })
+                                            ->where('course_id', $course->id)
+                                            ->exists();
+                                    @endphp
+
+                                    @if ($isOwner)
+                                        <div class="alert alert-warning mt-3 text-center" role="alert">
+                                            You cannot review your own course.
                                         </div>
-                                        <form action="{{ route('review.store') }}" method="POST">
-                                            @csrf
-                                            <div class="row">
-                                                <input type="hidden" name="rating" value="" id="rating">
-                                                <input type="hidden" name="course" value="{{ $course->id }}">
-                                                <div class="col-xl-12">
-                                                    <textarea rows="7" placeholder="Review" name="review"></textarea>
-                                                </div>
-                                                <div class="col-12 mt-3">
-                                                    <button type="submit" class="common_btn">Submit Now</button>
-                                                </div>
+                                    @elseif (!$hasPurchased)
+                                        <div class="alert alert-info mt-3 text-center" role="alert">
+                                            You must purchase this course to write a review.
+                                        </div>
+                                    @else
+                                        <div class="wsus__courses_review_input box_area mt_40">
+                                            <h3>Write a Review</h3>
+                                            <p class="short_text">Your email address will not be published. Required fields are
+                                                marked *</p>
+                                            <div class="select_rating d-flex flex-wrap">Your Rating:
+                                                <ul id="starRating" data-stars="5"></ul>
                                             </div>
-                                        </form>
-                                    </div>
+                                            <form action="{{ route('review.store') }}" method="POST">
+                                                @csrf
+                                                <div class="row">
+                                                    <input type="hidden" name="rating" value="" id="rating">
+                                                    <input type="hidden" name="course" value="{{ $course->id }}">
+                                                    <div class="col-xl-12">
+                                                        <textarea rows="7" placeholder="Review" name="review"></textarea>
+                                                    </div>
+                                                    <div class="col-12 mt-3">
+                                                        <button type="submit" class="common_btn">Submit Now</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    @endif
                                 @else
-                                    <div class="alert alert-info mt-3 text-center" role="alert">Please <a
-                                            href="{{ route('login') }}">Login</a> First To Write A Review</div>
+                                    <div class="alert alert-info mt-3 text-center" role="alert">
+                                        Please <a href="{{ route('login') }}">Login</a> first to write a review.
+                                    </div>
                                 @endauth
+
                             </div>
                         </div>
                     </div>
@@ -373,11 +398,11 @@
                         <h3 class="wsus__courses_sidebar_price">
                             @if ($course->discount > 0)
                                 Price:
-                                <del>${{ config('settings.currency_icon') }}{{ $course->price }}</del>${{ $course->discount }}
+                                <del>{{ config('settings.currency_icon') }}{{ $course->price }}</del>${{ $course->discount }}
                             @elseif($course->price <= 0)
                                 FREE
                             @else
-                                Price: ${{ config('settings.currency_icon') }}{{ $course->price }}
+                                Price: {{ config('settings.currency_icon') }}{{ $course->price }}
                             @endif
                         </h3>
                         <div class="wsus__courses_sidebar_list_info">
@@ -415,8 +440,14 @@
                                     {{ $course->language->name }}
                                 </li>
                             </ul>
-                            <a class="common_btn add_to_cart" href="#" data-course-id="{{ $course->id }}">Add to
-                                Cart <i class="far fa-arrow-right" aria-hidden="true"></i></a>
+                            @php
+                                $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+                            @endphp
+                            @if (!$isMyCourse)
+                                <a class="common_btn add_to_cart" href="#"
+                                    data-course-id="{{ $course->id }}">Add to
+                                    Cart <i class="far fa-arrow-right" aria-hidden="true"></i></a>
+                            @endif
                         </div>
                         <div class="wsus__courses_sidebar_share_area">
                             <span>Share:</span>

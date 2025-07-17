@@ -91,9 +91,9 @@
                                                                                 <path d="M16 5l3 3" />
                                                                             </svg>
                                                                             </a>
-                                                                         <a href="{{ route('admin.courses.destroy', $course->id) }}" class="text-red delete-item">
+                                                                         {{-- <a href="{{ route('admin.courses.destroy', $course->id) }}" class="text-red delete-item">
                                                                             <i class="ti ti-trash"></i>
-                                                                        </a>
+                                                                        </a> --}}
                                                                     </td>
                                                                 </tr>
                                                             @empty
