@@ -67,7 +67,16 @@
                             <div class="tab-content" id="pills-tabContent">
                                 @yield('course_content')
                             </div>
+                             @if (request()->query('step') == 3)
+                                    <div class="text-end mt-3">
+                                        <a href="{{ url('/instructor/courses/' . $courseId . '/edit?step=4') }}"
+                                            class="btn btn-primary">
+                                            Finish
+                                        </a>
+                                    </div>
+                                @endif
                         </div>
+
                     </div>
                 </div>
             </div>

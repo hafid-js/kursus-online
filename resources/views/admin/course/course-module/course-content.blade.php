@@ -9,7 +9,7 @@
         <input type="hidden" name="next_step" value="4">
     </form>
     <div class="add_course_content">
-        <div class="add_course_content_btn_area d-flex flex-wrap justify-content-between mt-3">
+        <div class="add_course_content_btn_area d-flex flex-wrap justify-content-between mt-3 mb-3">
             <a class="common_btn dynamic-modal-btn btn btn-primary" href="#" data-id="{{ $courseId }}"> Add New Chapter</a>
             <a class="common_btn sort_chapter_btn btn btn-primary" data-id="{{ $courseId }}" href="javascript:;">Sort Chapter</a>
         </div>
@@ -41,16 +41,14 @@
                             @foreach ($chapter->lessons ?? [] as $lesson)
                             <li class="" data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}">
                                 <span>{{ $lesson->title }}</span>
-                                <div class="add_course_content_action_btn">
-                                    <a class="edit_lesson" data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}"
-                                        data-course-id="{{ $chapter->course_id }}" class="edit" href="javascript:;"><i class="ti ti-edit"></i></a>
-                                    <a class="del delete-item" href="{{ route('admin.course-content.destroy-lesson', $lesson->id) }}"><i class="ti ti-trash-x"></i></a>
-                                    <a class="arrow dragger" href="javascript:;"><i class="ti ti-arrows-maximize"></i></a>
+                                   <div class="add_course_content_action_btn">
+                                    <a class="edit edit_lesson" data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}" data-course-id="{{ $chapter->course_id }}" href="javascript:;"><i class="ti ti-edit" aria-hidden="true"></i></a>
+                                    <a class="del delete-item" href="{{ route('admin.course-content.destroy-lesson', $lesson->id) }}"><i class="ti ti-trash-x" aria-hidden="true"></i></a>
+                                    <a class="arrow dragger" href="javascript:;"><i class="ti ti-arrows-alt" aria-hidden="true"></i></a>
                                 </div>
                             </li>
                             @endforeach
                         </ul>
-
                     </div>
                 </div>
             </div>

@@ -29,7 +29,6 @@ $(".course-tab").on("click", function (e) {
     $(".course-form").find("input[name=next_step]").val(step);
     $(".course-form").trigger("submit");
 });
-
 // reusable functions
 
 function updateApproveStatus(id, status) {
@@ -129,21 +128,28 @@ $(".more_info_form").on("submit", function (e) {
 });
 
 // show hide path input depending on source
+
 $(document).ready(function () {
-    $(document).on("change",'.storage', function () {
-        let value = $(this).val();
-        $(".source_input").val("");
-        console.log("working");
-        if (value == "upload") {
-            $(".upload_source").removeClass("d-none");
-            $(".external_source").addClass("d-none");
-        } else {
-            $(".upload_source").addClass("d-none");
-            $(".external_source").removeClass("d-none");
-        }
-    });
+    $('.storage').trigger('change'); // buat set awal tampilan
 });
 
+$(document).on('change', '.storage', function () {
+    let value = $(this).val();
+
+    if (value === 'upload') {
+        $('.upload_source').removeClass('d-none');
+        $('.external_source').addClass('d-none');
+
+        $('input[name="file"]').prop('disabled', false);
+        $('input[name="url"]').prop('disabled', true).val('');
+    } else {
+        $('.upload_source').addClass('d-none');
+        $('.external_source').removeClass('d-none');
+
+        $('input[name="url"]').prop('disabled', false);
+        $('input[name="file"]').prop('disabled', true).val('');
+    }
+});
 // course contents
 $(".dynamic-modal-btn").on("click", function (e) {
     e.preventDefault();
@@ -243,6 +249,7 @@ $('.edit_lesson').on('click', function() {
         },
     });
 });
+
 
 $(document).ready(function () {
 if($('.sortable_list li').length) {

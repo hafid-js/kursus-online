@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\CourseBasicInfoCreateRequest;
 use App\Models\Course;
 use App\Models\CourseCategory;
 use App\Models\CourseChapter;
+use App\Models\CourseChapterLession;
 use App\Models\CourseLanguage;
 use App\Models\CourseLevel;
 use App\Models\User;
@@ -30,8 +31,9 @@ class CourseController extends Controller
         return view('admin.course.course-module.index', compact('courses'));
     }
 
-// change approve status
-    function updateApproval(Request $request, Course $course) {
+    // change approve status
+    function updateApproval(Request $request, Course $course)
+    {
         $course->is_approved = $request->status;
         $course->save();
 
@@ -43,7 +45,7 @@ class CourseController extends Controller
 
     function create()
     {
-        $instructors = User::where('role','instructor')->where('approve_status','approved')->get();
+        $instructors = User::where('role', 'instructor')->where('approve_status', 'approved')->get();
         return view('admin.course.course-module.create', compact('instructors'));
     }
 
@@ -93,15 +95,16 @@ class CourseController extends Controller
             case '3':
                 $courseId = $request->id;
                 $chapters = CourseChapter::where([
-                    'course_id' => $courseId
+                    'course_id' => $courseId,
                 ])->orderBy('order')->get();
-                return view('admin.course.course-module.course-content', compact('courseId', 'chapters'));
+                $editMode = true;
+                return view('admin.course.course-module.course-content', compact('courseId', 'chapters', 'editMode'));
                 break;
 
             case '4':
                 $course = Course::findOrFail($request->id);
                 $editMode = true;
-                return view('admin.course.course-module.finish', compact('editMode','course'));
+                return view('admin.course.course-module.finish', compact('editMode', 'course'));
                 break;
         }
     }
@@ -160,6 +163,7 @@ class CourseController extends Controller
                 break;
 
             case '2':
+
                 // validation
                 $request->validate([
                     'capacity' => ['nullable', 'numeric'],
@@ -190,28 +194,67 @@ class CourseController extends Controller
                 break;
 
             case '3':
+                // validation
+                $request->validate([
+                    'id' => ['required', 'integer', 'exists:lessons,id'],
+                    'title' => ['required', 'string', 'max:255'],
+                    'source' => ['required', 'string', 'in:upload,youtube,vimeo,external'],
+                    'file' => ['nullable', 'string'],
+                    'url' => ['nullable', 'string'],
+                    'file_type' => ['nullable', 'string'],
+                    'duration' => ['required', 'string'],
+                    'is_preview' => ['nullable', 'boolean'],
+                    'downloadable' => ['nullable', 'boolean'],
+                    'description' => ['required', 'string'],
+                    'course_id' => ['required', 'integer', 'exists:courses,id'],
+                    'next_step' => ['required', 'integer'], // step untuk redirect
+                ]);
 
+                // Ambil lesson milik user
+                $lesson = CourseChapterLession::where('id', $request->id)
+                    ->where('instructor_id', Auth::id())
+                    ->firstOrFail();
+
+                // Tentukan file_path dari source
+                $filePath = $request->source === 'upload' ? $request->file : $request->url;
+
+                // Update data lesson
+                $lesson->title = $request->title;
+                $lesson->storage = $request->source;
+                $lesson->file_path = $filePath;
+                $lesson->file_type = $request->file_type;
+                $lesson->duration = $request->duration;
+                $lesson->is_preview = $request->has('is_preview') ? 1 : 0;
+                $lesson->downloadable = $request->has('downloadable') ? 1 : 0;
+                $lesson->description = $request->description;
+                $lesson->save();
+
+
+                // Kembalikan response untuk frontend (AJAX atau redirect)
                 return response([
                     'status' => 'success',
-                    'message' => 'Updated Successfully!.',
-                    'redirect' => route('admin.courses.edit', ['id' => $request->id, 'step' => $request->next_step])
+                    'message' => 'Updated Successfully Bro!',
+                    'redirect' => route('admin.courses.edit', [
+                        'id' => $request->course_id,
+                        'step' => $request->next_step,
+                    ]),
                 ]);
 
                 break;
 
             case '4':
 
-                            // validation
-                            $request->validate([
-                                'message' => ['nullable','max:1000','string'],
-                                'status' => ['required','in:active,inactive,draft']
-                            ]);
+                // validation
+                $request->validate([
+                    'message' => ['nullable', 'max:1000', 'string'],
+                    'status' => ['required', 'in:active,inactive,draft']
+                ]);
 
-                            // update course data
-                            $course = Course::findOrFail($request->id);
-                            $course->message_for_reviewer = $request->message;
-                            $course->status = $request->status;
-                            $course->save();
+                // update course data
+                $course = Course::findOrFail($request->id);
+                $course->message_for_reviewer = $request->message;
+                $course->status = $request->status;
+                $course->save();
 
                 return response([
                     'status' => 'success',
@@ -224,16 +267,16 @@ class CourseController extends Controller
     }
 
 
-// public function destroy(Course $course)
-//     {
-//         try {
-//             // throw ValidationException::withMessages(['you have error']);
-//             $course->delete();
-//             notyf()->success('Delete Succesfully!');
-//             return response(['message' => 'Delete Successfully!'], 200);
-//         } catch(Exception $e) {
-//             logger("Course Error >> ".$e);
-//             return response(['message' => 'Something went wrong!'], 500);
-//         }
-//     }
+    // public function destroy(Course $course)
+    //     {
+    //         try {
+    //             // throw ValidationException::withMessages(['you have error']);
+    //             $course->delete();
+    //             notyf()->success('Delete Succesfully!');
+    //             return response(['message' => 'Delete Successfully!'], 200);
+    //         } catch(Exception $e) {
+    //             logger("Course Error >> ".$e);
+    //             return response(['message' => 'Something went wrong!'], 500);
+    //         }
+    //     }
 }

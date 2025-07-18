@@ -100,29 +100,30 @@ $(".more_info_form").on("submit", function (e) {
 });
 
 // show hide path input depending on source
+$(document).ready(function () {
+    $('.storage').trigger('change'); // buat set awal tampilan
+});
+
 $(document).on('change', '.storage', function () {
     let value = $(this).val();
-    console.log("working");
 
     if (value === 'upload') {
         $('.upload_source').removeClass('d-none');
         $('.external_source').addClass('d-none');
 
-        $('input[name="file"]').prop('disabled', false).val('');
+        $('input[name="file"]').prop('disabled', false);
         $('input[name="url"]').prop('disabled', true).val('');
     } else {
         $('.upload_source').addClass('d-none');
         $('.external_source').removeClass('d-none');
 
+        $('input[name="url"]').prop('disabled', false);
         $('input[name="file"]').prop('disabled', true).val('');
-        $('input[name="url"]').prop('disabled', false).val('');
     }
 });
 
-// Trigger sekali saat halaman load agar kondisi disabled & tampilannya sesuai nilai awal select
-$(document).ready(function () {
-    $('.storage').trigger('change');
-});
+
+
 
 
 // course contents

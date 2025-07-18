@@ -29,7 +29,7 @@
                                             <option @selected(@$course?->status == 'draft') value="draft">Draft</option>
                                         </select>
                                         </select>
-                                        <button type="submit" class="btn btn-primary mt-3">save</button>
+                                        <button type="submit" class="btn btn-primary mt-3">Save</button>
                                     </div>
                                 </div>
                             </div>
