@@ -10,8 +10,8 @@
     </form>
     <div class="add_course_content">
         <div class="add_course_content_btn_area d-flex flex-wrap justify-content-between mt-3 mb-3">
-            <a class="common_btn dynamic-modal-btn btn btn-primary" href="#" data-id="{{ $courseId }}"> Add New Chapter</a>
-            <a class="common_btn sort_chapter_btn btn btn-primary" data-id="{{ $courseId }}" href="javascript:;">Sort Chapter</a>
+            <a class="common_btn dynamic-modal-btn btn btn-primary" href="#" data-id="{{ $course->id }}"> Add New Chapter</a>
+            <a class="common_btn sort_chapter_btn btn btn-primary" data-id="{{ $course->id }}" href="javascript:;">Sort Chapter</a>
         </div>
         <div class="accordion" id="accordionExample">
             @foreach ($chapters as $chapter)

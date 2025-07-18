@@ -86,8 +86,8 @@ class CourseController extends Controller
                     'course_id' => $course->id,
                     'instructor_id' => Auth::user()->id
                 ])->orderBy('order')->get();
-                    $editMode = true;
-                return view('frontend.instructor-dashboard.course.course-content', compact('course', 'chapters','editMode'));
+                $editMode = true;
+                return view('frontend.instructor-dashboard.course.course-content', compact('course', 'chapters', 'editMode'));
                 break;
 
             case '4':
@@ -245,6 +245,7 @@ class CourseController extends Controller
                 $course->status = $request->status;
                 $course->save();
 
+                notyf()->success('Updated Successfuly!');
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',

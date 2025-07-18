@@ -48,31 +48,45 @@
                         <div class="dashboard_add_courses">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
 
+                               @php
+                                    $isEdit = Str::contains(request()->url(), '/edit');
+                               @endphp
                                 <li class="nav-item" role="presentation">
-                                    <a href="{{ url('/instructor/courses/' . $course->id . '/edit?step=1') }}"
+                                    <a href="{{ $isEdit
+                                        ? url('/instructor/courses/' . $course->id . '/edit?step=1')
+                                        : url('/instructor/courses/create?step=1') }}"
                                         class="nav-link {{ request('step') == 1 ? 'active' : '' }}">
                                         Basic Infos
                                     </a>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <a href="{{ url('/instructor/courses/' . $course->id . '/edit?step=2') }}"
+                                    <a href="{{ $isEdit
+                                        ? url('/instructor/courses/' . $course->id . '/edit?step=2')
+                                        : url('/instructor/courses/create?step=2') }}"
                                         class="nav-link {{ request('step') == 2 ? 'active' : '' }}">
                                         More Info
                                     </a>
                                 </li>
+
                                 <li class="nav-item" role="presentation">
-                                    <a href="{{ url('/instructor/courses/' . $course->id . '/edit?step=3') }}"
+                                    <a href="{{ $isEdit
+                                        ? url('/instructor/courses/' . $course->id . '/edit?step=3')
+                                        : url('/instructor/courses/create?step=3') }}"
                                         class="nav-link {{ request('step') == 3 ? 'active' : '' }}">
                                         Course Contents
                                     </a>
                                 </li>
+
                                 <li class="nav-item" role="presentation">
-                                    <a href="{{ url('/instructor/courses/' . $course->id . '/edit?step=4') }}"
+                                    <a href="{{ $isEdit
+                                        ? url('/instructor/courses/' . $course->id . '/edit?step=4')
+                                        : url('/instructor/courses/create?step=4') }}"
                                         class="nav-link {{ request('step') == 4 ? 'active' : '' }}">
                                         Finish
                                     </a>
                                 </li>
+
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
                                 @yield('course_content')

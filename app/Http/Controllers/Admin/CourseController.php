@@ -93,12 +93,12 @@ class CourseController extends Controller
                 break;
 
             case '3':
-                $courseId = $request->id;
+                $course = Course::findOrFail($request->id);
                 $chapters = CourseChapter::where([
-                    'course_id' => $courseId,
+                    'course_id' => $course->id,
                 ])->orderBy('order')->get();
                 $editMode = true;
-                return view('admin.course.course-module.course-content', compact('courseId', 'chapters', 'editMode'));
+                return view('admin.course.course-module.course-content', compact('course', 'chapters', 'editMode'));
                 break;
 
             case '4':
@@ -256,6 +256,7 @@ class CourseController extends Controller
                 $course->status = $request->status;
                 $course->save();
 
+                notyf()->success('Updated Successfuly!');
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',

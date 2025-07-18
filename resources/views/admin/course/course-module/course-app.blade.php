@@ -25,40 +25,50 @@
                             <div class="card-body">
                                 <div class="dashboard_add_courses">
                                     <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                                        <li class="nav-item" role="presentation ">
-                                            <a href=""
-                                                class="nav-link course-tab {{ request('step') == 1 ? 'active' : '' }}"
-                                                data-step="1">Basic Infos</a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a href=""
-                                                class="nav-link course-tab {{ request('step') == 2 ? 'active' : '' }}"
-                                                data-step="2">More Info</a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a href=""
-                                                class="nav-link course-tab {{ request('step') == 3 ? 'active' : '' }}"
-                                                data-step="3">Course Contents</a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a href=""
-                                                class="nav-link course-tab {{ request('step') == 4 ? 'active' : '' }}"
-                                                data-step="4">Finish</a>
-                                        </li>
+                                        @php
+                                    $isEdit = Str::contains(request()->url(), '/edit');
+                               @endphp
+                                <li class="nav-item" role="presentation">
+                                    <a href="{{ $isEdit
+                                        ? url('/admin/courses/' . $course->id . '/edit?step=1')
+                                        : url('/admin/courses/create?step=1') }}"
+                                        class="nav-link {{ request('step') == 1 ? 'active' : '' }}">
+                                        Basic Infos
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <a href="{{ $isEdit
+                                        ? url('/admin/courses/' . $course->id . '/edit?step=2')
+                                        : url('/admin/courses/create?step=2') }}"
+                                        class="nav-link {{ request('step') == 2 ? 'active' : '' }}">
+                                        More Info
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <a href="{{ $isEdit
+                                        ? url('/admin/courses/' . $course->id . '/edit?step=3')
+                                        : url('/admin/courses/create?step=3') }}"
+                                        class="nav-link {{ request('step') == 3 ? 'active' : '' }}">
+                                        Course Contents
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <a href="{{ $isEdit
+                                        ? url('/admin/courses/' . $course->id . '/edit?step=4')
+                                        : url('/admin/courses/create?step=4') }}"
+                                        class="nav-link {{ request('step') == 4 ? 'active' : '' }}">
+                                        Finish
+                                    </a>
+                                </li>
                                     </ul>
                                     <div class="tab-content" id="pills-tabContent">
                                         @yield('tab_content')
                                     </div>
 
                                 </div>
-                                @if (request()->query('step') == 3)
-                                    <div class="text-end mt-3">
-                                        <a href="{{ url('/admin/courses/' . $courseId . '/edit?step=4') }}"
-                                            class="btn btn-primary">
-                                            Finish
-                                        </a>
-                                    </div>
-                                @endif
                             </div>
 
                         </div>
