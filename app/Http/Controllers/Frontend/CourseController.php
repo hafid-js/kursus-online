@@ -81,13 +81,13 @@ class CourseController extends Controller
                 break;
 
             case '3':
-                $courseId = $request->id;
+                $course = Course::findOrFail($request->id);
                 $chapters = CourseChapter::where([
-                    'course_id' => $courseId,
+                    'course_id' => $course->id,
                     'instructor_id' => Auth::user()->id
                 ])->orderBy('order')->get();
                     $editMode = true;
-                return view('frontend.instructor-dashboard.course.course-content', compact('courseId', 'chapters','editMode'));
+                return view('frontend.instructor-dashboard.course.course-content', compact('course', 'chapters','editMode'));
                 break;
 
             case '4':

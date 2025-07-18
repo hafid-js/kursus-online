@@ -3,8 +3,8 @@
 @section('content')
 
     <!--===========================
-                    BREADCRUMB START
-                ============================-->
+                        BREADCRUMB START
+                    ============================-->
     <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
@@ -29,13 +29,13 @@
         </div>
     </section>
     <!--===========================
-                        BREADCRUMB END
-                    ============================-->
+                            BREADCRUMB END
+                        ============================-->
 
 
     <!--===========================
-                        DASHBOARD OVERVIEW START
-                    ============================-->
+                            DASHBOARD OVERVIEW START
+                        ============================-->
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -123,15 +123,15 @@
                                                             <p>{{ $course->enrollments()->count() }}</p>
                                                         </td>
                                                         <td class="status">
-                                                            <p class="active">Active</p>
+                                                            <p
+                                                                class="{{ $course->status === 'active' ? 'active' : 'delete' }}">
+                                                                {{ $course->status === 'active' ? 'Active' : 'Inactive' }}
+                                                            </p>
                                                         </td>
                                                         <td class="action">
                                                             <a class="edit"
                                                                 href="{{ route('instructor.courses.edit', ['id' => $course->id, 'step' => 1]) }}"><i
                                                                     class="far fa-edit" aria-hidden="true"></i></a>
-
-                                                            {{-- <a class="del delete-item" href="{{ route('instructor.courses.destroy', $course->id) }}"><i class="fas fa-trash-alt"
-                                                                aria-hidden="true"></i></a> --}}
 
                                                         </td>
                                                     </tr>

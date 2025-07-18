@@ -9,9 +9,9 @@
                 <div class="tab-pane fade active show" id="pills-contact2" role="tabpanel"
                     aria-labelledby="pills-contact-tab2" tabindex="0">
                     <div class="dashboard_add_course_finish">
-                        <form action="#" class="more_info_form">
+                        <form action="#" class="more_info_form course-form">
                             @csrf
-                            <input type="hidden" name="id" value="{{ @$course->id }}">
+                            <input type="hidden" name="id" value="{{ $course->id }}">
                             <input type="hidden" name="current_step" value="4">
                             <div class="row">
                                 <div class="col-xl-12">
@@ -30,7 +30,7 @@
                                             <option @selected(@$course?->status == 'draft') value="draft">Draft</option>
                                         </select>
                                         </select>
-                                        <button type="submit" class="common_btn mt_25">save</button>
+                                        <button type="submit" class="common_btn mt_25">Save</button>
                                     </div>
                                 </div>
                             </div>

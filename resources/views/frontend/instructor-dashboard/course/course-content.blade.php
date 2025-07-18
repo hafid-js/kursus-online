@@ -2,16 +2,16 @@
 
 @section('course_content')
 <div class="tab-pane fade show active" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-    <form action="" class="course-form more_info_form">
+    <form action="" class="more_info_form course-form">
         @csrf
-        <input type="hidden" name="id" value="{{ request()?->id }}">
+        <input type="hidden" name="id" value="{{ $course->id }}">
         <input type="hidden" name="current_step" value="3">
         <input type="hidden" name="next_step" value="4">
-    </form>
+          </form>
     <div class="add_course_content">
         <div class="add_course_content_btn_area d-flex flex-wrap justify-content-between">
-            <a class="common_btn dynamic-modal-btn" href="#" data-id="{{ $courseId }}"> Add New Chapter</a>
-            <a class="common_btn sort_chapter_btn" data-id="{{ $courseId }}" href="javascript:;">Sort Chapter</a>
+            <a class="common_btn dynamic-modal-btn" href="#" data-id="{{ $course->id }}"> Add New Chapter</a>
+            <a class="common_btn sort_chapter_btn" data-id="{{ $course->id }}" href="javascript:;">Sort Chapter</a>
         </div>
         <div class="accordion" id="accordionExample">
             @foreach ($chapters as $chapter)
@@ -55,7 +55,6 @@
                             </li>
                             @endforeach
                         </ul>
-
                     </div>
                 </div>
             </div>
