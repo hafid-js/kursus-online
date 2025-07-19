@@ -42,6 +42,7 @@
                                 <a class="common_btn" href="{{ route('instructor.withdraw.request-payout') }}">+ Request Payout</a>
                             </div>
                         </div>
+                                         <div class="wsus__dash_course_table">
                         <table class="table">
                             <thead>
                                 <th>Course Name</th>
@@ -58,17 +59,18 @@
                                         <td>{{ $orderItem->price }}</td>
                                         <td>{{ $orderItem->commission_rate ?? 0  }}%</td>
                                         <td>{{ calculateCommission($orderItem->price, $orderItem->commission_rate) }} {{ $orderItem->order->currency }}</td>
-                                    </tr>
-                                @empty
+                                    </tr> --}}
+                                {{-- @empty --}}
                                     <tr>
-                                        <td>
+                                        <td class="text-center" colspan="4">
                                             No Data Found
                                         </td>
                                     </tr>
-                                @endforelse --}}
+                                {{-- @endforelse --}}
                             </tbody>
                         </table>
                     </div>
+                     </div>
                 </div>
             </div>
         </div>

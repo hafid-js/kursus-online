@@ -8,13 +8,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Create Level</h4>
-                                <div class="card-actions">
-                                    <a href="{{ route('admin.course-levels.index') }}" class="btn btn-primary">
-                                        <i class="ti ti-arrow-left"></i>
-                                        Back
-                                    </a>
-                                </div>
+                                <h4 class="card-title">Update Payment Setting</h4>
                             </div>
                             <div class="card-body">
                                 <div class="card">

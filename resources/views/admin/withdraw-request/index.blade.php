@@ -9,19 +9,6 @@
                         <form action="https://httpbin.org/post" method="post" class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Withdraw Requests</h4>
-                                <div class="card-actions">
-                                    <a href="{{ route('admin.course-levels.create') }}" class="btn btn-primary">
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M12 5l0 14"></path>
-                                            <path d="M5 12l14 0"></path>
-                                        </svg>
-                                        Add new
-                                    </a>
-                                </div>
                             </div>
                             <div class="page-body">
                                 <div class="container-xl">

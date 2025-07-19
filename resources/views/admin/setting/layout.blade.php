@@ -13,12 +13,6 @@
                                         <!-- BEGIN PAGE HEADER -->
                                         <div class="card-header">
                                             <h2 class="page-title">Account Settings</h2>
-                                            <div class="card-actions">
-                                                <a href="{{ route('admin.course-levels.index') }}" class="btn btn-primary">
-                                                    <i class="ti ti-arrow-left"></i>
-                                                    Back
-                                                </a>
-                                            </div>
                                         </div>
                                         <!-- END PAGE HEADER -->
                                         <!-- BEGIN PAGE BODY -->

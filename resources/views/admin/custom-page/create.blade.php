@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Create Footer Link</h4>
+                                <h4 class="card-title">Create Custom Page</h4>
                                 <div class="card-actions">
                                     <a href="{{ route('admin.custom-page.index') }}" class="btn btn-primary">
                                         <i class="ti ti-arrow-left"></i>
