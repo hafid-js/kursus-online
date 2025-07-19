@@ -855,8 +855,57 @@
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                         aria-labelledby="pills-home-tab" tabindex="0">
                         <div class="video_about">
-                            <h1>Description</h1>
-                            <p class="short_description about_lecture"></p>
+                            <h1>About this course</h1>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p>By the numbers</p>
+                                            </td>
+                                            <td>
+                                                <p>Skill level: {{ $course->level->name }} </p>
+                                                <p>Students: {{ $course->student_count }}</p>
+                                                <p>Languages: {{ $course->language->name }}</p>
+                                                <p>Video: {{ convertMinutesToHours($course->duration) }} total hours</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Certificates</p>
+                                            </td>
+                                            <td>
+                                                <p>Get EduCore certificate by completing entire course</p>
+
+                                                @if ($showCertificate)
+                                                    <a class="table_btn" href="#">
+                                                        Download
+                                                    </a>
+                                                @else
+                                                    <a class="table_btn disabled" href="#"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="You need to complete the course to earn your certificate."
+                                                        onclick="event.preventDefault();"
+                                                        style="opacity: 0.6; cursor: not-allowed;">
+                                                        Download
+                                                    </a>
+                                                @endif
+
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Description</p>
+                                            </td>
+                                            <td>
+                                                {!! $course->description !!}
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="pills-contact" role="tabpanel"
@@ -907,7 +956,8 @@
                                 </p>
                                 <form action="#">
                                     <textarea name="" id="" cols="30" rows="5" placeholder="Youe coment..."></textarea>
-                                    <button type="submit" class="btn arrow-btn back_qna_list btn-primary">Submit</button>
+                                    <button type="submit"
+                                        class="btn arrow-btn back_qna_list btn-primary">Submit</button>
                                 </form>
                             </div>
 

@@ -46,13 +46,7 @@
 
         }
 
-        @foreach ($certificateItems as $item)
-            #{{ $item->element_id }} {
-                left: {{ $item->x_position }}px;
-                top: {{ $item->y_position }}px;
-                position: relative;
-            }
-        @endforeach
+
     </style>
 </head>
 

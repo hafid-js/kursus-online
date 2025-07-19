@@ -16,22 +16,64 @@ class EnrolledCourseController extends Controller
     function index()
     {
         $enrollments = Enrollment::with('course')
-    ->where('user_id', user()->id)
-    ->whereHas('course')
-    ->get();
+            ->where('user_id', user()->id)
+            ->whereHas('course')
+            ->get();
         return view('frontend.student-dashboard.enrolled-course.index', compact('enrollments'));
     }
 
-    function playerIndex(String $slug)
+    public function playerIndex(String $slug)
     {
-        $course = Course::where('slug', $slug)->firstOrFail();
+        $course = Course::with('language', 'level', 'chapters.lessons')
+            ->withCount(['enrollments as student_count' => function ($query) {
+                $query->whereHas('user', function ($q) {
+                    $q->where('role', 'student');
+                });
+            }])
+            ->where('slug', $slug)
+            ->firstOrFail();
 
-        if (!Enrollment::where('user_id', user()->id)->where('course_id', $course->id)->where('have_access', 1)->exists()) return abort(404);
+        if (!Enrollment::where('user_id', user()->id)->where('course_id', $course->id)->where('have_access', 1)->exists()) {
+            return abort(404);
+        }
+
         $lessonCount = CourseChapterLession::where('course_id', $course->id)->count();
-        $lastWatchHistory = WatchHistory::where(['user_id' => user()->id, 'course_id' => $course->id])->orderBy('updated_at','desc')->first();
-        $watchedLessonIds = WatchHistory::where(['user_id' => user()->id, 'course_id' => $course->id, 'is_completed' => 1])->pluck('lesson_id')->toArray();
-        return view('frontend.student-dashboard.enrolled-course.player-index', compact('course', 'lastWatchHistory','watchedLessonIds','lessonCount'));
+        $lastWatchHistory = WatchHistory::where([
+            'user_id' => user()->id,
+            'course_id' => $course->id
+        ])->orderBy('updated_at', 'desc')->first();
+
+        $watchedLessonIds = WatchHistory::where([
+            'user_id' => user()->id,
+            'course_id' => $course->id,
+            'is_completed' => 1
+        ])->pluck('lesson_id')->toArray();
+
+        // Cek apakah semua lesson sudah diselesaikan (is_completed = 1)
+        $userId = user()->id;
+
+        $lessonIds = $course->chapters->flatMap(function ($chapter) {
+            return $chapter->lessons->pluck('id');
+        });
+
+        $totalLessonCount = $lessonIds->count();
+
+        $completedCount = WatchHistory::whereIn('lesson_id', $lessonIds)
+            ->where('user_id', $userId)
+            ->where('is_completed', 1)
+            ->count();
+
+        $showCertificate = $totalLessonCount > 0 && $completedCount === $totalLessonCount;
+
+        return view('frontend.student-dashboard.enrolled-course.player-index', compact(
+            'course',
+            'lastWatchHistory',
+            'watchedLessonIds',
+            'lessonCount',
+            'showCertificate'
+        ));
     }
+
 
     function getLessonContent(Request $request)
     {
@@ -58,7 +100,7 @@ class EnrolledCourseController extends Controller
         );
     }
 
-    function updateLessonCompletion(Request $request) : Response
+    function updateLessonCompletion(Request $request): Response
     {
         $watchedLesson = WatchHistory::where([
             'user_id' => user()->id,
@@ -74,12 +116,14 @@ class EnrolledCourseController extends Controller
                 'course_id' => $request->course_id,
                 'chapter_id' => $request->chapter_id,
                 'is_completed' => $watchedLesson->is_completed == 1 ? 0 : 1,
-            ]);
+            ]
+        );
 
-            return response(['status' => 'success','message' => 'Updated Successfully!']);
+        return response(['status' => 'success', 'message' => 'Great job completing this lesson!']);
     }
 
-    function fileDownload(string $id) {
+    function fileDownload(string $id)
+    {
         $lesson = CourseChapterLession::findOrFail($id);
         return response()->download(public_path($lesson->file_path));
     }
