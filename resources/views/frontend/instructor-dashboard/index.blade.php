@@ -135,7 +135,7 @@
                                                                         <i class="far fa-star"></i>
                                                                     @endif
                                                                 @endfor
-                                                                <span>({{ number_format($data->course?->reviews()->avg('rating'), 2) ?? 0 }}
+                                                                <span>({{ number_format($data->course?->reviews()->avg('rating'), 1) ?? 0 }}
                                                                     Rating)</span>
                                                             </p>
                                                             <a class="title" href="#">{{ $data->course?->title }}</a>

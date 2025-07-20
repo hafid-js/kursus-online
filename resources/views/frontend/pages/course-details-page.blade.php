@@ -23,7 +23,7 @@
                                         <i class="far fa-star"></i>
                                     @endif
                                 @endfor
-                                <span>({{ number_format($course->reviews()->avg('rating'), 2) ?? 0 }} Rating)</span>
+                                <span>({{ number_format($course->reviews()->avg('rating'), 1) ?? 0 }} Rating)</span>
                             </p>
                             <h1>{{ $course->title }}</h1>
                             <ul class="list">
@@ -161,7 +161,8 @@
                                                     <li><i class="fas fa-star" aria-hidden="true"></i>
                                                         <b>{{ $reviewsCount }} Reviews</b>
                                                     </li>
-                                                    <li><strong>4.7 Rating</strong></li>
+                                                    <li><strong>({{ number_format($avgInstructorRating->avg('rating'), 1) ?? 0 }}
+                                                            Rating)</strong></li>
                                                     <li>
                                                         <span><img
                                                                 src="{{ asset('frontend/assets/images/book_icon.png') }}"
@@ -172,7 +173,7 @@
                                                         <span><img
                                                                 src="{{ asset('frontend/assets/images/user_icon_gray.png') }}"
                                                                 alt="user" class="img-fluid"></span>
-                                                        {{ $course->instructor->students()->count() }} Students
+                                                        {{ $students->count() }} Students
                                                     </li>
                                                 </ul>
                                                 <ul class="badge d-flex flex-wrap">
@@ -242,7 +243,7 @@
                                     <div class="row align-items-center mb_50">
                                         <div class="col-xl-4 col-md-6">
                                             <div class="total_review">
-                                                <h2>{{ number_format($course->reviews()->avg('rating'), 2) ?? 0 }}</h2>
+                                                <h2>{{ number_format($course->reviews()->avg('rating'), 1) ?? 0 }}</h2>
                                                 <p>
                                                     @for ($i = 1; $i <= number_format($course->reviews()->avg('rating'), 2) ?? 0; $i++)
                                                         <i class="fas fa-star"></i>
@@ -444,9 +445,24 @@
                                 $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
                             @endphp
                             @if (!$isMyCourse)
-                                <a class="common_btn add_to_cart" href="#"
-                                    data-course-id="{{ $course->id }}">Add to
-                                    Cart <i class="far fa-arrow-right" aria-hidden="true"></i></a>
+                                @php
+                                    $alreadyEnrolled = $course->enrollments->contains(function ($enrollment) use (
+                                        $course,
+                                    ) {
+                                        return $enrollment->user_id === auth()->id() &&
+                                            $enrollment->course_id === $course->id;
+                                    });
+                                @endphp
+                                @if (!$alreadyEnrolled)
+                                    <a class="common_btn add_to_cart" href="#"
+                                        data-course-id="{{ $course->id }}">Add to
+                                        Cart <i class="far fa-arrow-right" aria-hidden="true"></i></a>
+                                @else
+                                    <a class="common_btn"
+                                        href="{{ route('student.course-player.index', $course->slug) }}">
+                                        <i class="fas fa-eye"></i> Watch Course
+                                    </a>
+                                @endif
                             @endif
                         </div>
                         <div class="wsus__courses_sidebar_share_area">

@@ -17,4 +17,14 @@ class Enrollment extends Model
     function user() : BelongsTo {
         return $this->belongsTo(User::class, 'user_id','id');
     }
+
+     public function student()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function instructor()
+    {
+        return $this->belongsTo(User::class, 'instructor_id', 'id');
+    }
 }

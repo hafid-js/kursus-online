@@ -34,7 +34,11 @@ function playerHtml(id, source_type, source, file_type) {
             <div class="file_type_inner">
                     <div><img src="${base_url}/default-files/folder.png" alt=""></div>
                     <h6 class="mt-2">Type: File</h6>
-                    ${source_type == 'external_link' ? `<a href="${source}" target="_blank" class="common_btn mt-3">Download</a>` : `<a href="${base_url}/student/file-download/${id}" class="common_btn mt-3">Download</a>`}
+                    ${
+                        source_type == "external_link"
+                            ? `<a href="${source}" target="_blank" class="common_btn mt-3">Download</a>`
+                            : `<a href="${base_url}/student/file-download/${id}" class="common_btn mt-3">Download</a>`
+                    }
 
             </div>
         </div>`;
@@ -99,12 +103,16 @@ $(".lesson").on("click", function () {
         },
         success: function (data) {
             $(".video_holder").html(
-                playerHtml(data.id, data.storage, data.file_path, data.file_type)
+                playerHtml(
+                    data.id,
+                    data.storage,
+                    data.file_path,
+                    data.file_type
+                )
             );
 
             // load about lecture description
             $(".about_lecture").text(data.description);
-
 
             // resetting any existing player
             if (videojs.getPlayers()["vid1"]) {
