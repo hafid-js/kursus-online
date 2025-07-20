@@ -66,7 +66,7 @@ class CoursePageController extends Controller
                 ->where('instructor_id', $instructorId);
         })->where('role', 'student')
             ->get();
-        $reviews = Review::where('course_id', $course->id)->where('status', 1)->get();
+        $reviews = Review::where('course_id', $course->id)->get();
         $avgInstructorRating = Review::whereIn('course_id', function ($query) use ($instructorId) {
             $query->select('id')
                 ->from('courses')

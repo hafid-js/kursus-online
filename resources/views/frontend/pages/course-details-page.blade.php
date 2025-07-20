@@ -249,7 +249,7 @@
                                                         <i class="fas fa-star"></i>
                                                     @endfor
                                                 </p>
-                                                <h4>3 Ratings</h4>
+                                                <h4>{{ $course->reviews->count() }} Ratings</h4>
                                             </div>
                                         </div>
                                         <div class="col-xl-8 col-md-6">
@@ -313,23 +313,30 @@
                                     </div>
                                     <h3>Reviews</h3>
                                     @foreach ($reviews as $review)
-                                        <div class="wsus__course_single_reviews">
-                                            <div class="wsus__single_review_img">
-                                                <img src="{{ asset($review->user->image) }}" alt="user"
-                                                    class="img-fluid">
+                                        @if ($review->user_id == auth()->id() && $review->course_id == $course->id && $review->status !== 1)
+                                        <div class="alert alert-danger py-2 px-3 mb-2 small d-inline-block" role="alert">
+    Your review is pending approval.
+</div>
+
+                                        @else
+                                            <div class="wsus__course_single_reviews">
+                                                <div class="wsus__single_review_img">
+                                                    <img src="{{ asset($review->user->image) }}" alt="user"
+                                                        class="img-fluid">
+                                                </div>
+                                                <div class="wsus__single_review_text">
+                                                    <h4>{{ $review->user->name }}</h4>
+                                                    <h6> {{ date('d M Y', strtotime($review->created_at)) }}
+                                                        <span>
+                                                            @for ($i = 1; $i <= $review->rating; $i++)
+                                                                <i class="fas fa-star"></i>
+                                                            @endfor
+                                                        </span>
+                                                    </h6>
+                                                    <p>{{ $review->review }}</p>
+                                                </div>
                                             </div>
-                                            <div class="wsus__single_review_text">
-                                                <h4>{{ $review->user->name }}</h4>
-                                                <h6> {{ date('d M Y', strtotime($review->created_at)) }}
-                                                    <span>
-                                                        @for ($i = 1; $i <= $review->rating; $i++)
-                                                            <i class="fas fa-star"></i>
-                                                        @endfor
-                                                    </span>
-                                                </h6>
-                                                <p>{{ $review->review }}</p>
-                                            </div>
-                                        </div>
+                                        @endif
                                     @endforeach
                                 </div>
                                 @auth
@@ -343,6 +350,10 @@
                                         })
                                             ->where('course_id', $course->id)
                                             ->exists();
+
+                                        $reviewed = $course->reviews->contains(function ($review) use ($user, $course) {
+                                            return $review->user_id === $user->id && $review->course_id === $course->id;
+                                        });
                                     @endphp
 
                                     @if ($isOwner)
@@ -353,7 +364,7 @@
                                         <div class="alert alert-info mt-3 text-center" role="alert">
                                             You must purchase this course to write a review.
                                         </div>
-                                    @else
+                                    @elseif (!$reviewed)
                                         <div class="wsus__courses_review_input box_area mt_40">
                                             <h3>Write a Review</h3>
                                             <p class="short_text">Your email address will not be published. Required fields are
@@ -363,17 +374,15 @@
                                             </div>
                                             <form action="{{ route('review.store') }}" method="POST">
                                                 @csrf
-                                                <div class="row">
-                                                    <input type="hidden" name="rating" value="" id="rating">
-                                                    <input type="hidden" name="course" value="{{ $course->id }}">
-                                                    <div class="col-xl-12">
-                                                        <textarea rows="7" placeholder="Review" name="review"></textarea>
-                                                    </div>
-                                                    <div class="col-12 mt-3">
-                                                        <button type="submit" class="common_btn">Submit Now</button>
-                                                    </div>
-                                                </div>
+                                                <input type="hidden" name="rating" value="" id="rating">
+                                                <input type="hidden" name="course" value="{{ $course->id }}">
+                                                <textarea rows="7" placeholder="Review" name="review"></textarea>
+                                                <button type="submit" class="common_btn mt-3">Submit Now</button>
                                             </form>
+                                        </div>
+                                    @else
+                                        <div class="alert alert-info mt-3 text-center" role="alert">
+                                            You have already reviewed this course.
                                         </div>
                                     @endif
                                 @else
@@ -381,6 +390,7 @@
                                         Please <a href="{{ route('login') }}">Login</a> first to write a review.
                                     </div>
                                 @endauth
+
 
                             </div>
                         </div>
