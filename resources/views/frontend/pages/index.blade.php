@@ -1,13 +1,12 @@
-
 @extends('frontend.layouts.layout')
 @section('content')
-@include('frontend.pages.home.sections.menu')
-@include('frontend.pages.home.sections.banner');
-@include('frontend.pages.home.sections.category');
-@include('frontend.pages.home.sections.about');
+    @include('frontend.pages.home.sections.menu')
+    @include('frontend.pages.home.sections.banner');
+    @include('frontend.pages.home.sections.category');
+    @include('frontend.pages.home.sections.about');
     <!--===========================
-                            COUESES 3 START
-                        ============================-->
+                                    COUESES 3 START
+                                ============================-->
     @php
         $categoryOne = \App\Models\CourseCategory::where('id', $latestCourses?->category_one)->first();
         $categoryTwo = \App\Models\CourseCategory::where('id', $latestCourses?->category_two)->first();
@@ -17,7 +16,6 @@
     @endphp
     <section class="wsus__courses_3 pt_120 xs_pt_100 mt_120 xs_mt_90 pb_120 xs_pb_100">
         <div class="container">
-
             <div class="row">
                 <div class="col-xl-6 m-auto wow fadeInUp">
                     <div class="wsus__section_heading mb_45">
@@ -78,6 +76,9 @@
                         aria-labelledby="pills-{{ $categoryOne->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryOne->courses()->latest()->take(8)->get() as $course)
+                                @php
+                                    $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+                                @endphp
                                 <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
@@ -113,20 +114,54 @@
                                                     <img src="{{ asset($course->instructor->image) }}" alt="Author"
                                                         class="img-fluid">
                                                 </div>
+                                                @if($isMyCourse)
+                                                <h4>{{ $course->instructor->name }} (Course Anda)</h4>
+                                                @else
                                                 <h4>{{ $course->instructor->name }}</h4>
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="wsus__single_courses_3_footer">
-                                            <a class="common_btn add_to_cart" href="#"
-                                                data-course-id="{{ $course->id }}">Add to Cart<i
-                                                    class="far fa-arrow-right"></i></a>
-                                            <p>
-                                                @if ($course->discount > 0)
-                                                    <del>${{ $course->price }}</del> ${{ $course->discount }}
-                                                @else
-                                                    ${{ $course->price }}
-                                                @endif
-                                            </p>
+                                            @php
+                                                $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+                                            @endphp
+                                            @php
+                                                $user = auth()->user();
+                                                $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+
+                                                $hasPurchased = false;
+
+                                                if (auth()->check() && !$isMyCourse) {
+                                                    $hasPurchased = \App\Models\OrderItem::whereHas('order', function (
+                                                        $query,
+                                                    ) use ($user) {
+                                                        $query
+                                                            ->where('buyer_id', $user->id)
+                                                            ->where('status', 'approved');
+                                                    })
+                                                        ->where('course_id', $course->id)
+                                                        ->exists();
+                                                }
+                                            @endphp
+
+                                            @if ($hasPurchased)
+                                                <a class="btn btn-primary"
+                                                    href="{{ route('student.course-player.index', $course->slug) }}">
+                                                    <i class="fas fa-eye"></i> Watch Course
+                                                </a>
+                                            @elseif (!$isMyCourse)
+                                                <a class="common_btn add_to_cart" href="#"
+                                                    data-course-id="{{ $course->id }}">
+                                                    Add to Cart <i class="far fa-arrow-right" aria-hidden="true"></i>
+                                                </a>
+                                                <p>
+                                                    @if ($course->discount > 0)
+                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                    @else
+                                                        ${{ $course->price }}
+                                                    @endif
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -145,6 +180,9 @@
                         aria-labelledby="pills-{{ $categoryTwo->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryTwo->courses()->latest()->take(8)->get() as $course)
+                                @php
+                                    $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+                                @endphp
                                 <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
@@ -184,16 +222,46 @@
                                             </a>
                                         </div>
                                         <div class="wsus__single_courses_3_footer">
-                                            <a class="common_btn add_to_cart" href="#"
-                                                data-course-id="{{ $course->id }}">Add to Cart<i
-                                                    class="far fa-arrow-right"></i></a>
-                                            <p>
-                                                @if ($course->discount > 0)
-                                                    <del>${{ $course->price }}</del> ${{ $course->discount }}
-                                                @else
-                                                    ${{ $course->price }}
-                                                @endif
-                                            </p>
+                                            @php
+                                                $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+                                            @endphp
+                                            @php
+                                                $user = auth()->user();
+                                                $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+
+                                                $hasPurchased = false;
+
+                                                if (auth()->check() && !$isMyCourse) {
+                                                    $hasPurchased = \App\Models\OrderItem::whereHas('order', function (
+                                                        $query,
+                                                    ) use ($user) {
+                                                        $query
+                                                            ->where('buyer_id', $user->id)
+                                                            ->where('status', 'approved');
+                                                    })
+                                                        ->where('course_id', $course->id)
+                                                        ->exists();
+                                                }
+                                            @endphp
+
+                                            @if ($hasPurchased)
+                                                <a class="btn btn-primary"
+                                                    href="{{ route('student.course-player.index', $course->slug) }}">
+                                                    <i class="fas fa-eye"></i> Watch Course
+                                                </a>
+                                            @elseif (!$isMyCourse)
+                                                <a class="common_btn add_to_cart" href="#"
+                                                    data-course-id="{{ $course->id }}">
+                                                    Add to Cart <i class="far fa-arrow-right" aria-hidden="true"></i>
+                                                </a>
+                                                <p>
+                                                    @if ($course->discount > 0)
+                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                    @else
+                                                        ${{ $course->price }}
+                                                    @endif
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -212,6 +280,9 @@
                         aria-labelledby="pills-{{ $categoryThree->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryThree->courses()->latest()->take(8)->get() as $course)
+                                @php
+                                    $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+                                @endphp
                                 <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
@@ -251,16 +322,46 @@
                                             </a>
                                         </div>
                                         <div class="wsus__single_courses_3_footer">
-                                            <a class="common_btn add_to_cart" href="#"
-                                                data-course-id="{{ $course->id }}">Add to Cart<i
-                                                    class="far fa-arrow-right"></i></a>
-                                            <p>
-                                                @if ($course->discount > 0)
-                                                    <del>${{ $course->price }}</del> ${{ $course->discount }}
-                                                @else
-                                                    ${{ $course->price }}
-                                                @endif
-                                            </p>
+                                            @php
+                                                $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+                                            @endphp
+                                            @php
+                                                $user = auth()->user();
+                                                $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+
+                                                $hasPurchased = false;
+
+                                                if (auth()->check() && !$isMyCourse) {
+                                                    $hasPurchased = \App\Models\OrderItem::whereHas('order', function (
+                                                        $query,
+                                                    ) use ($user) {
+                                                        $query
+                                                            ->where('buyer_id', $user->id)
+                                                            ->where('status', 'approved');
+                                                    })
+                                                        ->where('course_id', $course->id)
+                                                        ->exists();
+                                                }
+                                            @endphp
+
+                                            @if ($hasPurchased)
+                                                <a class="btn btn-primary"
+                                                    href="{{ route('student.course-player.index', $course->slug) }}">
+                                                    <i class="fas fa-eye"></i> Watch Course
+                                                </a>
+                                            @elseif (!$isMyCourse)
+                                                <a class="common_btn add_to_cart" href="#"
+                                                    data-course-id="{{ $course->id }}">
+                                                    Add to Cart <i class="far fa-arrow-right" aria-hidden="true"></i>
+                                                </a>
+                                                <p>
+                                                    @if ($course->discount > 0)
+                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                    @else
+                                                        ${{ $course->price }}
+                                                    @endif
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -279,6 +380,9 @@
                         aria-labelledby="pills-{{ $categoryFour->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryFour->courses()->latest()->take(8)->get() as $course)
+                                @php
+                                    $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+                                @endphp
                                 <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
@@ -318,16 +422,44 @@
                                             </a>
                                         </div>
                                         <div class="wsus__single_courses_3_footer">
-                                            <a class="common_btn add_to_cart" href="#"
-                                                data-course-id="{{ $course->id }}">Add to Cart<i
-                                                    class="far fa-arrow-right"></i></a>
-                                            <p>
-                                                @if ($course->discount > 0)
-                                                    <del>${{ $course->price }}</del> ${{ $course->discount }}
-                                                @else
-                                                    ${{ $course->price }}
-                                                @endif
-                                            </p>
+
+                                            @php
+                                                $user = auth()->user();
+                                                $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+
+                                                $hasPurchased = false;
+
+                                                if (auth()->check() && !$isMyCourse) {
+                                                    $hasPurchased = \App\Models\OrderItem::whereHas('order', function (
+                                                        $query,
+                                                    ) use ($user) {
+                                                        $query
+                                                            ->where('buyer_id', $user->id)
+                                                            ->where('status', 'approved');
+                                                    })
+                                                        ->where('course_id', $course->id)
+                                                        ->exists();
+                                                }
+                                            @endphp
+
+                                            @if ($hasPurchased)
+                                                <a class="btn btn-primary"
+                                                    href="{{ route('student.course-player.index', $course->slug) }}">
+                                                    <i class="fas fa-eye"></i> Watch Course
+                                                </a>
+                                            @elseif (!$isMyCourse)
+                                                <a class="common_btn add_to_cart" href="#"
+                                                    data-course-id="{{ $course->id }}">
+                                                    Add to Cart <i class="far fa-arrow-right" aria-hidden="true"></i>
+                                                </a>
+                                                <p>
+                                                    @if ($course->discount > 0)
+                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                    @else
+                                                        ${{ $course->price }}
+                                                    @endif
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -346,6 +478,9 @@
                         aria-labelledby="pills-{{ $categoryFive->id }}-tab" tabindex="0">
                         <div class="row">
                             @foreach ($categoryFive->courses()->latest()->take(8)->get() as $course)
+                                @php
+                                    $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+                                @endphp
                                 <div class="col-xl-3 col-md-6 col-lg-4">
                                     <div class="wsus__single_courses_3">
                                         <div class="wsus__single_courses_3_img">
@@ -385,16 +520,46 @@
                                             </a>
                                         </div>
                                         <div class="wsus__single_courses_3_footer">
-                                            <a class="common_btn add_to_cart" href="#"
-                                                data-course-id="{{ $course->id }}">Add to Cart<i
-                                                    class="far fa-arrow-right"></i></a>
-                                            <p>
-                                                @if ($course->discount > 0)
-                                                    <del>${{ $course->price }}</del> ${{ $course->discount }}
-                                                @else
-                                                    ${{ $course->price }}
-                                                @endif
-                                            </p>
+                                            @php
+                                                $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+                                            @endphp
+                                            @php
+                                                $user = auth()->user();
+                                                $isMyCourse = auth()->check() && $course->instructor_id == auth()->id();
+
+                                                $hasPurchased = false;
+
+                                                if (auth()->check() && !$isMyCourse) {
+                                                    $hasPurchased = \App\Models\OrderItem::whereHas('order', function (
+                                                        $query,
+                                                    ) use ($user) {
+                                                        $query
+                                                            ->where('buyer_id', $user->id)
+                                                            ->where('status', 'approved');
+                                                    })
+                                                        ->where('course_id', $course->id)
+                                                        ->exists();
+                                                }
+                                            @endphp
+
+                                            @if ($hasPurchased)
+                                                <a class="btn btn-primary"
+                                                    href="{{ route('student.course-player.index', $course->slug) }}">
+                                                    <i class="fas fa-eye"></i> Watch Course
+                                                </a>
+                                            @elseif (!$isMyCourse)
+                                                <a class="common_btn add_to_cart" href="#"
+                                                    data-course-id="{{ $course->id }}">
+                                                    Add to Cart <i class="far fa-arrow-right" aria-hidden="true"></i>
+                                                </a>
+                                                <p>
+                                                    @if ($course->discount > 0)
+                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                    @else
+                                                        ${{ $course->price }}
+                                                    @endif
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -412,14 +577,14 @@
         </div>
     </section>
     <!--===========================
-                            COUESES 3 END
-                        ============================-->
+                                    COUESES 3 END
+                                ============================-->
 
 
 
     <!--===========================
-                            OFFER START
-                        ============================-->
+                                    OFFER START
+                                ============================-->
     <section class="wsus__offer" style="background: url('frontend/assets/images/offer_bg.jpg');">
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -443,13 +608,13 @@
         </div>
     </section>
     <!--===========================
-                            OFFER END
-                        ============================-->
+                                    OFFER END
+                                ============================-->
 
 
     <!--===========================
-                            BECOME INSTRUCTOR START
-                        ============================-->
+                                    BECOME INSTRUCTOR START
+                                ============================-->
     <section class="wsus__become_instructor mt_120 xs_mt_100">
         <div class="container">
             <div class="row justify-content-between align-items-center">
@@ -475,13 +640,13 @@
         </div>
     </section>
     <!--===========================
-                            BECOME INSTRUCTOR END
-                        ============================-->
+                                    BECOME INSTRUCTOR END
+                                ============================-->
 
 
     <!--===========================
-                            VIDEO START
-                        ============================-->
+                                    VIDEO START
+                                ============================-->
     <section class="wsus__video mt_120 xs_mt_100">
         <img src="{{ asset($video?->background) }}" alt="Video" class="img-fluid w-100">
         <a class="play_btn venobox" data-autoplay="true" data-vbtype="video" href="{{ $video?->video_url }}">
@@ -493,13 +658,13 @@
         </div>
     </section>
     <!--===========================
-                            VIDEO END
-                        ============================-->
+                                    VIDEO END
+                                ============================-->
 
 
     <!--===========================
-                            BRAND START
-                        ============================-->
+                                    BRAND START
+                                ============================-->
     <section class="wsus__brand mt_45 pt_120 xs_pt_100">
         <div class="container">
             <div class="row">
@@ -524,13 +689,13 @@
         </div>
     </section>
     <!--===========================
-                            BRAND END
-                        ============================-->
+                                    BRAND END
+                                ============================-->
 
 
     <!--===========================
-                            QUALITY COURSES START
-                        ============================-->
+                                    QUALITY COURSES START
+                                ============================-->
     <section class="wsus__quality_courses mt_120 xs_mt_100">
         <div class="row quality_course_slider">
             <div class="quality_course_slider_item"
@@ -590,17 +755,17 @@
                                             <div class="wsus__single_courses_text_3">
                                                 <div class="rating_area">
                                                     <!-- <a href="#" class="category">Design</a> -->
-                                                   <p class="rating">
-                                                 @for($i = 1; $i <= 5; $i++)
-                                                 @if ($i <= $course->reviews()->avg('rating'))
-                                                      <i class="fas fa-star"></i>
-                                                 @else
-                                                  <i class="far fa-star"></i>
-                                                  @endif
-
-                                                  @endfor
-                                                    <span>({{ number_format($course->reviews()->avg('rating'),2) ?? 0 }} Rating)</span>
-                                                </p>
+                                                    <p class="rating">
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            @if ($i <= $course->reviews()->avg('rating'))
+                                                                <i class="fas fa-star"></i>
+                                                            @else
+                                                                <i class="far fa-star"></i>
+                                                            @endif
+                                                        @endfor
+                                                        <span>({{ number_format($course->reviews()->avg('rating'), 2) ?? 0 }}
+                                                            Rating)</span>
+                                                    </p>
                                                 </div>
 
                                                 <a class="title"
@@ -641,13 +806,13 @@
         </div>
     </section>
     <!--===========================
-                            QUALITY COURSES END
-                        ============================-->
+                                    QUALITY COURSES END
+                                ============================-->
 
 
     <!--===========================
-                            TESTIMONIAL START
-                        ============================-->
+                                    TESTIMONIAL START
+                                ============================-->
     <section class="wsus__testimonial pt_120 xs_pt_80">
         <div class="container">
             <div class="row">
@@ -686,13 +851,13 @@
         </div>
     </section>
     <!--===========================
-                            TESTIMONIAL END
-                        ============================-->
+                                    TESTIMONIAL END
+                                ============================-->
 
 
     <!--===========================
-                            BLOG 4 START
-                        ============================-->
+                                    BLOG 4 START
+                                ============================-->
     <section class="blog_4 mt_110 xs_mt_90 pt_120 xs_pt_100 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -740,6 +905,6 @@
         </div>
     </section>
     <!--===========================
-                            BLOG 4 END
-                        ============================-->
+                                    BLOG 4 END
+                                ============================-->
 @endsection

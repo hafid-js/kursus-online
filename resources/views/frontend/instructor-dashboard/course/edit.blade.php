@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-xl-6">
                         <div class="add_course_basic_info_imput">
-                            <label for="#">Demo Video Storage <b>(optional)</b></label>
+                            <label for="#">Demo Video Storage <b>(optional) (Using YouTube is more recommended)</b></label>
                             <select class="add_course_basic_info_imput storage" name="demo_video_storage">
                                 <option value=""> Please Select </option>
                                 <option @selected(old('demo_video_storage', $course->demo_video_storage) == 'upload') value="upload">Upload</option>
@@ -39,38 +39,40 @@
                                 <option @selected(old('demo_video_storage', $course->demo_video_storage) == 'vimeo') value="vimeo">Vimeo</option>
                                 <option @selected(old('demo_video_storage', $course->demo_video_storage) == 'external_link') value="external_link">External Link</option>
                             </select>
+                            <div class="wsus__courses_sidebar_video">
+                                <img src="{{ asset($course->thumbnail) }}" alt="Video" class="img-fluid">
+                                <a class="play_btn venobox vbox-item" data-autoplay="true"
+                                    data-vbtype="{{ $course->demo_video_storage == 'upload' ? 'iframe' : 'video' }}"
+                                    href="{{ $course->demo_video_source }}">
+                                    <img src="{{ asset('frontend/assets/images/play_icon_white.png') }}" alt="Play"
+                                        class="img-fluid">
+                                </a>
+                            </div>
                         </div>
                     </div>
-                   <div class="col-xl-6">
-  <div class="add_course_basic_info_imput upload_source {{ $course->demo_video_storage == 'upload' ? '' : 'd-none' }}">
-    <label for="#">Path</label>
-    <div class="input-group">
-      <span class="input-group-btn">
-        <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-          <i class="fa fa-picture-o"></i> Choose
-        </a>
-      </span>
-      <input id="thumbnail" class="form-control source_input" type="text" name="file"
-        value="{{ $course->demo_video_storage == 'upload' ? $course->demo_video_source : '' }}"
-        {{ $course->demo_video_storage != 'upload' ? 'disabled' : '' }}>
-    </div>
-  </div>
-
-  <div class="add_course_basic_info_imput external_source {{ $course->demo_video_storage != 'upload' ? '' : 'd-none' }}">
-    <label for="#">Path</label>
-    <input type="text" name="url" class="source_input"
-      value="{{ $course->demo_video_storage != 'upload' ? $course->demo_video_source : '' }}"
-      {{ $course->demo_video_storage == 'upload' ? 'disabled' : '' }}>
-  </div>
-</div>
-
-<select name="demo_video_storage" class="storage">
-  <option value="upload" {{ $course->demo_video_storage == 'upload' ? 'selected' : '' }}>Upload</option>
-  <option value="youtube" {{ $course->demo_video_storage == 'youtube' ? 'selected' : '' }}>YouTube</option>
-  <option value="vimeo" {{ $course->demo_video_storage == 'vimeo' ? 'selected' : '' }}>Vimeo</option>
-  <option value="external" {{ $course->demo_video_storage == 'external' ? 'selected' : '' }}>External</option>
-</select>
-
+                    <div class="col-xl-6">
+                        <div
+                            class="add_course_basic_info_imput upload_source {{ $course->demo_video_storage == 'upload' ? '' : 'd-none' }}">
+                            <label for="#">Path</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                        <i class="fa fa-picture-o"></i> Choose
+                                    </a>
+                                </span>
+                                <input id="thumbnail" class="form-control source_input" type="text" name="file"
+                                    value="{{ $course->demo_video_storage == 'upload' ? $course->demo_video_source : '' }}"
+                                    {{ $course->demo_video_storage != 'upload' ? 'disabled' : '' }}>
+                            </div>
+                        </div>
+                        <div
+                            class="add_course_basic_info_imput external_source {{ $course->demo_video_storage != 'upload' ? '' : 'd-none' }}">
+                            <label for="#">Path</label>
+                            <input type="text" name="url" class="source_input"
+                                value="{{ $course->demo_video_storage != 'upload' ? $course->demo_video_source : '' }}"
+                                {{ $course->demo_video_storage == 'upload' ? 'disabled' : '' }}>
+                        </div>
+                    </div>
 
                     <div class="col-xl-6">
                         <div class="add_course_basic_info_imput">

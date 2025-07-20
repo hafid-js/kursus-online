@@ -132,10 +132,13 @@
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
 
     {{-- jquery ui --}}
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
     <script src="{{ asset('frontend/assets/js/jquery-ui.min.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+        <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/shakilahmed0369/ez-share/dist/ez-share.min.js"></script>
 
     {{-- sweetalert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

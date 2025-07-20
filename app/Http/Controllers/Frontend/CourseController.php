@@ -143,7 +143,6 @@ class CourseController extends Controller
 
                 // save course id on session
                 Session::put('course_create_id', $course->id);
-
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',

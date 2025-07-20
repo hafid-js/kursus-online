@@ -105,6 +105,7 @@ $(".lesson").on("click", function () {
             // load about lecture description
             $(".about_lecture").text(data.description);
 
+
             // resetting any existing player
             if (videojs.getPlayers()["vid1"]) {
                 videojs.getPlayers()["vid1"].dispose();

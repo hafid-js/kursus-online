@@ -882,7 +882,7 @@
                                                         Download
                                                     </a>
                                                 @else
-                                                    <a class="table_btn disabled" href="#"
+                                                    <a class="table_btn disabled btn btn-sm" href="#"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="You need to complete the course to earn your certificate."
                                                         onclick="event.preventDefault();"
