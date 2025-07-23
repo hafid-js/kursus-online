@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogComment;
 use App\Traits\FileUpload;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -38,11 +39,11 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required','string','max:255','unique:blogs,title'],
-            'image' => ['required','image','max:3000'],
-            'description' => ['required','string'],
-            'category' => ['required','exists:blog_categories,id'],
-            'status' => ['nullable','boolean'],
+            'title' => ['required', 'string', 'max:255', 'unique:blogs,title'],
+            'image' => ['required', 'image', 'max:3000'],
+            'description' => ['required', 'string'],
+            'category' => ['required', 'exists:blog_categories,id'],
+            'status' => ['nullable', 'boolean'],
         ]);
 
         $image = $this->uploadFile($request->file('image'));
@@ -67,7 +68,15 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+
+        $comments = BlogComment::where('blog_id', $id)
+            ->whereNull('parent_id')
+            ->with('children.user')
+            ->with('user')
+            ->get();
+
+        return view('admin.blog.show', compact('blog', 'comments'));
     }
 
     /**
@@ -77,26 +86,26 @@ class BlogController extends Controller
     {
         $blog = Blog::findOrFail($id);
         $categories = BlogCategory::all();
-        return view('admin.blog.edit', compact('blog','categories'));
+        return view('admin.blog.edit', compact('blog', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id) : RedirectResponse
+    public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
-            'title' => ['required','string','max:255','unique:blogs,title,'.$id],
-            'image' => ['nullable','image','max:3000'],
-            'description' => ['required','string'],
-            'category' => ['required','exists:blog_categories,id'],
-            'status' => ['nullable','boolean'],
+            'title' => ['required', 'string', 'max:255', 'unique:blogs,title,' . $id],
+            'image' => ['nullable', 'image', 'max:3000'],
+            'description' => ['required', 'string'],
+            'category' => ['required', 'exists:blog_categories,id'],
+            'status' => ['nullable', 'boolean'],
         ]);
 
 
         $blog = Blog::findOrFail($id);
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $image = $this->uploadFile($request->file('image'));
             $this->deleteFile($request->old_image);
             $blog->image = $image;
@@ -121,12 +130,12 @@ class BlogController extends Controller
     public function destroy(string $id)
     {
         $blog = Blog::findOrFail($id);
-         try {
+        try {
             $blog->delete();
             notyf()->success('Delete Succesfully!');
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch(Exception $e) {
-            logger("Blog Error >> ".$e);
+        } catch (Exception $e) {
+            logger("Blog Error >> " . $e);
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

@@ -25,9 +25,11 @@
                                                     <table class="table table-vcenter card-table">
                                                         <thead>
                                                             <tr>
+                                                                <th>Thumbnail</th>
                                                                 <th>Title</th>
                                                                 <th>Category</th>
                                                                 <th>Status</th>
+
                                                                 <th>Action</th>
                                                                 {{-- <th class="w-1"></th> --}}
                                                             </tr>
@@ -46,6 +48,10 @@
                                                                         @endif
                                                                     </td>
                                                                     <td>
+                                                                        <a href="{{ route('admin.blogs.show', $blog->id) }}"
+                                                                            class="btn-sm btn-primary">
+                                                                            <i class="ti ti-eye"></i>
+                                                                        </a>
                                                                         <a href="{{ route('admin.blogs.edit', $blog->id) }}"
                                                                             class="btn-sm btn-primary">
                                                                             <i class="ti ti-edit"></i>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\CourseChapterLession;
 use App\Models\Enrollment;
+use App\Models\Review;
 use App\Models\WatchHistory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -65,12 +66,14 @@ class EnrolledCourseController extends Controller
 
         $showCertificate = $totalLessonCount > 0 && $completedCount === $totalLessonCount;
 
+         $reviews = Review::where('course_id', $course->id)->get();
         return view('frontend.student-dashboard.enrolled-course.player-index', compact(
             'course',
             'lastWatchHistory',
             'watchedLessonIds',
             'lessonCount',
-            'showCertificate'
+            'showCertificate',
+            'reviews'
         ));
     }
 

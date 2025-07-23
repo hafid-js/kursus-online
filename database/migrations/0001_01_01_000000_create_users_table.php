@@ -31,6 +31,8 @@ return new class extends Migration
             $table->enum('approve_status', ['pending','approved','rejected'])->default('pending');
             $table->enum('login_as',['student','instructor'])->nullable();
             $table->double('wallet')->default(0);
+            $table->string('gauth_id')->nullable();
+            $table->string('gauth_type')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

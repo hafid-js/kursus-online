@@ -867,7 +867,8 @@
                                                 <p>Skill level: {{ $course->level->name }} </p>
                                                 <p>Students: {{ $course->student_count }}</p>
                                                 <p>Languages: {{ $course->language->name }}</p>
-                                                <p>Video: {{ convertMinutesToHours($course->duration) }} total hours</p>
+                                                <p>Video: {{ convertMinutesToHours($course->duration) }} total hours
+                                                </p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -890,7 +891,6 @@
                                                         Download
                                                     </a>
                                                 @endif
-
                                             </td>
                                             <td></td>
                                         </tr>
@@ -919,47 +919,86 @@
                     <div class="tab-pane fade" id="pills-disabled" role="tabpanel"
                         aria-labelledby="pills-disabled-tab" tabindex="0">
                         <div class="video_review">
-                            <h2>Reviews (09)</h2>
-                            <div class="course-review-head">
-                                <div class="review-author-thumb">
-                                    <img src="{{ asset('frontend/assets/images/review-author.png') }}"
-                                        alt="img">
-                                </div>
-                                <div class="review-author-content">
-                                    <div class="author-name">
-                                        <h5 class="name">Jura Hujaor <span>2 Days ago</span></h5>
-                                        <div class="author-rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
+                            <h2>Reviews ({{ $course->reviews->count() }})</h2>
+                            @foreach ($reviews as $review)
+                                @if ($review->user_id == auth()->id() && $review->course_id == $course->id && $review->status !== 1)
+                                    <div class="alert alert-danger py-2 px-3 mb-2 small d-inline-block mt-3"
+                                        role="alert">
+                                        Your review is pending approval.
+                                    </div>
+                                @else
+                                    <div class="course-review-head">
+                                        <div class="review-author-thumb">
+                                            <img src="{{ asset($review->user->image) }}" alt="img">
+                                        </div>
+                                        <div class="review-author-content">
+                                            <div class="author-name">
+                                                <h5 class="name">{{ $review->user->name }}
+                                                    <span>{{ $review->created_at->diffForHumans() }}</span>
+                                                </h5>
+                                                <div class="author-rating">
+                                                    @for ($i = 1; $i <= $review->rating; $i++)
+                                                        <i class="fas fa-star"></i>
+                                                    @endfor
+                                                </div>
+                                            </div>
+                                            <h4 class="title">
+                                                <p>{{ $review->review }}</p>
                                         </div>
                                     </div>
-                                    <h4 class="title">The best LMS Design System</h4>
-                                    <p>Maximus ligula eleifend id nisl quis interdum. Sed malesuada tortor non turpis
-                                        semper bibendum nisi porta, malesuada risus nonerviverra dolor. Vestibulum ante
-                                        ipsum primis in faucibus.</p>
+                                @endif
+                            @endforeach
+                            @auth
+                                @php
+                                    $user = auth()->user();
+                                    $isOwner = $course->instructor_id == $user->id;
+                                    $hasPurchased = \App\Models\OrderItem::whereHas('order', function ($query) use (
+                                        $user,
+                                    ) {
+                                        $query->where('buyer_id', $user->id)->where('status', 'approved');
+                                    })
+                                        ->where('course_id', $course->id)
+                                        ->exists();
+
+                                    $reviewed = $course->reviews->contains(function ($review) use ($user, $course) {
+                                        return $review->user_id === $user->id && $review->course_id === $course->id;
+                                    });
+                                @endphp
+
+                                @if ($isOwner)
+                                    <div class="alert alert-warning mt-3 text-center" role="alert">
+                                        You cannot review your own course.
+                                    </div>
+                                @elseif (!$hasPurchased)
+                                    <div class="alert alert-info mt-3 text-center" role="alert">
+                                        You must purchase this course to write a review.
+                                    </div>
+                                @elseif (!$reviewed)
+                                    <div class="wsus__courses_review_input box_area mt_40">
+                                        <h3>Write a Review</h3>
+                                        <p class="short_text">Your email address will not be published. Required fields are
+                                            marked *</p>
+                                        <div class="select_rating d-flex flex-wrap">Your Rating:
+                                            <ul id="starRating" data-stars="5"></ul>
+                                        </div>
+                                        <form action="{{ route('review.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="rating" value="" id="rating">
+                                            <input type="hidden" name="course" value="{{ $course->id }}">
+                                            <textarea rows="7" placeholder="Review" name="review"></textarea>
+                                            <button type="submit" class="common_btn mt-3">Submit Now</button>
+                                        </form>
+                                    </div>
+                                @else
+                                    <div class="alert alert-info mt-3 text-center" role="alert">
+                                        You have already reviewed this course.
+                                    </div>
+                                @endif
+                            @else
+                                <div class="alert alert-info mt-3 text-center" role="alert">
+                                    Please <a href="{{ route('login') }}">Login</a> first to write a review.
                                 </div>
-                            </div>
-
-
-                            <div class="video_review_imput">
-                                <h2>Write a reviews</h2>
-                                <p>
-                                    <span>select rating:</span>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </p>
-                                <form action="#">
-                                    <textarea name="" id="" cols="30" rows="5" placeholder="Youe coment..."></textarea>
-                                    <button type="submit"
-                                        class="btn arrow-btn back_qna_list btn-primary">Submit</button>
-                                </form>
-                            </div>
+                            @endauth
 
                         </div>
                     </div>
@@ -1079,6 +1118,16 @@
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+
+    <script>
+        $(function() {
+            $('#starRating li').on('click', function() {
+                var $starRating = $('#starRating').find('.active').length;
+
+                $('#rating').val($starRating);
+            })
+        })
+    </script>
 
     <script>
         $(function() {

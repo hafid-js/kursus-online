@@ -314,10 +314,10 @@
                                     <h3>Reviews</h3>
                                     @foreach ($reviews as $review)
                                         @if ($review->user_id == auth()->id() && $review->course_id == $course->id && $review->status !== 1)
-                                        <div class="alert alert-danger py-2 px-3 mb-2 small d-inline-block" role="alert">
-    Your review is pending approval.
-</div>
-
+                                            <div class="alert alert-danger py-2 px-3 mb-2 small d-inline-block"
+                                                role="alert">
+                                                Your review is pending approval.
+                                            </div>
                                         @else
                                             <div class="wsus__course_single_reviews">
                                                 <div class="wsus__single_review_img">

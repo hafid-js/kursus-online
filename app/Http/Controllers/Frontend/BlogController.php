@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogComment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -35,15 +36,18 @@ class BlogController extends Controller
     }
 
     function storeComment(Request $request, string $id) : RedirectResponse {
-        $request->validate([
-            'comment' => ['required','string','max:255']
-        ]);
 
-        $blog = Blog::findOrFail($id);
-        $blog->comments()->create([
+        $request->validate([
+            'comment' => ['required','string','min:3','max:255'],
+            'parent_id' => ['nullable','exists:blog_comments,id'],
+        ]
+    );
+
+        BlogComment::create([
+            'user_id' => auth()->id(),
+            'blog_id' => $id,
+            'parent_id' => $request->parent_id ?? null,
             'comment' => $request->comment,
-            'user_id' => user()->id,
-            'blog_id' => $blog->id
         ]);
 
         notyf()->success('Comment Added Successfully!');
