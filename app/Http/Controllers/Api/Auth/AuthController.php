@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
@@ -72,60 +73,43 @@ class AuthController extends Controller
      * Login user
      */
     public function login(Request $request)
-    {
-        $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    $request->validate([
+        'email'    => 'required|email',
+        'password' => 'required',
+    ]);
 
-        $credentials = $request->only('email', 'password');
+    $user = User::where('email', $request->email)->first();
 
-        if (!Auth::attempt($credentials)) {
-            throw ValidationException::withMessages([
-                'email' => ['Email or password is incorrect.'],
-            ]);
-        }
-
-        $user = Auth::user();
-
-        // Check if user is approved (optional)
-        if ($user->approve_status !== 'approved') {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Your account is not approved.',
-            ], 403);
-        }
-
-        // Generate token via Passport
-        $tokenResult = $user->createToken('API Token');
-        $token = $tokenResult->accessToken;
-        $expiresAt = $tokenResult->token->expires_at;
-
+    // Validasi email dan password
+    if (!$user || !Hash::check($request->password, $user->password)) {
         return response()->json([
-            'status'  => 'success',
-            'message' => 'Login successful',
-            'data'    => [
-                'user'  => $user,
-                'token' => $token,
-                'token_expires_at' => $expiresAt,
-            ]
-        ]);
+            'status' => 'error',
+            'message' => 'Email or password is incorrect.',
+        ], 401);
     }
 
-    /**
-     * Get current authenticated user
-     */
-    public function me(): JsonResponse
-    {
-        $user = auth()->user();
-
+    // ✅ Cek approval status
+    if ($user->approve_status !== 'approved') {
         return response()->json([
-            'success' => true,
-            'statusCode' => 200,
-            'message' => 'Authenticated user info.',
-            'data' => $user,
-        ], 200);
+            'status' => 'error',
+            'message' => 'Your account is not approved yet.',
+        ], 403);
     }
+
+    // ✅ Role sudah otomatis terdeteksi dari $user->role
+    $tokenResult = $user->createToken($user->role . '-token');
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Login successful',
+        'data' => [
+            'user' => $user,
+            'token' => $tokenResult->accessToken,
+            'expires_at' => $tokenResult->token->expires_at,
+        ]
+    ]);
+}
 
     /**
      * Refresh access token

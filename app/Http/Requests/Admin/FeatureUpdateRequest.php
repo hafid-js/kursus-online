@@ -22,9 +22,9 @@ class FeatureUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image_one' => ['required','image','max:3000'],
-            'image_two' => ['required','image','max:3000'],
-            'image_three' => ['required','image','max:3000'],
+            'image_one' => ['nullable','image','max:3000'],
+            'image_two' => ['nullable','image','max:3000'],
+            'image_three' => ['nullable','image','max:3000'],
             'title_one' => ['required','max:255','string'],
             'title_two' => ['required','max:255','string'],
             'title_three' => ['required','max:255','string'],

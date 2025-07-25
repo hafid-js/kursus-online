@@ -11,6 +11,7 @@ use App\Models\AboutUsSection;
 use App\Models\BecomeInstructorSection;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogComment;
 use App\Models\Brand;
 use App\Models\Counter;
 use App\Models\Course;
@@ -28,7 +29,6 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-    // Home page data
     public function index(): JsonResponse
     {
         $hero = Hero::first();
@@ -48,16 +48,23 @@ class FrontendController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => compact(
-                'hero', 'feature', 'featureCategories',
-                'about', 'latestCourses', 'becomeInstructorBanner',
-                'video', 'brands', 'featuredInstructor',
-                'featuredInstructorCourses', 'testimonials', 'blogs'
-            ),
+            'data' => [
+                'hero' => $hero,
+                'feature' => $feature,
+                'featureCategories' => $featureCategories,
+                'about' => $about,
+                'latestCourses' => $latestCourses,
+                'becomeInstructorBanner' => $becomeInstructorBanner,
+                'video' => $video ? new \App\Http\Resources\VideoSectionResource($video) : null,
+                'brands' => $brands,
+                'featuredInstructor' => $featuredInstructor,
+                'featuredInstructorCourses' => $featuredInstructorCourses,
+                'testimonials' => $testimonials,
+                'blogs' => BlogResource::collection($blogs),
+            ],
         ]);
     }
 
-    // About page data
     public function about(): JsonResponse
     {
         $about = AboutUsSection::first();
@@ -67,11 +74,15 @@ class FrontendController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => compact('about', 'counter', 'testimonials', 'blogs'),
+            'data' => [
+                'about' => $about,
+                'counter' => $counter,
+                'testimonials' => $testimonials,
+                'blogs' => BlogResource::collection($blogs),
+            ],
         ]);
     }
 
-    // Newsletter subscription
     public function subscribe(SubscribeNewsletterRequest $request): JsonResponse
     {
         Newsletter::create(['email' => $request->email]);
@@ -82,7 +93,6 @@ class FrontendController extends Controller
         ]);
     }
 
-    // Custom page by slug
     public function customPage(string $slug): JsonResponse
     {
         $page = CustomPage::whereSlug($slug)->where('status', 1)->firstOrFail();
@@ -93,7 +103,6 @@ class FrontendController extends Controller
         ]);
     }
 
-    // List blogs with optional filter
     public function blogIndex(Request $request): JsonResponse
     {
         $blogs = Blog::with('comments')
@@ -111,7 +120,6 @@ class FrontendController extends Controller
             )
             ->paginate(20);
 
-        // Return with resource collection
         return response()->json([
             'status' => 'success',
             'data' => BlogResource::collection($blogs),
@@ -124,10 +132,8 @@ class FrontendController extends Controller
         ]);
     }
 
-    // Show blog detail, recent blogs, and categories
     public function blogShow(Blog $blog): JsonResponse
     {
-        // Load relations
         $blog->load(['author', 'category', 'comments']);
 
         $recentBlogs = Blog::where('status', 1)
@@ -150,7 +156,6 @@ class FrontendController extends Controller
         ]);
     }
 
-    // Store comment on blog post
     public function storeComment(StoreBlogCommentRequest $request, Blog $blog): JsonResponse
     {
         $comment = BlogComment::create([

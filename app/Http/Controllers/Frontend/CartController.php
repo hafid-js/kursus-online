@@ -45,7 +45,7 @@ class CartController extends Controller
 
 
         if(user()?->role == 'instructor') {
-            return response(['message' => 'Please use a user account for add to cart!'], 401);
+            return response(['message' => 'Please use a student account for add to cart!'], 401);
         }
         $course = Course::findOrFail($id);
         $cart = new Cart();

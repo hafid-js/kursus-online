@@ -25,6 +25,7 @@
                                         <x-image-preview class="" src="{{ $course_category->image }}" />
                                         <div class="col-md-6">
                                             <x-input-file-block name="image" :value="$course_category->image" />
+                                                <input type="hidden" name="old_image" value="{{ $course_category->image }}"/>
                                         </div>
 
                                         <div class="col-md-6">

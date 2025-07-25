@@ -72,23 +72,26 @@ class CourseCategoryController extends Controller
      * Update the specified resource in storage.
      */
     public function update(CourseCategoryUpdateRequest $request, CourseCategory $course_category)
-    {
-        $category = $course_category;
-        if($request->hasFile('image')) {
-            $imagePath = $this->uploadFile($request->file('image'));
-            $this->deleteFile($category->image);
-            $category->image = $imagePath;
+{
+    if ($request->hasFile('image')) {
+        $image = $this->uploadFile($request->file('image'));
+        if ($request->old_image) {
+            $this->deleteFile($request->old_image);
         }
-        $category->name = $request->name;
-        $category->slug = Str::of($request->name)->slug('-');
-        $category->show_at_trending = $request->show_at_trending ?? 0;
-        $category->status = $request->status ?? 0;
-        $category->save();
-
-        notyf()->success("Updated Successfully!");
-
-        return to_route('admin.course-categories.index');
+        $course_category->image = $image;
     }
+
+    $course_category->name = $request->name;
+    $course_category->slug = Str::of($request->name)->slug('-');
+    $course_category->show_at_trending = $request->show_at_trending ?? 0;
+    $course_category->status = $request->status ?? 0;
+    $course_category->save();
+
+    notyf()->success("Updated Successfully!");
+
+    return to_route('admin.course-categories.index');
+}
+
 
     /**
      * Remove the specified resource from storage.

@@ -32,7 +32,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="form-label">Review</label>
-                                        <textarea name="review" id="" class="form-control"></textarea>
+                                        <textarea maxlength="1000" name="review" id="" class="form-control"></textarea>
                                             <x-input-error :messages="$errors->get('review')" class="mt-2"/>
                                     </div>
                                     <div class="mb-3">

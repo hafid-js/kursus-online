@@ -20,7 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth' => Authenticate::class,
             'guest' => RedirectIfAuthenticated::class,
             'check_role' => CheckRoleMiddleware::class,
-            'password.set' => EnsurePasswordIsSet::class
+            'password.set' => EnsurePasswordIsSet::class,
+            'role' => \App\Http\Middleware\EnsureApiRole::class // for api role
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
