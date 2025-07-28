@@ -12,7 +12,7 @@ class CourseCategory extends Model
     use HasFactory;
 
     function subCategories() : HasMany {
-        return $this->hasMany(CourseCategory::class,'parent_id');
+        return $this->hasMany(CourseCategory::class,'parent_id')->where('status','1');
     }
 
     function parentCategory() : BelongsTo {

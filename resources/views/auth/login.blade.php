@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,13 +70,15 @@
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
                                             <label>Email</label>
-                                            <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
+                                            <input type="email" name="email" value="{{ old('email') }}"
+                                                placeholder="Email" required>
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Password* <a href="{{ route('password.request') }}">Forgot Password?</a></label>
+                                            <label>Password* <a href="{{ route('password.request') }}">Forgot
+                                                    Password?</a></label>
                                             <input type="password" name="password" required placeholder="Password">
                                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                         </div>
@@ -86,8 +86,8 @@
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" name="remember"
-                                                    id="flexCheckDefault">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    name="remember" id="flexCheckDefault">
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     Remember Me
                                                 </label>
@@ -101,12 +101,14 @@
                             <ul class="social_login d-flex flex-wrap">
                                 <li>
                                     <a href="{{ route('oauth.google') }}">
-                                        <span><img src="{{ asset('frontend/assets/images/google_icon.png') }}" alt="Google" class="img-fluid"></span>
+                                        <span><img src="{{ asset('frontend/assets/images/google_icon.png') }}"
+                                                alt="Google" class="img-fluid"></span>
                                         Google
                                     </a>
                                 </li>
                             </ul>
-                            <p class="create_account">Don't have an account? <a href="{{ route('register') }}">Create free
+                            <p class="create_account">Don't have an account? <a href="{{ route('register') }}">Create
+                                    free
                                     account</a></p>
                         </div>
                     </div>

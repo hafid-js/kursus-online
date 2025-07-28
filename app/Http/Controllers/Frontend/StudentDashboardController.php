@@ -43,10 +43,12 @@ class StudentDashboardController extends Controller
     {
         $request->validate(['document' => ['required', 'mimes:pdf,doc,docx,jpg,png', 'max:1200']]);
         $filePath = $this->uploadFile($request->file('document'));
+
         $user->update([
             'approve_status' => 'pending',
             'document' => $filePath
         ]);
+
 
         return redirect()->route('student.dashboard');
     }

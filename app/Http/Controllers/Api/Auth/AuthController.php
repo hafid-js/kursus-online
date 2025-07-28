@@ -24,7 +24,7 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['image'] = '/frontend/assets/images/default.png';
+        $validated['image'] = '';
         $validated['email_verified_at'] = now();
         $validated['password'] = bcrypt($validated['password']);
 

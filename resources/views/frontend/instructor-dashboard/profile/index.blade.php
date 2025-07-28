@@ -47,7 +47,8 @@
                             @csrf
                             <div class="wsus__dashboard_profile wsus__dashboard_profile_avatar">
                                 <div class="img">
-                                    <img src="{{ asset(auth()->user()->image) }}" alt="profile" class="img-fluid w-100">
+                                    <img src="{{ asset(auth()->user()?->image ?? 'frontend/assets/images/avatar.png') }}" alt="profile" class="img-fluid w-100">
+
                                     <label for="profile_photo">
                                         <img src="{{ asset('frontend/assets/images/dash_camera.png') }}" alt="camera"
                                             class="img-fluid w-100">
@@ -141,7 +142,7 @@
                                 <div class="col-md-12">
                                     <div class="wsus__dashboard_profile_update_info">
                                         <label>Gateway Information</label>
-                                        <textarea name="information" id="" style="height: 300px" class="form-control gateway_description">{{ $gatewayInfo->information ? $gatewayInfo->information : 'Deskripsi belum diisi.' }}</textarea>
+                                        <textarea name="information" id="" style="height: 300px" class="form-control gateway_description">{{ $gatewayInfo?->information ? $gatewayInfo->information : 'Deskripsi belum diisi.' }}</textarea>
                                         <x-input-error :messages="$errors->get('information')" class="mt-2" />
                                     </div>
                                 </div>

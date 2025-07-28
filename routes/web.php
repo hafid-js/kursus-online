@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -22,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-
 Route::get('/', [FrontendController::class, 'index'])->name('home');
+
 Route::get('/courses', [CoursePageController::class, 'index'])->name('courses.index');
 Route::get('/courses/{slug}', [CoursePageController::class, 'show'])->name('courses.show');
 
@@ -32,35 +31,43 @@ Route::post('newsletter-subscribe', [FrontendController::class, 'subscribe'])->n
 // about route
 Route::get('about', [FrontendController::class, 'about'])->name('about.index');
 
-// contact route
+// contact route (GET tanpa middleware, POST dengan middleware)
 Route::get('contact', [FrontendContactController::class, 'index'])->name('contact.index');
-Route::post('contact', [FrontendContactController::class, 'sendMail'])->name('send.contact');
 
-// cart routes
-Route::get('cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
-Route::post('add-to-cart/{course}', [CartController::class, 'addToCart'])->name('add-to-cart')->middleware('auth');
-Route::get('remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('remove-from-cart')->middleware('auth')->middleware('auth');
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Contact POST
+    Route::post('contact', [FrontendContactController::class, 'sendMail'])->name('send.contact');
 
-// payment routes
-Route::get('checkout', CheckoutController::class)->name('checkout.index');
+    // Cart routes
+    Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('add-to-cart/{course}', [CartController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
 
-Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
-Route::get('paypal/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.success');
-Route::get('paypal/cancel', [PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
+    // Payment routes
+    Route::get('checkout', CheckoutController::class)->name('checkout.index');
 
-// stripe routes
-Route::get('stripe/payment', [PaymentController::class, 'payWithStripe'])->name('stripe.payment');
-Route::get('stripe/success', [PaymentController::class, 'stripeSuccess'])->name('stripe.success');
-Route::get('stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
+    Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
+    Route::get('paypal/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.success');
+    Route::get('paypal/cancel', [PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
 
-Route::get('order-success', [PaymentController::class, 'orderSuccess'])->name('order.success');
+    Route::get('midtrans/payment', [PaymentController::class, 'midtransCallback'])->name('midtrans.payment');
+
+    Route::get('stripe/payment', [PaymentController::class, 'payWithStripe'])->name('stripe.payment');
+    Route::get('stripe/success', [PaymentController::class, 'stripeSuccess'])->name('stripe.success');
+    Route::get('stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
+
+    Route::get('order-success', [PaymentController::class, 'orderSuccess'])->name('order.success');
+
+    // Blog comment route
+    Route::post('blog/comment/{id}', [BlogController::class, 'storeComment'])->name('blog.comment.store');
+
+    // Review routes
+    Route::post('review', [CoursePageController::class, 'storeReview'])->name('review.store');
+});
+
+// Routes tanpa middleware auth & verified
 Route::get('order-failed', [PaymentController::class, 'orderFailed'])->name('order.failed');
 
-// comment blog routes
-Route::post('blog/comment/{id}', [BlogController::class, 'storeComment'])->name('blog.comment.store');
-
-// review routes
-Route::post('review', [CoursePageController::class, 'storeReview'])->name('review.store');
 
 // custom page routes
 Route::get('page/{slug}', [FrontendController::class, 'customPage'])->name('custom-page');
@@ -71,7 +78,7 @@ Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 
 // Student Routes
-Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student','password.set'], 'prefix' => 'student', 'as' => 'student.'], function () {
+Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
     Route::get('/become-instructor', [StudentDashboardController::class, 'becomeInstructor'])->name('become-instructor');
     Route::post('/become-instructor', [StudentDashboardController::class, 'becomeInstructorUpdate'])->name('become-instructor.update');
@@ -91,7 +98,7 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student','pas
     Route::get('file-download/{id}', [EnrolledCourseController::class, 'fileDownload'])->name('file-download');
 
     // certificate routes
-    Route::get('certificate/{course}', [CertificateController::class, 'download'])->name('certificate.download');
+    // Route::get('certificate/{course}', [CertificateController::class, 'download'])->name('certificate.download');
 
     // review routes
     Route::get('review', [StudentDashboardController::class, 'review'])->name('review.index');
@@ -102,9 +109,9 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student','pas
 });
 
 // Instructor Routes
-Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor','password.set'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
-    Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');
+Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
     // profile routes
+       Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');
     Route::get('profile', [ProfileController::class, 'instructorIndex'])->name('profile.index');
     Route::post('profile/update', [ProfileController::class, 'profileUpdate'])->name('profile.update');
     Route::post('profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');

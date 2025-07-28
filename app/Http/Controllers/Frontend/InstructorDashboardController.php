@@ -24,8 +24,10 @@ class InstructorDashboardController extends Controller
 
         $bestSellingCourses = OrderItem::whereHas('order', function ($query) {
             $query->where('status', 'approved');
-        })
-            ->with('course', 'order')
+        })->whereHas('course', function ($query) {
+            $query->where('instructor_id', user()->id);
+        })->with('course', 'order')
+            ->take(10)
             ->get()
             ->groupBy('course_id')
             ->map(function ($items) {

@@ -14,28 +14,48 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create()
     {
-        return view('auth.login');
+       if (Auth::check()) {
+        return match (Auth::user()->role) {
+            'student' => redirect()->route('student.dashboard'),
+            'instructor' => redirect()->route('instructor.dashboard'),
+            default => redirect('/'),
+        };
+    }
+
+    return view('auth.login');
     }
 
     /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
+    if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
         $request->session()->regenerate();
 
-        if ($request->user()->role == 'student') {
-            return redirect()->intended(route('student.dashboard', absolute: false));
-        } elseif($request->user()->role == 'instructor') {
-            return redirect()->intended(route('instructor.dashboard', absolute: false));
-        } else {
-            return abort(404);
+        if (!Auth::user()->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice')
+                ->with('status', 'Please verify your email before logging in.');
         }
+        return match (Auth::user()->role) {
+            'student' => redirect()->intended(route('student.dashboard')),
+            'instructor' => redirect()->intended(route('instructor.dashboard')),
+            default => redirect('/'),
+        };
     }
+
+    return back()->withErrors([
+        'email' => 'These credentials do not match our records.',
+    ]);
+}
+
 
     /**
      * Destroy an authenticated session.
@@ -45,7 +65,6 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

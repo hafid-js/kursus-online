@@ -67,6 +67,7 @@
                 <img src="{{ asset('frontend/assets/images/search_icon.png') }}" alt="Search" class="img-fluid">
             </div>
             <ul>
+                @if (user()?->role == 'student')
                 <li>
                     <a class="menu_signin" href="{{ route('cart.index') }}">
                         <span>
@@ -76,6 +77,7 @@
                         <b class="cart_count">{{ cartCount() }}</b>
                     </a>
                 </li>
+                @endif
 
                 <li>
                     @if (!auth()->guard('web')->check())

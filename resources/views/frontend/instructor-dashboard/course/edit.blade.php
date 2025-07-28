@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="col-xl-6">
-                        <div class="add_course_basic_info_imput">
+                        <div class="add_course_basic_info_imput storage">
                             <label for="#">Demo Video Storage <b>(optional) (Using YouTube is more recommended)</b></label>
                             <select class="add_course_basic_info_imput storage" name="demo_video_storage">
                                 <option value=""> Please Select </option>

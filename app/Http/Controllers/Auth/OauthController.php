@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -44,10 +46,12 @@ class OauthController extends Controller
                     'email' => $user->email,
                     'gauth_id' => $user->id,
                     'gauth_type' => 'google',
-                    'password' => Hash::make(Str::random(32)),
+                    'password' => 'student123',
                     'role' => 'student',
-                    'approve_status' => 'pending'
+                    'approve_status' => 'approved',
                 ]);
+
+                $newUser->markEmailAsVerified();
 
                 Auth::login($newUser);
 

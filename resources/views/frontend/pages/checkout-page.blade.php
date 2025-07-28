@@ -26,8 +26,8 @@
                     <div class="payment_area">
                         <div class="row">
                             <div class="col-xl-3 col-6 col-md-4 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-                                <a href="#" class="payment_mathod" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <img src="{{ asset('frontend/assets/images/payment_1.png') }}" alt="payment" class="img-fluid w-100">
+                                <a href="{{ route('midtrans.payment') }}" class="payment_mathod">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Midtrans.png" alt="payment" class="img-fluid w-100">
                                 </a>
                             </div>
                             <div class="col-xl-3 col-6 col-md-4 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">

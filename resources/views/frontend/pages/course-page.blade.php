@@ -204,7 +204,7 @@
                                         </ul>
                                         <a class="author" href="#">
                                             <div class="img">
-                                                <img src="{{ asset($course->instructor->image) }}" alt="Author"
+                                                <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/avatar.png') }}" alt="Author"
                                                     class="img-fluid">
                                             </div>
                                             <h4>{{ $course->instructor->name }}</h4>

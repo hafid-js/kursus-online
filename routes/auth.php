@@ -62,8 +62,6 @@ Route::middleware('auth:web')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-        Route::middleware('auth')->group(function () {
     Route::get('/set-password', [OauthController::class, 'formPassword'])->name('set.password');
     Route::post('/set-password', [OauthController::class, 'storePassword'])->name('store.password');
-});
 });

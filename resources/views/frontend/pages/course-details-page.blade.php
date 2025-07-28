@@ -28,7 +28,7 @@
                             <h1>{{ $course->title }}</h1>
                             <ul class="list">
                                 <li>
-                                    <span><img src="{{ asset($course->instructor->image) }}" alt="user"
+                                    <span><img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/avatar.png') }}" alt="user"
                                             class="img-fluid"></span>
                                     By {{ $course->instructor->name }}
                                 </li>
@@ -139,7 +139,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="wsus__courses_instructor_img">
-                                                <img src="{{ asset($course->instructor->image) }}" alt="Instructor"
+                                                <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/avatar.png') }}" alt="Instructor"
                                                     class="img-fluid">
                                             </div>
                                         </div>
@@ -510,7 +510,7 @@
                         <div class="wsus__courses_sidebar_instructor">
                             <div class="image_area d-flex flex-wrap align-items-center">
                                 <div class="img">
-                                    <img src="{{ asset($course->instructor->image) }}" alt="Instructor"
+                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/avatar.png') }}" alt="Instructor"
                                         class="img-fluid">
                                 </div>
                                 <div class="text">

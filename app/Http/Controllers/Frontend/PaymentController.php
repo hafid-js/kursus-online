@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Service\OrderService;
+use App\Service\MidtransService;
 use Illuminate\Http\Request;
+use Midtrans\Config;
+use Midtrans\Snap;
+use Midtrans\Notification;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Stripe\Checkout\Session as StripeSession;
 use Stripe\Stripe;
@@ -111,7 +116,9 @@ class PaymentController extends Controller
         return redirect()->route('order.failed');
     }
 
-    function payWithStripe() {
+
+    function payWithStripe()
+    {
         Stripe::setApiKey(config('gateway_settings.stripe_secret'));
 
         $payableAmount = (cartTotal() * 100);
@@ -121,13 +128,13 @@ class PaymentController extends Controller
             'line_items' => [
                 [
                     'price_data' => [
-                    'currency' => config('gateway_settings.stripe_currency'),
-                    'product_data' => [
-                        'name' => 'Course'
+                        'currency' => config('gateway_settings.stripe_currency'),
+                        'product_data' => [
+                            'name' => 'Course'
+                        ],
+                        'unit_amount' => $payableAmount
                     ],
-                    'unit_amount' => $payableAmount
-                ],
-                'quantity' => $quantityCount
+                    'quantity' => $quantityCount
                 ]
             ],
             'mode' => 'payment',
@@ -138,11 +145,12 @@ class PaymentController extends Controller
     }
 
 
-    function stripeSuccess(Request $request) {
+    function stripeSuccess(Request $request)
+    {
         Stripe::setApiKey(config('gateway_settings.stripe_secret'));
 
         $response = StripeSession::retrieve($request->session_id);
-        if($response->payment_status === 'paid') {
+        if ($response->payment_status === 'paid') {
             $transactionId = $response->payment_intent;
             $mainAmount = cartTotal();
             $paidAmount = $response->amount_total / 100;
@@ -167,7 +175,8 @@ class PaymentController extends Controller
         return redirect()->route('order.failed');
     }
 
-    function stripeCancel(Request $request) {
-          return redirect()->route('order.failed');
+    function stripeCancel(Request $request)
+    {
+        return redirect()->route('order.failed');
     }
 }

@@ -25,8 +25,8 @@ class RegisterRequest extends FormRequest
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         'password' => ['required', 'string', 'confirmed', 'min:8'],
-        'role' => ['required', 'in:student,instructor'],  // pastikan role wajib dan valid
-        'document' => ['nullable', 'file', 'mimes:pdf,doc,docx,jpg,png', 'max:12000'], // kalau ada dokumen
+        'role' => ['required', 'in:student,instructor'],
+        'document' => ['nullable', 'file', 'mimes:pdf,doc,docx,jpg,png', 'max:12000'],
     ];
 }
 
