@@ -24,7 +24,7 @@ class MidtransService
     public function __construct()
     {
         // Konfigurasi server key, environment, dan lainnya
-        $this->serverKey = '';
+        $this->serverKey = null;
         $this->isProduction = false;
         $this->isSanitized = true;
         $this->is3ds = true;
