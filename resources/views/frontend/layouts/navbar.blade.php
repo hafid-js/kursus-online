@@ -74,7 +74,7 @@
                             <img src="{{ asset('frontend/assets/images/cart_icon_black.png') }}" alt="user"
                                 class="img-fluid">
                         </span>
-                        <b class="cart_count">{{ cartCount() }}</b>
+                        <b class="cart_count">0</b>
                     </a>
                 </li>
                 @endif

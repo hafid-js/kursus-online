@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="col-xl-8 col-lg-7">
-                        <form action="" method="POST" class="wsus__contact_form">
+                        <form action="{{ route('send.contact') }}" method="POST" class="wsus__contact_form">
                             @csrf
                             <h4>Send Us Message</h4>
                             <p>Your email address will not be published. Required fields are marked *</p>

@@ -19,6 +19,8 @@ class CourseCategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
     public function index()
     {
         $categories = CourseCategory::whereNull('parent_id')->paginate(15);

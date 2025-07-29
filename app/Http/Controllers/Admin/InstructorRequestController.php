@@ -30,21 +30,31 @@ class InstructorRequestController extends Controller
     {
         return response()->download(public_path($user->document));
     }
+    function show(User $user)
+    {
+        $path = public_path($user->document);
+
+    // Dapatkan mime type dari file
+    $mime = mime_content_type($path);
+
+    return response()->file($path, [
+        'Content-Type' => $mime,
+        'Content-Disposition' => 'inline; filename="'.basename($path).'"',
+    ]);
+    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $instructor_request): RedirectResponse
+  function update(Request $request, User $user)
     {
-        $request->validate(['status' => ['required', 'in:approved,rejected,pending']]);
-        $instructor_request->approve_status = $request->status;
-        $request->status == 'approved' ? $instructor_request->role = 'instructor' : "";
-        $instructor_request->save();
+        $user->approve_status = $request->status;
+        $user->save();
 
-        self::sendNotification($instructor_request);
-
-        return redirect()->back();
+        notyf()->success('approved instructor request successfully');
     }
+
+
 
     public static function sendNotification($instructor_request) : void {
         switch ($instructor_request->approve_status) {

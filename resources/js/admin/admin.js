@@ -240,3 +240,30 @@ $(function() {
 });
 
 
+function updateApproveStatus(id, status) {
+    $.ajax({
+        method: 'PUT',
+        url: base_url + `/admin/instructor-requests/${id}/update-approval`,
+        data: {
+            _token: csrf_token,
+            status: status
+        },
+        success: function(data) {
+            window.location.reload()
+        },
+        error: function(xhr, status, error) {
+
+        }
+    })
+}
+
+
+$(function() {
+    // change course approval status
+    $('.update-approval-status').on('change', function() {
+        let id = $(this).data('id');
+        let status = $(this).val();
+
+        updateApproveStatus(id, status);
+    })
+})

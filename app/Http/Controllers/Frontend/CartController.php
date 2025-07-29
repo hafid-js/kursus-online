@@ -21,6 +21,12 @@ class CartController extends Controller
         return view('frontend.pages.cart', compact('cart'));
     }
 
+    public function cartCount()
+    {
+        $count = Cart::where('user_id', auth('web')->id())->count();
+        return response()->json(['count' => $count]);
+    }
+
     function addToCart(int $id): Response
     {
 
@@ -65,4 +71,5 @@ class CartController extends Controller
         notyf()->success('Removed Successfully!');
         return redirect()->back();
     }
+
 }

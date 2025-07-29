@@ -1,13 +1,24 @@
-// variables
-const base_url = $(`meta[name="base_url"]`).attr("content");
-const csrf_token = $(`meta[name="csrf_token"]`).attr('content');
+const base_url = $('meta[name="base_url"]').attr("content");
+const csrf_token = $('meta[name="csrf_token"]').attr('content');
 
-// notyf init
+// notyf init (kalau pakai notyf untuk notifikasi)
 var notyf = new Notyf({
     duration: 5000,
     dismissible: true
 });
 
+function updateCartCount() {
+    $.ajax({
+        url: base_url + '/cart-count',
+        method: 'GET',
+        success: function(res) {
+            $('.cart_count').text(res.count);
+        },
+        error: function() {
+            console.log('Failed to fetch cart count');
+        }
+    });
+}
 
 function addToCart(courseId) {
     $.ajax({
@@ -17,27 +28,28 @@ function addToCart(courseId) {
             _token: csrf_token
         },
         beforeSend: function() {
-            $('.add_to_cart').text('Adding...')
+            $('.add_to_cart').text('Adding...');
         },
         success: function(data) {
             notyf.success(data.message);
-
-              $('.add_to_cart').text('Add To Cart')
+            $('.add_to_cart').text('Add To Cart');
+            updateCartCount(); // update count setelah berhasil add
         },
-        error: function(xhr, status, error) {
-            let errorsMessage = xhr.responseJSON.message;
-           notyf.error(errorsMessage);
-
-             $('.add_to_cart').text('Add To Cart')
+        error: function(xhr) {
+            let errorsMessage = xhr.responseJSON?.message || 'Something went wrong';
+            notyf.error(errorsMessage);
+            $('.add_to_cart').text('Add To Cart');
         }
     })
 }
 
 $(function() {
-    // add course into cart
+    updateCartCount(); // update count saat halaman load
+
+    // event handler tombol add to cart
     $('.add_to_cart').on('click', function(e) {
         e.preventDefault();
         let courseId = $(this).data('course-id');
         addToCart(courseId);
-    })
-})
+    });
+});

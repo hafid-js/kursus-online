@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
     @vite(['resources/css/frontend.css', 'resources/js/frontend/frontend.js']);
     @stack('header_scripts')
+    <meta name="course-index-url" content="{{ route('courses.index') }}">
 </head>
 
 <body class="home_3">

@@ -107,3 +107,51 @@ document.addEventListener("DOMContentLoaded", function () {
             "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
     });
 });
+
+$(document).ready(function () {
+    // Debounce function
+    function debounce(func, wait) {
+        let timeout;
+        return function () {
+            const context = this,
+                args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), wait);
+        };
+    }
+
+    // AJAX put courses result
+    function fetchCourses() {
+        let formData = $("#course-filter-form").serialize();
+
+         const courseIndexUrl = $('meta[name="course-index-url"]').attr('content');
+
+        $.ajax({
+            url: courseIndexUrl,
+            type: "GET",
+            data: formData,
+            beforeSend: function () {
+                $("#course-results").html("<p>Loading...</p>");
+            },
+            success: function (res) {
+                $("#course-results").html(res); // if work it change
+            },
+            error: function () {
+                $("#course-results").html("<p>Something went wrong</p>");
+            },
+        });
+    }
+
+    // if user typing in form
+    $('#course-filter-form input[name="search"]').on(
+        "keyup",
+        debounce(function () {
+            fetchCourses(); // call ajax
+        }, 500)
+    );
+
+    // add trigger if checkbox level, category dll it change
+    $('#course-filter-form input[type="checkbox"]').on("change", function () {
+        fetchCourses();
+    });
+});

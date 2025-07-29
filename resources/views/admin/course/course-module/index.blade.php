@@ -6,7 +6,7 @@
             <div class="container-xl">
                 <div class="row row-cards">
                     <div class="col-12">
-                        <form action="https://httpbin.org/post" method="post" class="card">
+                        <form action="" method="post" class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Course</h4>
                                 <div class="card-actions">

@@ -101,7 +101,10 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::post('update-password', [ProfileUpdateController::class,'updatePassword'])->name('password.update');
 
     Route::get('instructor-doc-download/{user}', [InstructorRequestController::class, 'download'])->name('instructor-doc-download');
-    Route::resource('instructor-requests', InstructorRequestController::class);
+    Route::get('instructor-doc-show/{user}', [InstructorRequestController::class, 'show'])->name('instructor-doc-show');
+    Route::get('instructor-requests', [InstructorRequestController::class, 'index'])->name('instructor-requests.index');
+Route::put('instructor-requests/{user}/update-approval', [InstructorRequestController::class, 'update'])
+    ->name('instructor-requests.update-approval');
 
     // Course languages routes
     Route::resource('course-languages', CourseLanguageController::class);
