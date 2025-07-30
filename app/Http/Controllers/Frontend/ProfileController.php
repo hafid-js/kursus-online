@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\User\UserProfileUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\PasswordUpdateRequest;
 use App\Http\Requests\Frontend\ProfileUpdateRequest;
@@ -42,7 +43,12 @@ class ProfileController extends Controller
         $user->bio = $request->about;
         $user->headline = $request->headline;
         $user->gender = $request->gender;
+        $changes = $user->getDirty();
         $user->save();
+
+        if (!empty($changes)) {
+            event(new UserProfileUpdated($user, $changes));
+        }
 
         notyf()->success('Update Successfully');
 

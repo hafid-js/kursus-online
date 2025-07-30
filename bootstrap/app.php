@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\CheckRoleMiddleware;
+use App\Http\Middleware\EnsureAuthenticatedJson;
 use App\Http\Middleware\EnsurePasswordIsSet;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Auth\Middleware\Authenticate;

@@ -11,12 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+
     function index()
     {
-        if (!Auth::guard('web')->check()) {
-            notyf()->error('Please Login First!');
-            return redirect()->back();
-        }
         $cart = Cart::with(['course'])->where(['user_id' => user()->id])->paginate();
         return view('frontend.pages.cart', compact('cart'));
     }
@@ -29,12 +26,6 @@ class CartController extends Controller
 
     function addToCart(int $id): Response
     {
-
-        if (!Auth::guard('web')->check()) {
-            return response([
-                'message' => 'Please Login First'
-            ], 401);
-        }
 
         if (Cart::where([
             'course_id' => $id,
