@@ -7,6 +7,7 @@ use App\Models\Contact;
 use App\Traits\FileUpload;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ContactController extends Controller
 {
@@ -88,6 +89,8 @@ class ContactController extends Controller
         $contact->status = $request->status;
         $contact->save();
 
+        Cache::forget('contact_cards');
+
         notyf()->success('Updated Successfully!');
         return redirect()->route('admin.contact.index');
     }
@@ -100,6 +103,7 @@ class ContactController extends Controller
         try {
             $this->deleteFile($contact->icon);
             $contact->delete();
+            Cache::forget('contact_cards');
             notyf()->success('Deleted Successfully!');
             return response(['message' => 'Deleted Successfully!']);
         } catch(Exception $e) {

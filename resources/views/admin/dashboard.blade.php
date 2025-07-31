@@ -324,7 +324,7 @@
                                      @foreach ($recentCourses as $course)
                                            <tr>
                                             <td>
-                                                <a href="#" class="ms-1"
+                                                <a href="{{ route('courses.show', $course->slug) }}" target="_blank" class="ms-1"
                                                     aria-label="Open website"><!-- Download SVG icon from http://tabler.io/icons/icon/link -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"

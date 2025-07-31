@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ContactSetting;
 use App\Traits\FileUpload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ContactSettingController extends Controller
 {
@@ -40,6 +41,7 @@ class ContactSettingController extends Controller
             $validatedData
         );
 
+        Cache::forget('contact_setting');
         notyf()->success('Update Successfully!');
         return redirect()->back();
     }
