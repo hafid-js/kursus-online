@@ -73,6 +73,13 @@
                                             <input type="email" name="email" value="{{ old('email') }}"
                                                 placeholder="Email" required>
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                            @if (session('wait_seconds'))
+                                                <div class="alert alert-warning mt-3" id="countdown">
+                                                    Please wait <span
+                                                        id="seconds">{{ session('wait_seconds') }}</span> seconds
+                                                    before trying again.
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
@@ -172,6 +179,27 @@
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+    @if (session('wait_seconds'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let seconds = {{ session('wait_seconds') }};
+                const countdownEl = document.getElementById('seconds');
+
+                const interval = setInterval(() => {
+                    seconds--;
+                    if (seconds <= 0) {
+                        clearInterval(interval);
+                        countdownEl.innerText = '0';
+                        // Optionally reload or re-enable form
+
+                         location.reload();
+                    } else {
+                        countdownEl.innerText = seconds;
+                    }
+                }, 1000);
+            });
+        </script>
+    @endif
 
 </body>
 
