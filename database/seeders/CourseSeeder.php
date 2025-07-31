@@ -16,6 +16,7 @@ use App\Models\QuizQuestion;
 use App\Models\QuizQuestionAnswer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CourseSeeder extends Seeder
 {
@@ -286,7 +287,7 @@ class CourseSeeder extends Seeder
             $course->category_id = $categories[array_rand($categories)];
             // $course->type = "course";
             $course->title = $courseName;
-            $course->slug = \Str::slug($courseName);
+            $course->slug = Str::slug($courseName);
             $course->seo_description = $courseName;
             $course->duration = "3000";
             // $course->timezone = NULL;
@@ -328,7 +329,7 @@ class CourseSeeder extends Seeder
                 foreach($course_chapter_lessons as $index => $chapterItem) {
                     $courseLesson = new CourseChapterLession();
                     $courseLesson->title = $course_chapter_lessons[$index]['title'];
-                    $courseLesson->slug = \Str::slug($course_chapter_lessons[$index]['title']);
+                    $courseLesson->slug = Str::slug($course_chapter_lessons[$index]['title']);
                     $courseLesson->description = $course_chapter_lessons[$index]['description'];
                     $courseLesson->instructor_id = $course->instructor_id;
                     $courseLesson->course_id = $course->id;

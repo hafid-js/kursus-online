@@ -30593,6 +30593,4 @@
       window.tinyMCE = tinymce;
     };
     exportToWindowGlobal(tinymce);
-    exportToModuleLoaders(tinymce);
-
-})();
+    exportToModuleLoaders(tinymce);})();

@@ -8030,6 +8030,4 @@
       global$1.add('dom', DomModel);
     };
 
-    Model();
-
-})();
+    Model();})();

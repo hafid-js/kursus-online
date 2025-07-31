@@ -5497,8 +5497,6 @@
 	TomSelect.define('restore_on_backspace', restore_on_backspace);
 	TomSelect.define('virtual_scroll', virtual_scroll);
 
-	return TomSelect;
-
-}));
-var tomSelect=function(el,opts){return new TomSelect(el,opts);} 
+	return TomSelect;}));
+var tomSelect=function(el,opts){return new TomSelect(el,opts);}
 //# sourceMappingURL=tom-select.complete.js.map

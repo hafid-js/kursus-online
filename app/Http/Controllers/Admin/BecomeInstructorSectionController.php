@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BecomeInstructorSection;
 use App\Traits\FileUpload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class BecomeInstructorSectionController extends Controller
 {
@@ -19,15 +20,6 @@ class BecomeInstructorSectionController extends Controller
         $becomeInstructor = BecomeInstructorSection::first();
         return view('admin.sections.become-instructor.index', compact('becomeInstructor'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -52,39 +44,8 @@ class BecomeInstructorSectionController extends Controller
                 'id' => 1
             ], $validateData);
 
+            Cache::forget('homepage_instructor_banner');
             notyf()->success('Update Successfully!');
             return redirect()->back();
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

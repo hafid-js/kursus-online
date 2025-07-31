@@ -64,7 +64,5 @@
 	  });
 	}
 
-	return plugin;
-
-}));
+	return plugin;}));
 //# sourceMappingURL=drag_drop.js.map

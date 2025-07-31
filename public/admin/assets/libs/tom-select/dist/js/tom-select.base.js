@@ -4680,8 +4680,6 @@
 
 	}
 
-	return TomSelect;
-
-}));
-var tomSelect=function(el,opts){return new TomSelect(el,opts);} 
+	return TomSelect;}));
+var tomSelect=function(el,opts){return new TomSelect(el,opts);}
 //# sourceMappingURL=tom-select.base.js.map

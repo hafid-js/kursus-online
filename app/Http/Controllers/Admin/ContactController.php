@@ -55,15 +55,6 @@ class ContactController extends Controller
         notyf()->success('Created Successfully!');
         return redirect()->route('admin.contact.index');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      */

@@ -52,11 +52,7 @@ class InstructorRequestController extends Controller
         $user->save();
 
         notyf()->success('approved instructor request successfully');
-    }
-
-
-
-    public static function sendNotification($instructor_request) : void {
+  }    public static function sendNotification($instructor_request) : void {
         switch ($instructor_request->approve_status) {
             case 'approved':
                 if (config('mail_queue.is_queue')) {

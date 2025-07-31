@@ -230,7 +230,5 @@
 	  });
 	}
 
-	return plugin;
-
-}));
+	return plugin;}));
 //# sourceMappingURL=checkbox_options.js.map

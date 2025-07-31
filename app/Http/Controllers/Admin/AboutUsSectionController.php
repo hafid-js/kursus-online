@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AboutUsSection;
 use App\Traits\FileUpload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class AboutUsSectionController extends Controller
 {
@@ -17,14 +18,6 @@ class AboutUsSectionController extends Controller
     {
         $about = AboutUsSection::first();
         return view('admin.sections.about-section.index', compact('about'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -63,7 +56,8 @@ class AboutUsSectionController extends Controller
 
         AboutUsSection::updateOrCreate(['id' => 1], $data);
 
-        notyf()->success('Upload Successfully');
+        Cache::forget('homepage_about');
+        notyf()->success('Updated Successfully');
 
         return redirect()->back();
     }

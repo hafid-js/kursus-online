@@ -49,13 +49,6 @@ class SocialLinkController extends Controller
         return to_route('admin.social-links.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CourseCategory;
 use App\Models\LatestCourseSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class LatestCourseSectionController extends Controller
 {
@@ -17,17 +18,7 @@ class LatestCourseSectionController extends Controller
         $categories = CourseCategory::all();
         $latestCourseSection = LatestCourseSection::first();
         return view('admin.sections.latest-course.index', compact('categories','latestCourseSection'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
+  }    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -42,40 +33,9 @@ class LatestCourseSectionController extends Controller
 
         LatestCourseSection::updateOrCreate(['id' => 1], $validatedData);
 
+        Cache::forget('homepage_latest_courses');
         notyf()->success('Latest Course Section Updated Successfully');
 
         return redirect()->back();
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

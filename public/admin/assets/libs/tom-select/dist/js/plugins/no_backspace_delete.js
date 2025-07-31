@@ -34,7 +34,5 @@
 	  });
 	}
 
-	return plugin;
-
-}));
+	return plugin;}));
 //# sourceMappingURL=no_backspace_delete.js.map

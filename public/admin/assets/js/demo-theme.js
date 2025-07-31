@@ -30,6 +30,4 @@
 	  document.body.setAttribute("data-bs-theme", selectedTheme);
 	} else {
 	  document.body.removeAttribute("data-bs-theme");
-	}
-
-}));
+	}}));

@@ -147,7 +147,5 @@
     });
   }
 
-  return plugin;
-
-}));
+  return plugin;}));
 //# sourceMappingURL=clear_button.js.map

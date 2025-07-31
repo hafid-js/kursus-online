@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\VideoSection;
 use App\Traits\FileUpload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class VideoSectionController extends Controller
 {
@@ -45,8 +46,7 @@ class VideoSectionController extends Controller
             ], $validatedData
         );
 
+        Cache::forget('homepage_video_section');
         notyf()->success('Updated Successfully!');
         return redirect()->back();
-    }
-
-}
+    }}

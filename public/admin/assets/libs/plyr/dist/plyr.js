@@ -8752,7 +8752,5 @@ typeof navigator === "object" && (function (global, factory) {
   }
   Plyr.defaults = cloneDeep(defaults);
 
-  return Plyr;
-
-}));
+  return Plyr;}));
 //# sourceMappingURL=plyr.js.map

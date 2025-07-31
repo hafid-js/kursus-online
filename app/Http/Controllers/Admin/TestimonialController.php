@@ -7,6 +7,7 @@ use App\Models\Testimonial;
 use App\Traits\FileUpload;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class TestimonialController extends Controller
 {
@@ -52,18 +53,12 @@ class TestimonialController extends Controller
         $testimonial->user_title = $request->title;
         $testimonial->save();
 
+        Cache::forget('homepage_testimonials');
         notyf()->success("Created Successfully!");
 
         return redirect()->route('admin.testimonial-section.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -100,6 +95,7 @@ class TestimonialController extends Controller
         $testimonial->user_title = $request->title;
         $testimonial->save();
 
+         Cache::forget('homepage_testimonials');
         notyf()->success("Created Successfully!");
 
         return redirect()->route('admin.testimonial-section.index');
@@ -114,6 +110,7 @@ class TestimonialController extends Controller
               // throw ValidationException::withMessages(['you have error']);
             $this->deleteFile($testimonial_section->image);
             $testimonial_section->delete();
+             Cache::forget('homepage_testimonials');
             notyf()->success('Delete Succesfully!');
             return response(['message' => 'Delete Successfully!'], 200);
         } catch(Exception $e) {

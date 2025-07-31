@@ -36,10 +36,6 @@ class DashboardController extends Controller
             $monthlyOrderCounts[] = Order::whereMonth('created_at', $month)
             ->whereYear('created_at', Carbon::now()->year)
             ->count();
-        }
-
-
-
-        return view('admin.dashboard', compact('todaysOrder','thisWeekOrders','thisMonthOrders','thisYearOrders','pendingCourses','rejectedCourses','totalCourses','monthlyOrderSums','monthlyOrderCounts','recentCourses','recentBlogs','recentOrders'));
+      }        return view('admin.dashboard', compact('todaysOrder','thisWeekOrders','thisMonthOrders','thisYearOrders','pendingCourses','rejectedCourses','totalCourses','monthlyOrderSums','monthlyOrderCounts','recentCourses','recentBlogs','recentOrders'));
     }
 }

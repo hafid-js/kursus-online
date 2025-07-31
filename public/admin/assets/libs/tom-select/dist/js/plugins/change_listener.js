@@ -52,7 +52,5 @@
 	  });
 	}
 
-	return plugin;
-
-}));
+	return plugin;}));
 //# sourceMappingURL=change_listener.js.map

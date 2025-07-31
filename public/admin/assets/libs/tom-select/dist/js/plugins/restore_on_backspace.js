@@ -45,7 +45,5 @@
 	  });
 	}
 
-	return plugin;
-
-}));
+	return plugin;}));
 //# sourceMappingURL=restore_on_backspace.js.map

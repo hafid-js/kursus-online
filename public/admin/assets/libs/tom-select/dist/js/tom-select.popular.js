@@ -4934,8 +4934,6 @@
 	TomSelect.define('remove_button', remove_button);
 	TomSelect.define('restore_on_backspace', restore_on_backspace);
 
-	return TomSelect;
-
-}));
-var tomSelect=function(el,opts){return new TomSelect(el,opts);} 
+	return TomSelect;}));
+var tomSelect=function(el,opts){return new TomSelect(el,opts);}
 //# sourceMappingURL=tom-select.popular.js.map

@@ -4488,7 +4488,5 @@
     Tooltip
   };
 
-  return index_umd;
-
-}));
+  return index_umd;}));
 //# sourceMappingURL=bootstrap.js.map

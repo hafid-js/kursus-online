@@ -10,6 +10,7 @@ use App\Traits\FileUpload;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class CourseCategoryController extends Controller
@@ -49,18 +50,13 @@ class CourseCategoryController extends Controller
         $category->status = $request->status ?? 0;
         $category->save();
 
+        Cache::forget('homepage_feature_categories');
+
         notyf()->success("Created Successfully!");
 
         return to_route('admin.course-categories.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -89,6 +85,7 @@ class CourseCategoryController extends Controller
     $course_category->status = $request->status ?? 0;
     $course_category->save();
 
+     Cache::forget('homepage_feature_categories');
     notyf()->success("Updated Successfully!");
 
     return to_route('admin.course-categories.index');
@@ -109,6 +106,7 @@ class CourseCategoryController extends Controller
             // throw ValidationException::withMessages(['you have error']);
             $this->deleteFile($course_category->image);
             $course_category->delete();
+             Cache::forget('homepage_feature_categories');
             notyf()->success('Delete Succesfully!');
             return response(['message' => 'Delete Successfully!'], 200);
         } catch(Exception $e) {

@@ -27,7 +27,5 @@
 	  this.hook('instead', 'selectAll', () => {});
 	}
 
-	return plugin;
-
-}));
+	return plugin;}));
 //# sourceMappingURL=no_active_items.js.map

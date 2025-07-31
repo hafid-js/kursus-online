@@ -65,7 +65,7 @@ class AuthenticatedSessionController extends Controller
         }
 
 
-        RateLimiter::hit($key, 60); // Tambah percobaan, expire dalam 60 detik
+        RateLimiter::hit($key, 120);
 
         return back()->withErrors([
             'email' => 'These credentials do not match our records.',

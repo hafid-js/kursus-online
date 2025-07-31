@@ -165,7 +165,5 @@
     });
   }
 
-  return plugin;
-
-}));
+  return plugin;}));
 //# sourceMappingURL=optgroup_columns.js.map

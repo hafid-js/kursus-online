@@ -7538,6 +7538,4 @@
 	});
 
 	globalThis.bootstrap = bootstrap;
-	globalThis.tabler = tabler;
-
-}));
+	globalThis.tabler = tabler;}));

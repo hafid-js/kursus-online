@@ -61,6 +61,4 @@ class CartController extends Controller
         $cart->delete();
         notyf()->success('Removed Successfully!');
         return redirect()->back();
-    }
-
-}
+    }}

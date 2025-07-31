@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BlogCategoryController extends Controller
 {
@@ -38,21 +39,13 @@ class BlogCategoryController extends Controller
 
         $category = new BlogCategory();
         $category->name = $request->name;
-        $category->slug = \Str::slug($request->name);
+        $category->slug = Str::slug($request->name);
         $category->status = $request->status ?? 0;
         $category->save();
 
         notyf()->success('Created Successfully!');
 
         return to_route('admin.blog-categories.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -76,7 +69,7 @@ class BlogCategoryController extends Controller
 
         $category = BlogCategory::findOrFail($id);
         $category->name = $request->name;
-        $category->slug = \Str::slug($request->name);
+        $category->slug = Str::slug($request->name);
         $category->status = $request->status ?? 0;
         $category->save();
 

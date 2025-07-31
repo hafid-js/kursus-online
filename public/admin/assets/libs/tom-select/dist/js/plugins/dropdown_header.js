@@ -174,7 +174,5 @@
     });
   }
 
-  return plugin;
-
-}));
+  return plugin;}));
 //# sourceMappingURL=dropdown_header.js.map

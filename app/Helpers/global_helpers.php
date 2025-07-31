@@ -26,9 +26,7 @@ if(!function_exists('adminUser')) {
 if(!function_exists('cartCount')) {
     function cartCount() {
     return user()?->id ? Cart::where('user_id', user()->id)->count() : 0;
-}
-
-}
+}}
 
 if(!function_exists('cartTotal')) {
     function cartTotal() {

@@ -201,9 +201,7 @@ textarea {
 
 .nav-item .nav-link.active{
     background: #0000004a !important;
-    color: white !important;
-
-}
+    color: white !important;}
 label {
     margin-bottom: 6px;
   }

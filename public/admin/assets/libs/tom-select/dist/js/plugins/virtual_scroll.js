@@ -330,7 +330,5 @@
     });
   }
 
-  return plugin;
-
-}));
+  return plugin;}));
 //# sourceMappingURL=virtual_scroll.js.map

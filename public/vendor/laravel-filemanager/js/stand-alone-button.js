@@ -32,6 +32,4 @@
       };
       return false;
     });
-  }
-
-})(jQuery);
+  }})(jQuery);

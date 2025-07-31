@@ -3411,6 +3411,4 @@
       global$3.add('table', Plugin);
     };
 
-    Plugin$1();
-
-})();
+    Plugin$1();})();

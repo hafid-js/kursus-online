@@ -2519,11 +2519,7 @@
 
     .wsus__dashboard_heading.relative .common_btn {
         position: initial;
-    }
-
-
-
-    .add_course_content .accordion-item button span,
+  }    .add_course_content .accordion-item button span,
     .add_course_content .item_list li span {
         font-size: 15px;
     }
@@ -3998,9 +3994,7 @@
     .add_course_content .accordion-button::after {
         top: 57px;
         right: 10px;
-    }
-
-}
+    }}
 
 @media (min-width: 576px) and (max-width: 767px) {
 
@@ -7474,11 +7468,5 @@
 
     .accordion-item .accordion-body {
         padding: 15px;
-    }
-
-
-
-
-
-
+  }
 }

@@ -127,6 +127,4 @@
       submitForm(form);
     });
     toggleFormControls(form);
-  }
-
-}));
+  }}));

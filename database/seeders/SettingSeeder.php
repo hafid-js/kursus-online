@@ -198,6 +198,4 @@ class SettingSeeder extends Seeder
 
         Setting::insert($settings);
         PaymentSetting::insert($payment_settings);
-    }
-
-}
+    }}

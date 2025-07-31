@@ -10,6 +10,8 @@ use App\Traits\FileUpload;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -51,12 +53,14 @@ class BlogController extends Controller
         $blog = new Blog();
         $blog->image = $image;
         $blog->title = $request->title;
-        $blog->slug = \Str::slug($request->title);
+        $blog->slug = Str::slug($request->title);
         $blog->description = $request->description;
         $blog->blog_category_id = $request->category;
         $blog->user_id = adminUser()->id;
         $blog->status = $request->status ?? 0;
         $blog->save();
+
+        Cache::forget('homepage_blogs');
 
         notyf()->success('Created Successfully!');
 
@@ -112,12 +116,14 @@ class BlogController extends Controller
         }
 
         $blog->title = $request->title;
-        $blog->slug = \Str::slug($request->title);
+        $blog->slug = Str::slug($request->title);
         $blog->description = $request->description;
         $blog->blog_category_id = $request->category;
         $blog->user_id = adminUser()->id;
         $blog->status = $request->status ?? 0;
         $blog->save();
+
+        Cache::forget('homepage_blogs');
 
         notyf()->success('Updated Successfully!');
 
@@ -132,6 +138,7 @@ class BlogController extends Controller
         $blog = Blog::findOrFail($id);
         try {
             $blog->delete();
+            Cache::forget('homepage_blogs');
             notyf()->success('Delete Succesfully!');
             return response(['message' => 'Delete Successfully!'], 200);
         } catch (Exception $e) {

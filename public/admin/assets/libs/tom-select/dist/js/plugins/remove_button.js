@@ -202,7 +202,5 @@
     });
   }
 
-  return plugin;
-
-}));
+  return plugin;}));
 //# sourceMappingURL=remove_button.js.map

@@ -2409,6 +2409,4 @@
   // Include the version number.
   Vimeo.VERSION = '0.0.1';
 
-  return Vimeo;
-
-})));
+  return Vimeo;})));

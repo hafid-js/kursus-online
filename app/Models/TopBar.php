@@ -16,6 +16,4 @@ class TopBar extends Model
         'offer_short_description',
         'offer_button_text',
         'offer_button_url',
-    ];
-
-}
+    ];}

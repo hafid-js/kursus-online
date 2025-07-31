@@ -46,13 +46,6 @@ class CourseLevelController extends Controller
         return to_route('admin.course-levels.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

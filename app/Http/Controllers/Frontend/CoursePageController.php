@@ -50,9 +50,9 @@ class CoursePageController extends Controller
         $levels = CourseLevel::all();
         $languages = CourseLanguage::all();
 
-    if ($request->ajax()) {
-        return view('frontend.pages.partials.course-list', compact('courses'))->render();
-    }
+        if ($request->ajax()) {
+            return view('frontend.pages.partials.course-list', compact('courses'))->render();
+        }
 
         return view('frontend.pages.course-page', compact('courses', 'categories', 'levels', 'languages'));
     }

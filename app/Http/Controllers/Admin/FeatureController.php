@@ -8,6 +8,7 @@ use App\Models\Feature;
 use App\Traits\FileUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FeatureController extends Controller
 {
@@ -20,17 +21,7 @@ class FeatureController extends Controller
     {
         $feature = Feature::first();
         return view('admin.sections.feature.index', compact('feature'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
+  }    /**
      * Store a newly created resource in storage.
      */
     public function store(FeatureUpdateRequest $request): RedirectResponse
@@ -69,40 +60,10 @@ class FeatureController extends Controller
             $data
         );
 
-        notyf()->success("Created Successfully!");
+        Cache::forget('homepage_feature');
+
+        notyf()->success("Updated Successfully!");
 
         return redirect()->back();
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

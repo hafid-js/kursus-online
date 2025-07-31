@@ -833,6 +833,4 @@ $(function () {
 
     // WOW js
     new WOW().init();
-
-
 });

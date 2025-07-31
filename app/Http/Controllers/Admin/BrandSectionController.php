@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Traits\FileUpload;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class BrandSectionController extends Controller
 {
@@ -54,14 +55,6 @@ class BrandSectionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Brand $brand_section)
@@ -91,6 +84,7 @@ class BrandSectionController extends Controller
         $brand->status = $request->status;
         $brand->save();
 
+        Cache::forget('homepage_brands');
         notyf()->success("Updated Successfully!");
 
         return redirect()->route('admin.brand-section.index');
@@ -105,6 +99,7 @@ class BrandSectionController extends Controller
             // throw ValidationException::withMessages(['you have error']);
             $this->deleteFile($brand_section->image);
             $brand_section->delete();
+             Cache::forget('homepage_brands');
             notyf()->success('Delete Succesfully!');
             return response(['message' => 'Delete Successfully!'], 200);
         } catch(Exception $e) {

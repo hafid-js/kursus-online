@@ -28,6 +28,4 @@ class RegisterRequest extends FormRequest
         'role' => ['required', 'in:student,instructor'],
         'document' => ['nullable', 'file', 'mimes:pdf,doc,docx,jpg,png', 'max:12000'],
     ];
-}
-
-}
+}}

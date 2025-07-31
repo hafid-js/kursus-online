@@ -287,7 +287,5 @@
     });
   }
 
-  return plugin;
-
-}));
+  return plugin;}));
 //# sourceMappingURL=dropdown_input.js.map

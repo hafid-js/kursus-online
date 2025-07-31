@@ -486,6 +486,4 @@ var StarRating = (function () {
     return StarRating;
   }();
 
-  return StarRating;
-
-}());
+  return StarRating;}());
