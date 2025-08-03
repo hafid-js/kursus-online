@@ -7,7 +7,7 @@ use App\Http\Controllers\Frontend\CourseContentController;
 use App\Http\Controllers\Frontend\CourseController;
 use App\Http\Controllers\Frontend\CoursePageController;
 use App\Http\Controllers\Frontend\EnrolledCourseController;
-use App\Http\Controllers\Frontend\FrontendContactController;
+use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\InstructorDashboardController;
 use App\Http\Controllers\Frontend\OrderController;
@@ -17,6 +17,22 @@ use App\Http\Controllers\Frontend\StudentDashboardController;
 use App\Http\Controllers\Frontend\StudentOrderController;
 use App\Http\Controllers\Frontend\WithdrawController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+
+Route::middleware(['web'])->group(function () {
+    Route::get('/set-session', function () {
+        session(['hafid_course_session_test' => 'test123']);
+        return response('Session set')->cookie('laravel_session', session()->getId());
+    });
+    Route::get('/get-session', function () {
+        return session()->all();
+    });
+});
+
+Route::get('/debug-session-prefix', function () {
+    $redis = app('redis')->connection('session');
+    return $redis->getConfig('prefix') ?? 'prefix not found';
+});
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
@@ -26,10 +42,10 @@ Route::post('newsletter-subscribe', [FrontendController::class, 'subscribe'])->n
 // about route
 Route::get('about', [FrontendController::class, 'about'])->name('about.index');
 // contact route (GET tanpa middleware, POST dengan middleware)
-Route::get('contact', [FrontendContactController::class, 'index'])->name('contact.index');
+Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 Route::middleware(['auth', 'verified'])->group(function () {
     // Contact POST
-    Route::post('contact', [FrontendContactController::class, 'sendMail'])->name('send.contact');
+    Route::post('contact', [ContactController::class, 'sendMail'])->name('send.contact');
     // Cart routes
 
     Route::get('cart', [CartController::class, 'index'])->name('cart.index');

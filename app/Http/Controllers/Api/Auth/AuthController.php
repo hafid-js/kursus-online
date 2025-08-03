@@ -80,8 +80,6 @@ class AuthController extends Controller
     ]);
 
     $user = User::where('email', $request->email)->first();
-
-    // Validasi email dan password
     if (!$user || !Hash::check($request->password, $user->password)) {
         return response()->json([
             'status' => 'error',
@@ -89,7 +87,6 @@ class AuthController extends Controller
         ], 401);
     }
 
-    // ✅ Cek approval status
     if ($user->approve_status !== 'approved') {
         return response()->json([
             'status' => 'error',
@@ -97,7 +94,6 @@ class AuthController extends Controller
         ], 403);
     }
 
-    // ✅ Role sudah otomatis terdeteksi dari $user->role
     $tokenResult = $user->createToken($user->role . '-token');
 
     return response()->json([

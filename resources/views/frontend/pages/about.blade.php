@@ -76,7 +76,7 @@
                         <div class="about_video">
                             <img src="{{ asset( $about->video_image) }}" alt="Video" class="img-fluid w-100">
                             <span>live</span>
-                            <a class="play_btn venobox" data-autoplay="true" data-vbtype="video"
+                            <a class="play_btn venobox vbox-item" data-autoplay="true" data-vbtype="video"
                                 href="$about->video_url">
                                 <img src="{{ asset('frontend/assets/images/play_icon.png') }}" alt="Play" class="img-fluid">
                             </a>

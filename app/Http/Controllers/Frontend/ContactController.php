@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 
-class FrontendContactController extends Controller
+class ContactController extends Controller
 {
     function index()
     {

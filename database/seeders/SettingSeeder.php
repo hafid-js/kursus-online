@@ -161,14 +161,14 @@ class SettingSeeder extends Seeder
             array(
                 "id" => 2,
                 "key" => "paypal_client_id",
-                "value" => "AUnOIw_wR15MzYo0eg87xjJ4bH2b_fsXVMtVtVZcpJVTrQC_rcStGAjyzBJK40vpaaCnYSvi1Gbf6L9f",
+                "value" => "AWPDtCm44vXv5NDEavf4026oMpPS1tlOSMfIF-NRqbgE9WKTXFcvAyn9DHb2Y-AMdsj2WckhSuKPqTY2",
                 "created_at" => "2024-10-09 07:07:45",
                 "updated_at" => "2024-10-09 09:49:08",
             ),
             array(
                 "id" => 3,
                 "key" => "paypal_client_secret",
-                "value" => "EPrUhxAOGPrnp_5-BkaI6UO0CQMyZ-F4ANGdm3Ye4QZofTuHjyzzJCZm3sP5hiSb4XKlUKOo-ozDddD3",
+                "value" => "EKkvn-FnfwoszpgcImTjxxo-Apd-2UNbxRbivkf2HcoIa4ZJv24_lywlaNRJmiPD4LQEd05mWsBIrdS6",
                 "created_at" => "2024-10-09 07:07:45",
                 "updated_at" => "2024-10-09 09:49:08",
             ),
@@ -189,7 +189,7 @@ class SettingSeeder extends Seeder
             array(
                 "id" => 6,
                 "key" => "paypal_app_id",
-                "value" => "App_id",
+                "value" => "sb-sqjju41840836_api1.business.example.com",
                 "created_at" => "2024-10-09 07:07:45",
                 "updated_at" => "2024-10-09 09:49:08",
             ),
