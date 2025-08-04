@@ -42,6 +42,15 @@
                     Courses
                 </a>
             </li>
+             <li>
+                <a href="{{ route('instructor.enrolled-courses.index') }}" class="{{ sidebarItemActive(['instructor.enrolled-courses.index']) }}">
+                    <div class="img">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_3.png') }}" alt="icon"
+                            class="img-fluid w-100">
+                    </div>
+                    Enrolled Courses
+                </a>
+            </li>
             <li>
                 <a href="{{ route('instructor.orders.index') }}" class="{{ sidebarItemActive(['instructor.orders.index']) }}">
                     <div class="img">

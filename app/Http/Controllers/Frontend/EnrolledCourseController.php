@@ -14,21 +14,29 @@ use Illuminate\Http\Response;
 class EnrolledCourseController extends Controller
 {
 
-    function index()
+    public function index()
     {
         $enrollments = Enrollment::with('course')
             ->where('user_id', user()->id)
             ->whereHas('course')
             ->get();
-        return view('frontend.student-dashboard.enrolled-course.index', compact('enrollments'));
+
+        if (user()->role === 'student') {
+            return view('frontend.student-dashboard.enrolled-course.index', compact('enrollments'));
+        } elseif (user()->role === 'instructor') {
+            return view('frontend.instructor-dashboard.enrolled-course.index', compact('enrollments'));
+        } else {
+            abort(403, 'Unauthorized role.');
+        }
     }
+
 
     public function playerIndex(String $slug)
     {
         $course = Course::with('language', 'level', 'chapters.lessons')
             ->withCount(['enrollments as student_count' => function ($query) {
                 $query->whereHas('user', function ($q) {
-                    $q->where('role', 'student');
+                    $q->where('role', user()->role);
                 });
             }])
             ->where('slug', $slug)
@@ -50,9 +58,6 @@ class EnrolledCourseController extends Controller
             'is_completed' => 1
         ])->pluck('lesson_id')->toArray();
 
-        // Cek apakah semua lesson sudah diselesaikan (is_completed = 1)
-        $userId = user()->id;
-
         $lessonIds = $course->chapters->flatMap(function ($chapter) {
             return $chapter->lessons->pluck('id');
         });
@@ -60,14 +65,18 @@ class EnrolledCourseController extends Controller
         $totalLessonCount = $lessonIds->count();
 
         $completedCount = WatchHistory::whereIn('lesson_id', $lessonIds)
-            ->where('user_id', $userId)
+            ->where('user_id', user()->id)
             ->where('is_completed', 1)
             ->count();
 
         $showCertificate = $totalLessonCount > 0 && $completedCount === $totalLessonCount;
 
-         $reviews = Review::where('course_id', $course->id)->get();
-        return view('frontend.student-dashboard.enrolled-course.player-index', compact(
+        $reviews = Review::where('course_id', $course->id)->get();
+        $viewPath = user()->role === 'instructor'
+            ? 'frontend.instructor-dashboard.enrolled-course.player-index'
+            : 'frontend.student-dashboard.enrolled-course.player-index';
+
+        return view($viewPath, compact(
             'course',
             'lastWatchHistory',
             'watchedLessonIds',

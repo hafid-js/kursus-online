@@ -67,7 +67,7 @@
                 <img src="{{ asset('frontend/assets/images/search_icon.png') }}" alt="Search" class="img-fluid">
             </div>
             <ul>
-                @if (user()?->role == 'student')
+                @if (user()?->approve_status == 'approved')
                 <li>
                     <a class="menu_signin" href="{{ route('cart.index') }}">
                         <span>

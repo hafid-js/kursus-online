@@ -51,7 +51,7 @@
     <section class="wsus__course_video">
         <div class="col-12">
             <div class="wsus__course_header">
-                <a href="{{ route('student.dashboard') }}"><i class="fas fa-angle-left"></i> Go Back</a>
+                <a href="{{ route('instructor.dashboard') }}"><i class="fas fa-angle-left"></i> Go Back</a>
                 <p>Your Progress: {{ $lessonCount }} of {{ count($watchedLessonIds) }}
                     ({{ round((count($watchedLessonIds) / $lessonCount) * 100) }}%)</p>
             </div>

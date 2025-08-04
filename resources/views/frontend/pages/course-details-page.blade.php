@@ -28,8 +28,9 @@
                             <h1>{{ $course->title }}</h1>
                             <ul class="list">
                                 <li>
-                                    <span><img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/avatar.png') }}" alt="user"
-                                            class="img-fluid"></span>
+                                    <span><img
+                                            src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/avatar.png') }}"
+                                            alt="user" class="img-fluid"></span>
                                     By {{ $course->instructor->name }}
                                 </li>
                                 <li>
@@ -139,8 +140,8 @@
                                     <div class="row align-items-center">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="wsus__courses_instructor_img">
-                                                <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/avatar.png') }}" alt="Instructor"
-                                                    class="img-fluid">
+                                                <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/avatar.png') }}"
+                                                    alt="Instructor" class="img-fluid">
                                             </div>
                                         </div>
                                         <div class="col-lg-8 col-md-6">
@@ -468,8 +469,15 @@
                                         data-course-id="{{ $course->id }}">Add to
                                         Cart <i class="far fa-arrow-right" aria-hidden="true"></i></a>
                                 @else
-                                    <a class="common_btn"
-                                        href="{{ route('student.course-player.index', $course->slug) }}">
+                                    @php
+                                        $user = auth()->user();
+                                        $routeName =
+                                            $user->role === 'instructor'
+                                                ? 'instructor.course-player.index'
+                                                : 'student.course-player.index';
+                                    @endphp
+
+                                    <a class="common_btn" href="{{ route($routeName, $course->slug) }}">
                                         <i class="fas fa-eye"></i> Watch Course
                                     </a>
                                 @endif
@@ -510,8 +518,8 @@
                         <div class="wsus__courses_sidebar_instructor">
                             <div class="image_area d-flex flex-wrap align-items-center">
                                 <div class="img">
-                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/avatar.png') }}" alt="Instructor"
-                                        class="img-fluid">
+                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/avatar.png') }}"
+                                        alt="Instructor" class="img-fluid">
                                 </div>
                                 <div class="text">
                                     <h3>{{ $course->instructor->name }}</h3>

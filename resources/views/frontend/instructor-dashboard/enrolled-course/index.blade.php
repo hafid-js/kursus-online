@@ -33,7 +33,7 @@
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
-                @include('frontend.student-dashboard.sidebar')
+                @include('frontend.instructor-dashboard.sidebar')
                 <div class="col-xl-9 col-md-8">
                     <div class="wsus__dashboard_contant">
                         <div class="wsus__dashboard_contant_top">
@@ -78,7 +78,7 @@
                                                                     Rating)</span>
                                                             </p>
                                                             <a class="title"
-                                                                href="{{ route('student.course-player.index', $enrollment->course?->slug) }}">{{ $enrollment->course?->title }}</a>
+                                                                href="{{ route('instructor.course-player.index', $enrollment->course?->slug) }}">{{ $enrollment->course?->title }}</a>
                                                             <div class="text-muted">By
                                                                 {{ $enrollment->course?->instructor->name }}</div>
                                                             @php
@@ -91,13 +91,13 @@
                                                             @endphp
                                                             @if ($lessonCount == $watchedLessonCount)
                                                                 <a target="_blank"
-                                                                    href="{{ route('student.certificate.download', $enrollment->course?->id) }}"
+                                                                    href="{{ route('instructor.certificate.download', $enrollment->course?->id) }}"
                                                                     class="btn btn-sm btn-warning">Download Certificate</a>
                                                             @endif
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-primary"
-                                                                href="{{ route('student.course-player.index', $enrollment->course?->slug) }}"><i
+                                                                href="{{ route('instructor.course-player.index', $enrollment->course?->slug) }}"><i
                                                                     class="fas fa-eye"></i> Watch Course</a>
                                                         </td>
                                                     @empty

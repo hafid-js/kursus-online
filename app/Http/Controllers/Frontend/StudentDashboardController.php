@@ -9,13 +9,12 @@ use App\Models\User;
 use App\Traits\FileUpload;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 
 class StudentDashboardController extends Controller
 {
     use FileUpload;
 
-    public function index(): JsonResponse
+    public function index()
     {
         $user = auth()->user();
 
@@ -28,25 +27,26 @@ class StudentDashboardController extends Controller
             ->take(10)
             ->get();
 
-        return response()->json([
-            'userCourses' => $userCourses,
-            'reviewCount' => $reviewCount,
-            'orderCount' => $orderCount,
-            'orderItems' => $orderItems,
-        ]);
+        return view('frontend.student-dashboard.index', compact(
+            'userCourses',
+            'reviewCount',
+            'orderCount',
+            'orderItems'
+        ));
     }
 
-    public function becomeInstructor(): JsonResponse
+    public function becomeInstructor()
     {
         $user = auth()->user();
+
         if ($user->role === 'instructor') {
-            return response()->json(['message' => 'Already an instructor'], 403);
+            return view('frontend.dashboard.already-instructor');
         }
 
-        return response()->json(['message' => 'Eligible to become instructor']);
+        return view('frontend.dashboard.become-instructor');
     }
 
-    public function becomeInstructorUpdate(Request $request, User $user): JsonResponse
+    public function becomeInstructorUpdate(Request $request, User $user)
     {
         $request->validate([
             'document' => ['required', 'mimes:pdf,doc,docx,jpg,png', 'max:1200'],
@@ -59,25 +59,36 @@ class StudentDashboardController extends Controller
             'document' => $filePath,
         ]);
 
-        return response()->json(['message' => 'Instructor application submitted successfully']);
+        return redirect()
+            ->route('student.dashboard.index')
+            ->with('success', 'Instructor application submitted successfully');
     }
 
-    public function review(): JsonResponse
+    public function review()
     {
         $reviews = Review::where('user_id', auth()->id())->paginate(10);
 
-        return response()->json($reviews);
+        return view('frontend.student-dashboard.review.index', compact('reviews'));
     }
 
-    public function reviewDestroy(string $id): JsonResponse
+    public function reviewDestroy(string $id)
     {
         try {
-            $review = Review::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+            $review = Review::where('id', $id)
+                ->where('user_id', auth()->id())
+                ->firstOrFail();
+
             $review->delete();
-            return response()->json(['message' => 'Deleted Successfully!'], 200);
+
+            return redirect()
+                ->back()
+                ->with('success', 'Review deleted successfully!');
         } catch (Exception $e) {
             logger("Review Error >> " . $e);
-            return response()->json(['message' => 'Something went wrong!'], 500);
+
+            return redirect()
+                ->back()
+                ->with('error', 'Something went wrong!');
         }
     }
 }

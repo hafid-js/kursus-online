@@ -64,10 +64,10 @@ async function renderDocPreview(url) {
     ).then((x) => console.log("docx: finished"));
 }
 
-function updateWatchHistory(courseId, chapterId, lessonId) {
+function updateWatchHistory(courseId, chapterId, lessonId, userRole) {
     $.ajax({
         method: "POST",
-        url: `${base_url}/student/update-watch-history`,
+        url: `${base_url}/${userRole}/update-watch-history`,
         data: {
             _token: csrf_token,
             chapter_id: chapterId,
@@ -89,10 +89,11 @@ $(".lesson").on("click", function () {
     let chapterId = $(this).data("chapter-id");
     let lessonId = $(this).data("lesson-id");
     let courseId = $(this).data("course-id");
+    let userRole = $(this).data("user-role");
 
     $.ajax({
         method: "GET",
-        url: `${base_url}/student/get-lesson-content`,
+        url: `${base_url}/${userRole}/get-lesson-content`,
         data: {
             chapter_id: chapterId,
             lesson_id: lessonId,
@@ -127,7 +128,7 @@ $(".lesson").on("click", function () {
             }
 
             // update watch history
-            updateWatchHistory(courseId, chapterId, lessonId);
+            updateWatchHistory(courseId, chapterId, lessonId, userRole);
         },
         error: function (xhr, status, error) {},
     });
@@ -137,10 +138,11 @@ $(".make_completed").on("click", function () {
     let chapterId = $(this).data("chapter-id");
     let lessonId = $(this).data("lesson-id");
     let courseId = $(this).data("course-id");
+      let userRole = $(this).data("user-role");
 
     $.ajax({
         method: "POST",
-        url: `${base_url}/student/update-lesson-completion`,
+        url: `${base_url}/${userRole}/update-lesson-completion`,
         data: {
             _token: csrf_token,
             chapter_id: chapterId,

@@ -6,19 +6,18 @@ return [
 
     'driver' => env('SESSION_DRIVER', 'file'),
 
+    'connection' => env('SESSION_CONNECTION', null),
+
     'lifetime' => env('SESSION_LIFETIME', 120),
+    'lotetime' => env('SESSION_LIFETIME', 120),
 
-    'expire_on_close' => env('SESSION_EXPIRE_ON_CLOSE', false),
+    'expire_on_close' => false,
 
-    'encrypt' => env('SESSION_ENCRYPT', false),
+    'encrypt' => false,
 
     'files' => storage_path('framework/sessions'),
 
-    'cookie' => env(
-        'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_') . '_session'
-    ),
-
+    'cookie' => env('SESSION_COOKIE', Str::slug(env('APP_NAME', 'laravel'), '_').'_session'),
     'path' => '/',
 
     'domain' => env('SESSION_DOMAIN', null),
@@ -27,8 +26,7 @@ return [
 
     'http_only' => true,
 
-    'same_site' => env('SESSION_SAME_SITE', 'lax'),
-
-    'lottery' => [2, 100],
+    'same_site' => 'lax',
 
 ];
+

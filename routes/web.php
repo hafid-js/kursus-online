@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CertificateController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CourseContentController;
 use App\Http\Controllers\Frontend\CourseController;
@@ -20,13 +21,18 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 Route::middleware(['web'])->group(function () {
-    Route::get('/set-session', function () {
-        session(['hafid_course_session_test' => 'test123']);
-        return response('Session set')->cookie('laravel_session', session()->getId());
-    });
-    Route::get('/get-session', function () {
-        return session()->all();
-    });
+    // Route::get('/set-session', function () {
+    //     session(['hafid_course_session_test' => 'test123']);
+    //     return response('Session set')->cookie('laravel_session', session()->getId());
+    // });
+    // Route::get('/get-session', function () {
+    //     return session()->all();
+    // });
+
+    Route::get('/test-session', function () {
+    session(['foo' => 'bar']);
+    return session('foo');
+});
 });
 
 Route::get('/debug-session-prefix', function () {
@@ -100,7 +106,7 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'p
     Route::get('file-download/{id}', [EnrolledCourseController::class, 'fileDownload'])->name('file-download');
 
     // certificate routes
-    // Route::get('certificate/{course}', [CertificateController::class, 'download'])->name('certificate.download');
+    Route::get('certificate/{course}', [CertificateController::class, 'download'])->name('certificate.download');
 
     // review routes
     Route::get('review', [StudentDashboardController::class, 'review'])->name('review.index');
@@ -140,6 +146,25 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
     Route::post('course-chapter/{chapter}/sort-lesson', [CourseContentController::class, 'sortLesson'])->name('course-chapter.sort-lesson');
     Route::get('course-content/{course}/sort-chapter', [CourseContentController::class, 'sortChapter'])->name('course-content.sort-chapter');
     Route::post('course-content/{course}/sort-chapter', [CourseContentController::class, 'updateSortChapter'])->name('course-content.update-sort-chapter');
+    // enroll course routes
+    Route::get('enrolled-courses', [EnrolledCourseController::class, 'index'])->name('enrolled-courses.index');
+    Route::get('course-player/{slug}', [EnrolledCourseController::class, 'playerIndex'])->name('course-player.index');
+    Route::get('get-lesson-content', [EnrolledCourseController::class, 'getLessonContent'])->name('get-lesson-content');
+    Route::post('update-watch-history', [EnrolledCourseController::class, 'updateWatchHistory'])->name('updateWatchHistory');
+    Route::post('update-lesson-completion', [EnrolledCourseController::class, 'updateLessonCompletion'])->name('update-lesson-completion');
+    Route::get('file-download/{id}', [EnrolledCourseController::class, 'fileDownload'])->name('file-download');
+
+    // certificate routes
+    Route::get('certificate/{course}', [CertificateController::class, 'download'])->name('certificate.download');
+
+    // review routes
+    Route::get('review', [StudentDashboardController::class, 'review'])->name('review.index');
+    Route::delete('review/{id}', [StudentDashboardController::class, 'reviewDestroy'])->name('review.destroy');
+
+    Route::get('orders', [StudentOrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{order}', [StudentOrderController::class,'show'])->name('orders.show');
+
+
     // orders routes
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     // withdrawal routes
