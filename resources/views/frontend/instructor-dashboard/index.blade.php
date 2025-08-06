@@ -3,8 +3,8 @@
 @section('content')
 
     <!--===========================
-            BREADCRUMB START
-        ============================-->
+                BREADCRUMB START
+            ============================-->
     <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
@@ -23,19 +23,19 @@
         </div>
     </section>
     <!--===========================
-            BREADCRUMB END
-        ============================-->
+                BREADCRUMB END
+            ============================-->
 
 
     <!--===========================
-            DASHBOARD OVERVIEW START
-        ============================-->
+                DASHBOARD OVERVIEW START
+            ============================-->
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
                 @include('frontend.instructor-dashboard.sidebar')
                 <div class="col-xl-9 col-md-8">
-                    @if (auth()->user()->approve_status === 'pending')
+                    @if (auth()->user()->document_status === 'pending')
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                             <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                                 <path
@@ -138,7 +138,8 @@
                                                                 <span>({{ number_format($data->course?->reviews()->avg('rating'), 1) ?? 0 }}
                                                                     Rating)</span>
                                                             </p>
-                                                            <a class="title" href="#">{{ $data->course?->title }}</a>
+                                                            <a class="title"
+                                                                href="#">{{ $data->course?->title }}</a>
 
                                                         </td>
                                                         <td class="sale">
@@ -167,7 +168,7 @@
         </div>
     </section>
     <!--===========================
-            DASHBOARD OVERVIEW END
-        ============================-->
-
+                DASHBOARD OVERVIEW END
+            ============================-->
 @endsection
+

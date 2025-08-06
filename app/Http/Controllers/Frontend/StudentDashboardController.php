@@ -43,7 +43,7 @@ class StudentDashboardController extends Controller
             return view('frontend.dashboard.already-instructor');
         }
 
-        return view('frontend.dashboard.become-instructor');
+        return view('frontend.student-dashboard.become-instructor.index');
     }
 
     public function becomeInstructorUpdate(Request $request, User $user)
@@ -55,13 +55,13 @@ class StudentDashboardController extends Controller
         $filePath = $this->uploadFile($request->file('document'));
 
         $user->update([
-            'approve_status' => 'pending',
-            'document' => $filePath,
+            'document' => $filePath
         ]);
 
+        notyf()->success('Instructor application submitted successfully!');
+
         return redirect()
-            ->route('student.dashboard.index')
-            ->with('success', 'Instructor application submitted successfully');
+            ->route('student.dashboard');
     }
 
     public function review()

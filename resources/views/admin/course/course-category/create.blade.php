@@ -24,6 +24,9 @@
                                         <div class="col-md-6">
                                             <x-input-file-block name="image" />
                                         </div>
+                                         <div class="col-md-6">
+                                            <x-input-file-block name="background" />
+                                        </div>
                                         <div class="col-md-6">
                                             <x-input-block name="name" placeholder="Enter category name" />
                                         </div>

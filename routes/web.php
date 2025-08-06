@@ -49,6 +49,9 @@ Route::post('newsletter-subscribe', [FrontendController::class, 'subscribe'])->n
 Route::get('about', [FrontendController::class, 'about'])->name('about.index');
 // contact route (GET tanpa middleware, POST dengan middleware)
 Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+
+    // Categories list
+    Route::get('/categories', [FrontendController::class,'categories'])->name('categories.index');
 Route::middleware(['auth', 'verified'])->group(function () {
     // Contact POST
     Route::post('contact', [ContactController::class, 'sendMail'])->name('send.contact');
@@ -89,7 +92,8 @@ Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'prefix' => 'student', 'as' => 'student.'], function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
     Route::get('/become-instructor', [StudentDashboardController::class, 'becomeInstructor'])->name('become-instructor');
-    Route::post('/become-instructor', [StudentDashboardController::class, 'becomeInstructorUpdate'])->name('become-instructor.update');
+    Route::post('/become-instructor/{user}', [StudentDashboardController::class, 'becomeInstructorUpdate'])->name('become-instructor.update');
+
 
     // profile routes
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
@@ -127,6 +131,8 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
     Route::post('profile/update-gateway-info', [ProfileController::class, 'updateGatewayInfo'])->name('profile.update-gateway-info');
     // course routes
     Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
+
+    Route::middleware(['auth', 'verified.document'])->group(function () {
     Route::get('courses/create', [CourseController::class, 'create'])->name('courses.create');
     Route::post('courses/create', [CourseController::class, 'storeBasicInfo'])->name('courses.store-basic-info');
     Route::get('courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
@@ -146,6 +152,7 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
     Route::post('course-chapter/{chapter}/sort-lesson', [CourseContentController::class, 'sortLesson'])->name('course-chapter.sort-lesson');
     Route::get('course-content/{course}/sort-chapter', [CourseContentController::class, 'sortChapter'])->name('course-content.sort-chapter');
     Route::post('course-content/{course}/sort-chapter', [CourseContentController::class, 'updateSortChapter'])->name('course-content.update-sort-chapter');
+});
     // enroll course routes
     Route::get('enrolled-courses', [EnrolledCourseController::class, 'index'])->name('enrolled-courses.index');
     Route::get('course-player/{slug}', [EnrolledCourseController::class, 'playerIndex'])->name('course-player.index');

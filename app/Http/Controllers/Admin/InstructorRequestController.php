@@ -19,9 +19,18 @@ class InstructorRequestController extends Controller
     public function index()
     {
         $instructorsRequests = User::where(function ($query) {
-            $query->where('approve_status', 'pending')
-                ->orWhere('approve_status', 'rejected');
-        })->where('role', 'instructor')->get();
+    $query->where(function ($q) {
+        $q->where('approve_status', 'pending')
+          ->orWhere('approve_status', 'rejected');
+    })->where('role', 'instructor')
+    ->orWhere(function ($q) {
+        $q->where('role', 'student')
+          ->whereNotNull('document')
+          ->where('document', '!=', '')
+          ->where('document_status', 'pending');
+    });
+})->get();
+
 
         return view('admin.instructor-request.index', compact('instructorsRequests'));
     }
@@ -34,25 +43,27 @@ class InstructorRequestController extends Controller
     {
         $path = public_path($user->document);
 
-    // Dapatkan mime type dari file
-    $mime = mime_content_type($path);
+        // Dapatkan mime type dari file
+        $mime = mime_content_type($path);
 
-    return response()->file($path, [
-        'Content-Type' => $mime,
-        'Content-Disposition' => 'inline; filename="'.basename($path).'"',
-    ]);
+        return response()->file($path, [
+            'Content-Type' => $mime,
+            'Content-Disposition' => 'inline; filename="' . basename($path) . '"',
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-  function update(Request $request, User $user)
+    function update(Request $request, User $user)
     {
         $user->approve_status = $request->status;
         $user->save();
 
         notyf()->success('approved instructor request successfully');
-  }    public static function sendNotification($instructor_request) : void {
+    }
+    public static function sendNotification($instructor_request): void
+    {
         switch ($instructor_request->approve_status) {
             case 'approved':
                 if (config('mail_queue.is_queue')) {
@@ -70,6 +81,5 @@ class InstructorRequestController extends Controller
                 }
                 break;
         }
-
     }
 }

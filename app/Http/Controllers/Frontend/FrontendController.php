@@ -145,4 +145,19 @@ class FrontendController extends Controller
 
         return view('frontend.pages.custom-page', compact('page'));
     }
+
+    public function categories()
+    {
+        $featureCategories = CourseCategory::withCount([
+            'subCategories as active_course_count' => function ($query) {
+                $query->whereHas('courses', function ($query) {
+                    $query->where(['is_approved' => 'approved', 'status' => 'active']);
+                });
+            }
+        ])
+            ->whereNull('parent_id')
+            ->paginate(12);
+
+        return view('frontend.pages.categories-page', compact('featureCategories'));
+    }
 }

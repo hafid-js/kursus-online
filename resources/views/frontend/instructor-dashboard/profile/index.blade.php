@@ -47,7 +47,7 @@
                             @csrf
                             <div class="wsus__dashboard_profile wsus__dashboard_profile_avatar">
                                 <div class="img">
-                                    <img src="{{ asset(auth()->user()?->image ?? 'frontend/assets/images/avatar.png') }}" alt="profile" class="img-fluid w-100">
+                                    <img src="{{ asset(auth()->user()?->image ?? 'frontend/assets/images/image-profile.png') }}" alt="profile" class="img-fluid w-100">
 
                                     <label for="profile_photo">
                                         <img src="{{ asset('frontend/assets/images/dash_camera.png') }}" alt="camera"

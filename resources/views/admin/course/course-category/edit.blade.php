@@ -22,12 +22,18 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
-                                        <x-image-preview class="" src="{{ $course_category->image }}" />
+
                                         <div class="col-md-6">
+                                                                                 <x-image-preview class="" src="{{ $course_category->image }}" />
                                             <x-input-file-block name="image" :value="$course_category->image" />
                                                 <input type="hidden" name="old_image" value="{{ $course_category->image }}"/>
                                         </div>
 
+                                        <div class="col-md-6">
+                                              <x-image-preview class="" src="{{ $course_category->background }}" />
+                                            <x-input-file-block name="background" :value="$course_category->background" />
+                                                <input type="hidden" name="old_background" value="{{ $course_category->background }}"/>
+                                        </div>
                                         <div class="col-md-6">
                                             <x-input-block name="name" :value="$course_category->name"
                                                 placeholder="Enter category name" />

@@ -123,14 +123,14 @@ class SettingSeeder extends Seeder
             array(
                 "id" => 16,
                 "key" => "mail_username",
-                "value" => "e803179dfea1f5",
+                "value" => "64873daf495440",
                 "created_at" => "2024-11-10 11:50:17",
                 "updated_at" => "2024-11-10 11:50:49",
             ),
             array(
                 "id" => 17,
                 "key" => "mail_password",
-                "value" => "9a502d90071980",
+                "value" => "ad63d0846ee854",
                 "created_at" => "2024-11-10 11:50:17",
                 "updated_at" => "2024-11-10 11:50:49",
             ),

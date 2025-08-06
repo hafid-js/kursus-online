@@ -137,7 +137,7 @@
     <script src="{{ asset('frontend/assets/js/jquery-ui.min.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 
-        <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
     <script src="https://cdn.jsdelivr.net/gh/shakilahmed0369/ez-share/dist/ez-share.min.js"></script>
 

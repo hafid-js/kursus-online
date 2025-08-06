@@ -42,8 +42,10 @@ class CourseCategoryController extends Controller
     public function store(CourseCategoryStoreRequest $request) : RedirectResponse
     {
         $imagePath = $this->uploadFile($request->file('image'));
+        $background = $this->uploadFile($request->file('background'));
         $category = new CourseCategory();
         $category->image = $imagePath;
+        $category->background = $background;
         $category->name = $request->name;
         $category->slug = Str::of($request->name)->slug('-');
         $category->show_at_trending = $request->show_at_trending ?? 0;
@@ -77,6 +79,13 @@ class CourseCategoryController extends Controller
             $this->deleteFile($request->old_image);
         }
         $course_category->image = $image;
+    }
+    if ($request->hasFile('background')) {
+        $background = $this->uploadFile($request->file('background'));
+        if ($request->old_background) {
+            $this->deleteFile($request->old_background);
+        }
+        $course_category->background = $background;
     }
 
     $course_category->name = $request->name;

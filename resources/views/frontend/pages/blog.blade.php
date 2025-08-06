@@ -9,7 +9,7 @@
                         <div class="wsus__breadcrumb_text">
                             <h1>Blogs</h1>
                             <ul>
-                                <li><a href="#">Home</a></li>
+                                <li><a href="{{ url('/') }}">Home</a></li>
                                 <li>Blogs</li>
                             </ul>
                         </div>

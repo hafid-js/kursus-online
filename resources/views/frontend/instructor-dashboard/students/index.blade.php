@@ -71,7 +71,7 @@
                                                             <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option1">
                                                         </div>
                                                         <div class="img">
-                                                            <img src="{{ asset($student->order->customer->image) }}" alt="student" class="img-fluid w-100">
+                                                            <img src="{{ $student->order->customer->image ? asset($student->order->customer->image) : url('frontend/assets/images/image-profile.png') }}" alt="student" class="img-fluid w-100">
                                                         </div>
                                                         <a href="#">{{ $student->order->customer->name }}</a>
                                                     </td>

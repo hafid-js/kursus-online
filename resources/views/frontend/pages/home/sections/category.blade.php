@@ -30,7 +30,7 @@
             </div>
             <div class="row mt_60 wow fadeInUp">
                 <div class="col-12 text-center">
-                    <a class="common_btn" href="#">View All Categories <i class="far fa-angle-right"
+                    <a class="common_btn" href="{{ route('categories.index') }}">View All Categories <i class="far fa-angle-right"
                             aria-hidden="true"></i></a>
                 </div>
             </div>

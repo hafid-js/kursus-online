@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <title>EduCore - Online Courses & Education HTML Template</title>
-    <link rel="icon" type="image/png" href="images/favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('frontend/assets/images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animated_barfiller.css') }}">

@@ -15,7 +15,7 @@
                         <div class="wsus__breadcrumb_text">
                             <h1>Contact Us</h1>
                             <ul>
-                                <li><a href="#">Home</a></li>
+                                <li><a href="{{ url('/') }}">Home</a></li>
                                 <li>Contact Us</li>
                             </ul>
                         </div>

@@ -8,7 +8,7 @@
                 @php
                     $image = auth()->user()->image;
                 @endphp
-                <img src="{{ $image ? asset($image) : asset('frontend/assets/images/avatar.png') }}" alt="profile" class="img-fluid w-100">
+                <img src="{{ $image ? asset($image) : asset('frontend/assets/images/image-profile.png') }}" alt="profile" class="img-fluid w-100">
             </div>
             <h4>{{ auth()->user()->name }}</h4>
             <p>{{ auth()->user()->role }}</p>

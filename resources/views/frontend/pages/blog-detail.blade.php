@@ -38,7 +38,7 @@
                             <ul class="d-flex flex-wrap">
                                 <li>
                                     <span class="author">
-                                        <img src="{{ $blog->author->image ? asset($blog->author->image) : asset('default-files/avatar.png') }}" alt="user" class="img-fluid">
+                                        <img src="{{ $blog->author->image ? asset($blog->author->image) : asset('default-files/image-profile.png') }}" alt="user" class="img-fluid">
                                     </span>
                                     By {{ $blog->author->name }}
                                 </li>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="wsus__blog_det_author">
                             <div class="img">
-                                <img src="{{ $blog->author->image ? asset($blog->author->image) : asset('default-files/avatar.png') }}" alt="Author" class="img-fluid">
+                                <img src="{{ $blog->author->image ? asset($blog->author->image) : asset('default-files/image-profile.png') }}" alt="Author" class="img-fluid">
                             </div>
                             <div class="text">
                                 <h3>{{ $blog->author->name }}</h3>
@@ -104,7 +104,7 @@
                             @foreach ($blog->comments ?? [] as $comment)
                             <div class="wsus__blog_single_comment">
                                 <div class="img">
-                                    <img src="{{ asset($comment->user->image ? asset($comment->user->image) : asset('default-files/avatar.png')) }}" alt="Comments" class="img-fluid">
+                                    <img src="{{ asset($comment->user->image ? asset($comment->user->image) : asset('default-files/image-profile.png')) }}" alt="Comments" class="img-fluid">
                                 </div>
                                 <div class="text">
                                     <h4>{{ $comment->user->name }}</h4>

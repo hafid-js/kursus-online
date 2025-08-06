@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Middleware\CheckRoleMiddleware;
+use App\Http\Middleware\EnsureApiRole;
 use App\Http\Middleware\EnsureAuthenticatedJson;
+use App\Http\Middleware\EnsureDocumentVerified;
 use App\Http\Middleware\EnsurePasswordIsSet;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -22,7 +24,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'guest' => RedirectIfAuthenticated::class,
             'check_role' => CheckRoleMiddleware::class,
             'password.set' => EnsurePasswordIsSet::class,
-            'role' => \App\Http\Middleware\EnsureApiRole::class // for api role
+            'verified.document' => EnsureDocumentVerified::class,
+            'role' => EnsureApiRole::class // for api role
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
