@@ -78,4 +78,11 @@ if (!function_exists('navbarItemIndexActive')) {
     }
 }
 
+// is document instructor request is approved?
+function isDocumentApproved($user)
+{
+    return !empty($user->document) && $user->document_status === 'approved';
+}
+
+
 

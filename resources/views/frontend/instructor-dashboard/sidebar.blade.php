@@ -9,7 +9,8 @@
                 @php
                     $image = auth()->user()->image;
                 @endphp
-                <img src="{{ $image ? asset($image) : asset('frontend/assets/images/image-profile.png') }}" alt="profile" class="img-fluid w-100">
+                <img src="{{ $image ? asset($image) : asset('frontend/assets/images/image-profile.png') }}" alt="profile"
+                    class="img-fluid w-100">
             </div>
             <h4>{{ auth()->user()->name }}</h4>
             <p>{{ auth()->user()->role }}</p>
@@ -25,25 +26,50 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('instructor.profile.index') }}" class="{{ sidebarItemActive(['instructor.profile.index']) }}">
+                <a href="{{ route('instructor.profile.index') }}"
+                    class="{{ sidebarItemActive(['instructor.profile.index']) }}">
                     <div class="img">
                         <img src="{{ asset('frontend/assets/images/dash_icon_1.png') }}" alt="icon"
                             class="img-fluid w-100">
                     </div>
-                    Instructor Profile
+                    Profile
                 </a>
             </li>
+            @if(isDocumentApproved(auth()->user()))
             <li>
-                <a href="{{ route('instructor.courses.index') }}" class="{{ sidebarItemActive(['instructor.courses.index']) }}">
+                <a href="{{ route('instructor.courses.index') }}"
+                    class="{{ sidebarItemActive(['instructor.courses.index']) }}">
                     <div class="img">
                         <img src="{{ asset('frontend/assets/images/dash_icon_3.png') }}" alt="icon"
                             class="img-fluid w-100">
                     </div>
-                    Courses
+                    My Courses
                 </a>
             </li>
-             <li>
-                <a href="{{ route('instructor.enrolled-courses.index') }}" class="{{ sidebarItemActive(['instructor.enrolled-courses.index']) }}">
+            <li>
+                <a href="{{ route('instructor.course-sales.index') }}"
+                    class="{{ sidebarItemActive(['instructor.course-sales.index']) }}">
+                    <div class="img">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_5.png') }}" alt="icon"
+                            class="img-fluid w-100">
+                    </div>
+                    Course Sales
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('instructor.courses.students') }}"
+                    class="{{ sidebarItemActive(['instructor.courses.students']) }}">
+                    <div class="img">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_6.png') }}" alt="icon"
+                            class="img-fluid w-100">
+                    </div>
+                    My Students
+                </a>
+            </li>
+            @endif
+            <li>
+                <a href="{{ route('instructor.enrolled-courses.index') }}"
+                    class="{{ sidebarItemActive(['instructor.enrolled-courses.index']) }}">
                     <div class="img">
                         <img src="{{ asset('frontend/assets/images/dash_icon_3.png') }}" alt="icon"
                             class="img-fluid w-100">
@@ -51,26 +77,28 @@
                     Enrolled Courses
                 </a>
             </li>
+                 <li>
+                <a href="{{ route('instructor.review.index') }}" class="{{ sidebarItemActive(['instructor.review.index']) }}">
+                    <div class="img">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_4.png') }}" alt="icon" class="img-fluid w-100">
+                    </div>
+                    Reviews
+                </a>
+            </li>
             <li>
-                <a href="{{ route('instructor.orders.index') }}" class="{{ sidebarItemActive(['instructor.orders.index']) }}">
+                <a href="{{ route('instructor.orders.index') }}"
+                    class="{{ sidebarItemActive(['instructor.orders.index']) }}">
                     <div class="img">
                         <img src="{{ asset('frontend/assets/images/dash_icon_5.png') }}" alt="icon"
                             class="img-fluid w-100">
                     </div>
-                    Orders
+                    My Orders
                 </a>
             </li>
-                    <li>
-                <a href="{{ route('instructor.courses.students') }}" class="{{ sidebarItemActive(['instructor.courses.students']) }}">
-                    <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_6.png') }}" alt="icon"
-                            class="img-fluid w-100">
-                    </div>
-                    Students
-                </a>
-            </li>
+              @if(isDocumentApproved(auth()->user()))
             <li>
-                <a href="{{ route('instructor.withdraw.index') }}" class="{{ request()->routeIs('instructor.withdraw.index') ? 'active' : '' }}">
+                <a href="{{ route('instructor.withdraw.index') }}"
+                    class="{{ request()->routeIs('instructor.withdraw.index') ? 'active' : '' }}">
                     <div class="img">
                         <img src="{{ asset('frontend/assets/images/dash_icon_8.png') }}" alt="icon"
                             class="img-fluid w-100">
@@ -78,6 +106,7 @@
                     Withdrawals
                 </a>
             </li>
+            @endif
             <li>
                 <a href="javascript:;"
                     onclick="event.preventDefault();

@@ -38,8 +38,7 @@
                     <div class="wsus__dashboard_contant">
                         <div class="wsus__dashboard_contant_top">
                             <div class="wsus__dashboard_heading relative">
-                                <h5>Courses</h5>
-                                <p>Manage your courses and its update like live, draft and insight.</p>
+                                <h5>Enrolled Courses</h5>
                             </div>
                         </div>
 

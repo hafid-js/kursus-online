@@ -12,6 +12,6 @@ class OrderController extends Controller
     public function index() {
         $orderItems = OrderItem::whereHas('course', function($query) {
             $query->where('instructor_id', user()->id);})->paginate(25);
-        return view('frontend.instructor-dashboard.order.index', compact('orderItems'));
+        return view('frontend.instructor-dashboard.students.order', compact('orderItems'));
     }
 }

@@ -7,6 +7,7 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="base_url" content="{{ url('/') }}">
     <meta name="csrf_token" content="{{ csrf_token() }}">
+        <meta name="course-index-url" content="{{ route('courses.index') }}">
     @stack('meta')
     <title>EduCore - Online Courses & Education HTML Template</title>
     <link rel="icon" type="image/png" href="{{ asset(config('settings.site_favicon')) }}">
@@ -34,8 +35,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
     @vite(['resources/css/frontend.css', 'resources/js/frontend/frontend.js']);
     @stack('header_scripts')
-    <meta name="course-index-url" content="{{ route('courses.index') }}">
 </head>
+
 
 <body class="home_3">
 
@@ -150,23 +151,7 @@
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
-
     @stack('scripts')
-
-
-    <script>
-        var notyf = new Notyf({
-            duration: 5000,
-            dismissible: true,
-        });
-
-        @if ($errors->any())
-            @foreach ($errors as $error)
-                notyf.error("{{ $error }}")
-            @endforeach
-        @endif
-    </script>
-
 </body>
 
 </html>
