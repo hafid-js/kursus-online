@@ -70,8 +70,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <p class="text-secondary text-center mt-5">Thank you very much for doing
-                                                business with us. We look forward to working with you again!</p>
+                                            <p class="text-secondary text-center mt-5">Thank you for purchasing our course. We hope it brings you valuable knowledge and success in your learning journey.</p>
                                         </div>
                                     </div>
                                 </div>

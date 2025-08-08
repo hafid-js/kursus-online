@@ -138,7 +138,8 @@
                                         <textarea rows="5" placeholder="Leave a comment" name="comment"></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <button type="submit" class="common_btn">Post Comment</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-paper-plane me-1"></i> Submit</button>
                                     </div>
                                 </div>
                             </form>

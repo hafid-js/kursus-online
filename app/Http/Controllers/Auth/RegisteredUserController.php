@@ -56,7 +56,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'role' => 'instructor',
             'approve_status' => 'pending',
-            'document' => $filePath
+            'document' => $filePath,
+            'document_status' => 'pending'
         ]);
     } else {
         abort(404);

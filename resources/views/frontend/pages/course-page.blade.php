@@ -39,7 +39,7 @@
                                 <h3>Categories</h3>
                                 <ul class="categoty_list">
                                     @foreach ($categories as $category)
-                                        <li class="active">{{ $category->name }}
+                                        <li>{{ $category->name }}
                                             <div class="wsus__sidebar_sub_category">
                                                 @foreach ($category->subCategories as $subCategory)
                                                     <div class="form-check">

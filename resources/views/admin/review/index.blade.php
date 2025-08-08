@@ -25,9 +25,8 @@
                                                 <th>User</th>
                                                 <th>Rating</th>
                                                 <th>Review</th>
-                                                <th></th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                <th colspan="2" class="text-center">Action</th>
                                                 {{-- <th class="w-1"></th> --}}
                                             </tr>
                                         </thead>
@@ -42,7 +41,7 @@
                                                         @if ($review->status == 1)
                                                             <span class="badge bg-lime text-lime-fg">Approved</span>
                                                         @else
-                                                            <span class="badge bg-red text-red-fg">Pending</span>
+                                                            <span class="badge bg-yellow text-yellow-fg">Pending</span>
                                                         @endif
                                                     </td>
                                                     <td>

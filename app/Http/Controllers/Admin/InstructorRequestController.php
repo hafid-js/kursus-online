@@ -52,6 +52,9 @@ class InstructorRequestController extends Controller
     function update(Request $request, User $user)
     {
         $user->document_status = $request->status;
+        if($user->role === 'student' && $user->document_status === 'approved'){
+            $user->role = 'instructor';
+        }
         $user->save();
 
         self::sendNotification($user);

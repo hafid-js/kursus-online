@@ -2,8 +2,8 @@
 
 @section('content')
     <!--===========================
-                BREADCRUMB START
-            ============================-->
+                    BREADCRUMB START
+                ============================-->
     <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
@@ -22,13 +22,13 @@
         </div>
     </section>
     <!--===========================
-                BREADCRUMB END
-            ============================-->
+                    BREADCRUMB END
+                ============================-->
 
 
     <!--===========================
-                DASHBOARD OVERVIEW START
-            ============================-->
+                    DASHBOARD OVERVIEW START
+                ============================-->
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -47,7 +47,9 @@
                             @csrf
                             <div class="wsus__dashboard_profile wsus__dashboard_profile_avatar">
                                 <div class="img">
-                                    <img src="{{ asset(auth()->user()?->image ?? 'frontend/assets/images/image-profile.png') }}" alt="profile" class="img-fluid w-100">
+                                    <img id="profilePreview"
+                                        src="{{ asset(auth()->user()?->image ?? 'frontend/assets/images/image-profile.png') }}"
+                                        alt="profile" class="img-fluid w-100">
 
                                     <label for="profile_photo">
                                         <img src="{{ asset('frontend/assets/images/dash_camera.png') }}" alt="camera"
@@ -133,7 +135,8 @@
                                         <select name="gateway" id="" class="form-control gateway">
                                             <option value="">Select</option>
                                             @foreach ($gateways as $gateway)
-                                                <option @selected($gatewayInfo?->gateway == $gateway->name) value="{{ $gateway->name }}" data-id="{{ $gateway->id }}">{{ $gateway->name }}</option>
+                                                <option @selected($gatewayInfo?->gateway == $gateway->name) value="{{ $gateway->name }}"
+                                                    data-id="{{ $gateway->id }}">{{ $gateway->name }}</option>
                                             @endforeach
                                         </select>
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -258,8 +261,8 @@
         </div>
     </section>
     <!--===========================
-                DASHBOARD OVERVIEW END
-            ============================-->
+                    DASHBOARD OVERVIEW END
+                ============================-->
 @endsection
 
 @push('scripts')
@@ -268,7 +271,7 @@
             $('.gateway').on('change', function() {
                 let id = $(this).find(':selected').data('id');
 
-                $('.gateway_description').attr('placeholder', $('.gateway-'+id).html())
+                $('.gateway_description').attr('placeholder', $('.gateway-' + id).html())
             })
         })
     </script>

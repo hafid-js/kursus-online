@@ -11,7 +11,7 @@
                                 @if (Str::contains(request()->url(), '/create'))
                                   <h4 class="card-title">Course Create</h4>
                                 @elseif (Str::contains(request()->url(), '/edit'))
-                                     <h4 class="card-title">Edit Create</h4>
+                                     <h4 class="card-title">Edit Course</h4>
                                 @else
                                     <li>Courses</li>
                                 @endif

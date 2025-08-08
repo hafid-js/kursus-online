@@ -267,3 +267,17 @@ $(function() {
         updateApproveStatus(id, status);
     })
 })
+
+// upload profil photo and live show
+document.getElementById('profile_photo').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            document.getElementById('profilePreview').src = e.target.result;
+        }
+
+        reader.readAsDataURL(file);
+    }
+});

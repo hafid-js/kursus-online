@@ -50,8 +50,10 @@
                                     @php
                                         $image = auth()->user()->image;
                                     @endphp
-                                    <img src="{{ $image ? asset($image) : asset('frontend/assets/images/image-profile.png') }}"
+                                  <img id="profilePreview"
+                                        src="{{ asset(auth()->user()?->image ?? 'frontend/assets/images/image-profile.png') }}"
                                         alt="profile" class="img-fluid w-100">
+
                                     <label for="profile_photo">
                                         <img src="{{ asset('frontend/assets/images/dash_camera.png') }}" alt="camera"
                                             class="img-fluid w-100">

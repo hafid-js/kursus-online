@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <form action="https://httpbin.org/post" method="post" class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Form elements</h4>
+                                <h4 class="card-title">Instructor Requests</h4>
                             </div>
                             <div class="page-body">
                                 <div class="container-xl">

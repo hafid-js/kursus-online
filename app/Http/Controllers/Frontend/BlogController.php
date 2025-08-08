@@ -23,7 +23,7 @@ class BlogController extends Controller
                     $q->where('slug', $slug);
                 });
             })
-            ->paginate(20);
+            ->paginate(10);
         return view('frontend.pages.blog', compact('blogs'));
     }
 

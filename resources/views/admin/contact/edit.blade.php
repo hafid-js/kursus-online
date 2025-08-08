@@ -8,43 +8,43 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Create Contact Card</h4>
+                                <h4 class="card-title">Edit Contact Card</h4>
                                 <div class="card-actions">
                                     <a href="{{ route('admin.contact.index') }}" class="btn btn-primary">
                                         <i class="ti ti-arrow-left"></i>
-                                       Back
+                                        Back
                                     </a>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('admin.contact.update', $contact->id) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('admin.contact.update', $contact->id) }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
+                                    <label for="form-label">Icon</label>
                                     <div class="mb-3">
-                                        <x-image-preview src="{{ asset($contact->icon) }}"/>
-                                        <label for="form-label">Icon</label>
-                                        <input type="file" class="form-control" name="icon"
-                                            placeholder="">
-                                            <input type="hidden" name="old_icon" value="{{ $contact->icon }}">
-                                            <x-input-error :messages="$errors->get('icon')" class="mt-2"/>
+                                        <x-image-preview src="{{ asset($contact->icon) }}" />
+                                        <input type="file" class="form-control" name="icon" placeholder="">
+                                        <input type="hidden" name="old_icon" value="{{ $contact->icon }}">
+                                        <x-input-error :messages="$errors->get('icon')" class="mt-2" />
                                     </div>
                                     <div class="mb-3">
                                         <label for="form-label">Title</label>
-                                        <input type="text" class="form-control" name="title"
-                                            placeholder="" value="{{ $contact->title }}">
-                                            <x-input-error :messages="$errors->get('title')" class="mt-2"/>
+                                        <input type="text" class="form-control" name="title" placeholder=""
+                                            value="{{ $contact->title }}">
+                                        <x-input-error :messages="$errors->get('title')" class="mt-2" />
                                     </div>
-                                     <div class="mb-3">
+                                    <div class="mb-3">
                                         <label for="form-label">Line One</label>
-                                        <input type="text" class="form-control" name="line_one"
-                                            placeholder="" value="{{ $contact->line_one }}">
-                                            <x-input-error :messages="$errors->get('line_one')" class="mt-2"/>
+                                        <input type="text" class="form-control" name="line_one" placeholder=""
+                                            value="{{ $contact->line_one }}">
+                                        <x-input-error :messages="$errors->get('line_one')" class="mt-2" />
                                     </div>
-                                     <div class="mb-3">
+                                    <div class="mb-3">
                                         <label for="form-label">Line Two</label>
-                                        <input type="text" class="form-control" name="line_two"
-                                            placeholder="" value="{{ $contact->line_two }}">
-                                            <x-input-error :messages="$errors->get('line_two')" class="mt-2"/>
+                                        <input type="text" class="form-control" name="line_two" placeholder=""
+                                            value="{{ $contact->line_two }}">
+                                        <x-input-error :messages="$errors->get('line_two')" class="mt-2" />
                                     </div>
                                     <div class="mb-3">
                                         <label for="form-label">Status</label>
@@ -52,11 +52,20 @@
                                             <option @selected($contact->status == 1) value="1">Active</option>
                                             <option @selected($contact->status == 0) value="0">Inactive</option>
                                         </select>
-                                            <x-input-error :messages="$errors->get('status')" class="mt-2"/>
+                                        <x-input-error :messages="$errors->get('status')" class="mt-2" />
                                     </div>
                                     <div class="mb-3">
                                         <button class="btn btn-primary" type="submit">
-                                            <i class="ti ti-device-floppy"></i> Update
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path
+                                                    d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                                                <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                                <path d="M14 4l0 4l-6 0l0 -4" />
+                                            </svg> Update
                                         </button>
                                     </div>
                                 </form>

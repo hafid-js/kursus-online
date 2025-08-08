@@ -10,6 +10,7 @@ use App\Models\CourseLevel;
 use App\Models\Enrollment;
 use App\Models\Review;
 use App\Models\User;
+use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,12 +45,17 @@ class CoursePageController extends Controller
             ->when($request->has('from') && $request->has('to') && $request->filled('from') && $request->filled('to'), function ($query) use ($request) {
                 $query->whereBetween('price', [$request->from, $request->to]);
             })
+            ->when($request->has('rating') && $request->filled('rating'), function ($query) use ($request) {
+                $minRating = min($request->rating);
+                $query->withAvg('reviews', 'rating')
+                    ->having('reviews_avg_rating', '>=', $minRating);
+            })
+
             ->orderBy('id', $request->filled('order') ? $request->order : 'desc')
             ->paginate(12);
         $categories = CourseCategory::where('status', '1')->whereNull('parent_id')->get();
         $levels = CourseLevel::all();
         $languages = CourseLanguage::all();
-
         if ($request->ajax()) {
             return view('frontend.pages.partials.course-list', compact('courses'))->render();
         }

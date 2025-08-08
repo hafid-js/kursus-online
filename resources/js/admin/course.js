@@ -313,3 +313,24 @@ $(function() {
         updateApproveStatus(id, status);
     })
 })
+
+// modal edit course language
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('edit-language-modal');
+
+    modal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+
+        const id = button.getAttribute('data-id');
+        const name = button.getAttribute('data-name');
+        const action = button.getAttribute('data-action');
+
+        // Set action URL and input values
+        const form = modal.querySelector('form');
+        form.action = action;
+
+        modal.querySelector('#edit-language-id').value = id;
+        modal.querySelector('#edit-language-name').value = name;
+    });
+});
+

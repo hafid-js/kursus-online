@@ -112,8 +112,8 @@
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                 <a href="#" class="dropdown-item">Status</a>
                 <a href="{{ route('admin.profile.index') }}" class="dropdown-item">Profile</a>
-                <a href="./settings.html" class="dropdown-item">Settings</a>
-                <a href="./sign-in.html" onclick="event.preventDefault(); getElementById('logout').submit();" class="dropdown-item">Logout</a>
+                <a href="#" class="dropdown-item">Settings</a>
+                <a href="#" onclick="event.preventDefault(); getElementById('logout').submit();" class="dropdown-item">Logout</a>
                 <form method="POST" id="logout" action="{{ route('admin.logout') }}">
                     @csrf
                 </form>

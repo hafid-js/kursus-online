@@ -49,7 +49,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Contact POST
     Route::post('contact', [ContactController::class, 'sendMail'])->name('send.contact');
     // Cart routes
-
     Route::get('cart', [CartController::class, 'index'])->name('cart.index');
     Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
     Route::post('add-to-cart/{course}', [CartController::class, 'addToCart'])->name('add-to-cart');

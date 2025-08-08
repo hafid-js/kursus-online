@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <form action="" method="post" class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Course</h4>
+                                <h4 class="card-title">Courses</h4>
                                 <div class="card-actions">
                                     <a href="{{ route('admin.courses.create') }}" class="btn btn-primary">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/plus -->

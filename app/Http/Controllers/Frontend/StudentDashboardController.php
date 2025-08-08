@@ -55,7 +55,8 @@ class StudentDashboardController extends Controller
         $filePath = $this->uploadFile($request->file('document'));
 
         $user->update([
-            'document' => $filePath
+            'document' => $filePath,
+            'document_status' => 'pending'
         ]);
 
         notyf()->success('Instructor application submitted successfully!');
