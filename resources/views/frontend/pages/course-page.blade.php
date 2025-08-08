@@ -39,25 +39,24 @@
                                 <h3>Categories</h3>
                                 <ul class="categoty_list">
                                     @foreach ($categories as $category)
-                                        <li>{{ $category->name }}
-                                            <div class="wsus__sidebar_sub_category">
-                                                @foreach ($category->subCategories as $subCategory)
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="category[]"
-                                                            value="{{ $subCategory->id }}"
-                                                            id="category-{{ $subCategory->id }}"
-                                                            @checked(is_array(request()->category)
-                                                                    ? in_array($subCategory->id, request()->category ?? [])
-                                                                    : $subCategory->id == request()->category)>
-                                                        <label class="form-check-label"
-                                                            for="category-{{ $subCategory->id }}">
-                                                            {{ $subCategory->name }}
-                                                        </label>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </li>
-                                    @endforeach
+    <li class="{{ collect($activeSubcategoryIds)->intersect($category->subCategories->pluck('id'))->isNotEmpty() ? 'active' : '' }}">
+        {{ $category->name }}
+        <div class="wsus__sidebar_sub_category">
+            @foreach ($category->subCategories as $subCategory)
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]"
+                        value="{{ $subCategory->id }}"
+                        id="category-{{ $subCategory->id }}"
+                        @checked(in_array($subCategory->id, $activeSubcategoryIds ?? []))>
+                    <label class="form-check-label" for="category-{{ $subCategory->id }}">
+                        {{ $subCategory->name }}
+                    </label>
+                </div>
+            @endforeach
+        </div>
+    </li>
+@endforeach
+
                                 </ul>
                             </div>
 
@@ -85,7 +84,7 @@
                                             @for ($i = 1; $i <= $star; $i++)
                                                 <i class="fas fa-star" aria-hidden="true"></i>
                                             @endfor
-                                            {{ $star }} star{{ $star > 1 ? 's' : '' }} or above
+                                            {{ $star }} star{{ $star > 1 ? 's' : '' }}
                                         </label>
                                     </div>
                                 @endforeach
@@ -156,3 +155,15 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.wsus__sidebar_sub_category input[type="checkbox"]').forEach(function (checkbox) {
+            checkbox.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+    });
+</script>
+@endpush

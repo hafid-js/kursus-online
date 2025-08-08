@@ -46,9 +46,9 @@ class CoursePageController extends Controller
                 $query->whereBetween('price', [$request->from, $request->to]);
             })
             ->when($request->has('rating') && $request->filled('rating'), function ($query) use ($request) {
-                $minRating = min($request->rating);
+                $rating = min($request->rating);
                 $query->withAvg('reviews', 'rating')
-                    ->having('reviews_avg_rating', '>=', $minRating);
+                    ->having('reviews_avg_rating', '=', $rating);
             })
 
             ->orderBy('id', $request->filled('order') ? $request->order : 'desc')
@@ -56,11 +56,12 @@ class CoursePageController extends Controller
         $categories = CourseCategory::where('status', '1')->whereNull('parent_id')->get();
         $levels = CourseLevel::all();
         $languages = CourseLanguage::all();
+        $activeSubcategoryIds = $courses->pluck('category_id')->unique()->toArray();
         if ($request->ajax()) {
             return view('frontend.pages.partials.course-list', compact('courses'))->render();
         }
 
-        return view('frontend.pages.course-page', compact('courses', 'categories', 'levels', 'languages'));
+        return view('frontend.pages.course-page', compact('courses', 'categories', 'levels', 'languages', 'activeSubcategoryIds'));
     }
 
     function show(string $slug)

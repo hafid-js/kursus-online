@@ -169,3 +169,5 @@ document.getElementById('profile_photo').addEventListener('change', function(eve
         reader.readAsDataURL(file);
     }
 });
+
+
