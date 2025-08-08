@@ -23,9 +23,9 @@ use Illuminate\Support\Facades\Session;
 
 Route::middleware(['web'])->group(function () {
     Route::get('/test-session', function () {
-    session(['foo' => 'bar']);
-    return session('foo');
-});
+        session(['foo' => 'bar']);
+        return session('foo');
+    });
 });
 
 Route::get('/debug-session-prefix', function () {
@@ -43,15 +43,15 @@ Route::get('about', [FrontendController::class, 'about'])->name('about.index');
 // contact route (GET tanpa middleware, POST dengan middleware)
 Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 
-    // Categories list
-    Route::get('/categories', [FrontendController::class,'categories'])->name('categories.index');
+// Categories list
+Route::get('/categories', [FrontendController::class, 'categories'])->name('categories.index');
 Route::middleware(['auth', 'verified'])->group(function () {
     // Contact POST
     Route::post('contact', [ContactController::class, 'sendMail'])->name('send.contact');
     // Cart routes
 
     Route::get('cart', [CartController::class, 'index'])->name('cart.index');
-Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
+    Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
     Route::post('add-to-cart/{course}', [CartController::class, 'addToCart'])->name('add-to-cart');
     Route::get('remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
     // Payment routes
@@ -110,45 +110,19 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'p
     Route::delete('review/{id}', [StudentDashboardController::class, 'reviewDestroy'])->name('review.destroy');
 
     Route::get('orders', [StudentOrderController::class, 'index'])->name('orders.index');
-    Route::get('orders/{order}', [StudentOrderController::class,'show'])->name('orders.show');
+    Route::get('orders/{order}', [StudentOrderController::class, 'show'])->name('orders.show');
 });
 
 // Instructor Routes
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
     // profile routes
-       Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');
     Route::get('profile', [ProfileController::class, 'instructorIndex'])->name('profile.index');
     Route::post('profile/update', [ProfileController::class, 'profileUpdate'])->name('profile.update');
     Route::post('profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
     Route::post('profile/update-social', [ProfileController::class, 'updateSocial'])->name('profile.update-social');
     Route::post('profile/update-gateway-info', [ProfileController::class, 'updateGatewayInfo'])->name('profile.update-gateway-info');
-    // course routes
-    Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
-        Route::get('courses/students', [CourseController::class, 'students'])->name('courses.students');
 
-    Route::middleware(['auth', 'verified.document'])->group(function () {
-    Route::get('courses/create', [CourseController::class, 'create'])->name('courses.create');
-    Route::post('courses/create', [CourseController::class, 'storeBasicInfo'])->name('courses.store-basic-info');
-    Route::get('courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
-    Route::post('courses/update', [CourseController::class, 'update'])->name('courses.update');
-    Route::get('course-content/{course}/create-chapter', [CourseContentController::class, 'createChapterModal'])->name('course-content.create-chapter');
-    Route::post('course-content/{chapter}/create-chapter', [CourseContentController::class, 'storeChapter'])->name('course-content.store-chapter');
-    Route::get('course-content/{chapter}/edit-chapter', [CourseContentController::class, 'editChapterModal'])->name('course-content.edit-chapter');
-    Route::post('course-content/{chapter}/edit-chapter', [CourseContentController::class, 'updateChapterModal'])->name('course-content.update-chapter');
-    Route::delete('course-content/{chapter}/chapter', [CourseContentController::class, 'destroyChapter'])->name('course-content.destroy-chapter');
-    Route::get('course-content/create-lesson', [CourseContentController::class, 'createLesson'])->name('course-content.create-lesson');
-    Route::post('course-content/create-lesson', [CourseContentController::class, 'storeLesson'])->name('course-content.store-lesson');
-    Route::get('course-content/edit-lesson', [CourseContentController::class, 'editLesson'])->name('course-content.edit-lesson');
-    Route::post('course-content/{id}/edit-lesson', [CourseContentController::class, 'updateLesson'])->name('course-content.update-lesson');
-    Route::delete('course-content/{id}/lesson', [CourseContentController::class, 'destroyLesson'])->name('course-content.destroy-lesson');
-    // Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
-    Route::post('course-chapter/{chapter}/sort-lesson', [CourseContentController::class, 'sortLesson'])->name('course-chapter.sort-lesson');
-    Route::get('course-content/{course}/sort-chapter', [CourseContentController::class, 'sortChapter'])->name('course-content.sort-chapter');
-    Route::post('course-content/{course}/sort-chapter', [CourseContentController::class, 'updateSortChapter'])->name('course-content.update-sort-chapter');
-
-        Route::get('withdrawals/request-payout', [WithdrawController::class, 'requestPayoutIndex'])->name('withdraw.request-payout');
-    Route::post('withdrawals/request-payout', [WithdrawController::class, 'requestPayout'])->name('withdraw.request-payout.create');
-});
     // enroll course routes
     Route::get('enrolled-courses', [EnrolledCourseController::class, 'index'])->name('enrolled-courses.index');
     Route::get('course-player/{slug}', [EnrolledCourseController::class, 'playerIndex'])->name('course-player.index');
@@ -165,13 +139,41 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
     Route::delete('review/{id}', [InstructorDashboardController::class, 'reviewDestroy'])->name('review.destroy');
 
     Route::get('orders', [InstructorOrderController::class, 'index'])->name('orders.index');
-    Route::get('orders/{order}', [InstructorOrderController::class,'show'])->name('orders.show');
+    Route::get('orders/{order}', [InstructorOrderController::class, 'show'])->name('orders.show');
 
+    Route::post('document-update/{user}', [InstructorDashboardController::class, 'documentUpdate'])->name('document.update');
 
     // orders routes
     Route::get('course-sales', [OrderController::class, 'index'])->name('course-sales.index');
     // withdrawal routes
     Route::get('withdrawals', [WithdrawController::class, 'index'])->name('withdraw.index');
+
+    Route::middleware(['auth', 'verified.document'])->group(function () {
+        // course routes
+        Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
+        Route::get('courses/students', [CourseController::class, 'students'])->name('courses.students');
+        Route::get('courses/create', [CourseController::class, 'create'])->name('courses.create');
+        Route::post('courses/create', [CourseController::class, 'storeBasicInfo'])->name('courses.store-basic-info');
+        Route::get('courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+        Route::post('courses/update', [CourseController::class, 'update'])->name('courses.update');
+        Route::get('course-content/{course}/create-chapter', [CourseContentController::class, 'createChapterModal'])->name('course-content.create-chapter');
+        Route::post('course-content/{chapter}/create-chapter', [CourseContentController::class, 'storeChapter'])->name('course-content.store-chapter');
+        Route::get('course-content/{chapter}/edit-chapter', [CourseContentController::class, 'editChapterModal'])->name('course-content.edit-chapter');
+        Route::post('course-content/{chapter}/edit-chapter', [CourseContentController::class, 'updateChapterModal'])->name('course-content.update-chapter');
+        Route::delete('course-content/{chapter}/chapter', [CourseContentController::class, 'destroyChapter'])->name('course-content.destroy-chapter');
+        Route::get('course-content/create-lesson', [CourseContentController::class, 'createLesson'])->name('course-content.create-lesson');
+        Route::post('course-content/create-lesson', [CourseContentController::class, 'storeLesson'])->name('course-content.store-lesson');
+        Route::get('course-content/edit-lesson', [CourseContentController::class, 'editLesson'])->name('course-content.edit-lesson');
+        Route::post('course-content/{id}/edit-lesson', [CourseContentController::class, 'updateLesson'])->name('course-content.update-lesson');
+        Route::delete('course-content/{id}/lesson', [CourseContentController::class, 'destroyLesson'])->name('course-content.destroy-lesson');
+        // Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
+        Route::post('course-chapter/{chapter}/sort-lesson', [CourseContentController::class, 'sortLesson'])->name('course-chapter.sort-lesson');
+        Route::get('course-content/{course}/sort-chapter', [CourseContentController::class, 'sortChapter'])->name('course-content.sort-chapter');
+        Route::post('course-content/{course}/sort-chapter', [CourseContentController::class, 'updateSortChapter'])->name('course-content.update-sort-chapter');
+
+        Route::get('withdrawals/request-payout', [WithdrawController::class, 'requestPayoutIndex'])->name('withdraw.request-payout');
+        Route::post('withdrawals/request-payout', [WithdrawController::class, 'requestPayout'])->name('withdraw.request-payout.create');
+    });
     // lfm routes
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();

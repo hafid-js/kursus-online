@@ -32,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'role',
         'approve_status',
         'document',
+        'document_status',
         'gauth_id',
         'gauth_type',
 

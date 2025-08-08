@@ -18,21 +18,15 @@ class InstructorRequestController extends Controller
      */
     public function index()
     {
-        $instructorsRequests = User::where(function ($query) {
-    $query->where(function ($q) {
-        $q->where('approve_status', 'pending')
-          ->orWhere('approve_status', 'rejected');
-    })->where('role', 'instructor')
-    ->orWhere(function ($q) {
-        $q->where('role', 'student')
-          ->whereNotNull('document')
-          ->where('document', '!=', '')
-          ->where('document_status', 'pending');
-    });
-})->get();
+        $instructorRequests = User::whereIn('role', ['student', 'instructor'])
+            ->whereNotNull('document')
+            ->where('document', '!=', '')
+            ->where('document_status', 'pending')
+            ->get();
 
 
-        return view('admin.instructor-request.index', compact('instructorsRequests'));
+
+        return view('admin.instructor-request.index', compact('instructorRequests'));
     }
 
     function download(User $user)
@@ -57,27 +51,28 @@ class InstructorRequestController extends Controller
      */
     function update(Request $request, User $user)
     {
-        $user->approve_status = $request->status;
+        $user->document_status = $request->status;
         $user->save();
 
+        self::sendNotification($user);
         notyf()->success('approved instructor request successfully');
     }
-    public static function sendNotification($instructor_request): void
+    public static function sendNotification($user): void
     {
-        switch ($instructor_request->approve_status) {
+        switch ($user->document_status) {
             case 'approved':
                 if (config('mail_queue.is_queue')) {
-                    Mail::to($instructor_request->email)->queue(new InstructorRequestApprovedMail());
+                    Mail::to($user->email)->queue(new InstructorRequestApprovedMail());
                 } else {
-                    Mail::to($instructor_request->email)->send(new InstructorRequestApprovedMail());
+                    Mail::to($user->email)->send(new InstructorRequestApprovedMail());
                 }
                 break;
 
             case 'rejected':
                 if (config('mail_queue.is_queue')) {
-                    Mail::to($instructor_request->email)->queue(new InstructorRequestRejectMail());
+                    Mail::to($user->email)->queue(new InstructorRequestRejectMail());
                 } else {
-                    Mail::to($instructor_request->email)->send(new InstructorRequestRejectMail());
+                    Mail::to($user->email)->send(new InstructorRequestRejectMail());
                 }
                 break;
         }

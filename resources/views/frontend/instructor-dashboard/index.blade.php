@@ -3,8 +3,8 @@
 @section('content')
 
     <!--===========================
-                BREADCRUMB START
-            ============================-->
+                    BREADCRUMB START
+                ============================-->
     <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
@@ -23,92 +23,94 @@
         </div>
     </section>
     <!--===========================
-                BREADCRUMB END
-            ============================-->
+                    BREADCRUMB END
+                ============================-->
 
 
     <!--===========================
-                DASHBOARD OVERVIEW START
-            ============================-->
+                    DASHBOARD OVERVIEW START
+                ============================-->
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
                 @include('frontend.instructor-dashboard.sidebar')
                 <div class="col-xl-9 col-md-8">
-                   @if (auth()->user()->document_status === 'pending')
-    <div class="alert alert-warning d-flex align-items-center" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
-            <use xlink:href="#info-fill" />
-        </svg>
-        <div>
-            Hi, {{ auth()->user()->name }} — your instructor request is currently <strong>pending</strong>.
-            We'll notify you via email once it is approved.
-        </div>
-    </div>
-@elseif (auth()->user()->document_status === 'rejected')
-    <div class="alert alert-danger d-flex align-items-center justify-content-between" role="alert">
-        <div class="d-flex align-items-center">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Error:">
-                <use xlink:href="#exclamation-triangle-fill" />
-            </svg>
-            <div>
-                Hi, {{ auth()->user()->name }} — your instructor request was <strong>rejected</strong>.
-                Please update your documents or contact support for assistance.
-            </div>
-        </div>
+                    @if (auth()->user()->document_status === 'pending')
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                                aria-label="Info:">
+                                <use xlink:href="#info-fill" />
+                            </svg>
+                            <div>
+                                Hi, {{ auth()->user()->name }} — your instructor request is currently
+                                <strong>pending</strong>.
+                                We'll notify you via email once it is approved.
+                            </div>
+                        </div>
+                    @elseif (auth()->user()->document_status === 'rejected')
+                        <div class="alert alert-danger d-flex align-items-center justify-content-between" role="alert">
+                            <div class="d-flex align-items-center">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                                    aria-label="Error:">
+                                    <use xlink:href="#exclamation-triangle-fill" />
+                                </svg>
+                                <div>
+                                    Hi, {{ auth()->user()->name }} — your instructor request was <strong>rejected</strong>.
+                                    Please update your documents or contact support for assistance.
+                                </div>
+                            </div>
 
-        <!-- Tombol trigger modal -->
-        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#resubmitDocumentModal">
-            <i class="fas fa-paper-plane me-1"></i>Resubmit Document
-        </button>
-    </div>
+                            <!-- Tombol trigger modal -->
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#resubmitDocumentModal">
+                                <i class="fas fa-paper-plane me-1"></i>Resubmit Document
+                            </button>
+                        </div>
 
-    <!-- Modal -->
-<!-- Resubmit Document Modal -->
-<!-- Modern Resubmit Document Modal -->
-<div class="modal fade" id="resubmitDocumentModal" tabindex="-1" aria-labelledby="resubmitDocumentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 shadow-lg rounded-4">
-            <div class="modal-header border-0 pb-0">
-                <div class="d-flex align-items-center mb-3">
-                    <div class="bg-danger-subtle text-danger p-2 rounded-circle me-3">
-                        <i class="fas fa-file-upload fs-5"></i>
-                    </div>
-                    <h5 class="modal-title fw-semibold" id="resubmitDocumentModalLabel">
-                        Resubmit Rejected Document
-                    </h5>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+                        <!-- Modal -->
+                        <!-- Resubmit Document Modal -->
+                        <!-- Modern Resubmit Document Modal -->
+                        <div class="modal fade" id="resubmitDocumentModal" tabindex="-1"
+                            aria-labelledby="resubmitDocumentModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content border-0 shadow-lg rounded-4">
+                                    <div class="modal-header border-0 pb-0">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="bg-danger-subtle text-danger p-2 me-3">
+                                                <i class="fas fa-file-upload fs-5"></i>
+                                            </div>
+                                            <h5 class="modal-title fw-semibold" id="resubmitDocumentModalLabel">
+                                                Resubmit Rejected Document
+                                            </h5>
+                                        </div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
 
-            <form action="" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body pt-0">
+                                    <form action="{{ route('instructor.document.update', user()->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="modal-body pt-0">
+                                            <div class="mb-4">
+                                                {{-- <label for="document" class="form-label fw-medium">Upload New
+                                                    Document</label> --}}
+                                                <x-input-file-block name="document" value="{{ auth()->user()->document }}"/>
+                                                <small class="text-muted d-block mt-2">Accepted formats: PDF, JPG, PNG. Max
+                                                    5MB.</small>
+                                            </div>
+                                        </div>
 
-                    <div class="mb-4">
-                        <label for="document" class="form-label fw-medium">Upload New Document</label>
-                        <input type="file" name="document" id="document" class="form-control" required>
-                        <small class="text-muted d-block mt-2">Accepted formats: PDF, JPG, PNG. Max 5MB.</small>
-                    </div>
-                </div>
-
-                <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane me-1"></i> Submit Document
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-@endif
-
-
-
-
+                                        <div class="modal-footer border-0 pt-0">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-paper-plane me-1"></i> Submit Document
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     @if (user()->role == 'student')
                         <div class="text-end">
                             <a href="{{ route('student.become-instructor') }}" class="btn btn-primary">Become a
@@ -214,7 +216,6 @@
         </div>
     </section>
     <!--===========================
-                DASHBOARD OVERVIEW END
-            ============================-->
+                    DASHBOARD OVERVIEW END
+                ============================-->
 @endsection
-

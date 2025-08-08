@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\OrderItem;
 use App\Models\Review;
+use App\Models\User;
+use App\Traits\FileUpload;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\DB;
 
 class InstructorDashboardController extends Controller
 {
+
+    use FileUpload;
     function index(): View
     {
         $pendingCourses = Course::where('instructor_id', user()->id)->where('is_approved', 'pending')->orderBy('id', 'DESC')->limit(5)->count();
@@ -53,11 +57,30 @@ class InstructorDashboardController extends Controller
         return view('frontend.instructor-dashboard.index', compact('pendingCourses', 'approvedCourses', 'rejectedCourses', 'orderItems', 'bestSellingCourses'));
     }
 
+     public function documentUpdate(Request $request, User $user)
+    {
+        $request->validate([
+            'document' => ['required', 'mimes:pdf,doc,docx,jpg,png', 'max:1200'],
+        ]);
+
+        $filePath = $this->uploadFile($request->file('document'));
+
+        $user->update([
+            'document' => $filePath,
+            'document_status' => 'pending'
+        ]);
+
+        notyf()->success('Document Submitted Successfully!');
+
+        return redirect()
+            ->route('instructor.dashboard');
+    }
+
     public function review()
     {
         $reviews = Review::where('user_id', auth()->id())->paginate(10);
 
-        return view('frontend.student-dashboard.review.index', compact('reviews'));
+        return view('frontend.instructor-dashboard.review.index', compact('reviews'));
     }
 
     public function reviewDestroy(string $id)
