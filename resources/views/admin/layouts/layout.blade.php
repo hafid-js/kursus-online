@@ -15,6 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="base_url" content="{{ url('/') }}">
     <meta name="csrf_token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" href="{{ asset(config('settings.site_favicon')) }}">
     <!-- CSS files -->
     <title>Dashboard</title>
 
@@ -42,7 +43,7 @@
         }
     </style>
     @stack('styles')
-    @vite(['resources/css/admin.css', 'resources/js/admin/login.js', 'resources/js/admin/admin.js'])
+    @vite(['resources/css/admin.css', 'resources/js/admin/login.js', 'resources/js/admin/admin.js', 'resources/js/admin/course.js'])
     @stack('header_scripts')
 </head>
 
@@ -145,8 +146,8 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        data-bs-backdrop="static">
+    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg dynamic-modal-content">
 
         </div>

@@ -39,7 +39,7 @@ class CourseCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CourseCategoryStoreRequest $request) : RedirectResponse
+    public function store(CourseCategoryStoreRequest $request)
     {
         $imagePath = $this->uploadFile($request->file('image'));
         $background = $this->uploadFile($request->file('background'));
@@ -54,51 +54,59 @@ class CourseCategoryController extends Controller
 
         Cache::forget('homepage_feature_categories');
 
-        notyf()->success("Created Successfully!");
+        if ($request->ajax()) {
+            notyf()->success('Created Succesfully!');
+            return response()->json([
+                'message' => 'Created Successfully!',
+                'redirect' => route('admin.course-categories.index'),
+            ]);
 
-        return to_route('admin.course-categories.index');
+            return to_route('admin.course-categories.index');
+        }
     }
 
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CourseCategory $course_category)
+    public function edit($id): \Illuminate\Http\Response
     {
-        return view('admin.course.course-category.edit', compact('course_category'));
+        $category = CourseCategory::findOrFail($id);
+        $editMode = true;
+        return response()->view('admin.course.course-category.course-category-modal', compact('category', 'editMode'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(CourseCategoryUpdateRequest $request, CourseCategory $course_category)
-{
-    if ($request->hasFile('image')) {
-        $image = $this->uploadFile($request->file('image'));
-        if ($request->old_image) {
-            $this->deleteFile($request->old_image);
+    {
+        if ($request->hasFile('image')) {
+            $image = $this->uploadFile($request->file('image'));
+            if ($request->old_image) {
+                $this->deleteFile($request->old_image);
+            }
+            $course_category->image = $image;
         }
-        $course_category->image = $image;
-    }
-    if ($request->hasFile('background')) {
-        $background = $this->uploadFile($request->file('background'));
-        if ($request->old_background) {
-            $this->deleteFile($request->old_background);
+        if ($request->hasFile('background')) {
+            $background = $this->uploadFile($request->file('background'));
+            if ($request->old_background) {
+                $this->deleteFile($request->old_background);
+            }
+            $course_category->background = $background;
         }
-        $course_category->background = $background;
+
+        $course_category->name = $request->name;
+        $course_category->slug = Str::of($request->name)->slug('-');
+        $course_category->show_at_trending = $request->show_at_trending ?? 0;
+        $course_category->status = $request->status ?? 0;
+        $course_category->save();
+
+        Cache::forget('homepage_feature_categories');
+        notyf()->success("Updated Successfully!");
+
+        return to_route('admin.course-categories.index');
     }
-
-    $course_category->name = $request->name;
-    $course_category->slug = Str::of($request->name)->slug('-');
-    $course_category->show_at_trending = $request->show_at_trending ?? 0;
-    $course_category->status = $request->status ?? 0;
-    $course_category->save();
-
-     Cache::forget('homepage_feature_categories');
-    notyf()->success("Updated Successfully!");
-
-    return to_route('admin.course-categories.index');
-}
 
 
     /**
@@ -106,7 +114,7 @@ class CourseCategoryController extends Controller
      */
     public function destroy(CourseCategory $course_category)
     {
-        if(CourseCategory::where('parent_id', $course_category->id)->exists()) {
+        if (CourseCategory::where('parent_id', $course_category->id)->exists()) {
             return response([
                 'message' => 'Cannot delete a category with subcategory!'
             ], 422);
@@ -115,11 +123,11 @@ class CourseCategoryController extends Controller
             // throw ValidationException::withMessages(['you have error']);
             $this->deleteFile($course_category->image);
             $course_category->delete();
-             Cache::forget('homepage_feature_categories');
+            Cache::forget('homepage_feature_categories');
             notyf()->success('Delete Succesfully!');
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch(Exception $e) {
-            logger("Course Language Error >> ".$e);
+        } catch (Exception $e) {
+            logger("Course Language Error >> " . $e);
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

@@ -315,6 +315,7 @@ $(function() {
 })
 
 // modal edit course language
+
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('edit-language-modal');
 
@@ -331,6 +332,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
         modal.querySelector('#edit-language-id').value = id;
         modal.querySelector('#edit-language-name').value = name;
+    });
+});
+
+$('.edit_category').on('click', function() {
+    $("#dynamic-modal").modal("show");
+
+    let categoryId = $(this).data('category-id');
+    $.ajax({
+        method: 'GET',
+        url: base_url + '/admin/course-content/edit-category',
+        data: {
+            'category_id': categoryId
+        },
+        beforeSend: function () {
+            $('.dynamic-modal-content').html(loader);
+        },
+        success: function (data) {
+            $('.dynamic-modal-content').html(data);
+        },
+        error: function (xhr, status, error) {
+            let errors = xhr.responseJSON.errors;
+            $.each(errors, function (key, value) {
+                notyf.error(value[0]);
+            });
+        },
     });
 });
 

@@ -214,70 +214,174 @@ $(function () {
     });
 });
 
-
-$(function() {
-    $('.select_instructor').on('change', function() {
+$(function () {
+    $(".select_instructor").on("change", function () {
         let id = $(this).val();
 
         $.ajax({
-            method: 'get',
+            method: "get",
             url: `${base_url}/admin/get-instructor-courses/${id}`,
-            beforeSend: function() {
-                $('.instructor_courses').empty();
+            beforeSend: function () {
+                $(".instructor_courses").empty();
             },
-            success: function(data) {
-                $.each(data.courses, function(key, value) {
-
-                        let option = `<option value="${value.id}">${value.title}</option>`;
-                    $('.instructor_courses').append(option);
-                })
+            success: function (data) {
+                $.each(data.courses, function (key, value) {
+                    let option = `<option value="${value.id}">${value.title}</option>`;
+                    $(".instructor_courses").append(option);
+                });
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 notyf.error(data.error);
-            }
-        })
+            },
+        });
     });
 });
 
-
 function updateApproveStatus(id, status) {
     $.ajax({
-        method: 'PUT',
+        method: "PUT",
         url: base_url + `/admin/instructor-requests/${id}/update-approval`,
         data: {
             _token: csrf_token,
-            status: status
+            status: status,
         },
-        success: function(data) {
-            window.location.reload()
+        success: function (data) {
+            window.location.reload();
         },
-        error: function(xhr, status, error) {
-
-        }
-    })
+        error: function (xhr, status, error) {},
+    });
 }
 
-
-$(function() {
+$(function () {
     // change course approval status
-    $('.update-approval-status').on('change', function() {
-        let id = $(this).data('id');
+    $(".update-approval-status").on("change", function () {
+        let id = $(this).data("id");
         let status = $(this).val();
 
         updateApproveStatus(id, status);
-    })
-})
+    });
+});
 
 // upload profil photo and live show
-document.getElementById('profile_photo').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
+document
+    .getElementById("profile_photo")
+    .addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
 
-        reader.onload = function(e) {
-            document.getElementById('profilePreview').src = e.target.result;
+            reader.onload = function (e) {
+                document.getElementById("profilePreview").src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
         }
+    });
 
-        reader.readAsDataURL(file);
-    }
+$(document).ready(function () {
+    // Handle edit button click
+    $(".edit_blog_category").on("click", function () {
+        const categoryId = $(this).data("category-id");
+        $("#dynamic-modal").modal("show");
+        $(".dynamic-modal-content").html(
+            '<div class="p-5 text-center">Loading...</div>'
+        );
+
+        $.ajax({
+            url: `${base_url}/admin/blog-categories/${categoryId}/edit`,
+            method: "GET",
+            success: function (html) {
+                $(".dynamic-modal-content").html(html);
+            },
+            error: function (xhr) {
+                $(".dynamic-modal-content").html(
+                    '<div class="p-5 text-danger">Error loading form</div>'
+                );
+            },
+        });
+    });
+
+    // Handle update form submission
+    $(document).on("submit", "#updateCategoryForm", function (e) {
+        e.preventDefault();
+        const form = $(this);
+        const actionUrl = form.attr("action");
+        const formData = new FormData(this);
+
+        $.ajax({
+            url: actionUrl,
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $("#dynamic-modal").modal("hide");
+                location.reload();
+            },
+            error: function (xhr) {
+                $("#error-name").text("");
+                $("#error-status").text("");
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+                    if (errors.name) {
+                        $("#error-name").text(errors.name[0]);
+                    }
+                    if (errors.status) {
+                        $("#error-status").text(errors.status[0]);
+                    }
+                }
+            },
+        });
+    });
+});
+
+$(document).ready(function () {
+    console.log("Document ready, script running...");
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $("#createCategoryForm").on("submit", function (e) {
+        e.preventDefault();
+        console.log("Form intercepted, submitting via AJAX...");
+
+        let formData = new FormData(this);
+
+        $.ajax({
+            url: "{{ route('admin.blog-categories.store') }}",
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log("Success response:", response);
+
+                // Bootstrap 5 modal hide
+                var modal = bootstrap.Modal.getOrCreateInstance(
+                    document.getElementById("addBlogCatModal")
+                );
+                modal.hide();
+
+                window.location.href = response.redirect;
+            },
+            error: function (xhr) {
+                console.log("Validation error:", xhr);
+                $("#error-name").text("");
+                $("#error-status").text("");
+
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+                    if (errors.name) {
+                        $("#error-name").text(errors.name[0]);
+                    }
+                    if (errors.status) {
+                        $("#error-status").text(errors.status[0]);
+                    }
+                }
+            },
+        });
+    });
 });

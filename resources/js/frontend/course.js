@@ -101,7 +101,7 @@ $(".more_info_form").on("submit", function (e) {
 
 // show hide path input depending on source
 $(document).ready(function () {
-    $('.storage').trigger('change'); // buat set awal tampilan
+    $('.storage').trigger('change');
 });
 
 $(document).on('change', '.storage', function () {
