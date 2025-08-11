@@ -115,7 +115,8 @@ Route::put('instructor-requests/{user}/update-approval', [InstructorRequestContr
     // Course categories route
     Route::resource('course-categories', CourseCategoryController::class);
     Route::get('/{course_category}/sub-categories', [CourseSubCategoryController::class, 'index'])->name('course-sub-categories.index');
-    Route::get('/{course_category}/sub-categories/create', [CourseSubCategoryController::class, 'create'])->name('course-sub-categories.create');
+    Route::get('/{course_category}/course-sub-categories/create', [CourseSubCategoryController::class, 'create'])->name('course-sub-categories.create');
+
     Route::post('/{course_category}/sub-categories', [CourseSubCategoryController::class, 'store'])->name('course-sub-categories.store');
     Route::get('/{course_category}/sub-categories/{course_sub_category}/edit', [CourseSubCategoryController::class, 'edit'])->name('course-sub-categories.edit');
 

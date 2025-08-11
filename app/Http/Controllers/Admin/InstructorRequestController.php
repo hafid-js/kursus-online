@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class InstructorRequestController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $instructorRequests = User::whereIn('role', ['student', 'instructor'])
@@ -46,9 +44,7 @@ class InstructorRequestController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     function update(Request $request, User $user)
     {
         $user->document_status = $request->status;

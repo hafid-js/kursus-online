@@ -14,9 +14,7 @@ class FeatureController extends Controller
 {
 
     use FileUpload;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $feature = Feature::first();

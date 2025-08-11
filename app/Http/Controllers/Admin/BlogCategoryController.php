@@ -10,71 +10,61 @@ use Illuminate\Support\Str;
 
 class BlogCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $categories = BlogCategory::paginate(20);
         return view('admin.blog.category.index', compact('categories'));
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
-
- public function store(Request $request)
-{
-    $request->validate([
-        'name' => ['required','string','max:255','unique:blog_categories,name'],
-        'status' => ['nullable','boolean'],
-    ]);
-
-    $category = new BlogCategory();
-    $category->name = $request->name;
-    $category->slug = Str::slug($request->name);
-    $category->status = $request->status ?? 0;
-    $category->save();
-
-    if ($request->ajax()) {
-        notyf()->success('Created Succesfully!');
-        return response()->json([
-            'message' => 'Created Successfully!',
-            'redirect' => route('admin.blog-categories.index'),
-        ]);
+    public function create() {
+        $editMode = false;
+        return response()->view('admin.blog.category.category-modal', compact('editMode'));
     }
-    return to_route('admin.blog-categories.index');
-}
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255', 'unique:blog_categories,name'],
+            'status' => ['nullable', 'boolean'],
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+        $category = new BlogCategory();
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $category->status = $request->status ?? 0;
+        $category->save();
+
+          notyf()->success('Created Succesfully!');
+        if ($request->ajax()) {
+            return response()->json([
+                'message' => 'Created Successfully!',
+                'redirect' => route('admin.blog-categories.index'),
+            ]);
+        }
+        return to_route('admin.blog-categories.index');
+    }
+
     // public function edit(string $id)
     // {
     //     $category = BlogCategory::findOrFail($id);
     //     return view('admin.blog.category.edit', compact('category'));
     // }
-public function edit($id): \Illuminate\Http\Response
-{
-    $category = BlogCategory::findOrFail($id);
-    $editMode = true;
-    return response()->view('admin.blog.category.edit-modal', compact('category', 'editMode'));
-}
+    public function edit($id): \Illuminate\Http\Response
+    {
+        $category = BlogCategory::findOrFail($id);
+        $editMode = true;
+        return response()->view('admin.blog.category.category-modal', compact('category', 'editMode'));
+    }
 
-public function show() {
+    public function show() {}
 
-}
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => ['required','string','max:255','unique:blog_categories,name,'.$id],
-            'status' => ['nullable','boolean'],
+            'name' => ['required', 'string', 'max:255', 'unique:blog_categories,name,' . $id],
+            'status' => ['nullable', 'boolean'],
         ]);
 
         $category = BlogCategory::findOrFail($id);
@@ -83,28 +73,26 @@ public function show() {
         $category->status = $request->status ?? 0;
         $category->save();
 
-          if ($request->ajax()) {
-        notyf()->success('Updated Succesfully!');
-        return response()->json([
-            'message' => 'Updated Successfully!',
-            'redirect' => route('admin.blog-categories.index'),
-        ]);
-    }
-    return to_route('admin.blog-categories.index');
+                    notyf()->success('Updated Succesfully!');
+        if ($request->ajax()) {
+            return response()->json([
+                'message' => 'Updated Successfully!',
+                'redirect' => route('admin.blog-categories.index'),
+            ]);
+        }
+        return to_route('admin.blog-categories.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
-         try {
+        try {
             $category = BlogCategory::findOrFail($id);
             $category->delete();
             notyf()->success('Delete Succesfully!');
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch(Exception $e) {
-            logger("Blog Category Error >> ".$e);
+        } catch (Exception $e) {
+            logger("Blog Category Error >> " . $e);
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

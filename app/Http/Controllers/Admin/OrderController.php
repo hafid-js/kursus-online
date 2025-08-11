@@ -14,6 +14,6 @@ class OrderController extends Controller
    }
 
    function show(Order $order) {
-    return view('admin.order.show', compact('order'));
+    return response()->view('admin.order.order-modal', compact('order'));
    }
 }

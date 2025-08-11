@@ -11,27 +11,20 @@ use Illuminate\Support\Str;
 
 class CustomPageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $pages = CustomPage::paginate(20);
         return view('admin.custom-page.index', compact('pages'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
 
         return view('admin.custom-page.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([

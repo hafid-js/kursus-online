@@ -12,26 +12,20 @@ use Illuminate\Validation\ValidationException;
 
 class CourseLevelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $levels = CourseLevel::paginate(15);
         return view('admin.course.course-level.index', compact('levels'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+     public function create()
     {
-        return view('admin.course.course-level.create');
+         $editMode = false;
+        return response()->view('admin.course.course-level.level-modal', compact('editMode'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request) : RedirectResponse
     {
         $request->validate(['name' => ['required', 'max:255','unique:course_levels']]);
@@ -47,17 +41,13 @@ class CourseLevelController extends Controller
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(CourseLevel $course_level)
     {
-        return view('admin.course.course-level.edit', compact('course_level'));
+        $editMode = true;
+        return response()->view('admin.course.course-level.level-modal', compact('course_level', 'editMode'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, CourseLevel $course_level)
     {
         $request->validate(['name' => ['required', 'max:255','unique:course_levels,name,'.$course_level->id]]);
@@ -69,9 +59,7 @@ class CourseLevelController extends Controller
         return to_route('admin.course-levels.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(CourseLevel $course_level)
     {
         try {

@@ -25,6 +25,7 @@
                                                 <th>User</th>
                                                 <th>Rating</th>
                                                 <th>Review</th>
+                                                <th>Detail</th>
                                                 <th>Status</th>
                                                 <th colspan="2" class="text-center">Action</th>
                                                 {{-- <th class="w-1"></th> --}}
@@ -37,6 +38,10 @@
                                                     <td>{{ $review->user->name }}</td>
                                                     <td>{{ $review->rating }}</td>
                                                     <td>{{ $review->review }}</td>
+                                                    <td>
+                                                        <a class="show-review" data-review-id="{{ $review->id }}"><i
+                                                                class="ti ti-eye"></i></a>
+                                                    </td>
                                                     <td>
                                                         @if ($review->status == 1)
                                                             <span class="badge bg-lime text-lime-fg">Approved</span>
@@ -90,4 +95,43 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Dynamic Modal -->
+        <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content dynamic-modal-content">
+                    <!-- Content injected via AJAX -->
+                </div>
+            </div>
+        </div>
     @endsection
+
+    @push('scripts')
+        <script>
+            $(function() {
+                const baseUrl = "{{ url('') }}";
+
+                // Global AJAX CSRF token setup
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                // Handle open Edit Modal
+                $('.show-review').on('click', function() {
+                    const reviewId = $(this).data('review-id');
+                    $('#dynamic-modal').modal('show');
+                    $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+                    $.get(`${baseUrl}/admin/reviews/${reviewId}`, function(html) {
+                        $('.dynamic-modal-content').html(html);
+                    }).fail(() => {
+                        $('.dynamic-modal-content').html(
+                            '<div class="p-5 text-danger">Error loading form</div>');
+                    });
+                });
+            });
+        </script>
+    @endpush

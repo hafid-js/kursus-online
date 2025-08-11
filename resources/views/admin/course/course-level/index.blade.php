@@ -6,20 +6,12 @@
             <div class="container-xl">
                 <div class="row row-cards">
                     <div class="col-12">
-                        <form action="https://httpbin.org/post" method="post" class="card">
+                        <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Course Levels</h4>
                                 <div class="card-actions">
-                                    <a href="{{ route('admin.course-levels.create') }}" class="btn btn-primary">
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M12 5l0 14"></path>
-                                            <path d="M5 12l14 0"></path>
-                                        </svg>
-                                        Add new
+                                    <a href="#" class="btn btn-primary add_course_level">
+                                        <i class="ti ti-plus"></i> Add new
                                     </a>
                                 </div>
                             </div>
@@ -44,22 +36,10 @@
                                                                     <td>{{ $level->name }}</td>
                                                                     <td>{{ $level->slug }}</td>
                                                                     <td>
-                                                                        <a href="{{ route('admin.course-levels.edit', $level->id) }}"
-                                                                            class="text-blue">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                                                stroke="currentColor" stroke-width="2"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                                                                <path stroke="none" d="M0 0h24v24H0z"
-                                                                                    fill="none" />
-                                                                                <path
-                                                                                    d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                                                                <path
-                                                                                    d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                                                                <path d="M16 5l3 3" />
-                                                                            </svg>
-                                                                        </a>
+                                                                                <a class="edit edit_course_level"
+                                                                            data-level-id="{{ $level->id }}"
+                                                                            href="javascript:;"><i class="ti ti-edit"
+                                                                                aria-hidden="true"></i></a>
                                                                         <a href="{{ route('admin.course-levels.destroy', $level->id) }}" class="text-red delete-item">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                                 height="24" viewBox="0 0 24 24" fill="none"
@@ -92,11 +72,146 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+      <!-- Dynamic Modal -->
+    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content dynamic-modal-content">
+                <!-- Content injected via AJAX -->
+            </div>
+        </div>
+    </div>
+
 @endsection
+
+@push('scripts')
+    <script>
+        $(function() {
+            const baseUrl = "{{ url('') }}";
+
+            // Global AJAX CSRF token setup
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // Handle open Create Modal
+            $('.add_course_level').on('click', function() {
+                $('#dynamic-modal').modal('show');
+                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+                $.get(`${baseUrl}/admin/course-levels/create`, function(html) {
+                    $('.dynamic-modal-content').html(html);
+                }).fail(() => {
+                    $('.dynamic-modal-content').html(
+                        '<div class="p-5 text-danger">Error loading form</div>');
+                });
+            });
+
+            // Handle open Edit Modal
+            $('.edit_course_level').on('click', function() {
+                const levelId = $(this).data('level-id');
+                $('#dynamic-modal').modal('show');
+                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+                $.get(`${baseUrl}/admin/course-levels/${levelId}/edit`, function(html) {
+                    $('.dynamic-modal-content').html(html);
+                }).fail(() => {
+                    $('.dynamic-modal-content').html(
+                        '<div class="p-5 text-danger">Error loading form</div>');
+                });
+            });
+
+            // Handle Create form submission (event delegation)
+            $(document).on('submit', '#addCourseLevel', function(e) {
+                e.preventDefault();
+
+                const form = this;
+                const formData = new FormData(form);
+                const $submitBtn = $(form).find('button[type="submit"]');
+
+                // Disable button & show loading
+                const originalText = $submitBtn.html();
+                $submitBtn.prop('disabled', true).html(
+                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...'
+                    );
+
+                // Clear previous errors
+                $('#error-name').text('');
+
+                $.ajax({
+                    url: "{{ route('admin.course-levels.store') }}",
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#dynamic-modal').modal('hide');
+                        form.reset();
+                                location.reload();
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            const errors = xhr.responseJSON.errors;
+                            if (errors.name) $('#error-name').text(errors.name[0]);
+                        }
+                    },
+                    complete: function() {
+                        // Re-enable button
+                        $submitBtn.prop('disabled', false).html(originalText);
+                    }
+                });
+            });
+
+
+            // Handle Update form submission (event delegation)
+            $(document).on('submit', '#updateCourseLevel', function(e) {
+                e.preventDefault();
+
+                const form = this;
+                const formData = new FormData(form);
+                const actionUrl = $(form).attr('action');
+                const $submitBtn = $(form).find('button[type="submit"]');
+
+                const originalText = $submitBtn.html();
+                $submitBtn.prop('disabled', true).html(
+                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...'
+                    );
+                // Clear errors
+                $('#error-update-name').text('');
+
+                $.ajax({
+                    url: actionUrl,
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#dynamic-modal').modal('hide');
+                        location.reload();
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            const errors = xhr.responseJSON.errors;
+                            if (errors.name) $('#error-update-name').text(errors.name[0]);
+                            if (errors.image) $('#error-update-image').text(errors.image[0]);
+                            if (errors.background) $('#error-update-background').text(errors
+                                .background[0]);
+                        }
+                    },
+                    complete: function() {
+                        $submitBtn.prop('disabled', false).html(originalText);
+                    }
+                });
+            });
+
+        });
+    </script>
+@endpush

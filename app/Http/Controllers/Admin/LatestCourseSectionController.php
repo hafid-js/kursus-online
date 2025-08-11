@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Cache;
 
 class LatestCourseSectionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $categories = CourseCategory::all();

@@ -9,26 +9,19 @@ use Illuminate\Http\Request;
 
 class FooterColumnOneController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $columnOne = FooterColumnOne::paginate(20);
         return view('admin.footer.column-one.index', compact('columnOne'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         return view('admin.footer.column-one.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -48,18 +41,14 @@ class FooterColumnOneController extends Controller
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         $column = FooterColumnOne::findOrFail($id);
         return view('admin.footer.column-one.edit', compact('column'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
          $request->validate([
@@ -78,9 +67,7 @@ class FooterColumnOneController extends Controller
         return to_route('admin.footer-column-one.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         $column = FooterColumnOne::findOrFail($id);

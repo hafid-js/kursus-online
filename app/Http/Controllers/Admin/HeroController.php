@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Cache;
 class HeroController extends Controller
 {
     use FileUpload;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $hero = Hero::first();
@@ -24,9 +22,6 @@ class HeroController extends Controller
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(HeroUpdateRequest $request): RedirectResponse
     {
             $data = [

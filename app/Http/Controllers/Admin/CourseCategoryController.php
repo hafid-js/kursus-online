@@ -17,9 +17,7 @@ class CourseCategoryController extends Controller
 {
 
     use FileUpload;
-    /**
-     * Display a listing of the resource.
-     */
+
 
 
     public function index()
@@ -28,17 +26,20 @@ class CourseCategoryController extends Controller
         return view('admin.course.course-category.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        return view('admin.course.course-category.create');
+        $editMode = false;
+        return response()->view('admin.course.course-category.category-modal', compact('editMode'));
     }
+    // public function edit($id): \Illuminate\Http\Response
+    // {
+    //     $category = CourseCategory::findOrFail($id);
+    //     $editMode = true;
+    //     return response()->view('admin.course.course-category.category-modal', compact('category', 'editMode'));
+    // }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(CourseCategoryStoreRequest $request)
     {
         $imagePath = $this->uploadFile($request->file('image'));
@@ -61,24 +62,22 @@ class CourseCategoryController extends Controller
                 'redirect' => route('admin.course-categories.index'),
             ]);
 
-            return to_route('admin.course-categories.index');
+            return response()->json([
+                'redirect' => route('admin.course-categories.index')
+            ]);
         }
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit($id): \Illuminate\Http\Response
     {
         $category = CourseCategory::findOrFail($id);
         $editMode = true;
-        return response()->view('admin.course.course-category.course-category-modal', compact('category', 'editMode'));
+        return response()->view('admin.course.course-category.category-modal', compact('category', 'editMode'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(CourseCategoryUpdateRequest $request, CourseCategory $course_category)
     {
         if ($request->hasFile('image')) {
@@ -105,13 +104,13 @@ class CourseCategoryController extends Controller
         Cache::forget('homepage_feature_categories');
         notyf()->success("Updated Successfully!");
 
-        return to_route('admin.course-categories.index');
+        return response()->json([
+            'redirect' => route('admin.course-categories.index')
+        ]);
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(CourseCategory $course_category)
     {
         if (CourseCategory::where('parent_id', $course_category->id)->exists()) {

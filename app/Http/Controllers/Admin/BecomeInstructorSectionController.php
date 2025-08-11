@@ -12,28 +12,23 @@ class BecomeInstructorSectionController extends Controller
 {
 
     use FileUpload;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $becomeInstructor = BecomeInstructorSection::first();
         return view('admin.sections.become-instructor.index', compact('becomeInstructor'));
     }
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'title' => ['nullable','string','max:255'],
-            'subtitle' => ['nullable','string','max:255'],
-            'button_text' => ['nullable','string','max:255'],
-            'button_url' => ['nullable','string','max:255'],
-            'image' => ['nullable','image','max:3000'],
+            'title' => ['nullable', 'string', 'max:255'],
+            'subtitle' => ['nullable', 'string', 'max:255'],
+            'button_text' => ['nullable', 'string', 'max:255'],
+            'button_url' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'max:3000'],
         ]);
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $image = $this->uploadFile($request->file('image'));
             $this->deleteFile($request->old_image);
             $validateData['image'] = $image;
@@ -42,10 +37,12 @@ class BecomeInstructorSectionController extends Controller
         BecomeInstructorSection::updateOrCreate(
             [
                 'id' => 1
-            ], $validateData);
+            ],
+            $validateData
+        );
 
-            Cache::forget('homepage_instructor_banner');
-            notyf()->success('Update Successfully!');
-            return redirect()->back();
+        Cache::forget('homepage_instructor_banner');
+        notyf()->success('Update Successfully!');
+        return redirect()->back();
     }
 }

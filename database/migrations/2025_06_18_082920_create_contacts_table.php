@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('line_one')->nullable();
             $table->string('line_two')->nullable();
-            $table->boolean('status')->default(1);
+            $table->boolean('status')->default(1)->nullable();
             $table->timestamps();
         });
     }

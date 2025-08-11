@@ -12,18 +12,13 @@ class ContactSettingController extends Controller
 {
 
     use FileUpload;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $contactSetting = ContactSetting::first();
         return view('admin.contact.contact-setting.index', compact('contactSetting'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([

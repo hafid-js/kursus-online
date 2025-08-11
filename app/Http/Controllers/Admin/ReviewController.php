@@ -9,18 +9,17 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $reviews = Review::with(['user:id,name','course:id,title'])->paginate(20);
         return view('admin.review.index', compact('reviews'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function show(Review $review)
+    {
+        return response()->view('admin.review.detail-review-modal', compact('review'));
+    }
     public function update(Request $request, Review $review)
     {
         $review->status = $request->status ? 1 : 0;
@@ -30,9 +29,7 @@ class ReviewController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Review $review)
     {
          try {

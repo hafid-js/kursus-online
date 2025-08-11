@@ -9,18 +9,13 @@ use Illuminate\Support\Facades\Cache;
 
 class CounterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $counter = Counter::first();
         return view('admin.sections.counter.index', compact('counter'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([

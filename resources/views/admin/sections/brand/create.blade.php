@@ -21,8 +21,7 @@
                                     @csrf
                                         <div class="mb-3">
                                             <x-image-preview src="" />
-                                            <label for="form-label">Image</label>
-                                            <input type="file" class="form-control" name="image" placeholder="">
+                                            <x-input-file-block name="image"/>
                                             <x-input-error :messages="$errors->get('image')" class="mt-2" />
                                         </div>
                                         <div class="mb-3">

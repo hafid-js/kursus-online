@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 
 class FooterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $footer = Footer::first();

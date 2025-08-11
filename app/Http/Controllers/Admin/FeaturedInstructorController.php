@@ -15,9 +15,7 @@ class FeaturedInstructorController extends Controller
 {
 
     use FileUpload;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
                 $instructors = User::where('role', 'instructor')->where('approve_status', 'approved')->get();

@@ -10,15 +10,14 @@ use App\Models\CourseCategory;
 use App\Traits\FileUpload;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 class CourseSubCategoryController extends Controller
 {
 
     use FileUpload;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(CourseCategory $course_category)
     {
 
@@ -26,24 +25,24 @@ class CourseSubCategoryController extends Controller
         return view('admin.course.course-sub-category.index', compact('course_category', 'subCategories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(CourseCategory $course_category)
+
+    // CourseSubCategoryController.php
+    public function create($course_category_id): Response
     {
-        return view('admin.course.course-sub-category.create', compact('course_category'));
+        $category = CourseCategory::findOrFail($course_category_id);
+        $categoryId = $category->id;
+        $editMode = false;
+        return response()->view('admin.course.course-sub-category.sub-category-modal', compact('categoryId', 'editMode'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(CourseCategoryStoreRequest $request, CourseCategory $course_category)
     {
 
 
         $category = new CourseCategory();
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $imagePath = $this->uploadFile($request->file('image'));
             $category->image = $imagePath;
         }
@@ -56,27 +55,23 @@ class CourseSubCategoryController extends Controller
 
         notyf()->success("Created Successfully!");
 
-        return to_route('admin.course-sub-categories.index', $course_category->id);
+        return response()->json([
+            'redirect' => route('admin.course-sub-categories.index', $course_category)
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(CourseCategory $course_category, CourseCategory $course_sub_category)
     {
+        $editMode = true;
 
-        return view('admin.course.course-sub-category.edit', compact('course_category','course_sub_category'));
-
+        return response()->view('admin.course.course-sub-category.sub-category-modal', compact('course_category', 'course_sub_category', 'editMode'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(CourseSubCategoryUpdateRequest $request, CourseCategory $course_category, CourseCategory $course_sub_category)
     {
         $category = $course_sub_category;
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $imagePath = $this->uploadFile($request->file('image'));
             $this->deleteFile($category->image);
             $category->image = $imagePath;
@@ -93,9 +88,7 @@ class CourseSubCategoryController extends Controller
         return to_route('admin.course-sub-categories.index', $course_category->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(CourseCategory $course_category, CourseCategory $course_sub_category)
     {
         try {
@@ -104,8 +97,8 @@ class CourseSubCategoryController extends Controller
             $course_sub_category->delete();
             notyf()->success('Delete Succesfully!');
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch(Exception $e) {
-            logger("Course Level Error >> ".$e);
+        } catch (Exception $e) {
+            logger("Course Level Error >> " . $e);
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

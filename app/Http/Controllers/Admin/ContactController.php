@@ -13,34 +13,28 @@ class ContactController extends Controller
 {
 
     use FileUpload;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $contactCards = Contact::all();
         return view('admin.contact.index',compact('contactCards'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        return view('admin.contact.create');
+        $editMode = false;
+        return response()->view('admin.contact.contact-modal', compact('editMode'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'icon' => ['required','image','max:3000'],
             'title' => ['required','string','max:255'],
-            'line_one' => ['nullable','string','max:255'],
-            'line_two' => ['nullable','string','max:255'],
-            'status' => ['required','boolean'],
+            'line_one' => ['required','string','max:255'],
+            'line_two' => ['required','string','max:255'],
+            'status' => ['nullable','boolean'],
         ]);
 
         $icon = $this->uploadFile($request->file('icon'));
@@ -56,25 +50,22 @@ class ContactController extends Controller
         notyf()->success('Created Successfully!');
         return redirect()->route('admin.contact.index');
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Contact $contact)
     {
-        return view('admin.contact.edit', compact('contact'));
+        $editMode = true;
+        return response()->view('admin.contact.contact-modal', compact('contact','editMode'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Contact $contact)
     {
         $request->validate([
             'icon' => ['nullable','image','max:3000'],
             'title' => ['required','string','max:255'],
-            'line_one' => ['nullable','string','max:255'],
-            'line_two' => ['nullable','string','max:255'],
-            'status' => ['required','boolean'],
+            'line_one' => ['required','string','max:255'],
+            'line_two' => ['required','string','max:255'],
+            'status' => ['nullable','boolean'],
         ]);
 
         if($request->hasFile('icon')) {
@@ -95,9 +86,7 @@ class ContactController extends Controller
         return redirect()->route('admin.contact.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Contact $contact)
     {
         try {

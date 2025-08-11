@@ -12,27 +12,21 @@ use Illuminate\Validation\ValidationException;
 
 class CourseLanguageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $languages = CourseLanguage::paginate(15);
         return view('admin.course.course-language.index', compact('languages'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        return view('admin.course.course-language.create');
+         $editMode = false;
+        return response()->view('admin.course.course-language.language-modal', compact('editMode'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request)
     {
         $request->validate(['name' => ['required', 'max:255','unique:course_languages']]);
 
@@ -43,22 +37,21 @@ class CourseLanguageController extends Controller
 
         notyf()->success('Created Successfully!');
 
-        return to_route('admin.course-languages.index');
+        return response()->json([
+    'redirect' => route('admin.course-languages.index')
+]);
+
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(CourseLanguage $course_language)
     {
-
-        return view('admin.course.course-language.edit', compact('course_language'));
+        $editMode = true;
+        return response()->view('admin.course.course-language.language-modal', compact('course_language', 'editMode'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, CourseLanguage $course_language)
     {
         $request->validate(['name' => ['required', 'max:255','unique:course_languages,name,'.$course_language->id]]);
@@ -70,9 +63,7 @@ class CourseLanguageController extends Controller
         return to_route('admin.course-languages.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(CourseLanguage $course_language)
     {
         try {
