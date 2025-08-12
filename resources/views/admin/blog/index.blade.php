@@ -6,7 +6,7 @@
             <div class="container-xl">
                 <div class="row row-cards">
                     <div class="col-12">
-                        < class="card">
+                        <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Blogs</h4>
                                 <div class="card-actions">
@@ -16,10 +16,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="page-body">
-                                <div class="container-xl">
-                                    <div class="row row-cards">
-                                        <div class="col-lg-12">
+
                                             <div class="card">
                                                 <div class="table-responsive">
                                                     <table class="table table-vcenter card-table">
@@ -37,7 +34,9 @@
                                                         <tbody>
                                                             @forelse ($blogs as $blog)
                                                                 <tr>
-                                                                    <td><img src="{{ asset($blog->image) }}" width="100" alt=""></td>
+                                                                    <td>
+                                                                        <x-image-preview src="{{ asset($blog->image) }}"/>
+                                                                    </td>
                                                                     <td>{{ $blog->title }}</td>
                                                                     <td>{{ $blog->category->name }}</td>
                                                                     <td>

@@ -22,7 +22,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <x-input-block name="title" placeholder="Enter title" :value="$blog->title" />
                                         </div>
                                         <div class="col-md-12">

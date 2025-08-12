@@ -28,6 +28,10 @@ Route::middleware(['web'])->group(function () {
     });
 });
 
+Route::get('/test', function () {
+    return view('test');
+});
+
 Route::get('/debug-session-prefix', function () {
     $redis = app('redis')->connection('session');
     return $redis->getConfig('prefix') ?? 'prefix not found';

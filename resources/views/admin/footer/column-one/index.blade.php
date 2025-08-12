@@ -49,20 +49,8 @@
                                                                             href="javascript:;"><i class="ti ti-edit"
                                                                                 aria-hidden="true"></i></a>
                                                                         <a href="{{ route('admin.footer-column-one.destroy', $column->id) }}" class="text-red delete-item">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                                                stroke="currentColor" stroke-width="2"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x">
-                                                                                <path stroke="none" d="M0 0h24v24H0z"
-                                                                                    fill="none" />
-                                                                                <path d="M4 7h16" />
-                                                                                <path
-                                                                                    d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                                                <path
-                                                                                    d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                                                                <path d="M10 12l4 4m0 -4l-4 4" />
-                                                                            </svg>
+                                                                             <i class="ti ti-trash"
+                                                                                aria-hidden="true"></i>
                                                                         </a>
                                                                     </td>
                                                                 </tr>
@@ -83,6 +71,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Dynamic Modal -->
+    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-labelledby="updateBlogCatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content dynamic-modal-content  border-0 shadow-lg rounded-4">
+                <!-- Content injected via AJAX -->
             </div>
         </div>
     </div>
@@ -127,16 +124,16 @@
         });
 
         // Handle Create form submission (event delegation)
-        $(document).on('submit', '#footerColumnForm', function (e) {
+        $(document).on('submit', '#addColumn', function (e) {
             e.preventDefault();
             const form = this;
             const formData = new FormData(form);
 
             // Clear previous errors
-            $('#error-icon, #error-title, #error-line_one', '#error-line_two').text('');
+            $('#error-title, #error-url').text('');
 
             $.ajax({
-                url: "{{ route('admin.contact.store') }}",
+                url: "{{ route('admin.footer-column-one.store') }}",
                 method: 'POST',
                 data: formData,
                 processData: false,
@@ -148,25 +145,22 @@
                 error: function (xhr) {
                     if (xhr.status === 422) {
                         const errors = xhr.responseJSON.errors;
-                        if (errors.icon) $('#error-icon').text(errors.icon[0]);
+                        if (errors.url) $('#error-url').text(errors.url[0]);
                          if (errors.title) $('#error-title').text(errors.title[0]);
-                          if (errors.line_one) $('#error-line_one').text(errors.line_one[0]);
-                           if (errors.line_two) $('#error-line_two').text(errors.line_two[0]);
-                            if (errors.status) $('#error-status').text(errors.status[0]);
                     }
                 }
             });
         });
 
         // Handle Update form submission (event delegation)
-        $(document).on('submit', '#updateFooterColumnForm', function (e) {
+        $(document).on('submit', '#updateColumn', function (e) {
             e.preventDefault();
             const form = this;
             const formData = new FormData(form);
             const actionUrl = $(form).attr('action');
 
             // Clear errors
-                 $('#error-icon, #error-title, #error-line_one', '#error-line_two').text('');
+                 $('#error-title, #error-url').text('');
 
             $.ajax({
                 url: actionUrl,
@@ -181,11 +175,8 @@
                 error: function (xhr) {
                     if (xhr.status === 422) {
                         const errors = xhr.responseJSON.errors;
-                                 if (errors.icon) $('#error-update-icon').text(errors.icon[0]);
+                                 if (errors.url) $('#error-update-url').text(errors.url[0]);
                          if (errors.title) $('#error-update-title').text(errors.title[0]);
-                          if (errors.line_one) $('#error-update-line_one').text(errors.line_one[0]);
-                           if (errors.line_two) $('#error-update-line_two').text(errors.line_two[0]);
-                            if (errors.status) $('#error-update-status').text(errors.status[0]);
                     }
                 }
             });

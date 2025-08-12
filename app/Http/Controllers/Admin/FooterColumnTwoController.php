@@ -17,10 +17,12 @@ class FooterColumnTwoController extends Controller
     }
 
 
-    public function create()
+     public function create()
     {
-        return view('admin.footer.column-two.create');
+        $editMode = false;
+        return response()->view('admin.footer.column-two.column-modal', compact('editMode'));
     }
+
 
     public function store(Request $request)
     {
@@ -40,14 +42,12 @@ class FooterColumnTwoController extends Controller
         return to_route('admin.footer-column-two.index');
     }
 
-
-
     public function edit(string $id)
     {
+        $editMode = true;
         $column = FooterColumnTwo::findOrFail($id);
-        return view('admin.footer.column-two.edit', compact('column'));
+        return response()->view('admin.footer.column-two.column-modal', compact('column','editMode'));
     }
-
 
     public function update(Request $request, string $id)
     {

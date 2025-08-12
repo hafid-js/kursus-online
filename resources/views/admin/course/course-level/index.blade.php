@@ -15,71 +15,50 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="page-body">
-                                <div class="container-xl">
-                                    <div class="row row-cards">
-                                        <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="table-responsive">
-                                                    <table class="table table-vcenter card-table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Name</th>
-                                                                <th>Slug</th>
-                                                                <th>Action</th>
-                                                                {{-- <th class="w-1"></th> --}}
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @forelse ($levels as $level)
-                                                                <tr>
-                                                                    <td>{{ $level->name }}</td>
-                                                                    <td>{{ $level->slug }}</td>
-                                                                    <td>
-                                                                                <a class="edit edit_course_level"
-                                                                            data-level-id="{{ $level->id }}"
-                                                                            href="javascript:;"><i class="ti ti-edit"
-                                                                                aria-hidden="true"></i></a>
-                                                                        <a href="{{ route('admin.course-levels.destroy', $level->id) }}" class="text-red delete-item">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                                                stroke="currentColor" stroke-width="2"
-                                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                                class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x">
-                                                                                <path stroke="none" d="M0 0h24v24H0z"
-                                                                                    fill="none" />
-                                                                                <path d="M4 7h16" />
-                                                                                <path
-                                                                                    d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                                                <path
-                                                                                    d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                                                                <path d="M10 12l4 4m0 -4l-4 4" />
-                                                                            </svg>
-                                                                        </a>
-                                                                    </td>
-                                                                </tr>
-                                                            @empty
-                                                                <tr>
-                                                                    <td colspan="3" class="text-center">No Data Found!</td>
-                                                                </tr>
-                                                            @endforelse
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{ $levels->links() }}
-                                    </div>
+                            <div class="card">
+                                <div class="table-responsive">
+                                    <table class="table table-vcenter card-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Slug</th>
+                                                <th>Action</th>
+                                                {{-- <th class="w-1"></th> --}}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($levels as $level)
+                                                <tr>
+                                                    <td>{{ $level->name }}</td>
+                                                    <td>{{ $level->slug }}</td>
+                                                    <td>
+                                                        <a class="edit edit_course_level"
+                                                            data-level-id="{{ $level->id }}" href="javascript:;"><i
+                                                                class="ti ti-edit" aria-hidden="true"></i></a>
+                                                        <a href="{{ route('admin.course-levels.destroy', $level->id) }}"
+                                                            class="text-red delete-item">
+                                                            <i class="ti ti-trash" aria-hidden="true"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="3" class="text-center">No Data Found!</td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
+                        {{ $levels->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-      <!-- Dynamic Modal -->
+    <!-- Dynamic Modal -->
     <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content dynamic-modal-content">
@@ -87,7 +66,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('scripts')
@@ -141,7 +119,7 @@
                 const originalText = $submitBtn.html();
                 $submitBtn.prop('disabled', true).html(
                     '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...'
-                    );
+                );
 
                 // Clear previous errors
                 $('#error-name').text('');
@@ -155,7 +133,7 @@
                     success: function(response) {
                         $('#dynamic-modal').modal('hide');
                         form.reset();
-                                location.reload();
+                        location.reload();
                     },
                     error: function(xhr) {
                         if (xhr.status === 422) {
@@ -183,7 +161,7 @@
                 const originalText = $submitBtn.html();
                 $submitBtn.prop('disabled', true).html(
                     '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...'
-                    );
+                );
                 // Clear errors
                 $('#error-update-name').text('');
 

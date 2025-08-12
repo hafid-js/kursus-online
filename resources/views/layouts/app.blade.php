@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" lang="en" data-bs-theme="dark" data-bs-theme-font="sans-serif" data-bs-theme-base="slate" data-bs-theme-radius="1" data-bs-theme-primary="teal">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">

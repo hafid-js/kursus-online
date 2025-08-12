@@ -19,7 +19,8 @@ class FooterColumnOneController extends Controller
 
     public function create()
     {
-        return view('admin.footer.column-one.create');
+        $editMode = false;
+        return response()->view('admin.footer.column-one.column-modal', compact('editMode'));
     }
 
     public function store(Request $request)
@@ -44,8 +45,9 @@ class FooterColumnOneController extends Controller
 
     public function edit(string $id)
     {
+        $editMode = true;
         $column = FooterColumnOne::findOrFail($id);
-        return view('admin.footer.column-one.edit', compact('column'));
+        return response()->view('admin.footer.column-one.column-modal', compact('column','editMode'));
     }
 
 

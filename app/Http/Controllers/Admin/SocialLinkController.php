@@ -20,7 +20,8 @@ class SocialLinkController extends Controller
 
     public function create()
     {
-         return view('admin.social-link.create');
+        $editMode = false;
+         return response()->view('admin.social-link.link-modal', compact('editMode'));
     }
 
     public function store(Request $request)
@@ -46,7 +47,8 @@ class SocialLinkController extends Controller
 
     public function edit(SocialLink $socialLink)
     {
-        return view('admin.social-link.edit', compact('socialLink'));
+        $editMode = true;
+        return response()->view('admin.social-link.link-modal', compact('socialLink','editMode'));
     }
 
 
