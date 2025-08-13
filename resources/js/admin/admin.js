@@ -385,3 +385,40 @@ $(document).ready(function () {
         });
     });
 });
+
+
+// ajax search
+window.initLiveSearch = function({
+    inputSelector,
+    resultSelector,
+    url,
+    delay = 300,
+    additionalData = {}
+}) {
+    let timer = null;
+
+    $(document).on('keyup', inputSelector, function () {
+        clearTimeout(timer);
+
+        timer = setTimeout(() => {
+            const query = $(this).val();
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: { search: query, ...additionalData },
+                success: function (data) {
+                    $(resultSelector).html(data);
+                },
+                error: function () {
+                    $(resultSelector).html(`
+                        <tr>
+                            <td colspan="4" class="text-center text-danger">
+                                Error fetching results
+                            </td>
+                        </tr>`);
+                }
+            });
+        }, delay);
+    });
+};

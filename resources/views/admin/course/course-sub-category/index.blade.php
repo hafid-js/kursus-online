@@ -32,16 +32,17 @@
                                                     <table class="table table-vcenter card-table">
                                                         <thead>
                                                             <tr>
+                                                                <th>No</th>
                                                                 <th>Icon</th>
                                                                 <th>Name</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
-                                                                {{-- <th class="w-1"></th> --}}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @forelse ($subCategories as $category)
                                                                 <tr>
+                                                                    <td>{{ $loop->iteration }}</td>
                                                                     <td><img src="{{ asset($category->image) }}"
                                                                             alt=""></td>
                                                                     <td>{{ $category->name }}</td>
@@ -50,17 +51,10 @@
                                                                             <span
                                                                                 class="badge bg-lime text-lime-fg">Active</span>
                                                                         @else
-                                                                            <span class="badge bg-red text-red-fg">Inactive</span>
+                                                                            <span class="badge bg-red text-red-fg">No</span>
                                                                         @endif
                                                                     </td>
                                                                     <td>
-                                                                        {{-- <a href="{{ route('admin.course-sub-categories.edit', [
-                                                                            'course_category' => $course_category->id,
-                                                                            'course_sub_category' => $category->id,
-                                                                        ]) }}"
-                                                                            class="btn-sm btn-primary">
-                                                                            <i class="ti ti-edit"></i>
-                                                                        </a> --}}
                                                                         <a class="edit edit_course_sub_category"
                                                                             data-category-id="{{ $course_category->id }}"
                                                                             data-sub-category-id="{{ $category->id }}"

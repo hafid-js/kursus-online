@@ -9,27 +9,31 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
-    <h4 class="card-title">Blog Categories</h4>
-    <div class="d-flex align-items-center gap-2">
-        <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="width: 200px;">
-        <a href="#" class="btn btn-primary add_blog_category">
-            <i class="ti ti-plus"></i> Add new
-        </a>
-    </div>
-</div>
+                                <h4 class="card-title">Blog Categories</h4>
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search..."
+                                        style="width: 200px;">
+                                    <a href="#" class="btn btn-primary add_blog_category">
+                                        <i class="ti ti-plus"></i> Add new
+                                    </a>
+                                </div>
+                            </div>
 
                             <div class="table-responsive">
                                 <table class="table table-vcenter card-table">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Name</th>
                                             <th>Slug</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                 <tbody id="categoryTableBody">
-                                     @include('admin.blog.category.partials.table', ['categories' => $categories])
+                                    <tbody id="categoryTableBody">
+                                        @include('admin.blog.category.partials.table', [
+                                            'categories' => $categories,
+                                        ])
                                     </tbody>
                                 </table>
                             </div>
@@ -54,7 +58,7 @@
 @endsection
 
 @push('scripts')
-    <script>
+    <script type="module">
         $(function() {
             const baseUrl = "{{ url('') }}";
 
@@ -174,23 +178,12 @@
 
         });
 
-        // AJAX Search
-// AJAX Search
-$('#searchInput').on('keyup', function() {
-    let query = $(this).val();
-
-    $.ajax({
-        url: "{{ route('admin.blog-categories.index') }}",
-        type: "GET",
-        data: { search: query },
-        success: function(data) {
-            $('#categoryTableBody').html(data);
-        },
-        error: function() {
-            $('#categoryTableBody').html('<tr><td colspan="4" class="text-center text-danger">Error fetching results</td></tr>');
-        }
-    });
-});
-
+        document.addEventListener('DOMContentLoaded', function() {
+            initLiveSearch({
+                inputSelector: '#searchInput',
+                resultSelector: '#categoryTableBody',
+                url: "{{ route('admin.blog-categories.index') }}"
+            });
+        });
     </script>
 @endpush

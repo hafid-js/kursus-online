@@ -28,7 +28,7 @@
                                                                 <th>Url</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
-                                                                {{-- <th class="w-1"></th> --}}
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -38,10 +38,9 @@
                                                                     <td>{{ $column->url }}</td>
                                                                     <td>
                                                                         @if ($column->status == 1)
-                                                                        <span
-                                                                                class="badge bg-lime text-lime-fg">Active</span>
+                                                                        <span class="badge bg-lime text-lime-fg">Yes</span>
                                                                         @else
-                                                                        <span class="badge bg-red text-red-fg">Inactive</span>
+                                                                        <span class="badge bg-red text-red-fg">No</span>
                                                                         @endif
                                                                     </td>
                                                                     <td>

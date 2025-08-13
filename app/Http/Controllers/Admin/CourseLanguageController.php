@@ -13,22 +13,35 @@ use Illuminate\Validation\ValidationException;
 class CourseLanguageController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $languages = CourseLanguage::paginate(15);
+        $query = CourseLanguage::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('slug', 'like', "%{$search}%");
+        }
+
+        $languages = $query->paginate(20);
+
+        if ($request->ajax() && $request->has('search')) {
+            return view('admin.course.course-language.partials.table', compact('languages'))->render();
+        }
+
         return view('admin.course.course-language.index', compact('languages'));
     }
 
 
     public function create()
     {
-         $editMode = false;
+        $editMode = false;
         return response()->view('admin.course.course-language.language-modal', compact('editMode'));
     }
 
     public function store(Request $request)
     {
-        $request->validate(['name' => ['required', 'max:255','unique:course_languages']]);
+        $request->validate(['name' => ['required', 'max:255', 'unique:course_languages']]);
 
         $language = new CourseLanguage();
         $language->name = $request->name;
@@ -38,9 +51,8 @@ class CourseLanguageController extends Controller
         notyf()->success('Created Successfully!');
 
         return response()->json([
-    'redirect' => route('admin.course-languages.index')
-]);
-
+            'redirect' => route('admin.course-languages.index')
+        ]);
     }
 
 
@@ -54,7 +66,7 @@ class CourseLanguageController extends Controller
 
     public function update(Request $request, CourseLanguage $course_language)
     {
-        $request->validate(['name' => ['required', 'max:255','unique:course_languages,name,'.$course_language->id]]);
+        $request->validate(['name' => ['required', 'max:255', 'unique:course_languages,name,' . $course_language->id]]);
         $course_language->name = $request->name;
         $course_language->save();
 
@@ -71,8 +83,8 @@ class CourseLanguageController extends Controller
             $course_language->delete();
             notyf()->success('Delete Succesfully!');
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch(Exception $e) {
-            logger("Course Language Error >> ".$e);
+        } catch (Exception $e) {
+            logger("Course Language Error >> " . $e);
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

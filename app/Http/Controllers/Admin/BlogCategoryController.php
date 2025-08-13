@@ -12,29 +12,27 @@ class BlogCategoryController extends Controller
 {
 
     public function index(Request $request)
-{
-    $query = BlogCategory::query();
+    {
+        $query = BlogCategory::query();
 
-    // Kalau ada pencarian, filter
-    if ($request->has('search')) {
-        $search = $request->input('search');
-        $query->where('name', 'like', "%{$search}%")
-              ->orWhere('slug', 'like', "%{$search}%");
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('slug', 'like', "%{$search}%");
+        }
+
+        $categories = $query->paginate(20);
+
+        if ($request->ajax() && $request->has('search')) {
+            return view('admin.blog.category.partials.table', compact('categories'))->render();
+        }
+
+        return view('admin.blog.category.index', compact('categories'));
     }
 
-    $categories = $query->paginate(20);
 
-    // Jika request AJAX DAN ada parameter pencarian, kirim partial view
-    if ($request->ajax() && $request->has('search')) {
-        return view('admin.blog.category.partials.table', compact('categories'))->render();
-    }
-
-    // Selain itu, kirim halaman penuh
-    return view('admin.blog.category.index', compact('categories'));
-}
-
-
-    public function create() {
+    public function create()
+    {
         $editMode = false;
         return response()->view('admin.blog.category.partials.category-modal', compact('editMode'));
     }
@@ -52,7 +50,7 @@ class BlogCategoryController extends Controller
         $category->status = $request->status ?? 0;
         $category->save();
 
-          notyf()->success('Created Succesfully!');
+        notyf()->success('Created Succesfully!');
         if ($request->ajax()) {
             return response()->json([
                 'message' => 'Created Successfully!',
@@ -90,7 +88,7 @@ class BlogCategoryController extends Controller
         $category->status = $request->status ?? 0;
         $category->save();
 
-                    notyf()->success('Updated Succesfully!');
+        notyf()->success('Updated Succesfully!');
         if ($request->ajax()) {
             return response()->json([
                 'message' => 'Updated Successfully!',

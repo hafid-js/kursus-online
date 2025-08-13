@@ -38,7 +38,7 @@
                                                                 <th>Rating</th>
                                                                 <th>Review</th>
                                                                 <th>Action</th>
-                                                                {{-- <th class="w-1"></th> --}}
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>

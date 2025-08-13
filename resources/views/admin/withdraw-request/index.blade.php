@@ -23,7 +23,7 @@
                                                                 <th>Payout Amount</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
-                                                                {{-- <th class="w-1"></th> --}}
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>

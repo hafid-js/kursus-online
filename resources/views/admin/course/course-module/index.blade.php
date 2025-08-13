@@ -28,38 +28,44 @@
                                     <table class="table table-vcenter card-table">
                                         <thead>
                                             <tr>
+                                                <th>No</th>
                                                 <th>Name</th>
                                                 <th>Price</th>
                                                 <th>Instructor</th>
+                                                <th>Date</th>
                                                 <th>Status</th>
                                                 <th>Approve</th>
                                                 <th>Action</th>
-                                                {{-- <th class="w-1"></th> --}}
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @forelse ($courses as $course)
                                                 <tr id="row-{{ $course->id }}">
+                                                    <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $course->title }}</td>
-                                                    <td>{{ $course->price }}</td>
+                                                    <td>{{ config('settings.currency_icon') }}{{ $course->price }}</td>
                                                     <td>
-                                                                        <div class="d-flex py-1 align-items-center">
-                                                                            @if (!empty($course->instructor->image))
-                                                                                <span class="avatar avatar-2 me-2"
-                                                                                    style="background-image: url({{ asset($course->instructor->image) }})"></span>
-                                                                            @else
-                                                                                <span
-                                                                                    class="avatar avatar-2 me-2 bg-primary-lt text-primary fw-bold">
-                                                                                    {{ getUserInitials($course->instructor->name) }}
-                                                                                </span>
-                                                                            @endif
-                                                                            <div class="flex-fill">
-                                                                                <div class="font-weight-medium">
-                                                                                    {{ $course->instructor->name }}</div>
-                                                                                    <div class="text-secondary"><a href="#" class="text-reset">{{ $course->instructor->email }}</a></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
+                                                        <div class="d-flex py-1 align-items-center">
+                                                            @if (!empty($course->instructor->image))
+                                                                <span class="avatar avatar-2 me-2"
+                                                                    style="background-image: url({{ asset($course->instructor->image) }})"></span>
+                                                            @else
+                                                                <span
+                                                                    class="avatar avatar-2 me-2 bg-primary-lt text-primary fw-bold">
+                                                                    {{ getUserInitials($course->instructor->name) }}
+                                                                </span>
+                                                            @endif
+                                                            <div class="flex-fill">
+                                                                <div class="font-weight-medium">
+                                                                    {{ $course->instructor->name }}</div>
+                                                                <div class="text-secondary"><a href="#"
+                                                                        class="text-reset">{{ $course->instructor->email }}</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ format_to_date($course->created_at) }}</td>
                                                     <td>
                                                         @if ($course->is_approved == 'pending')
                                                             <span class="badge bg-yellow text-yellow-fg">Pending</span>
@@ -84,22 +90,8 @@
                                                     <td>
                                                         <a href="{{ route('admin.courses.edit', ['id' => $course->id, 'step' => 1]) }}"
                                                             class="text-blue">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                                stroke="currentColor" stroke-width="2"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                <path
-                                                                    d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                                                <path
-                                                                    d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                                                <path d="M16 5l3 3" />
-                                                            </svg>
+                                                            <i class="ti ti-edit"></i>
                                                         </a>
-                                                        {{-- <a href="{{ route('admin.courses.destroy', $course->id) }}" class="text-red delete-item">
-                                                                            <i class="ti ti-trash"></i>
-                                                                        </a> --}}
                                                     </td>
                                                 </tr>
                                             @empty

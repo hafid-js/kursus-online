@@ -10,9 +10,13 @@
                             <div class="card-header">
                                 <h4 class="card-title">Course Languages</h4>
                                 <div class="card-actions">
-                                    <a href="#" class="btn btn-primary add_course_language">
-                                        <i class="ti ti-plus"></i> Add new
-                                    </a>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="text" id="searchInput" class="form-control" placeholder="Search..."
+                                            style="width: 200px;">
+                                        <a href="#" class="btn btn-primary add_course_language">
+                                            <i class="ti ti-plus"></i> Add new
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card">
@@ -20,43 +24,17 @@
                                     <table class="table table-vcenter card-table">
                                         <thead>
                                             <tr>
+                                                <th>No</th>
                                                 <th>Name</th>
                                                 <th>Slug</th>
                                                 <th>Action</th>
-                                                {{-- <th class="w-1"></th> --}}
+
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @forelse ($languages as $language)
-                                                <tr>
-                                                    <td>{{ $language->name }}</td>
-                                                    <td>{{ $language->slug }}</td>
-                                                    <td>
-                                                        <a class="edit edit_course_language"
-                                                            data-language-id="{{ $language->id }}" href="javascript:;"><i
-                                                                class="ti ti-edit" aria-hidden="true"></i></a>
-                                                        <a href="{{ route('admin.course-languages.destroy', $language->id) }}"
-                                                            class="text-red delete-item">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                                stroke="currentColor" stroke-width="2"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x">
-                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                <path d="M4 7h16" />
-                                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                                                <path d="M10 12l4 4m0 -4l-4 4" />
-                                                            </svg>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="3" class="text-center">No Data Found!
-                                                    </td>
-                                                </tr>
-                                            @endforelse
+                                        <tbody id="languagesTableBody">
+                                            @include('admin.course.course-language.partials.table', [
+                                                'languages' => $languages,
+                                            ])
                                         </tbody>
                                     </table>
                                 </div>
@@ -200,7 +178,14 @@
                     }
                 });
             });
+        });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            initLiveSearch({
+                inputSelector: '#searchInput',
+                resultSelector: '#languagesTableBody',
+                url: "{{ route('admin.course-languages.index') }}"
+            });
         });
     </script>
 @endpush

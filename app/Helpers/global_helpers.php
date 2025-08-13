@@ -88,7 +88,8 @@ function isDocumentApproved($user)
 if (!function_exists('format_to_date')) {
     function format_to_date($date)
     {
-        return Carbon::parse($date)->translatedFormat('d F Y');
+        // Carbon::setLocale('id');
+        return Carbon::parse($date)->translatedFormat('d F Y H:i');
         // Output: 08 Agustus 2025
     }
 }

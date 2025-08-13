@@ -37,7 +37,7 @@
                                                                 <th>Show at Nav</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
-                                                                {{-- <th class="w-1"></th> --}}
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -47,18 +47,16 @@
                                                                     <td><code class="text-danger">{{ url('/') }}/page/{{ $page->slug }}</code></td>
                                                                     <td>
                                                                         @if ($page->show_at_nav == 1)
-                                                                        <span
-                                                                                class="badge bg-lime text-lime-fg">Active</span>
+                                                                        <span class="badge bg-lime text-lime-fg">Yes</span>
                                                                         @else
-                                                                        <span class="badge bg-red text-red-fg">Inactive</span>
+                                                                        <span class="badge bg-red text-red-fg">No</span>
                                                                         @endif
                                                                     </td>
                                                                      <td>
                                                                         @if ($page->status == 1)
-                                                                        <span
-                                                                                class="badge bg-lime text-lime-fg">Active</span>
+                                                                        <span class="badge bg-lime text-lime-fg">Yes</span>
                                                                         @else
-                                                                        <span class="badge bg-red text-red-fg">Inactive</span>
+                                                                        <span class="badge bg-red text-red-fg">No</span>
                                                                         @endif
                                                                     </td>
                                                                     <td>

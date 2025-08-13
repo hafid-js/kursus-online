@@ -19,6 +19,7 @@
                                                     <table class="table table-vcenter card-table">
                                                         <thead>
                                                             <tr>
+                                                                <th>No</th>
                                                                 <th>Name</th>
                                                                 <th>Email</th>
                                                                 <th>Status</th>
@@ -30,6 +31,7 @@
                                                         <tbody>
                                                             @forelse ($instructorRequests as $request)
                                                                 <tr id="row-{{ $request->id }}">
+                                                                    <td>{{ $loop->iteration }}</td>
                                                                     <td>
                                                                         <div class="d-flex py-1 align-items-center">
                                                                             @if (!empty($request->image))

@@ -7,8 +7,10 @@
                 <div class="row row-cards">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between align-items-center">
                                 <h4 class="card-title">Orders</h4>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search..."
+                                        style="width: 200px;">
                             </div>
                             <div class="card">
                                 <div class="table-responsive">
@@ -21,59 +23,21 @@
                                                 <th>Paid Amount</th>
                                                 <th>Currency</th>
                                                 <th>Status</th>
+                                                <th>Date</th>
                                                 <th>Action</th>
-                                                {{-- <th class="w-1"></th> --}}
+
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @forelse ($orders as $order)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>
-                                                        <div class="d-flex py-1 align-items-center">
-                                                            <span class="avatar avatar-2 me-2"
-                                                                style="background-image: url({{ $order->customer->image }})">
-                                                            </span>
-                                                            <div class="flex-fill">
-                                                                <div class="font-weight-medium">{{ $order->customer->name }}
-                                                                </div>
-                                                                <div class="text-secondary"><a href="#"
-                                                                        class="text-reset">{{ $order->customer->email }}</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>{{ $order->total_amount }}</td>
-                                                    <td>{{ $order->paid_amount }}</td>
-                                                    <td>{{ $order->currency }}</td>
-                                                    <td>
-                                                        @if ($order->status == 'pending')
-                                                            <span
-                                                                class="badge bg-yellow text-yellow-fg">{{ $order->status }}</span>
-                                                        @else
-                                                            <span
-                                                                class="badge bg-green text-green-fg">{{ $order->status }}</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <a data-order-id="{{ $order->id }}"
-                                                            class="btn-sm btn-primary show-order">
-                                                            <i class="ti ti-eye"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="8" class="text-center">No Data Found!
-                                                    </td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
+                                        <tbody id="orderTableBody">
+                                        @include('admin.order.partials.table', [
+                                            'orders' => $orders,
+                                        ])
+                                    </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        {{ $orders->links() }}
+                        {{-- {{ $orders->links() }} --}}
                     </div>
                 </div>
             </div>
@@ -114,6 +78,25 @@
                     $('.dynamic-modal-content').html(
                         '<div class="p-5 text-danger">Error loading form</div>');
                 });
+            });
+        });
+
+        // ajax search
+        function debounce(fn, delay) {
+            let timer;
+            return function() {
+                const context = this;
+                const args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(() => fn.apply(context, args), delay);
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initLiveSearch({
+                inputSelector: '#searchInput',
+                resultSelector: '#orderTableBody',
+                url: "{{ route('admin.orders.index') }}"
             });
         });
     </script>

@@ -15,19 +15,20 @@
                                     <table class="table table-vcenter card-table">
                                         <thead>
                                             <tr>
+                                                <th>No</th>
                                                 <th>Course</th>
                                                 <th>User</th>
                                                 <th>Rating</th>
-                                                <th>Review</th>
-                                                <th>Detail</th>
+                                                <th>Detail Review</th>
                                                 <th>Status</th>
                                                 <th colspan="2" class="text-center">Action</th>
-                                                {{-- <th class="w-1"></th> --}}
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @forelse ($reviews as $review)
                                                 <tr>
+                                                    <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $review->course->title }}</td>
                                                     <td>
                                                         <div class="d-flex py-1 align-items-center">
@@ -51,7 +52,6 @@
                                                             </div>
                                                     </td>
                                                     <td>{{ $review->rating }}</td>
-                                                    <td>{{ $review->review }}</td>
                                                     <td>
                                                         <a class="show-review" data-review-id="{{ $review->id }}"><i
                                                                 class="ti ti-eye"></i></a>
@@ -80,17 +80,7 @@
                                                     <td>
                                                         <a href="{{ route('admin.reviews.destroy', $review->id) }}"
                                                             class="text-red delete-item">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                                stroke="currentColor" stroke-width="2"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x">
-                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                <path d="M4 7h16" />
-                                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                                                <path d="M10 12l4 4m0 -4l-4 4" />
-                                                            </svg>
+                                                            <i class="ti ti-trash"></i>
                                                         </a>
                                                     </td>
                                                 </tr>

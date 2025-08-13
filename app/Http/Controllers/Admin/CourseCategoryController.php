@@ -20,17 +20,35 @@ class CourseCategoryController extends Controller
 
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = CourseCategory::whereNull('parent_id')->paginate(15);
+        $query = CourseCategory::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('slug', 'like', "%{$search}%");
+            });
+        }
+        $query->whereNull('parent_id');
+
+        $categories = $query->paginate(15);
+
+        if ($request->ajax() && $request->has('search')) {
+            return view('admin.course.course-category.partials.table', compact('categories'))->render();
+        }
+
         return view('admin.course.course-category.index', compact('categories'));
     }
+
 
 
     public function create()
     {
         $editMode = false;
-        return response()->view('admin.course.course-category.category-modal', compact('editMode'));
+        return response()->view('admin.course.course-category.partials.category-modal', compact('editMode'));
     }
     // public function edit($id): \Illuminate\Http\Response
     // {
@@ -74,7 +92,7 @@ class CourseCategoryController extends Controller
     {
         $category = CourseCategory::findOrFail($id);
         $editMode = true;
-        return response()->view('admin.course.course-category.category-modal', compact('category', 'editMode'));
+        return response()->view('admin.course.course-category.partials.category-modal', compact('category', 'editMode'));
     }
 
 
