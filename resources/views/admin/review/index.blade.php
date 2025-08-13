@@ -9,12 +9,6 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Course Reviews</h4>
-                                <div class="card-actions">
-                                    <a href="{{ route('admin.payout-gateway.index') }}" class="btn btn-primary">
-                                        <i class="ti ti-arrow-left"></i>
-                                        Back
-                                    </a>
-                                </div>
                             </div>
                             <div class="card">
                                 <div class="table-responsive">
@@ -35,7 +29,27 @@
                                             @forelse ($reviews as $review)
                                                 <tr>
                                                     <td>{{ $review->course->title }}</td>
-                                                    <td>{{ $review->user->name }}</td>
+                                                    <td>
+                                                        <div class="d-flex py-1 align-items-center">
+                                                            @if (!empty($review->user->image))
+                                                                <span class="avatar avatar-2 me-2"
+                                                                    style="background-image: url({{ asset($review->user->image) }})"></span>
+                                                            @else
+                                                                <span
+                                                                    class="avatar avatar-2 me-2 bg-primary-lt text-primary fw-bold">
+                                                                    {{ getUserInitials($review->user->name) }}
+                                                                </span>
+                                                            @endif
+                                                            <div class="flex-fill">
+                                                                <div class="font-weight-medium">
+                                                                    {{ $review->user->name }}</div>
+                                                                <div class="font-weight-medium">
+                                                                    <div class="text-secondary"><a href="#"
+                                                                            class="text-reset">{{ $review->user->email }}</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    </td>
                                                     <td>{{ $review->rating }}</td>
                                                     <td>{{ $review->review }}</td>
                                                     <td>

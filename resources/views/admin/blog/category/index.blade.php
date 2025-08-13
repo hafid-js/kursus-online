@@ -8,15 +8,15 @@
                 <div class="row row-cards">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Blog Categories</h4>
-                                <div class="card-actions">
-                                    <a href="#"
-                                        class="btn btn-primary add_blog_category">
-                                        <i class="ti ti-plus"></i> Add new
-                                    </a>
-                                </div>
-                            </div>
+                            <div class="card-header d-flex justify-content-between align-items-center">
+    <h4 class="card-title">Blog Categories</h4>
+    <div class="d-flex align-items-center gap-2">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="width: 200px;">
+        <a href="#" class="btn btn-primary add_blog_category">
+            <i class="ti ti-plus"></i> Add new
+        </a>
+    </div>
+</div>
 
                             <div class="table-responsive">
                                 <table class="table table-vcenter card-table">
@@ -28,33 +28,8 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @forelse ($categories as $category)
-                                            <tr>
-                                                <td>{{ $category->name }}</td>
-                                                <td>{{ $category->slug }}</td>
-                                                <td>
-                                                    @if ($category->status == 1)
-                                                        <span class="badge bg-lime text-lime-fg">Yes</span>
-                                                    @else
-                                                        <span class="badge bg-red text-red-fg">No</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a class="edit edit_blog_category"
-                                                        data-category-id="{{ $category->id }}" href="javascript:;"><i
-                                                            class="ti ti-edit" aria-hidden="true"></i></a>
-                                                    <a href="{{ route('admin.blog-categories.destroy', $category->id) }}"
-                                                        class="text-red delete-item">
-                                                        <i class="ti ti-trash"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="4" class="text-center">No Data Found!</td>
-                                            </tr>
-                                        @endforelse
+                                 <tbody id="categoryTableBody">
+                                     @include('admin.blog.category.partials.table', ['categories' => $categories])
                                     </tbody>
                                 </table>
                             </div>
@@ -198,5 +173,24 @@
             });
 
         });
+
+        // AJAX Search
+// AJAX Search
+$('#searchInput').on('keyup', function() {
+    let query = $(this).val();
+
+    $.ajax({
+        url: "{{ route('admin.blog-categories.index') }}",
+        type: "GET",
+        data: { search: query },
+        success: function(data) {
+            $('#categoryTableBody').html(data);
+        },
+        error: function() {
+            $('#categoryTableBody').html('<tr><td colspan="4" class="text-center text-danger">Error fetching results</td></tr>');
+        }
+    });
+});
+
     </script>
 @endpush

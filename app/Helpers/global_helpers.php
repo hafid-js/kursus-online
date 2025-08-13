@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Cart;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 if(!function_exists('convertMinutesToHours')) {
@@ -83,6 +84,32 @@ function isDocumentApproved($user)
 {
     return !empty($user->document) && $user->document_status === 'approved';
 }
+
+if (!function_exists('format_to_date')) {
+    function format_to_date($date)
+    {
+        return Carbon::parse($date)->translatedFormat('d F Y');
+        // Output: 08 Agustus 2025
+    }
+}
+
+if (!function_exists('getUserInitials')) {
+    function getUserInitials($name)
+    {
+        if (!$name) return '';
+
+        // take the first two words
+        $words = explode(' ', trim($name));
+        $initials = strtoupper(substr($words[0], 0, 1));
+
+        if (isset($words[1])) {
+            $initials .= strtoupper(substr($words[1], 0, 1));
+        }
+
+        return $initials;
+    }
+}
+
 
 
 

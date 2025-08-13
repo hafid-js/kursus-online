@@ -148,7 +148,7 @@
                 </li>
 
                  <li class="nav-item dropdown {{ sidebarItemActive(['admin.feature.index','admin.hero.index','admin.about-section.index','admin.latest-courses-section.index','admin.become-instructor-section.index','admin.video-section.index','admin.brand-section.index','admin.featured-instructor-section.index','admin.testimonial-section.index','admin.counter-section.*']) }}">
-                    <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"
                         data-bs-auto-close="false" role="button" aria-expanded="false">
                         <span
                             class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->

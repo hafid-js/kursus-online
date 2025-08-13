@@ -180,3 +180,18 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    function copyToClipboard() {
+        const input = document.getElementById("myInput");
+        input.select();
+        input.setSelectionRange(0, 99999); // Untuk mobile
+        document.execCommand("copy");
+
+        // Opsional: berikan notifikasi
+        alert("Teks disalin: " + input.value);
+    }
+</script>
+@endpush
+

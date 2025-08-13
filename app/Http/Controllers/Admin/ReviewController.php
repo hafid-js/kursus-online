@@ -12,7 +12,7 @@ class ReviewController extends Controller
 
     public function index()
     {
-        $reviews = Review::with(['user:id,name','course:id,title'])->paginate(20);
+        $reviews = Review::with(['user:id,name,email,image','course:id,title'])->paginate(20);
         return view('admin.review.index', compact('reviews'));
     }
 

@@ -11,15 +11,32 @@ use Illuminate\Support\Str;
 class BlogCategoryController extends Controller
 {
 
-    public function index()
-    {
-        $categories = BlogCategory::paginate(20);
-        return view('admin.blog.category.index', compact('categories'));
+    public function index(Request $request)
+{
+    $query = BlogCategory::query();
+
+    // Kalau ada pencarian, filter
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $query->where('name', 'like', "%{$search}%")
+              ->orWhere('slug', 'like', "%{$search}%");
     }
+
+    $categories = $query->paginate(20);
+
+    // Jika request AJAX DAN ada parameter pencarian, kirim partial view
+    if ($request->ajax() && $request->has('search')) {
+        return view('admin.blog.category.partials.table', compact('categories'))->render();
+    }
+
+    // Selain itu, kirim halaman penuh
+    return view('admin.blog.category.index', compact('categories'));
+}
+
 
     public function create() {
         $editMode = false;
-        return response()->view('admin.blog.category.category-modal', compact('editMode'));
+        return response()->view('admin.blog.category.partials.category-modal', compact('editMode'));
     }
 
     public function store(Request $request)
@@ -54,7 +71,7 @@ class BlogCategoryController extends Controller
     {
         $category = BlogCategory::findOrFail($id);
         $editMode = true;
-        return response()->view('admin.blog.category.category-modal', compact('category', 'editMode'));
+        return response()->view('admin.blog.category.partials.category-modal', compact('category', 'editMode'));
     }
 
     public function show() {}

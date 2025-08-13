@@ -5,8 +5,8 @@
     @include('frontend.pages.home.sections.category');
     @include('frontend.pages.home.sections.about');
     <!--===========================
-                                            COUESES 3 START
-                                        ============================-->
+                                                COUESES 3 START
+                                            ============================-->
     @php
         $categoryOne = \App\Models\CourseCategory::where('id', $latestCourses?->category_one)->first();
         $categoryTwo = \App\Models\CourseCategory::where('id', $latestCourses?->category_two)->first();
@@ -111,8 +111,8 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/image-profile.png') }}" alt="Author"
-                                                        class="img-fluid">
+                                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/image-profile.png') }}"
+                                                        alt="Author" class="img-fluid">
                                                 </div>
                                                 @if ($isMyCourse)
                                                     <h4>{{ $course->instructor->name }} (Course Anda)</h4>
@@ -215,8 +215,8 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/image-profile.png') }}" alt="Author"
-                                                        class="img-fluid">
+                                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/image-profile.png') }}"
+                                                        alt="Author" class="img-fluid">
                                                 </div>
                                                 @if ($isMyCourse)
                                                     <h4>{{ $course->instructor->name }} (Course Anda)</h4>
@@ -319,8 +319,8 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/image-profile.png') }}" alt="Author"
-                                                        class="img-fluid">
+                                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/image-profile.png') }}"
+                                                        alt="Author" class="img-fluid">
                                                 </div>
                                                 @if ($isMyCourse)
                                                     <h4>{{ $course->instructor->name }} (Course Anda)</h4>
@@ -423,8 +423,8 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/image-profile.png') }}" alt="Author"
-                                                        class="img-fluid">
+                                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/image-profile.png') }}"
+                                                        alt="Author" class="img-fluid">
                                                 </div>
                                                 @if ($isMyCourse)
                                                     <h4>{{ $course->instructor->name }} (Course Anda)</h4>
@@ -525,8 +525,8 @@
                                             </ul>
                                             <a class="author" href="#">
                                                 <div class="img">
-                                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/image-profile.png') }}" alt="Author"
-                                                        class="img-fluid">
+                                                    <img src="{{ $course->instructor->image ? asset($course->instructor->image) : asset('frontend/assets/images/image-profile.png') }}"
+                                                        alt="Author" class="img-fluid">
                                                 </div>
                                                 <h4>{{ $course->instructor->name }}</h4>
                                                 @if ($isMyCourse)
@@ -594,14 +594,14 @@
         </div>
     </section>
     <!--===========================
-                                            COUESES 3 END
-                                        ============================-->
+                                                COUESES 3 END
+                                            ============================-->
 
 
 
     <!--===========================
-                                            OFFER START
-                                        ============================-->
+                                                OFFER START
+                                            ============================-->
     <section class="wsus__offer" style="background: url('frontend/assets/images/offer_bg.jpg');">
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -625,45 +625,45 @@
         </div>
     </section>
     <!--===========================
-                                            OFFER END
-                                        ============================-->
+                                                OFFER END
+                                            ============================-->
 
 
     <!--===========================
-                                            BECOME INSTRUCTOR START
-                                        ============================-->
-    <section class="wsus__become_instructor mt_120 xs_mt_100">
-        <div class="container">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-xl-6 col-md-6 wow fadeInLeft">
-                    <div class="wsus__become_instructor_text">
-                        <div class="wsus__section_heading heading_left mb_20">
-                            <h5>Become An Instructor</h5>
-                            <h2>{{ $becomeInstructorBanner?->title }}</h2>
+                                                BECOME INSTRUCTOR START
+                                            ============================-->
+    @unless (auth()->user()?->role === 'instructor')
+        <section class="wsus__become_instructor mt_120 xs_mt_100">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-xl-6 col-md-6 wow fadeInLeft">
+                        <div class="wsus__become_instructor_text">
+                            <div class="wsus__section_heading heading_left mb_20">
+                                <h5>Become An Instructor</h5>
+                                <h2>{{ $becomeInstructorBanner?->title }}</h2>
+                            </div>
+                            <p>{{ $becomeInstructorBanner?->subtitle }}</p>
+                            <a class="common_btn"
+                                href="{{ $becomeInstructorBanner?->button_url }}">{{ $becomeInstructorBanner?->button_text }}
+                                <i class="far fa-arrow-right"></i></a>
                         </div>
-                        <p>{{ $becomeInstructorBanner?->subtitle }}</p>
-                        <a class="common_btn"
-                            href="{{ $becomeInstructorBanner?->button_url }}">{{ $becomeInstructorBanner?->button_text }}
-                            <i class="far fa-arrow-right"></i></a>
                     </div>
-                </div>
-                <div class="col-xl-5 col-md-6 wow fadeInRight">
-                    <div class="wsus__become_instructor_img">
-                        <img src="{{ asset($becomeInstructorBanner?->image) }}" alt="Instructor"
-                            class="img-fluid w-100">
+                    <div class="col-xl-5 col-md-6 wow fadeInRight">
+                        <div class="wsus__become_instructor_img">
+                            <img src="{{ asset($becomeInstructorBanner?->image) }}" alt="Instructor"
+                                class="img-fluid w-100">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!--===========================
-                                            BECOME INSTRUCTOR END
-                                        ============================-->
+        </section>
+    @endunless
 
+    <!--=========================== BECOME INSTRUCTOR END ============================-->
 
     <!--===========================
-                                            VIDEO START
-                                        ============================-->
+                                                VIDEO START
+                                            ============================-->
     <section class="wsus__video mt_120 xs_mt_100">
         <img src="{{ asset($video?->background) }}" alt="Video" class="img-fluid w-100">
         <a class="play_btn venobox" data-autoplay="true" data-vbtype="video" href="{{ $video?->video_url }}">
@@ -675,12 +675,12 @@
         </div>
     </section>
     <!--===========================
-                                            VIDEO END
-                                        ============================-->
+                                                VIDEO END
+                                            ============================-->
 
     <!--===========================
-                                            BRAND START
-                                        ============================-->
+                                                BRAND START
+                                            ============================-->
     <section class="wsus__brand mt_45 pt_120 xs_pt_100">
         <div class="container">
             <div class="row">
@@ -705,13 +705,13 @@
         </div>
     </section>
     <!--===========================
-                                            BRAND END
-                                        ============================-->
+                                                BRAND END
+                                            ============================-->
 
 
     <!--===========================
-                                            QUALITY COURSES START
-                                        ============================-->
+                                                QUALITY COURSES START
+                                            ============================-->
     <section class="wsus__quality_courses mt_120 xs_mt_100">
         <div class="row quality_course_slider">
             <div class="quality_course_slider_item"
@@ -830,13 +830,13 @@
         </div>
     </section>
     <!--===========================
-                                            QUALITY COURSES END
-                                        ============================-->
+                                                QUALITY COURSES END
+                                            ============================-->
 
 
     <!--===========================
-                                            TESTIMONIAL START
-                                        ============================-->
+                                                TESTIMONIAL START
+                                            ============================-->
     <section class="wsus__testimonial pt_120 xs_pt_80">
         <div class="container">
             <div class="row">
@@ -875,13 +875,13 @@
         </div>
     </section>
     <!--===========================
-                                            TESTIMONIAL END
-                                        ============================-->
+                                                TESTIMONIAL END
+                                            ============================-->
 
 
     <!--===========================
-                                            BLOG 4 START
-                                        ============================-->
+                                                BLOG 4 START
+                                            ============================-->
     <section class="blog_4 mt_110 xs_mt_90 pt_120 xs_pt_100 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -929,6 +929,6 @@
         </div>
     </section>
     <!--===========================
-                                            BLOG 4 END
-                                        ============================-->
+                                                BLOG 4 END
+                                            ============================-->
 @endsection

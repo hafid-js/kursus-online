@@ -48,9 +48,9 @@
                                                                     <td>
                                                                         @if ($category->status == 1)
                                                                             <span
-                                                                                class="badge bg-lime text-lime-fg">Yes</span>
+                                                                                class="badge bg-lime text-lime-fg">Active</span>
                                                                         @else
-                                                                            <span class="badge bg-red text-red-fg">No</span>
+                                                                            <span class="badge bg-red text-red-fg">Inactive</span>
                                                                         @endif
                                                                     </td>
                                                                     <td>

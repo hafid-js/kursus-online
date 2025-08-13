@@ -6,7 +6,7 @@
             <div class="card-body">
                 <h3 class="card-title mt-4">Commission Settings</h3>
                 <div class="row g-3">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <div class="form-label">Instructor commission Rate Per Sale (%)</div>
                         <input type="text" class="form-control" name="commission_rate"
                             value="{{ config('settings.commission_rate') }}">
@@ -15,9 +15,8 @@
                 </div>
             </div>
             <div class="card-footer bg-transparent mt-auto">
-                <div class="btn-list justify-content-end">
-                    <a href="#" class="btn btn-1"> Cancel </a>
-                    <button type="submit" class="btn btn-primary btn-2"> Submit
+                <div class="btn-list justify-content-start">
+                    <button type="submit" class="btn btn-primary btn-2"> Update
                     </button>
                 </div>
             </div>

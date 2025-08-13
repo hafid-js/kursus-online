@@ -42,7 +42,24 @@
                                                 <tr id="row-{{ $course->id }}">
                                                     <td>{{ $course->title }}</td>
                                                     <td>{{ $course->price }}</td>
-                                                    <td>{{ $course->instructor->name }}</td>
+                                                    <td>
+                                                                        <div class="d-flex py-1 align-items-center">
+                                                                            @if (!empty($course->instructor->image))
+                                                                                <span class="avatar avatar-2 me-2"
+                                                                                    style="background-image: url({{ asset($course->instructor->image) }})"></span>
+                                                                            @else
+                                                                                <span
+                                                                                    class="avatar avatar-2 me-2 bg-primary-lt text-primary fw-bold">
+                                                                                    {{ getUserInitials($course->instructor->name) }}
+                                                                                </span>
+                                                                            @endif
+                                                                            <div class="flex-fill">
+                                                                                <div class="font-weight-medium">
+                                                                                    {{ $course->instructor->name }}</div>
+                                                                                    <div class="text-secondary"><a href="#" class="text-reset">{{ $course->instructor->email }}</a></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
                                                     <td>
                                                         @if ($course->is_approved == 'pending')
                                                             <span class="badge bg-yellow text-yellow-fg">Pending</span>

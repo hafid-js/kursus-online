@@ -28,36 +28,17 @@
     {{-- <link href="https://preview.tabler.io/dist/libs/jsvectormap/dist/jsvectormap.css?1752697826" rel="stylesheet" /> --}}
     <!-- END PAGE LEVEL STYLES -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="https://preview.tabler.io/dist/css/tabler.min.css?1752697826" rel="stylesheet" />
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <!-- BEGIN PLUGINS STYLES -->
+    <link href="{{ asset('admin/assets/css/tabler.min.css?1752697826') }}" rel="stylesheet" />
     <link
-      href="https://preview.tabler.io/dist/css/tabler-flags.min.css?1752697826"
-      rel="stylesheet"
-    />
-    <link
-      href="https://preview.tabler.io/dist/css/tabler-socials.min.css?1752697826"
-      rel="stylesheet"
-    />
-    <link
-      href="https://preview.tabler.io/dist/css/tabler-payments.min.css?1752697826"
-      rel="stylesheet"
-    />
-    <link
-      href="https://preview.tabler.io/dist/css/tabler-vendors.min.css?1752697826"
-      rel="stylesheet"
-    />
-    <link
-      href="https://preview.tabler.io/dist/css/tabler-marketing.min.css?1752697826"
-      rel="stylesheet"
-    />
-    <link
-      href="https://preview.tabler.io/dist/css/tabler-themes.min.css?1752697826"
+      href="{{ asset('admin/assets/css/tabler-themes.min.css?1752697826') }}"
       rel="stylesheet"
     />
     <!-- END PLUGINS STYLES -->
     <!-- BEGIN DEMO STYLES -->
-    <link href="https://preview.tabler.io/dist/css/demo.min.css?1752697826" rel="stylesheet" />
+    <link href="{{ asset('admin/assets/css/demo.min.css?1752697826') }}" rel="stylesheet" />
+
+    {{-- font awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     {{-- <link href="{{ asset('admin/assets/css/tabler.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('admin/assets/css/demo.min.css?1692870487') }}" rel="stylesheet" /> --}}
@@ -443,11 +424,6 @@
         </div>
       </form>
     </div>
-    <script src="{{ asset('admin/assets/libs/apexcharts/dist/apexcharts.min.js?1692870487') }} " defer></script>
-    <script src="{{ asset('admin/assets/libs/jsvectormap/dist/js/jsvectormap.min.js?1692870487') }} " defer></script>
-    <script src="{{ asset('admin/assets/libs/jsvectormap/dist/maps/world.js?1692870487') }} " defer></script>
-    <script src="{{ asset('admin/assets/libs/jsvectormap/dist/maps/world-merc.js?1692870487') }} " defer></script>
-    <!-- Tabler Core -->
 
     {{-- plugins --}}
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
@@ -458,19 +434,6 @@
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('frontend/assets/js/jquery-ui.min.js') }}" defer></script>
-
-
-        <!-- BEGIN PAGE LIBRARIES -->
-    <script src="https://preview.tabler.io/dist/libs/apexcharts/dist/apexcharts.min.js?1752697826" defer></script>
-    <script src="https://preview.tabler.io/dist/libs/jsvectormap/dist/jsvectormap.min.js?1752697826" defer></script>
-    <script src="https://preview.tabler.io/dist/libs/jsvectormap/dist/maps/world.js?1752697826" defer></script>
-    <script src="https://preview.tabler.io/dist/libs/jsvectormap/dist/maps/world-merc.js?1752697826" defer></script>
-    <!-- END PAGE LIBRARIES -->
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="https://preview.tabler.io/dist/js/tabler.min.js?1752697826" defer integrity="sha384-pku3birjgGovaJ9ngF7SaxKkF/eYUvBjiMJ+jTtWbNesIj2Rud2K63+4JD7EF4gk"></script>
-    <!-- END GLOBAL MANDATORY SCRIPTS -->
-    <!-- BEGIN DEMO SCRIPTS -->
-    <!-- END DEMO SCRIPTS -->
 
     <script src="{{ asset('admin/assets/js/tabler.min.js?1692870487') }} " defer></script>
     <script src="{{ asset('admin/assets/js/demo.min.js?1692870487') }} " defer></script>

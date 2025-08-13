@@ -47,16 +47,18 @@
                                                                     <td><code class="text-danger">{{ url('/') }}/page/{{ $page->slug }}</code></td>
                                                                     <td>
                                                                         @if ($page->show_at_nav == 1)
-                                                                        <span class="badge bg-lime text-lime-fg">Yes</span>
+                                                                        <span
+                                                                                class="badge bg-lime text-lime-fg">Active</span>
                                                                         @else
-                                                                        <span class="badge bg-red text-red-fg">No</span>
+                                                                        <span class="badge bg-red text-red-fg">Inactive</span>
                                                                         @endif
                                                                     </td>
                                                                      <td>
                                                                         @if ($page->status == 1)
-                                                                        <span class="badge bg-lime text-lime-fg">Yes</span>
+                                                                        <span
+                                                                                class="badge bg-lime text-lime-fg">Active</span>
                                                                         @else
-                                                                        <span class="badge bg-red text-red-fg">No</span>
+                                                                        <span class="badge bg-red text-red-fg">Inactive</span>
                                                                         @endif
                                                                     </td>
                                                                     <td>

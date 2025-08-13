@@ -12,7 +12,7 @@
                             value="{{ config('settings.sender_email') }}">
                         <x-input-error :messages="$errors->get('sender_email')" class="mt-2" />
                     </div>
-                     <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="form-label">Receiver Email</div>
                         <input type="text" class="form-control" name="receiver_email"
                             value="{{ config('settings.receiver_email') }}">
@@ -54,12 +54,9 @@
                             value="{{ config('settings.mail_encryption') }}">
                         <x-input-error :messages="$errors->get('mail_encryption')" class="mt-2" />
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-label">Mail Queue</div>
-                        <select name="mail_queue" id="" class="form-control">
-                            <option value="1">On</option>
-                            <option value="0">Off</option>
-                        </select>
+                    <div class="col-md-2">
+                        <x-input-toggle-block name="mail_queue" label="Mail Queue" :checked="(int) old('mail_queue', config('settings.mail_queue', 0)) === 1" />
+
                         <x-input-error :messages="$errors->get('mail_queue')" class="mt-2" />
                     </div>
                 </div>

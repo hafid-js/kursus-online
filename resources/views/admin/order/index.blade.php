@@ -30,10 +30,18 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>
-                                                        <div>
-                                                            {{ $order->customer->name }}
+                                                        <div class="d-flex py-1 align-items-center">
+                                                            <span class="avatar avatar-2 me-2"
+                                                                style="background-image: url({{ $order->customer->image }})">
+                                                            </span>
+                                                            <div class="flex-fill">
+                                                                <div class="font-weight-medium">{{ $order->customer->name }}
+                                                                </div>
+                                                                <div class="text-secondary"><a href="#"
+                                                                        class="text-reset">{{ $order->customer->email }}</a>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <small>{{ $order->customer->email }}</small>
                                                     </td>
                                                     <td>{{ $order->total_amount }}</td>
                                                     <td>{{ $order->paid_amount }}</td>

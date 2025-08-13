@@ -17,10 +17,12 @@
         </div>
         <div class="mb-3">
            <x-input-toggle-block name="status" label="Status" :checked="($category->status ?? 0) == 1" />
-
     </div>
+     </div>
     <div class="modal-footer">
         <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">
+            {{ $editMode ? 'Update' : 'Create' }}
+        </button>
     </div>
 </form>

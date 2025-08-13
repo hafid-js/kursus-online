@@ -26,7 +26,7 @@
                                                                 <th>Title</th>
                                                                 <th>Category</th>
                                                                 <th>Status</th>
-
+                                                                <th>Created At</th>
                                                                 <th>Action</th>
                                                                 {{-- <th class="w-1"></th> --}}
                                                             </tr>
@@ -41,11 +41,13 @@
                                                                     <td>{{ $blog->category->name }}</td>
                                                                     <td>
                                                                         @if ($blog->status == 1)
-                                                                        <span class="badge bg-lime text-lime-fg">Yes</span>
+                                                                       <span
+                                                                                class="badge bg-lime text-lime-fg">Active</span>
                                                                         @else
-                                                                        <span class="badge bg-red text-red-fg">No</span>
+                                                                        <span class="badge bg-red text-red-fg">Inactive</span>
                                                                         @endif
                                                                     </td>
+                                                                    <td>{{ format_to_date($blog->created_at) }}</td>
                                                                     <td>
                                                                         <a href="{{ route('admin.blogs.show', $blog->id) }}"
                                                                             class="btn-sm btn-primary">
