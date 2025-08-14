@@ -1,3 +1,5 @@
+
+console.log('admin.js loaded');
 import { data } from "autoprefixer";
 import $ from "jquery";
 
@@ -8,8 +10,8 @@ var notyf = new Notyf({
     dismissible: true,
 });
 
-const csrf_token = $(`meta[name="csrf_token"]`).attr("content");
-const base_url = $(`meta[name="base_url"]`).attr("content");
+const csrf_token = $('meta[name="csrf-token"]').attr('content');
+const base_url = $('meta[name="base_url"]').attr('content') || '';
 
 document.addEventListener("DOMContentLoaded", function () {
     var el;
@@ -263,9 +265,9 @@ $(function () {
 });
 
 // upload profil photo and live show
-document
-    .getElementById("profile_photo")
-    .addEventListener("change", function (event) {
+const profilePhoto = document.getElementById("profile_photo");
+if(profilePhoto) {
+    profilePhoto.addEventListener("change", function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -277,6 +279,7 @@ document
             reader.readAsDataURL(file);
         }
     });
+}
 
 $(document).ready(function () {
     // Handle edit button click
@@ -386,7 +389,6 @@ $(document).ready(function () {
     });
 });
 
-
 // ajax search
 window.initLiveSearch = function({
     inputSelector,
@@ -402,7 +404,6 @@ window.initLiveSearch = function({
 
         timer = setTimeout(() => {
             const query = $(this).val();
-
             $.ajax({
                 url: url,
                 type: "GET",

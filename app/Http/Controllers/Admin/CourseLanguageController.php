@@ -36,7 +36,7 @@ class CourseLanguageController extends Controller
     public function create()
     {
         $editMode = false;
-        return response()->view('admin.course.course-language.language-modal', compact('editMode'));
+        return response()->view('admin.course.course-language.partials.language-modal', compact('editMode'));
     }
 
     public function store(Request $request)
@@ -60,7 +60,7 @@ class CourseLanguageController extends Controller
     public function edit(CourseLanguage $course_language)
     {
         $editMode = true;
-        return response()->view('admin.course.course-language.language-modal', compact('course_language', 'editMode'));
+        return response()->view('admin.course.course-language.partials.language-modal', compact('course_language', 'editMode'));
     }
 
 

@@ -76,7 +76,9 @@ class BlogController extends Controller
         return view('admin.blog.show', compact('blog', 'comments'));
     }
 
-
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(string $id)
     {
         $blog = Blog::findOrFail($id);
@@ -84,7 +86,9 @@ class BlogController extends Controller
         return view('admin.blog.edit', compact('blog', 'categories'));
     }
 
-
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
@@ -119,7 +123,9 @@ class BlogController extends Controller
         return to_route('admin.blogs.index');
     }
 
-
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id)
     {
         $blog = Blog::findOrFail($id);

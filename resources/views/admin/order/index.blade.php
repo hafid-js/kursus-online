@@ -10,7 +10,7 @@
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h4 class="card-title">Orders</h4>
                                 <input type="text" id="searchInput" class="form-control" placeholder="Search..."
-                                        style="width: 200px;">
+                                    style="width: 200px;">
                             </div>
                             <div class="card">
                                 <div class="table-responsive">
@@ -29,10 +29,10 @@
                                             </tr>
                                         </thead>
                                         <tbody id="orderTableBody">
-                                        @include('admin.order.partials.table', [
-                                            'orders' => $orders,
-                                        ])
-                                    </tbody>
+                                            @include('admin.order.partials.table', [
+                                                'orders' => $orders,
+                                            ])
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -53,6 +53,7 @@
         </div>
     </div>
 @endsection
+
 
 @push('scripts')
     <script>
@@ -99,5 +100,6 @@
                 url: "{{ route('admin.orders.index') }}"
             });
         });
+
     </script>
 @endpush

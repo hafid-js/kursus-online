@@ -177,7 +177,6 @@
             });
 
         });
-
         document.addEventListener('DOMContentLoaded', function() {
             initLiveSearch({
                 inputSelector: '#searchInput',

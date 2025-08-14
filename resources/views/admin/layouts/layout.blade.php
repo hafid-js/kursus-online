@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="base_url" content="{{ url('/') }}">
-    <meta name="csrf_token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href="{{ asset(config('settings.site_favicon')) }}">
     <!-- CSS files -->
     <title>Dashboard</title>
@@ -37,7 +37,7 @@
     <!-- BEGIN DEMO STYLES -->
     <link href="{{ asset('admin/assets/css/demo.min.css?1752697826') }}" rel="stylesheet" />
 
-    {{-- font awesome --}}
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     {{-- <link href="{{ asset('admin/assets/css/tabler.min.css?1692870487') }}" rel="stylesheet" />
@@ -57,8 +57,15 @@
             font-feature-settings: "cv03", "cv04", "cv11";
         }
     </style>
-    @stack('styles')
-    @vite(['resources/css/admin.css', 'resources/js/admin/login.js', 'resources/js/admin/admin.js', 'resources/js/admin/course.js'])
+    {{-- @stack('styles') --}}
+     <!-- Vite Assets -->
+    @vite([
+        'resources/css/admin.css',
+        'resources/js/admin/login.js',
+        'resources/js/admin/admin.js',
+        'resources/js/admin/course.js',
+        'resources/js/test.js'
+    ]);
     @stack('header_scripts')
 </head>
 
@@ -71,8 +78,6 @@
         @include('admin.layouts.header')
 
         @yield('content')
-
-
     </div>
 
     @include('admin.layouts.footer')
@@ -441,7 +446,7 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2({
-                theme: 'bootstrap4',
+                theme: 'bootstrap',
                 width: '100%'
             });
         });
