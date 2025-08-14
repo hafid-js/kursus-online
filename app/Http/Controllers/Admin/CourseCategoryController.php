@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CourseCategoriesDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CourseCategoryStoreRequest;
 use App\Http\Requests\Admin\CourseCategoryUpdateRequest;
@@ -18,29 +19,9 @@ class CourseCategoryController extends Controller
 
     use FileUpload;
 
-
-
-    public function index(Request $request)
+    public function index(CourseCategoriesDataTable $dataTable)
     {
-        $query = CourseCategory::query();
-
-        if ($request->has('search')) {
-            $search = $request->input('search');
-
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('slug', 'like', "%{$search}%");
-            });
-        }
-        $query->whereNull('parent_id');
-
-        $categories = $query->paginate(15);
-
-        if ($request->ajax() && $request->has('search')) {
-            return view('admin.course.course-category.partials.table', compact('categories'))->render();
-        }
-
-        return view('admin.course.course-category.index', compact('categories'));
+        return $dataTable->render('admin.course.course-category.index');
     }
 
 
@@ -85,7 +66,6 @@ class CourseCategoryController extends Controller
             ]);
         }
     }
-
 
 
     public function edit($id): \Illuminate\Http\Response

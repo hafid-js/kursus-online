@@ -60,11 +60,12 @@
     {{-- @stack('styles') --}}
      <!-- Vite Assets -->
     @vite([
+        // 'resources/css/app.css',
+        'resources/js/app.js',
         'resources/css/admin.css',
         'resources/js/admin/login.js',
         'resources/js/admin/admin.js',
-        'resources/js/admin/course.js',
-        'resources/js/test.js'
+        'resources/js/admin/course.js'
     ]);
     @stack('header_scripts')
 </head>

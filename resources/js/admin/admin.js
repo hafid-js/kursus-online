@@ -88,7 +88,7 @@ $(function () {
 
 /** Delete Item with confirmation */
 
-$(".delete-item").on("click", function (e) {
+$(document).on("click", ".delete-item", function (e) {
     e.preventDefault();
 
     let url = $(this).attr("href");
