@@ -19,6 +19,11 @@ textarea {
     -o-border-radius: 6px;
 }
 
+/* hide tfoot datatables */
+table.dataTable tfoot {
+  display: none;
+}
+
 .add_course_basic_info_imput {
     margin-bottom: 10px;
 }

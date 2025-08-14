@@ -9,8 +9,14 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Course Categories</h3>
+                                <div class="card-actions">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a href="#" class="btn btn-primary add_course_category">
+                                            <i class="ti ti-plus"></i> Add new
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            {{-- Custom Search & Entries --}}
                             <div class="card-body border-bottom py-3">
                                 <div class="d-flex">
                                     <div class="text-secondary">
@@ -18,7 +24,7 @@
                                         <div class="mx-2 d-inline-block">
                                             <input id="custom-length" type="number" min="1"
                                                 class="form-control form-control-sm" value="8" size="3"
-                                                aria-label="Entries count">
+                                                aria-label="Invoices count">
                                         </div>
                                         entries
                                     </div>
@@ -31,11 +37,26 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="table-responsive">
                                 {!! $dataTable->table(
-                                    ['id' => 'course_categories', 'class' => 'table table-vcenter card-table datatable'],
+                                    ['id' => 'course_categories', 'class' => 'table table-selectable card-table table-vcenter text-nowrap datatable'],
                                     true,
                                 ) !!}
+                            </div>
+
+                            <!-- Custom Footer -->
+                            <div class="card-footer">
+                                <div class="row g-2 justify-content-center justify-content-sm-between">
+                                    <div class="col-auto d-flex align-items-center">
+                                        <p class="m-0 text-secondary" id="table-info">
+                                            Showing <strong>0 to 0</strong> of <strong>0 entries</strong>
+                                        </p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <ul class="pagination m-0 ms-auto"></ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -54,22 +75,14 @@
     </div>
 @endsection
 
-
 @push('scripts')
     {!! $dataTable->scripts() !!}
+@endpush
+
+@push('scripts')
     <script>
         $(document).ready(function() {
-    let table = $('#course_categories').DataTable();
-
-    // Search manual input
-    $('#custom-search').on('keyup', function() {
-        table.search(this.value).draw();
-    });
-
-    // change total entries
-    $('#custom-length').on('change', function() {
-        table.page.len(this.value).draw();
-    });
+    initTable('#course_categories');
 });
         $(function() {
             const baseUrl = "{{ url('') }}";
@@ -94,8 +107,9 @@
                 });
             });
 
+
             // Handle open Edit Modal
-            $('.edit_course_category').on('click', function() {
+            $(document).on("click", ".edit_course_category", function(e) {
                 const categoryId = $(this).data('category-id');
                 $('#dynamic-modal').modal('show');
                 $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
@@ -171,14 +185,6 @@
                 });
             });
         });
-
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     initLiveSearch({
-        //         inputSelector: '#searchInput',
-        //         resultSelector: '#categoryTableBody',
-        //         url: "{{ route('admin.course-categories.index') }}"
-        //     });
-        // });
 
     </script>
 @endpush
