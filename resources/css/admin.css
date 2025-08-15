@@ -24,6 +24,15 @@ table.dataTable tfoot {
   display: none;
 }
 
+table.dataTable thead .sorting_asc:after {
+    border-bottom-color: black;
+}
+
+table.dataTable thead .sorting_desc:after {
+    border-top-color: black;
+}
+
+
 .add_course_basic_info_imput {
     margin-bottom: 10px;
 }

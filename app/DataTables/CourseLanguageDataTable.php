@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\CourseCategory;
+use App\Models\CourseLanguage;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class CourseCategoriesDataTable extends DataTable
+class CourseLanguageDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -32,28 +32,14 @@ class CourseCategoriesDataTable extends DataTable
 
         return $dataTable
             ->addIndexColumn()
-            ->addColumn('icon', function ($row) {
-                return $row->image
-                    ? '<img src="' . asset($row->image) . '" width="32">'
-                    : '<span class="text-muted">No image</span>';
-            })
-            ->editColumn('show_at_trending', function ($row) {
-                return $row->show_at_trending ? '<span class="badge bg-lime text-lime-fg">Yes</span>' : '<span class="badge bg-red text-red-fg">No</span>';
-            })
-            ->editColumn('status', function ($row) {
-                return $row->status ? '<span class="badge bg-lime text-lime-fg">Yes</span>' : '<span class="badge bg-red text-red-fg">No</span>';
-            })
             ->addColumn('action', function ($row) {
                 return '
-                <a href="' . route('admin.course-sub-categories.index', $row->id) . '" class="btn-sm text-warning">
-                    <i class="ti ti-list"></i>
-                </a>
-                <a class="edit edit_course_category" data-category-id="' . $row->id . '" href="javascript:;"><i class="ti ti-edit" aria-hidden="true"></i></a>
-                <a href="' . route('admin.course-categories.destroy', $row->id) . '" class="text-red delete-item">
+                <a class="edit edit_course_language" data-language-id="' . $row->id . '" href="javascript:;"><i class="ti ti-edit" aria-hidden="true"></i></a>
+                <a href="' . route('admin.course-languages.destroy', $row->id) . '" class="text-red delete-item">
                     <i class="ti ti-trash"></i>
                 </a>';
             })
-            ->rawColumns(['icon', 'show_at_trending', 'status', 'action'])
+            ->rawColumns(['action'])
             ->setRowId('id');
     }
 
@@ -62,9 +48,9 @@ class CourseCategoriesDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(CourseCategory $model): QueryBuilder
+    public function query(CourseLanguage $model): QueryBuilder
     {
-        return $model->newQuery()->whereNull('parent_id');
+        return $model->newQuery();
     }
 
 
@@ -74,7 +60,7 @@ class CourseCategoriesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('course_categories')
+            ->setTableId('course_languages')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)
@@ -85,7 +71,6 @@ class CourseCategoriesDataTable extends DataTable
                 'paging' => true,
                 'info' => true,
                 'searching' => true,
-                'ordering' => true,
                 'dom' => 'rt',
             ])
 
@@ -116,19 +101,10 @@ class CourseCategoriesDataTable extends DataTable
                 ->title('<span class="table-sort d-flex justify-content-start">Name</span>')
                 ->orderable(true)
                 ->escape(false)->width('600'),
-            Column::computed('icon')->title('Icon')->orderable(false)->searchable(false)->width('100'),
-            Column::make('show_at_trending')
-                ->title('<span class="table-sort d-flex justify-content-start">Trending</span>')
+            Column::make('slug')->title('<span class="table-sort d-flex justify-content-start">Slug</span>')
                 ->orderable(true)
-                ->escape(false)
-                ->width('100'),
-            Column::make('status')
-                ->title('<span class="table-sort d-flex justify-content-start">Status</span>')
-                ->orderable(true)
-                ->escape(false)
-                ->width('80'),
-            Column::make('action')->title('Action')->width('100'),
-
+                ->escape(false)->width('100'),
+            Column::computed('action')->title('Action')->width('100'),
         ];
     }
 
@@ -138,6 +114,6 @@ class CourseCategoriesDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'CourseCategories_' . date('YmdHis');
+        return 'CourseLanguages_' . date('YmdHis');
     }
 }

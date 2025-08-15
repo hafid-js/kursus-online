@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CourseReviewsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Exception;
@@ -10,15 +11,19 @@ use Illuminate\Http\Request;
 class ReviewController extends Controller
 {
 
-    public function index()
+    // public function index()
+    // {
+    //     $reviews = Review::with(['user:id,name,email,image','course:id,title'])->paginate(20);
+    //     return view('admin.course.review.index', compact('reviews'));
+    // }
+    public function index(CourseReviewsDataTable $dataTable)
     {
-        $reviews = Review::with(['user:id,name,email,image','course:id,title'])->paginate(20);
-        return view('admin.review.index', compact('reviews'));
+        return $dataTable->render('admin.course.review.index');
     }
 
     public function show(Review $review)
     {
-        return response()->view('admin.review.detail-review-modal', compact('review'));
+        return response()->view('admin.course.review.detail-review-modal', compact('review'));
     }
     public function update(Request $request, Review $review)
     {

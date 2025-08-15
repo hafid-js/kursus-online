@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CourseLanguageDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\CourseLanguage;
 use Exception;
@@ -13,23 +14,9 @@ use Illuminate\Validation\ValidationException;
 class CourseLanguageController extends Controller
 {
 
-    public function index(Request $request)
+     public function index(CourseLanguageDataTable $dataTable)
     {
-        $query = CourseLanguage::query();
-
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $query->where('name', 'like', "%{$search}%")
-                ->orWhere('slug', 'like', "%{$search}%");
-        }
-
-        $languages = $query->paginate(20);
-
-        if ($request->ajax() && $request->has('search')) {
-            return view('admin.course.course-language.partials.table', compact('languages'))->render();
-        }
-
-        return view('admin.course.course-language.index', compact('languages'));
+        return $dataTable->render('admin.course.course-language.index');
     }
 
 
