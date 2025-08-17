@@ -2,30 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CourseOrdersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index(Request $request)
+      public function index(CourseOrdersDataTable $dataTable)
     {
-        $query = Order::query();
-
-        if ($request->has('search')) {
-            $search = $request->input('search');
-
-            $query->whereHas('customer', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%");
-            });
-        }
-        $orders = $query->with('customer')->paginate(25);
-
-        if ($request->ajax() && $request->has('search')) {
-            return view('admin.order.partials.table', compact('orders'))->render();
-        }
-        return view('admin.order.index', compact('orders'));
+        return $dataTable->render('admin.order.index');
     }
+
 
 
     function show(Order $order)
