@@ -45,6 +45,7 @@ use App\Http\Controllers\Admin\TopBarController;
 use App\Http\Controllers\Admin\VideoSectionController;
 use App\Http\Controllers\Admin\WithdrawRequestController;
 use App\Http\Controllers\Admin\HeroController;
+use App\Http\Controllers\Export\ExportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(["middleware" => "guest:admin", "prefix" => "admin", "as" => "admin."], function () {
@@ -96,15 +97,15 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // profile update routes
-    Route::get('profile', [ProfileUpdateController::class,'index'])->name('profile.index');
+    Route::get('profile', [ProfileUpdateController::class, 'index'])->name('profile.index');
     Route::post('profile', [ProfileUpdateController::class, 'profileUpdate'])->name('profile.update');
-    Route::post('update-password', [ProfileUpdateController::class,'updatePassword'])->name('password.update');
+    Route::post('update-password', [ProfileUpdateController::class, 'updatePassword'])->name('password.update');
 
     Route::get('instructor-doc-download/{user}', [InstructorRequestController::class, 'download'])->name('instructor-doc-download');
     Route::get('instructor-doc-show/{user}', [InstructorRequestController::class, 'show'])->name('instructor-doc-show');
     Route::get('instructor-requests', [InstructorRequestController::class, 'index'])->name('instructor-requests.index');
-Route::put('instructor-requests/{user}/update-approval', [InstructorRequestController::class, 'update'])
-    ->name('instructor-requests.update-approval');
+    Route::put('instructor-requests/{user}/update-approval', [InstructorRequestController::class, 'update'])
+        ->name('instructor-requests.update-approval');
 
     // Course languages routes
     Route::resource('course-languages', CourseLanguageController::class);
@@ -132,7 +133,7 @@ Route::put('instructor-requests/{user}/update-approval', [InstructorRequestContr
 
     Route::get('courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
     Route::post('courses/update', [CourseController::class, 'update'])->name('courses.update');
-// Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
+    // Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
 
     Route::get('course-content/{course}/create-chapter', [CourseContentController::class, 'createChapterModal'])->name('course-content.create-chapter');
     Route::post('course-content/{chapter}/create-chapter', [CourseContentController::class, 'storeChapter'])->name('course-content.store-chapter');
@@ -172,8 +173,8 @@ Route::put('instructor-requests/{user}/update-approval', [InstructorRequestContr
     Route::get('smtp-settings', [SettingController::class, 'smtpSetting'])->name('smtp-settings.index');
     Route::post('smtp-settings', [SettingController::class, 'updateSmtpSetting'])->name('smtp-settings.update');
 
-    Route::get('logo-settings', [SettingController::class,'logoSetting'])->name('logo-settings.index');
-    Route::post('logo-settings', [SettingController::class,'updateLogoSetting'])->name('logo-settings.update');
+    Route::get('logo-settings', [SettingController::class, 'logoSetting'])->name('logo-settings.index');
+    Route::post('logo-settings', [SettingController::class, 'updateLogoSetting'])->name('logo-settings.update');
 
     Route::resource('payout-gateway', PayoutGatewayController::class);
 
@@ -237,7 +238,7 @@ Route::put('instructor-requests/{user}/update-approval', [InstructorRequestContr
     // footer column one routes
     Route::resource('footer-column-one', FooterColumnOneController::class);
 
-        // footer column two routes
+    // footer column two routes
     Route::resource('footer-column-two', FooterColumnTwoController::class);
 
     // social links routes
@@ -253,9 +254,12 @@ Route::put('instructor-requests/{user}/update-approval', [InstructorRequestContr
     Route::resource('blogs', BlogController::class);
 
     // database clear routes
-    Route::get('database-clear',[DatabaseClearController::class,'index'])->name('database-clear.index');
-    Route::delete('database-clear',[DatabaseClearController::class,'destroy'])->name('database-clear.destroy');
+    Route::get('database-clear', [DatabaseClearController::class, 'index'])->name('database-clear.index');
+    Route::delete('database-clear', [DatabaseClearController::class, 'destroy'])->name('database-clear.destroy');
 
+    // export to excel
+    Route::get('export/course-orders', [ExportController::class, 'courseExportOrders'])->name('export.course-orders');
+    Route::get('export/course-orders-pdf', [ExportController::class, 'exportSelected'])->name('export.course-orders-pdf');
 
 
     // lfm routes

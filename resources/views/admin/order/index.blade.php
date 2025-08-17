@@ -5,7 +5,7 @@
         <div class="page-body">
             <div class="container-xl">
                 <div class="row row-cards">
-                     <div class="col-12">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h4 class="card-title">Orders</h4>
@@ -30,14 +30,34 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="card-body border-bottom py-3">
+                                <div class="d-flex">
+                                    <div class="d-flex gap-2">
+                                        <a href="#" id="btnExportExcel" class="btn btn-sm btn-success">
+                                            <i class="ti ti-file-export"></i> Excel
+                                        </a>
+                                        <a href="#" id="btnExportPdf" class="btn btn-sm btn-danger">
+                                            <i class="ti ti-file"></i> PDF
+                                        </a>
+                                        <button id="btnPrint" class="btn btn-sm btn-primary">
+                                            <i class="ti ti-printer"></i> Print
+                                        </button>
+                                        <button id="btnReset" class="btn btn-sm btn-warning">
+                                            <i class="fa fa-refresh"></i> Reset
+                                        </button>
+                                        <button id="btnReload" class="btn btn-sm btn-secondary">
+                                            <i class="ti ti-reload"></i> Reload
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 {!! $dataTable->table(
                                     ['id' => 'courseorders-table', 'class' => 'table table-selectable card-table table-vcenter text-nowrap datatable'],
                                     true,
                                 ) !!}
                             </div>
-                             <div class="card-footer">
+                            <div class="card-footer">
                                 <div class="row g-2 justify-content-center justify-content-sm-between">
                                     <div class="col-auto d-flex align-items-center">
                                         <p class="m-0 text-secondary" id="table-info">
@@ -72,37 +92,117 @@
 
 @push('scripts')
     {!! $dataTable->scripts() !!}
-@endpush
-
-
-@push('scripts')
     <script>
         $(document).ready(function() {
-                initTable('#courseorders-table');
-            });
-        $(function() {
-            const baseUrl = "{{ url('') }}";
 
-            // Global AJAX CSRF token setup
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
+            // Inisialisasi DataTable
+            let table = $('#courseorders-table').DataTable();
+
+            $('#btnReload').on('click', function() {
+                table.ajax.reload(null, false);
             });
 
-            // Handle open Edit Modal
-         $(document).on("click", ".show-order", function(e) {
-                const orderId = $(this).data('order-id');
-                $('#dynamic-modal').modal('show');
-                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+            $('#btnReset').on('click', function() {
 
-                $.get(`${baseUrl}/admin/orders/${orderId}`, function(html) {
-                    $('.dynamic-modal-content').html(html);
-                }).fail(() => {
-                    $('.dynamic-modal-content').html(
-                        '<div class="p-5 text-danger">Error loading form</div>');
+                table.search('').columns().search('').order([]).page('first').draw();
+            });
+
+            $('#courseorders-table').on('draw.dt', function() {
+                $('#select-all').off('click').on('click', function() {
+                    const checked = $(this).is(':checked');
+                    $('.order-checkbox').prop('checked', checked);
+                });
+
+                $(document).off('click', '.order-checkbox').on('click', '.order-checkbox', function() {
+                    const total = $('.order-checkbox').length;
+                    const checked = $('.order-checkbox:checked').length;
+
+                    $('#select-all').prop('checked', total === checked);
                 });
             });
+
+            initTable('#courseorders-table');
         });
+
+        $(function() {
+    const baseUrl = "{{ url('') }}";
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    // tombol untuk modal A
+    $(document).on("click", ".show-order-courses", function(e) {
+        const orderId = $(this).data('order-id');
+        $('#dynamic-modal').modal('show');
+        $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+        $.get(`${baseUrl}/admin/orders/${orderId}?modal=courses`, function(html) {
+            $('.dynamic-modal-content').html(html);
+        }).fail(() => {
+            $('.dynamic-modal-content').html('<div class="p-5 text-danger">Error loading form</div>');
+        });
+    });
+
+    // tombol untuk modal B
+    $(document).on("click", ".show-order-invoice", function(e) {
+        const orderId = $(this).data('order-id');
+        $('#dynamic-modal').modal('show');
+        $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+        $.get(`${baseUrl}/admin/orders/${orderId}?modal=invoice`, function(html) {
+            $('.dynamic-modal-content').html(html);
+        }).fail(() => {
+            $('.dynamic-modal-content').html('<div class="p-5 text-danger">Error loading form</div>');
+        });
+    });
+});
+
+
+
+        $(document).ready(function() {
+            function exportSelectedOrAll(type) {
+                let selectedIds = [];
+                $('.order-checkbox:checked').each(function() {
+                    selectedIds.push($(this).val());
+                });
+
+                if (selectedIds.length > 0) {
+                    let url = `export/course-orders-pdf?type=${type}`;
+
+                    // Ambil CSRF token dari meta tag
+                    let csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                    let form = $('<form method="POST" action="' + url + '"></form>');
+
+                    form.append('<input type="hidden" name="_token" value="' + csrfToken + '">');
+
+                    selectedIds.forEach(id => {
+                        form.append('<input type="hidden" name="ids[]" value="' + id + '">');
+                    });
+
+                    $('body').append(form);
+                    form.submit();
+                } else {
+                    if (type === 'excel') {
+                        window.location.href = "{{ route('admin.export.course-orders') }}";
+                    } else if (type === 'pdf') {
+                        window.location.href = "{{ route('admin.export.course-orders-pdf') }}";
+                    }
+                }
+            }
+               $('#btnExportExcel').click(function(e) {
+                e.preventDefault();
+                exportSelectedOrAll('excel');
+            });
+
+            $('#btnExportPdf').click(function(e) {
+                e.preventDefault();
+                exportSelectedOrAll('pdf');
+            });
+        });
+
     </script>
 @endpush

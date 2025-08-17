@@ -27,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'verified.document' => EnsureDocumentVerified::class,
             'role' => EnsureApiRole::class // for api role
 
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
