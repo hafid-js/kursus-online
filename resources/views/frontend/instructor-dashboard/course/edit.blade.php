@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-xl-6">
                         <div class="add_course_basic_info_imput">
-                            <label for="#">Discount Price</label>
+                            <label for="#">Discount Price %</label>
                             <input type="text" placeholder="Price" name="discount" value="{{ $course->discount }}">
                         </div>
                     </div>

@@ -5,8 +5,8 @@
     @include('frontend.pages.home.sections.category');
     @include('frontend.pages.home.sections.about');
     <!--===========================
-                                                COUESES 3 START
-                                            ============================-->
+                                                        COUESES 3 START
+                                                    ============================-->
     @php
         $categoryOne = \App\Models\CourseCategory::where('id', $latestCourses?->category_one)->first();
         $categoryTwo = \App\Models\CourseCategory::where('id', $latestCourses?->category_two)->first();
@@ -156,7 +156,8 @@
                                                 </a>
                                                 <p>
                                                     @if ($course->discount > 0)
-                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                        <del>${{ $course->price }}</del>
+                                                        ${{ getFinalPrice($course->price, $course->discount) }}
                                                     @else
                                                         ${{ $course->price }}
                                                     @endif
@@ -260,7 +261,8 @@
                                                 </a>
                                                 <p>
                                                     @if ($course->discount > 0)
-                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                        <del>${{ $course->price }}</del>
+                                                        ${{ getFinalPrice($course->price, $course->discount) }}
                                                     @else
                                                         ${{ $course->price }}
                                                     @endif
@@ -364,7 +366,8 @@
                                                 </a>
                                                 <p>
                                                     @if ($course->discount > 0)
-                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                        <del>${{ $course->price }}</del>
+                                                        ${{ getFinalPrice($course->price, $course->discount) }}
                                                     @else
                                                         ${{ $course->price }}
                                                     @endif
@@ -466,7 +469,8 @@
                                                 </a>
                                                 <p>
                                                     @if ($course->discount > 0)
-                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                        <del>${{ $course->price }}</del>
+                                                        ${{ getFinalPrice($course->price, $course->discount) }}
                                                     @else
                                                         ${{ $course->price }}
                                                     @endif
@@ -571,7 +575,8 @@
                                                 </a>
                                                 <p>
                                                     @if ($course->discount > 0)
-                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                        <del>${{ $course->price }}</del>
+                                                        ${{ getFinalPrice($course->price, $course->discount) }}
                                                     @else
                                                         ${{ $course->price }}
                                                     @endif
@@ -594,14 +599,14 @@
         </div>
     </section>
     <!--===========================
-                                                COUESES 3 END
-                                            ============================-->
+                                                        COUESES 3 END
+                                                    ============================-->
 
 
 
     <!--===========================
-                                                OFFER START
-                                            ============================-->
+                                                        OFFER START
+                                                    ============================-->
     <section class="wsus__offer" style="background: url('frontend/assets/images/offer_bg.jpg');">
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -625,13 +630,13 @@
         </div>
     </section>
     <!--===========================
-                                                OFFER END
-                                            ============================-->
+                                                        OFFER END
+                                                    ============================-->
 
 
     <!--===========================
-                                                BECOME INSTRUCTOR START
-                                            ============================-->
+                                                        BECOME INSTRUCTOR START
+                                                    ============================-->
     @unless (auth()->user()?->role === 'instructor')
         <section class="wsus__become_instructor mt_120 xs_mt_100">
             <div class="container">
@@ -662,8 +667,8 @@
     <!--=========================== BECOME INSTRUCTOR END ============================-->
 
     <!--===========================
-                                                VIDEO START
-                                            ============================-->
+                                                        VIDEO START
+                                                    ============================-->
     <section class="wsus__video mt_120 xs_mt_100">
         <img src="{{ asset($video?->background) }}" alt="Video" class="img-fluid w-100">
         <a class="play_btn venobox" data-autoplay="true" data-vbtype="video" href="{{ $video?->video_url }}">
@@ -675,12 +680,12 @@
         </div>
     </section>
     <!--===========================
-                                                VIDEO END
-                                            ============================-->
+                                                        VIDEO END
+                                                    ============================-->
 
     <!--===========================
-                                                BRAND START
-                                            ============================-->
+                                                        BRAND START
+                                                    ============================-->
     <section class="wsus__brand mt_45 pt_120 xs_pt_100">
         <div class="container">
             <div class="row">
@@ -705,13 +710,13 @@
         </div>
     </section>
     <!--===========================
-                                                BRAND END
-                                            ============================-->
+                                                        BRAND END
+                                                    ============================-->
 
 
     <!--===========================
-                                                QUALITY COURSES START
-                                            ============================-->
+                                                        QUALITY COURSES START
+                                                    ============================-->
     <section class="wsus__quality_courses mt_120 xs_mt_100">
         <div class="row quality_course_slider">
             <div class="quality_course_slider_item"
@@ -812,7 +817,8 @@
                                                         class="far fa-arrow-right" aria-hidden="true"></i></a>
                                                 <p>
                                                     @if ($course->discount > 0)
-                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
+                                                        <del>${{ $course->price }}</del>
+                                                        ${{ getFinalPrice($course->price, $course->discount) }}
                                                     @else
                                                         ${{ $course->price }}
                                                     @endif
@@ -830,13 +836,13 @@
         </div>
     </section>
     <!--===========================
-                                                QUALITY COURSES END
-                                            ============================-->
+                                                        QUALITY COURSES END
+                                                    ============================-->
 
 
     <!--===========================
-                                                TESTIMONIAL START
-                                            ============================-->
+                                                        TESTIMONIAL START
+                                                    ============================-->
     <section class="wsus__testimonial pt_120 xs_pt_80">
         <div class="container">
             <div class="row">
@@ -875,13 +881,13 @@
         </div>
     </section>
     <!--===========================
-                                                TESTIMONIAL END
-                                            ============================-->
+                                                        TESTIMONIAL END
+                                                    ============================-->
 
 
     <!--===========================
-                                                BLOG 4 START
-                                            ============================-->
+                                                        BLOG 4 START
+                                                    ============================-->
     <section class="blog_4 mt_110 xs_mt_90 pt_120 xs_pt_100 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -929,6 +935,6 @@
         </div>
     </section>
     <!--===========================
-                                                BLOG 4 END
-                                            ============================-->
+                                                        BLOG 4 END
+                                                    ============================-->
 @endsection

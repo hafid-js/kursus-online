@@ -2,8 +2,8 @@
 
 @section('content')
     <!--===========================
-                                        BREADCRUMB START
-                                    ============================-->
+                                                    BREADCRUMB START
+                                                ============================-->
     <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
@@ -22,18 +22,17 @@
         </div>
     </section>
     <!--===========================
-                                        BREADCRUMB END
-                                    ============================-->
+                                                    BREADCRUMB END
+                                                ============================-->
 
 
     <!--===========================
-                                        DASHBOARD OVERVIEW START
-                                    ============================-->
+                                                    DASHBOARD OVERVIEW START
+                                                ============================-->
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
                 @include('frontend.student-dashboard.sidebar')
-
                 <div class="col-xl-9 col-md-8 wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;">
                     <div class="wsus__dashboard_contant">
                         <div class="wsus__invoice_top">
@@ -62,49 +61,35 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="wsus__invoice_table">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="table-responsive">
                                         <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <th class="serial">
-                                                        SL
-                                                    </th>
-                                                    <th class="description">
-                                                        Item Description
-                                                    </th>
 
-                                                    <th class="price">
-                                                    </th>
-                                                     <th class="quantity">
-                                                        Quantity
-                                                    </th>
-                                                     <th class="total">
-                                                        Price
-                                                    </th>
+                                            <thead style="background-color: black; color: white;">
+                                                <tr>
+                                                    <th class="serial">SL</th>
+                                                    <th class="description">Item Description</th>
+                                                    <th class="quantity">Quantity</th>
+                                                    <th class="price">Price</th>
+                                                    <th class="discount">Discount</th>
                                                 </tr>
-                                                @foreach ($order->orderItems as $item)
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach ($order->orderItems as $index => $item)
                                                     <tr>
-                                                        <td class="serial">
-                                                            <p>1</p>
-                                                        </td>
+                                                        <td class="serial">{{ $index + 1 }}</td>
                                                         <td class="description">
                                                             <p class="strong mb-1">{{ $item->course->title }}</p>
                                                             <div class="text-secondary">By
                                                                 {{ $item->course->instructor->name }}</div>
                                                         </td>
-                                                        <td class="price">
-
+                                                        <td class="quantity">1</td>
+                                                        <td class="price">${{ number_format($item->course->price, 2) }}
                                                         </td>
-                                                        <td class="quantity">
-                                                            <p>1</p>
-                                                        </td>
-                                                        <td class="total">
-                                                            <p>${{ $item->price }}</p>
-                                                        </td>
+                                                        <td class="discount">{{ $item->course->discount ?? 0 }}%</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -113,6 +98,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="wsus__invoice_final_total">
                             <div class="row">
@@ -139,6 +125,6 @@
         </div>
     </section>
     <!--===========================
-                                        DASHBOARD OVERVIEW END
-                                    ============================-->
+                                                    DASHBOARD OVERVIEW END
+                                                ============================-->
 @endsection

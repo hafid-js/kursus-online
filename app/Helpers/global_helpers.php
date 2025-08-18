@@ -29,22 +29,32 @@ if(!function_exists('cartCount')) {
     return user()?->id ? Cart::where('user_id', user()->id)->count() : 0;
 }}
 
-if(!function_exists('cartTotal')) {
+if (!function_exists('cartTotal')) {
     function cartTotal() {
         $total = 0;
 
         $cart = Cart::where('user_id', user()->id)->get();
 
-        foreach($cart as $item) {
-            if($item->course->discount > 0) {
-                $total += $item->course->discount;
-            } else {
-                $total += $item->course->price;
-            }
+        foreach ($cart as $item) {
+            $price = $item->course->price;
+            $discount = $item->course->discount;
+
+            // calculate total after discount
+            $discountedPrice = $price - ($price * ($discount / 100));
+            $total += $discountedPrice;
         }
+
         return $total;
     }
 }
+
+if (!function_exists('getFinalPrice')) {
+    function getFinalPrice($price, $discount) {
+        return $price - ($price * $discount / 100);
+    }
+}
+
+
 
 /** calculate cart total */
 if(!function_exists('calculateCommission')) {

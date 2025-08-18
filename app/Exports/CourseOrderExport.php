@@ -24,8 +24,9 @@ class CourseOrderExport implements FromCollection, WithHeadings, WithMapping, Sh
             'courses.title as course_title',
             'instructor.name as instructor',
             'users.name as student',
-            'orders.total_amount',
-            'orders.paid_amount',
+            'courses.price as price',
+            'orders.total_amount as total_amount',
+            'orders.paid_amount as paid_amount',
             'orders.currency',
             'orders.status',
             'orders.created_at'
@@ -34,7 +35,9 @@ class CourseOrderExport implements FromCollection, WithHeadings, WithMapping, Sh
         ->leftJoin('courses', 'courses.id', '=', 'order_items.course_id')
         ->leftJoin('users', 'users.id', '=', 'orders.buyer_id')
         ->leftJoin('users as instructor', 'instructor.id' ,'=', 'courses.instructor_id')
-        ->whereIn('orders.id', $this->ids)
+         ->when(!empty($this->ids), function ($q) {
+            $q->whereIn('orders.id', $this->ids);
+        })
         ->get();
     }
 
@@ -45,8 +48,7 @@ class CourseOrderExport implements FromCollection, WithHeadings, WithMapping, Sh
             'Course',
             'Instructor',
             'Student',
-            'Total Amount',
-            'Paid Amount',
+            'Price',
             'Currency',
             'Status',
             'Date',
@@ -59,12 +61,13 @@ class CourseOrderExport implements FromCollection, WithHeadings, WithMapping, Sh
             $row->invoice_id,
             $row->course_title,
             $row->instructor,
-            $row->student,
             $row->total_amount,
             $row->paid_amount,
+            $row->student,
+            $row->price,
             $row->currency,
             $row->status ? 'Approved' : 'Pending',
-            format_to_date($row->created_at)
+            format_to_date($row->created_at),
         ];
     }
 

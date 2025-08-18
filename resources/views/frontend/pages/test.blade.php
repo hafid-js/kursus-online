@@ -627,10 +627,11 @@
                                                         class="far fa-arrow-right" aria-hidden="true"></i></a>
                                                 <p>
                                                     @if ($course->discount > 0)
-                                                        <del>${{ $course->price }}</del>${{ $course->discount }}
-                                                    @else
-                                                        ${{ $course->price }}
-                                                    @endif
+                                <del>${{ $course->price }}</del>
+                                  ${{ getFinalPrice($course->price, $course->discount) }}
+                            @else
+                                ${{ $course->price }}
+                            @endif
                                                 </p>
 
                                             </div>

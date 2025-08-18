@@ -39,23 +39,24 @@
                                 <h3>Categories</h3>
                                 <ul class="categoty_list">
                                     @foreach ($categories as $category)
-    <li>
-        {{ $category->name }}
-        <div class="wsus__sidebar_sub_category">
-            @foreach ($category->subCategories as $subCategory)
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]"
-                        value="{{ $subCategory->id }}"
-                        id="category-{{ $subCategory->id }}"
-                        @checked(in_array($subCategory->id, $activeSubcategoryIds ?? []))>
-                    <label class="form-check-label" for="category-{{ $subCategory->id }}">
-                        {{ $subCategory->name }}
-                    </label>
-                </div>
-            @endforeach
-        </div>
-    </li>
-@endforeach
+                                        <li>
+                                            {{ $category->name }}
+                                            <div class="wsus__sidebar_sub_category">
+                                                @foreach ($category->subCategories as $subCategory)
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="category[]"
+                                                            value="{{ $subCategory->id }}"
+                                                            id="category-{{ $subCategory->id }}"
+                                                            @checked(in_array($subCategory->id, $activeSubcategoryIds ?? []))>
+                                                        <label class="form-check-label"
+                                                            for="category-{{ $subCategory->id }}">
+                                                            {{ $subCategory->name }}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </li>
+                                    @endforeach
 
                                 </ul>
                             </div>
@@ -157,13 +158,14 @@
 @endsection
 
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.wsus__sidebar_sub_category input[type="checkbox"]').forEach(function (checkbox) {
-            checkbox.addEventListener('click', function (e) {
-                e.stopPropagation();
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.wsus__sidebar_sub_category input[type="checkbox"]').forEach(function(
+                checkbox) {
+                checkbox.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
             });
         });
-    });
-</script>
+    </script>
 @endpush

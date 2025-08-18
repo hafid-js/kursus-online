@@ -103,8 +103,9 @@
             });
 
             $('#btnReset').on('click', function() {
-
                 table.search('').columns().search('').order([]).page('first').draw();
+                $('#custom-search').val('');
+                $('input[type="checkbox"]').prop('checked', false);
             });
 
             $('#courseorders-table').on('draw.dt', function() {
@@ -125,40 +126,42 @@
         });
 
         $(function() {
-    const baseUrl = "{{ url('') }}";
+            const baseUrl = "{{ url('') }}";
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-    // tombol untuk modal A
-    $(document).on("click", ".show-order-courses", function(e) {
-        const orderId = $(this).data('order-id');
-        $('#dynamic-modal').modal('show');
-        $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+            // tombol untuk modal A
+            $(document).on("click", ".show-order-courses", function(e) {
+                const orderId = $(this).data('order-id');
+                $('#dynamic-modal').modal('show');
+                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
-        $.get(`${baseUrl}/admin/orders/${orderId}?modal=courses`, function(html) {
-            $('.dynamic-modal-content').html(html);
-        }).fail(() => {
-            $('.dynamic-modal-content').html('<div class="p-5 text-danger">Error loading form</div>');
+                $.get(`${baseUrl}/admin/orders/${orderId}?modal=courses`, function(html) {
+                    $('.dynamic-modal-content').html(html);
+                }).fail(() => {
+                    $('.dynamic-modal-content').html(
+                        '<div class="p-5 text-danger">Error loading form</div>');
+                });
+            });
+
+            // tombol untuk modal B
+            $(document).on("click", ".show-order-invoice", function(e) {
+                const orderId = $(this).data('order-id');
+                $('#dynamic-modal').modal('show');
+                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+                $.get(`${baseUrl}/admin/orders/${orderId}?modal=invoice`, function(html) {
+                    $('.dynamic-modal-content').html(html);
+                }).fail(() => {
+                    $('.dynamic-modal-content').html(
+                        '<div class="p-5 text-danger">Error loading form</div>');
+                });
+            });
         });
-    });
-
-    // tombol untuk modal B
-    $(document).on("click", ".show-order-invoice", function(e) {
-        const orderId = $(this).data('order-id');
-        $('#dynamic-modal').modal('show');
-        $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
-
-        $.get(`${baseUrl}/admin/orders/${orderId}?modal=invoice`, function(html) {
-            $('.dynamic-modal-content').html(html);
-        }).fail(() => {
-            $('.dynamic-modal-content').html('<div class="p-5 text-danger">Error loading form</div>');
-        });
-    });
-});
 
 
 
@@ -172,7 +175,6 @@
                 if (selectedIds.length > 0) {
                     let url = `export/course-orders-pdf?type=${type}`;
 
-                    // Ambil CSRF token dari meta tag
                     let csrfToken = $('meta[name="csrf-token"]').attr('content');
 
                     let form = $('<form method="POST" action="' + url + '"></form>');
@@ -193,7 +195,7 @@
                     }
                 }
             }
-               $('#btnExportExcel').click(function(e) {
+            $('#btnExportExcel').click(function(e) {
                 e.preventDefault();
                 exportSelectedOrAll('excel');
             });
@@ -202,7 +204,9 @@
                 e.preventDefault();
                 exportSelectedOrAll('pdf');
             });
+            $('#btnPrint').click(function() {
+                window.print();
+            });
         });
-
     </script>
 @endpush

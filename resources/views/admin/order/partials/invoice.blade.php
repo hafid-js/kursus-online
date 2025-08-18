@@ -24,7 +24,7 @@
                         </address>
                     </div>
                     <div class="col-12 my-5">
-                        <h1>Invoice #{{ $order->invoice_id }}</h1>
+                        <h1>Invoice #{{ strtoupper($order->invoice_id) }}</h1>
                     </div>
                 </div>
                 <table class="table table-transparent table-responsive">

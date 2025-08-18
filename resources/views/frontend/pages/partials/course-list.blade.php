@@ -84,8 +84,9 @@
                             Add to Cart <i class="far fa-arrow-right" aria-hidden="true"></i>
                         </a>
                         <p>
-                            @if ($course->discount > 0)
-                                <del>${{ $course->price }}</del>${{ $course->discount }}
+                           @if ($course->discount > 0)
+                                <del>${{ $course->price }}</del>
+                                  ${{ getFinalPrice($course->price, $course->discount) }}
                             @else
                                 ${{ $course->price }}
                             @endif

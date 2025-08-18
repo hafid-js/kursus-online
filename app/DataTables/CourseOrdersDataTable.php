@@ -53,7 +53,10 @@ class CourseOrdersDataTable extends DataTable
                 return '<input type="checkbox" class="order-checkbox form-check-input m-0 align-middle" value="' . $row->id . '">';
             })
             ->editColumn('invoice_id', function ($row) {
-                return strtoupper($row->invoice_id);
+                return '#' . strtoupper($row->invoice_id);
+            })
+            ->editColumn('discount', function ($row) {
+                return $row->discount . '%';
             })
             ->addColumn('user_name', function ($row) {
                 $avatar = '';
@@ -95,8 +98,8 @@ class CourseOrdersDataTable extends DataTable
                 $buttonAnother = '';
                 if ($showButton) {
                     $buttonAnother = '
-            <a href="#" class="btn btn-sm btn-secondary ms-2 show-order-courses" data-order-id="' . $row->id . '">
-                <i class="ti ti-eye"></i> More
+            <a href="#" class="btn btn-sm ms-2 show-order-courses" data-order-id="' . $row->id . '">
+                <i class="ti ti-arrow-down"></i> More
             </a>
         ';
                 }
@@ -126,7 +129,7 @@ class CourseOrdersDataTable extends DataTable
                  <i class="ti ti-eye"></i>
              </a>';
             })
-            ->rawColumns(['checkbox', 'action', 'user_name', 'created_at', 'status', 'course'])
+            ->rawColumns(['checkbox', 'action', 'user_name', 'created_at', 'status', 'course', 'discount'])
             ->setRowId('id');
     }
 
@@ -140,8 +143,8 @@ class CourseOrdersDataTable extends DataTable
             ->select(
                 'orders.invoice_id',
                 DB::raw('MIN(orders.id) as id'),
-                DB::raw('MIN(orders.total_amount) as total_amount'),
-                DB::raw('MIN(orders.paid_amount) as paid_amount'),
+                DB::raw('SUM(courses.price) as total_amount'),
+                DB::raw('SUM(courses.price - (courses.price * COALESCE(courses.discount, 0) / 100)) as paid_amount'),
                 DB::raw('MIN(orders.currency) as currency'),
                 DB::raw('MIN(users.name) as user_name'),
                 DB::raw('MIN(users.image) as user_image'),
@@ -152,7 +155,9 @@ class CourseOrdersDataTable extends DataTable
                 DB::raw('MIN(orders.id) as order_id'),
                 DB::raw('MIN(courses.thumbnail) as course_thumbnail'),
                 DB::raw('MIN(courses.title) as course_title'),
-                DB::raw('MIN(orders.status) as status')
+                DB::raw('IFNULL(MIN(courses.discount), 0) as discount'),
+                DB::raw('MIN(orders.status) as status'),
+                DB::raw('MIN(orders.created_at) as created_at')
             )
             ->leftJoin('users', 'users.id', '=', 'orders.buyer_id')
             ->leftJoin('order_items', 'order_items.order_id', '=', 'orders.id')
@@ -257,6 +262,9 @@ class CourseOrdersDataTable extends DataTable
 
             Column::make('total_amount')
                 ->title('<span class="table-sort d-flex justify-content-start">Total Amount</span>'),
+
+            Column::computed('discount')
+                ->title('<span class="table-sort d-flex justify-content-start">Discount</span>'),
 
             Column::make('paid_amount')
                 ->title('<span class="table-sort d-flex justify-content-start">Paid Amount</span>')

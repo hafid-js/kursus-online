@@ -257,9 +257,9 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::get('database-clear', [DatabaseClearController::class, 'index'])->name('database-clear.index');
     Route::delete('database-clear', [DatabaseClearController::class, 'destroy'])->name('database-clear.destroy');
 
-    // export to excel
+    // export to excel || pdf
     Route::get('export/course-orders', [ExportController::class, 'courseExportOrders'])->name('export.course-orders');
-    Route::get('export/course-orders-pdf', [ExportController::class, 'exportSelected'])->name('export.course-orders-pdf');
+    Route::match(['GET', 'POST'],'export/course-orders-pdf', [ExportController::class, 'exportSelected'])->name('export.course-orders-pdf');
 
 
     // lfm routes
