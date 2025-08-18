@@ -44,15 +44,17 @@ class CourseOrderExport implements FromCollection, WithHeadings, WithMapping, Sh
     public function headings(): array
     {
         return [
-            'Invoice',
-            'Course',
-            'Instructor',
-            'Student',
-            'Price',
-            'Currency',
-            'Status',
-            'Date',
-        ];
+        'Invoice',
+        'Course',
+        'Instructor',
+        'Total Amount',
+        'Paid Amount',
+        'Student',
+        'Course Price',
+        'Currency',
+        'Status',
+        'Order Date',
+    ];
     }
 
     public function map($row): array

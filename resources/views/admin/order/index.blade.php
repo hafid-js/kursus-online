@@ -1,3 +1,4 @@
+
 @extends('admin.layouts.layout')
 @section('content')
     <div class="page-wrapper">
@@ -205,8 +206,8 @@
                 exportSelectedOrAll('pdf');
             });
             $('#btnPrint').click(function() {
-                window.print();
-            });
+    window.print();
+});
         });
     </script>
 @endpush

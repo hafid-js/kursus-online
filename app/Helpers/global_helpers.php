@@ -54,6 +54,19 @@ if (!function_exists('getFinalPrice')) {
     }
 }
 
+if (!function_exists('calculateSubtotal')) {
+    function calculateSubtotal($orders) {
+        return $orders->sum('course_price');
+    }
+}
+
+if (!function_exists('calculateTotalAfterDiscount')) {
+    function calculateTotalAfterDiscount($orders) {
+        return $orders->sum(function ($order) {
+            return getFinalPrice($order->course_price, $order->course_discount);
+        });
+    }
+}
 
 
 /** calculate cart total */

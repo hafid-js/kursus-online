@@ -30,25 +30,34 @@ class ExportController extends Controller
         }
 
         if ($type === 'pdf') {
-            $orders = Order::select(
-                'orders.invoice_id',
-                'courses.title as course_title',
-                'instructor.name as instructor',
-                'users.name as student',
-                'orders.paid_amount',
-                'orders.currency',
-                'users.email'
-            )
-            ->leftJoin('order_items', 'order_items.order_id', '=', 'orders.id')
-            ->leftJoin('courses', 'courses.id', '=', 'order_items.course_id')
-            ->leftJoin('users', 'users.id', '=', 'orders.buyer_id')
-            ->leftJoin('users as instructor', 'instructor.id' ,'=', 'courses.instructor_id')
-            ->whereIn('orders.id', $ids)
-            ->get();
+            $ordersGrouped = Order::whereIn('orders.id', $ids)
+                ->select(
+                    'orders.invoice_id',
+                    'courses.title as course_title',
+                    'courses.price as course_price',
+                    'courses.discount as course_discount',
+                    'instructor.name as instructor',
+                    'users.name as student',
+                    'orders.paid_amount as paid_amount',
+                    'orders.currency',
+                    'users.email',
+                    'orders.id as order_id',
+                    'orders.created_at as created_at'
+                )
+                ->leftJoin('order_items', 'order_items.order_id', '=', 'orders.id')
+                ->leftJoin('courses', 'courses.id', '=', 'order_items.course_id')
+                ->leftJoin('users', 'users.id', '=', 'orders.buyer_id')
+                ->leftJoin('users as instructor', 'instructor.id', '=', 'courses.instructor_id')
+                ->orderBy('orders.invoice_id')
+                ->get()
+                ->groupBy('order_id'); // group by invoice
 
-            $pdf = Pdf::loadView('admin.order.partials.export-pdf', compact('orders'));
+            $pdf = PDF::loadView('admin.order.partials.export-invoice-pdf', [
+                'groupedOrders' => $ordersGrouped
+            ]);
 
-            return $pdf->download('selected-orders.pdf');
+
+            return $pdf->stream('multiple-invoices.pdf');
         }
 
         // default excel
