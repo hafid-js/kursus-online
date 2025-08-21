@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CourseDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CourseBasicInfoCreateRequest;
 use App\Models\Course;
@@ -10,6 +11,7 @@ use App\Models\CourseChapter;
 use App\Models\CourseChapterLession;
 use App\Models\CourseLanguage;
 use App\Models\CourseLevel;
+use App\Models\OrderItem;
 use App\Models\User;
 use App\Traits\FileUpload;
 use Exception;
@@ -25,10 +27,25 @@ use function Laravel\Prompts\alert;
 class CourseController extends Controller
 {
     use FileUpload;
-    function index()
+    // function index()
+    // {
+    //     $courses = Course::with(['instructor'])->paginate(25);
+    //     return view('admin.course.course-module.index', compact('courses'));
+    // }
+
+    public function index(CourseDataTable $dataTable)
     {
-        $courses = Course::with(['instructor'])->paginate(25);
-        return view('admin.course.course-module.index', compact('courses'));
+        $id = null;
+          $orderItems = OrderItem::with([
+            'course.instructor',
+            'order.customer'
+        ])
+            ->whereHas('course', function ($query) use ($id) {
+                $query->where('instructor_id', $id);
+            })
+            ->get();
+        $dataTable->setInstructorId($id);
+        return $dataTable->render('admin.course.course-module.index', compact('orderItems'));
     }
 
     // change approve status

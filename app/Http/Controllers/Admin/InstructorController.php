@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\CourseOrdersDataTable;
+use App\DataTables\CourseDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -49,22 +51,29 @@ class InstructorController extends Controller
     /**
      * Display the specified resource.
      */
-    // public function show(string $id)
-    // {
-    //     $courses = Course::with('instructor')->where('instructor_id', $id)->paginate(25);
-    //     return view('admin.user.instructor.detail', compact('courses'));
-    // }
 
-    public function show(string $id, CourseOrdersDataTable $dataTable)
-{
-    $dataTable->setInstructorId($id); // Filter berdasarkan instructor_id
-     $courses = Course::with('instructor')->where('instructor_id', $id)->get();
- // Buat tampilin info di view
+    public function show(CourseDataTable $dataTable, string $id)
+    {
+        $orderItems = OrderItem::with([
+            'course.instructor',
+            'order.customer'
+        ])
+            ->whereHas('course', function ($query) use ($id) {
+                $query->where('instructor_id', $id);
+            })
+            ->get();
 
- return $dataTable->render('admin.user.instructor.detail', compact( 'courses'));
+        $dataTable->setInstructorId($id);
+        return $dataTable->render('admin.user.instructor.detail', compact('orderItems'));
+    }
 
-}
 
+
+    //         $dataTable->setInstructorId($id); // Filter berdasarkan instructor_id
+    //      $courses = Course::with('instructor')->where('instructor_id', $id)->get();
+    //  // Buat tampilin info di view
+
+    //  return $dataTable->render('admin.user.instructor.detail', compact( 'courses'));
 
     /**
      * Show the form for editing the specified resource.

@@ -15,7 +15,8 @@ class ExportController extends Controller
     {
         $ids = array_filter(explode(',', $request->ids ?? ''));
         if (empty($ids)) {
-            return redirect()->back()->with('error', 'No orders selected for export.');
+            Notyf()->error('No orders selected for export.');
+            return redirect()->back();
         }
         return Excel::download(new CourseOrderExport($ids), 'course_orders.xlsx');
     }
@@ -26,7 +27,8 @@ class ExportController extends Controller
         $type = $request->query('type', 'excel');
 
         if (empty($ids)) {
-            return redirect()->back()->with('error', 'No orders selected for export.');
+            Notyf()->error('No orders selected for export.');
+            return redirect()->back();
         }
 
         if ($type === 'pdf') {

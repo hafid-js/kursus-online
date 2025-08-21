@@ -1,6 +1,6 @@
 <div class="row">
 @forelse ($users as $user)
-    <div class="col-md-6 col-xl-3 mb-3">
+    <div class="col-md-6 col-xl-3 mb-2">
         <div class="card">
             <div class="card-body text-center">
                 <div class="mb-3">

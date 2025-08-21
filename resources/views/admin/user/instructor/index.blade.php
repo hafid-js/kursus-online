@@ -2,7 +2,11 @@
 @section('content')
     <div class="page-wrapper">
         <!-- BEGIN PAGE HEADER -->
-        <div class="page-header d-print-none" aria-label="Page header">
+
+
+        <!-- END PAGE HEADER -->
+        <!-- BEGIN PAGE BODY -->
+              <div class="page-header d-print-none mb-2" aria-label="Page header">
             <div class="container-xl">
                 <div class="row align-items-center">
                     <div class="col-md-6">
@@ -10,7 +14,7 @@
                     </div>
                     <div class="col-md-6 text-end">
                         <div class="input-icon w-100" style="max-width: 300px; margin-left: auto;">
-                            <input type="text" id="searchInput" class="form-control" placeholder="Search…"
+                            <input type="text" id="searchInput" class="form-control-xl" placeholder="Search…"
                                 aria-label="Search">
                             <span class="input-icon-addon">
                                 <!-- Icon search -->
@@ -26,18 +30,12 @@
                 </div>
             </div>
         </div>
-
-        <!-- END PAGE HEADER -->
-        <!-- BEGIN PAGE BODY -->
-        <div class="page-body">
             <div class="container-xl">
                 <div class="row row-cards">
-                    <div class="container-xl">
                         <div id="user-results">
                             {{-- AJAX content will be injected here --}}
                         </div>
                     </div>
-
                 </div>
             </div>
             <!-- END PAGE BODY -->

@@ -1,20 +1,30 @@
 @extends('admin.layouts.layout')
 @section('content')
     <div class="page-wrapper">
-        <!-- BEGIN PAGE HEADER -->
-        <div class="page-header d-print-none" aria-label="Page header">
-            <div class="container-xl">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <h2 class="page-title">Instructor Details</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- END PAGE HEADER -->
         <!-- BEGIN PAGE BODY -->
-        <div class="page-body">
+            <div class="page-header d-print-none mb-3" aria-label="Page header">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <!-- Page pre-title -->
+                            <h2 class="page-title">Instructor Details</h2>
+                        </div>
+                        <!-- Page title actions -->
+                        <div class="col-auto ms-auto d-print-none">
+                            <div class="btn-list">
+                                <a href="{{ route('admin.instructors.index') }}" class="btn btn-primary">
+                                    <i class="ti ti-arrow-left"></i>
+                                    Back
+                                </a>
+                            </div>
+                            <!-- BEGIN MODAL -->
+                            <!-- END MODAL -->
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="container-xl">
                 <div class="row row-cards align-items-stretch">
                     <div class="col-6">
@@ -132,112 +142,11 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Courses</h4>
-                                <div class="card-actions">
-                                    <a href="{{ route('admin.courses.create') }}" class="btn btn-primary">
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M12 5l0 14"></path>
-                                            <path d="M5 12l14 0"></path>
-                                        </svg>
-                                        Add new
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="table-responsive">
-                                    <table class="table table-vcenter card-table">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Name</th>
-                                                <th>Price</th>
-                                                <th>Instructor</th>
-                                                <th>Date</th>
-                                                <th>Status</th>
-                                                <th>Approve</th>
-                                                <th>Action</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($courses as $course)
-                                                <tr id="row-{{ $course->id }}">
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $course->title }}</td>
-                                                    <td>{{ config('settings.currency_icon') }}{{ $course->price }}</td>
-                                                    <td>
-                                                        <div class="d-flex py-1 align-items-center">
-                                                            @if (!empty($course->instructor->image))
-                                                                <span class="avatar avatar-2 me-2"
-                                                                    style="background-image: url({{ asset($course->instructor->image) }})"></span>
-                                                            @else
-                                                                <span
-                                                                    class="avatar avatar-2 me-2 bg-primary-lt text-primary fw-bold">
-                                                                    {{ getUserInitials($course->instructor->name) }}
-                                                                </span>
-                                                            @endif
-                                                            <div class="flex-fill">
-                                                                <div class="font-weight-medium">
-                                                                    {{ $course->instructor->name }}</div>
-                                                                <div class="text-secondary"><a href="#"
-                                                                        class="text-reset">{{ $course->instructor->email }}</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>{{ format_to_date($course->created_at) }}</td>
-                                                    <td>
-                                                        @if ($course->is_approved == 'pending')
-                                                            <span class="badge bg-yellow text-yellow-fg">Pending</span>
-                                                        @elseif ($course->is_approved == 'approved')
-                                                            <span class="badge bg-green text-green-fg">Approved</span>
-                                                        @elseif ($course->is_approved == 'rejected')
-                                                            <span class="badge bg-red text-red-fg">Rejected</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <select name="" class="form-control update-approval-status"
-                                                            data-id="{{ $course->id }}">
-                                                            <option @selected($course->is_approved == 'pending') value="pending">Pending
-                                                            </option>
-                                                            <option @selected($course->is_approved == 'approved') value="approved">Approved
-                                                            </option>
-                                                            <option @selected($course->is_approved == 'rejected') value="rejected">Rejected
-                                                            </option>
-                                                        </select>
-                                                    </td>
-
-                                                    <td>
-                                                        <a href="{{ route('admin.courses.edit', ['id' => $course->id, 'step' => 1]) }}"
-                                                            class="text-blue">
-                                                            <i class="ti ti-edit"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="6" class="text-center">No Data Found!
-                                                    </td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- {{ $courses->links() }} --}}
-                    </div>
-                         <div class="col-12">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4 class="card-title">Orders</h4>
                             </div>
                             <div class="card-body border-bottom py-3">
                                 <div class="d-flex">
@@ -259,30 +168,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body border-bottom py-3">
-                                <div class="d-flex">
-                                    <div class="d-flex gap-2">
-                                        <a href="#" id="btnExportExcel" class="btn btn-sm btn-success">
-                                            <i class="ti ti-file-export"></i> Excel
-                                        </a>
-                                        <a href="#" id="btnExportPdf" class="btn btn-sm btn-danger">
-                                            <i class="ti ti-file"></i> PDF
-                                        </a>
-                                        <button id="btnPrint" class="btn btn-sm btn-primary">
-                                            <i class="ti ti-printer"></i> Print
-                                        </button>
-                                        <button id="btnReset" class="btn btn-sm btn-warning">
-                                            <i class="fa fa-refresh"></i> Reset
-                                        </button>
-                                        <button id="btnReload" class="btn btn-sm btn-secondary">
-                                            <i class="ti ti-reload"></i> Reload
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="table-responsive">
                                 {!! $dataTable->table(
-                                    ['id' => 'courseorders-table', 'class' => 'table table-selectable card-table table-vcenter text-nowrap datatable'],
+                                    ['id' => 'course-table', 'class' => 'table table-selectable card-table table-vcenter text-nowrap datatable'],
                                     true,
                                 ) !!}
                             </div>
@@ -300,72 +188,201 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Students Enrolled Course</h4>
+                            </div>
+                            <div class="card card-lg">
+                                <div class="table-responsive">
+                                    <div id="courseorders-table_wrapper" class="dt-container dt-bootstrap5">
+                                        <table
+                                            class="table table-selectable card-table table-vcenter text-nowrap datatable dataTable"
+                                            id="courseorders-table" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>
+                                                        <div class="dt-column-header"><span
+                                                                class="d-flex justify-content-start">Course</span>
+                                                        </div>
+                                                    </th>
+                                                    <th title="&lt;span class=&quot;d-flex justify-content-start&quot;&gt;Student&lt;/span&gt;"
+                                                        data-dt-column="3" rowspan="1" colspan="1"
+                                                        class="dt-orderable-asc dt-orderable-desc">
+                                                        <div class="dt-column-header"><span class="dt-column-title"><span
+                                                                    class="d-flex justify-content-start">Student</span></span><span
+                                                                class="dt-column-order" role="button"
+                                                                aria-label="&lt;span class=&quot;d-flex justify-content-start&quot;&gt;Student&lt;/span&gt;: Activate to sort"
+                                                                tabindex="0"></span></div>
+                                                    </th>
+                                                    <th title="&lt;span class=&quot;d-flex justify-content-start&quot;&gt;Total Amount&lt;/span&gt;"
+                                                        data-dt-column="4" rowspan="1" colspan="1"
+                                                        class="dt-orderable-asc dt-orderable-desc dt-type-numeric">
+                                                        <div class="dt-column-header"><span class="dt-column-title"><span
+                                                                    class="d-flex justify-content-start">Price</span></span><span
+                                                                class="dt-column-order" role="button"
+                                                                aria-label="&lt;span class=&quot;d-flex justify-content-start&quot;&gt;Total Amount&lt;/span&gt;: Activate to sort"
+                                                                tabindex="0"></span></div>
+                                                    </th>
+                                                    <th title="&lt;span class=&quot;d-flex justify-content-start&quot;&gt;Total Amount&lt;/span&gt;"
+                                                        data-dt-column="4" rowspan="1" colspan="1"
+                                                        class="dt-orderable-asc dt-orderable-desc dt-type-numeric">
+                                                        <div class="dt-column-header"><span class="dt-column-title"><span
+                                                                    class="d-flex justify-content-start">Discount</span></span><span
+                                                                class="dt-column-order" role="button"
+                                                                aria-label="&lt;span class=&quot;d-flex justify-content-start&quot;&gt;Total Amount&lt;/span&gt;: Activate to sort"
+                                                                tabindex="0"></span></div>
+                                                    </th>
+                                                    <th title="Currency" data-dt-column="6" rowspan="1"
+                                                        colspan="1" class="dt-orderable-asc dt-orderable-desc">
+                                                        <div class="dt-column-header"><span
+                                                                class="dt-column-title">Currency</span><span
+                                                                class="dt-column-order" role="button"
+                                                                aria-label="Currency: Activate to sort"
+                                                                tabindex="0"></span>
+                                                        </div>
+                                                    </th>
+                                                    <th title="&lt;span class=&quot;d-flex justify-content-start&quot;&gt;Status&lt;/span&gt;"
+                                                        data-dt-column="7" rowspan="1" colspan="1"
+                                                        class="dt-orderable-asc dt-orderable-desc">
+                                                        <div class="dt-column-header"><span class="dt-column-title"><span
+                                                                    class="d-flex justify-content-start">Status</span></span><span
+                                                                class="dt-column-order" role="button"
+                                                                aria-label="&lt;span class=&quot;d-flex justify-content-start&quot;&gt;Status&lt;/span&gt;: Activate to sort"
+                                                                tabindex="0"></span></div>
+                                                    </th>
+                                                    <th title="&lt;span class=&quot;d-flex justify-content-start&quot;&gt;Date&lt;/span&gt;"
+                                                        data-dt-column="8" rowspan="1" colspan="1"
+                                                        class="dt-orderable-asc dt-orderable-desc">
+                                                        <div class="dt-column-header"><span class="dt-column-title"><span
+                                                                    class="d-flex justify-content-start">Order
+                                                                    Date</span></span><span class="dt-column-order"
+                                                                role="button"
+                                                                aria-label="&lt;span class=&quot;d-flex justify-content-start&quot;&gt;Date&lt;/span&gt;: Activate to sort"
+                                                                tabindex="0"></span></div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($orderItems as $item)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>
+                                                            <div class="d-flex py-1 align-items-center">
+                                                                <span class="avatar avatar-2 me-2"
+                                                                    style="background-image: url({{ $item->course->thumbnail }})"></span>
+                                                                <div class="flex-fill">
+                                                                    <span>{{ $item->course->title }}</span>
+                                                                    <div
+                                                                        class="font-weight-medium d-flex justify-content-between align-items-center">
+                                                                        <a href="#"
+                                                                            class="text-reset">{{ $item->course->instructor->name }}</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex py-1 align-items-center">
+                                                                @if (!empty($item->order->customer->image))
+                                                                    <span class="avatar avatar-2 me-2"
+                                                                        style="background-image: url({{ $item->order->customer->image }})"></span>
+                                                                @else
+                                                                    <span
+                                                                        class="avatar avatar-2 me-2 bg-primary-lt text-primary fw-bold">{{ getUserInitials($item->order->customer->name) }}</span>
+                                                                @endif
+                                                                <div class="flex-fill">
+                                                                    <div class="font-weight-medium">
+                                                                        {{ $item->order->customer->name }}</div>
+                                                                    <div class="font-weight-medium">
+                                                                        <div class="text-secondary">
+                                                                            <a href="#"
+                                                                                class="text-reset">{{ $item->order->customer->email }}</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="dt-type-numeric">{{ $item->course->price }}</td>
+                                                        <td>{{ $item->course->discount ?? 0 }}%</td>
+                                                        <td>{{ $item->order->currency }}</td>
+                                                        <td><span
+                                                                class="badge bg-lime text-lime-fg">{{ $item->order->status }}</span>
+                                                        </td>
+                                                        <td>{{ format_to_date($item->order->created_at) }}</td>
+                                                    </tr>
+                                                @endforeach
 
-            <!-- END PAGE BODY -->
-            <!--  BEGIN FOOTER  -->
-            <footer class="footer footer-transparent d-print-none">
-                <div class="container-xl">
-                    <div class="row text-center align-items-center flex-row-reverse">
-                        <div class="col-lg-auto ms-lg-auto">
-                            <ul class="list-inline list-inline-dots mb-0">
-                                <li class="list-inline-item"><a href="https://docs.tabler.io" target="_blank"
-                                        class="link-secondary" rel="noopener">Documentation</a></li>
-                                <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary"
-                                        rel="noopener">Source code</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary"
-                                        rel="noopener">
-                                        <!-- Download SVG icon from http://tabler.io/icons/icon/heart -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon text-pink icon-inline icon-4">
-                                            <path
-                                                d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572">
-                                            </path>
-                                        </svg>
-                                        Sponsor
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-                            <ul class="list-inline list-inline-dots mb-0">
-                                <li class="list-inline-item">
-                                    Copyright © 2025
-                                    <a href="." class="link-secondary">Tabler</a>. All rights reserved.
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="./changelog.html" class="link-secondary" rel="noopener"> v1.4.0 </a>
-                                </li>
-                            </ul>
+                                            </tbody>
+
+                                        </table>
+                                        <div class="dt-autosize" style="width: 100%; height: 0px;"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </footer>
-            <!--  END FOOTER  -->
-        </div>
-    </div>
 
-        <!-- Dynamic Modal -->
-    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content dynamic-modal-content">
-                <!-- Content injected via AJAX -->
+                <!-- END PAGE BODY -->
+                <!--  BEGIN FOOTER  -->
+                <footer class="footer footer-transparent d-print-none">
+                    <div class="container-xl">
+                        <div class="row text-center align-items-center flex-row-reverse">
+                            <div class="col-lg-auto ms-lg-auto">
+                                <ul class="list-inline list-inline-dots mb-0">
+                                    <li class="list-inline-item"><a href="https://docs.tabler.io" target="_blank"
+                                            class="link-secondary" rel="noopener">Documentation</a></li>
+                                    <li class="list-inline-item"><a href="./license.html"
+                                            class="link-secondary">License</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary"
+                                            rel="noopener">Source code</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="https://github.com/sponsors/codecalm" target="_blank"
+                                            class="link-secondary" rel="noopener">
+                                            <!-- Download SVG icon from http://tabler.io/icons/icon/heart -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="icon text-pink icon-inline icon-4">
+                                                <path
+                                                    d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572">
+                                                </path>
+                                            </svg>
+                                            Sponsor
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                                <ul class="list-inline list-inline-dots mb-0">
+                                    <li class="list-inline-item">
+                                        Copyright © 2025
+                                        <a href="." class="link-secondary">Tabler</a>. All rights reserved.
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="./changelog.html" class="link-secondary" rel="noopener"> v1.4.0 </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!--  END FOOTER  -->
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+@endpush
+
+@push('header_scripts')
+    @vite('resources/js/admin/course.js')
 @endpush
 
 @push('scripts')
@@ -374,7 +391,7 @@
         $(document).ready(function() {
 
             // Inisialisasi DataTable
-            let table = $('#courseorders-table').DataTable();
+            let table = $('#course-table').DataTable();
 
             $('#btnReload').on('click', function() {
                 table.ajax.reload(null, false);
@@ -386,105 +403,7 @@
                 $('input[type="checkbox"]').prop('checked', false);
             });
 
-            $('#courseorders-table').on('draw.dt', function() {
-                $('#select-all').off('click').on('click', function() {
-                    const checked = $(this).is(':checked');
-                    $('.order-checkbox').prop('checked', checked);
-                });
-
-                $(document).off('click', '.order-checkbox').on('click', '.order-checkbox', function() {
-                    const total = $('.order-checkbox').length;
-                    const checked = $('.order-checkbox:checked').length;
-
-                    $('#select-all').prop('checked', total === checked);
-                });
-            });
-
-            initTable('#courseorders-table');
-        });
-
-        $(function() {
-            const baseUrl = "{{ url('') }}";
-        const modalElement = document.getElementById('dynamic-modal');
-        const dynamicModal = new bootstrap.Modal(modalElement);
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            // tombol untuk modal A
-            $(document).on("click", ".show-order-courses", function(e) {
-                const orderId = $(this).data('order-id');
-                        dynamicModal.show();
-                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
-
-                $.get(`${baseUrl}/admin/orders/${orderId}?modal=courses`, function(html) {
-                    $('.dynamic-modal-content').html(html);
-                }).fail(() => {
-                    $('.dynamic-modal-content').html(
-                        '<div class="p-5 text-danger">Error loading form</div>');
-                });
-            });
-
-            // tombol untuk modal B
-            $(document).on("click", ".show-order-invoice", function(e) {
-                const orderId = $(this).data('order-id');
-                        dynamicModal.show();
-                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
-
-                $.get(`${baseUrl}/admin/orders/${orderId}?modal=invoice`, function(html) {
-                    $('.dynamic-modal-content').html(html);
-                }).fail(() => {
-                    $('.dynamic-modal-content').html(
-                        '<div class="p-5 text-danger">Error loading form</div>');
-                });
-            });
-        });
-
-        $(document).ready(function() {
-            function exportSelectedOrAll(type) {
-                let selectedIds = [];
-                $('.order-checkbox:checked').each(function() {
-                    selectedIds.push($(this).val());
-                });
-
-                if (selectedIds.length > 0) {
-                    let url = `export/course-orders-pdf?type=${type}`;
-
-                    let csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-                    let form = $('<form method="POST" action="' + url + '"></form>');
-
-                    form.append('<input type="hidden" name="_token" value="' + csrfToken + '">');
-
-                    selectedIds.forEach(id => {
-                        form.append('<input type="hidden" name="ids[]" value="' + id + '">');
-                    });
-
-                    $('body').append(form);
-                    form.submit();
-                } else {
-                    if (type === 'excel') {
-                        window.location.href = "{{ route('admin.export.course-orders') }}";
-                    } else if (type === 'pdf') {
-                        window.location.href = "{{ route('admin.export.course-orders-pdf') }}";
-                    }
-                }
-            }
-            $('#btnExportExcel').click(function(e) {
-                e.preventDefault();
-                exportSelectedOrAll('excel');
-            });
-
-            $('#btnExportPdf').click(function(e) {
-                e.preventDefault();
-                exportSelectedOrAll('pdf');
-            });
-            $('#btnPrint').click(function() {
-    window.print();
-});
+            initTable('#course-table');
         });
     </script>
 @endpush

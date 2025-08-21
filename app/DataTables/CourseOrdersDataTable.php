@@ -137,14 +137,6 @@ class CourseOrdersDataTable extends DataTable
      * Get the query source of dataTable.
      */
 
-    protected $instructorId = null;
-
-    public function setInstructorId($id)
-    {
-        $this->instructorId = $id;
-        return $this;
-    }
-
     public function query(Order $model): QueryBuilder
     {
         $query = $model->newQuery()
@@ -181,79 +173,12 @@ class CourseOrdersDataTable extends DataTable
         return $query;
     }
 
-
-
-    // public function query(Order $model): QueryBuilder
-    // {
-
-    //     return $model->newQuery()
-    //         ->select(
-    //             'orders.invoice_id',
-    //             DB::raw('MIN(orders.id) as id'),
-    //             DB::raw('SUM(courses.price) as total_amount'),
-    //             DB::raw('SUM(courses.price - (courses.price * COALESCE(courses.discount, 0) / 100)) as paid_amount'),
-    //             DB::raw('MIN(orders.currency) as currency'),
-    //             DB::raw('MIN(users.name) as user_name'),
-    //             DB::raw('MIN(users.image) as user_image'),
-    //             DB::raw('MIN(users.email) as user_email'),
-    //             DB::raw('GROUP_CONCAT(DISTINCT courses.title SEPARATOR ", ") as course_titles'),
-    //             DB::raw('MIN(instructor.name) as instructor_name'),
-    //             DB::raw('COUNT(order_items.id) as items_count'),
-    //             DB::raw('MIN(orders.id) as order_id'),
-    //             DB::raw('MIN(courses.thumbnail) as course_thumbnail'),
-    //             DB::raw('MIN(courses.title) as course_title'),
-    //             DB::raw('IFNULL(MIN(courses.discount), 0) as discount'),
-    //             DB::raw('MIN(orders.status) as status'),
-    //             DB::raw('MIN(orders.created_at) as created_at')
-    //         )
-    //         ->leftJoin('users', 'users.id', '=', 'orders.buyer_id')
-    //         ->leftJoin('order_items', 'order_items.order_id', '=', 'orders.id')
-    //         ->leftJoin('courses', 'courses.id', '=', 'order_items.course_id')
-    //         ->leftJoin('users as instructor', 'instructor.id', '=', 'courses.instructor_id')
-    //         ->groupBy('orders.invoice_id');
-    // }
-
-    /**
-     * Optional method if you want to use the html builder.
-     */
-    // public function html(): HtmlBuilder
-    // {
-    //     return $this->builder()
-    //         ->setTableId('courseorders-table')
-    //         ->columns($this->getColumns())
-    //         ->minifiedAjax()
-    //         //->dom('Bfrtip')
-    //         ->orderBy(1)
-    //         ->selectStyleSingle()
-    //         ->parameters([
-    //             'pageLength' => 10,
-    //             'lengthChange' => false,
-    //             'paging' => true,
-    //             'info' => true,
-    //             'searching' => true,
-    //             'dom' => 'Brt',
-    //             'initComplete' => "function() {
-    //             $('.dt-buttons').appendTo('#my-custom-dt-buttons').addClass('btn-group');
-    //         }",
-    //         ])
-    //         ->buttons([
-    //             ['extend' => 'excel', 'className' => 'btn btn-sm btn-success me-2', 'text' => '<i class=\"ti ti-file-export\"></i> Excel'],
-    //             ['extend' => 'csv', 'className' => 'btn btn-sm btn-info me-2', 'text' => '<i class=\"ti ti-file-text\"></i> CSV'],
-    //             ['extend' => 'pdf', 'className' => 'btn btn-sm btn-danger me-2', 'text' => '<i class=\"ti ti-file-pdf\"></i> PDF'],
-    //             ['extend' => 'print', 'className' => 'btn btn-sm btn-primary me-2', 'text' => '<i class=\"ti ti-printer\"></i> Print'],
-    //             ['extend' => 'reset', 'className' => 'btn btn-sm btn-warning me-2', 'text' => 'Reset'],
-    //             ['extend' => 'reload', 'className' => 'btn btn-sm btn-secondary', 'text' => 'Reload'],
-    //         ]);;
-    // }
-
-
     public function html(): HtmlBuilder
     {
         return $this->builder()
             ->setTableId('courseorders-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            //->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()
             ->parameters([
