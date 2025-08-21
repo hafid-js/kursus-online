@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
-    <script defer data-api="/stats/event" data-domain="preview.tabler.io" src="https://preview.tabler.io/stats/js/script.js"></script>
+    <script defer data-api="/stats/event" data-domain="preview.tabler.io" src="/stats/js/script.js"></script>
     <meta name="msapplication-TileColor" content="#066fd1" />
     <meta name="theme-color" content="#066fd1" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -49,39 +49,45 @@
       content="Tabler is packed with beautifully crafted components and powerful features. Jump in and start building a stunning dashboard — all for free!"
     />
     <!-- BEGIN PAGE LEVEL STYLES -->
-    <link href="https://preview.tabler.io/dist/libs/jsvectormap/dist/jsvectormap.css?1752697826" rel="stylesheet" />
+    <link href="./dist/libs/jsvectormap/dist/jsvectormap.css?1752697826" rel="stylesheet" />
     <!-- END PAGE LEVEL STYLES -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="https://preview.tabler.io/dist/css/tabler.min.css?1752697826" rel="stylesheet" />
+    <link href="./dist/css/tabler.min.css?1752697826" rel="stylesheet" integrity="sha384-kz+I4+mczbNiZfLAJMxOlJaZmnbRYhARHNkR2k6tal4gz7OL33/0puDD3SvkiNX9" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PLUGINS STYLES -->
     <link
-      href="https://preview.tabler.io/dist/css/tabler-flags.min.css?1752697826"
+      href="./dist/css/tabler-flags.min.css?1752697826"
       rel="stylesheet"
+      integrity="sha384-kmvP0hkBXZ2hMSZlbvE1Q2HIXzPCQRL3ijUeqNiwaPd2nl2Aks+s3gW+V5fAHOX9"
     />
     <link
-      href="https://preview.tabler.io/dist/css/tabler-socials.min.css?1752697826"
+      href="./dist/css/tabler-socials.min.css?1752697826"
       rel="stylesheet"
+      integrity="sha384-eWmz8gyiLzrDw3JcT/PJxjGyKizQjvByfHqocjrMMkIrbKFCnOuP/qMwAz3bHmsC"
     />
     <link
-      href="https://preview.tabler.io/dist/css/tabler-payments.min.css?1752697826"
+      href="./dist/css/tabler-payments.min.css?1752697826"
       rel="stylesheet"
+      integrity="sha384-xWIXbKxPLGG/ZEGUKxDjJn3xmUgd2PC2CSZUKJ4PyTse49DiuvJx2WT5wSNJRyw9"
     />
     <link
-      href="https://preview.tabler.io/dist/css/tabler-vendors.min.css?1752697826"
+      href="./dist/css/tabler-vendors.min.css?1752697826"
       rel="stylesheet"
+      integrity="sha384-+X7+c/noY2B9ieq9daEaVStkUhIFyJTO5T6Occ6jZisx57sbECetvloLqcvGahUv"
     />
     <link
-      href="https://preview.tabler.io/dist/css/tabler-marketing.min.css?1752697826"
+      href="./dist/css/tabler-marketing.min.css?1752697826"
       rel="stylesheet"
+      integrity="sha384-4dAlYnPzCom9yeC/5++PFq2FG/szJRlUPsDSrjZ3EWP8IAzK7g7rrsnSfqrS67Se"
     />
     <link
-      href="https://preview.tabler.io/dist/css/tabler-themes.min.css?1752697826"
+      href="./dist/css/tabler-themes.min.css?1752697826"
       rel="stylesheet"
+      integrity="sha384-jTe/MdN6BlY4S3eYe6Qw++yTjuezmVnxWp/l7GAG1qXGC+jttphHqsAN/bGPvJOk"
     />
     <!-- END PLUGINS STYLES -->
     <!-- BEGIN DEMO STYLES -->
-    <link href="https://preview.tabler.io/preview/css/demo.min.css?1752697826" rel="stylesheet" />
+    <link href="./preview/css/demo.min.css?1752697826" rel="stylesheet" integrity="sha384-BUDq2P684xwRBf0GDlySvob+KJg4ko8y2K7njgvYBscmEuqoVVqJ75zcTDozwkFA" />
     <!-- END DEMO STYLES -->
     <!-- BEGIN CUSTOM FONT -->
     <style>
@@ -91,7 +97,7 @@
   </head>
   <body>
     <!-- BEGIN GLOBAL THEME SCRIPT -->
-    <script src="https://preview.tabler.io/dist/js/tabler-theme.min.js?1752697826"></script>
+    <script src="./dist/js/tabler-theme.min.js?1752697826" integrity="sha384-SoDJmj40r6f9Rfxi6Fq+bNS8ofhlZMyxHk9dq9Y8e1M17PZGkBRN/XUpx8swn0i5"></script>
     <!-- END GLOBAL THEME SCRIPT -->
     <div class="page">
       <!-- BEGIN NAVBAR  -->
@@ -431,439 +437,439 @@
                       <div class="row g-0">
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/amazon.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/amazon.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Amazon</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/android.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/android.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Android</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/app-store.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/app-store.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Apple App Store</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/apple-podcast.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/apple-podcast.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Apple Podcast</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/apple.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/apple.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Apple</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/behance.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/behance.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Behance</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/discord.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/discord.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Discord</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/dribbble.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/dribbble.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Dribbble</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/dropbox.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/dropbox.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Dropbox</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/ever-green.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/ever-green.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Ever Green</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/facebook.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/facebook.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Facebook</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/figma.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/figma.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Figma</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/github.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/github.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">GitHub</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/gitlab.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/gitlab.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">GitLab</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-ads.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-ads.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Ads</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-adsense.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-adsense.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google AdSense</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-analytics.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-analytics.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Analytics</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-cloud.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-cloud.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Cloud</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-drive.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-drive.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Drive</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-fit.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-fit.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Fit</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-home.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-home.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Home</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-maps.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-maps.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Maps</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-meet.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-meet.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Meet</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-photos.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-photos.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Photos</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-play.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-play.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Play</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-shopping.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-shopping.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Shopping</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google-teams.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google-teams.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google Teams</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/google.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/google.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Google</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/instagram.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/instagram.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Instagram</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/klarna.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/klarna.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Klarna</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/linkedin.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/linkedin.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">LinkedIn</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/mailchimp.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/mailchimp.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Mailchimp</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/medium.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/medium.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Medium</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/messenger.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/messenger.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Messenger</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/meta.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/meta.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Meta</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/monday.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/monday.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Monday</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/netflix.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/netflix.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Netflix</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/notion.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/notion.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Notion</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/office-365.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/office-365.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Office 365</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/opera.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/opera.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Opera</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/paypal.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/paypal.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">PayPal</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/petreon.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/petreon.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Patreon</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/pinterest.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/pinterest.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Pinterest</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/play-store.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/play-store.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Play Store</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/quora.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/quora.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Quora</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/reddit.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/reddit.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Reddit</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/shopify.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/shopify.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Shopify</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/skype.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/skype.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Skype</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/slack.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/slack.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Slack</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/snapchat.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/snapchat.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Snapchat</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/soundcloud.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/soundcloud.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">SoundCloud</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/spotify.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/spotify.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Spotify</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/stripe.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/stripe.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Stripe</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/telegram.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/telegram.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Telegram</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/tiktok.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/tiktok.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">TikTok</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/tinder.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/tinder.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Tinder</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/trello.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/trello.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Trello</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/truth.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/truth.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Truth</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/tumblr.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/tumblr.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Tumblr</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/twitch.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/twitch.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Twitch</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/twitter.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/twitter.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Twitter</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/vimeo.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/vimeo.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Vimeo</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/vk.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/vk.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">VK</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/watppad.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/watppad.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Wattpad</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/webflow.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/webflow.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Webflow</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/whatsapp.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/whatsapp.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">WhatsApp</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/wordpress.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/wordpress.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">WordPress</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/xing.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/xing.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Xing</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/yelp.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/yelp.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Yelp</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/youtube.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/youtube.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">YouTube</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/zapier.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/zapier.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Zapier</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/zendesk.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/zendesk.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Zendesk</span>
                           </a>
                         </div>
                         <div class="col-4">
                           <a href="#" class="d-flex flex-column flex-center text-center text-secondary py-2 px-2 link-hoverable">
-                            <img src="https://preview.tabler.io/static//brands/zoom.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
+                            <img src="./static/brands/zoom.svg" class="w-6 h-6 mx-auto mb-2" width="24" height="24" alt="" />
                             <span class="h5">Zoom</span>
                           </a>
                         </div>
@@ -875,7 +881,7 @@
             </div>
             <div class="nav-item dropdown">
               <a href="#" class="nav-link d-flex lh-1 p-0 px-2" data-bs-toggle="dropdown" aria-label="Open user menu">
-                <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/000m.jpg)"> </span>
+                <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"> </span>
                 <div class="d-none d-xl-block ps-2">
                   <div>Paweł Kuna</div>
                   <div class="mt-1 small text-secondary">UI Designer</div>
@@ -2371,7 +2377,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/052f.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/052f.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Jeffie Lewzey</strong> commented on your <strong>"I'm not a witch."</strong> post.</div>
@@ -2385,7 +2391,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/002m.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/002m.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate">It's <strong>Mallory Hulme</strong>'s birthday. Wish him well!</div>
@@ -2399,7 +2405,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/003m.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/003m.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Dunn Slane</strong> posted <strong>"Well, what do you want?"</strong>.</div>
@@ -2413,7 +2419,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/000f.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/000f.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Emmy Levet</strong> created a new project <strong>Morning alarm clock</strong>.</div>
@@ -2427,7 +2433,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/001f.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/001f.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Maryjo Lebarree</strong> liked your photo.</div>
@@ -2438,7 +2444,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/004m.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/004m.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Egan Poetz</strong> registered new client as <strong>Trilia</strong>.</div>
@@ -2449,7 +2455,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/002f.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/002f.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate">
@@ -2462,7 +2468,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/003f.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/003f.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Christabel Charlwood</strong> created a new project for <strong>Wikibox</strong>.</div>
@@ -2473,7 +2479,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/063m.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/063m.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate">
@@ -2487,7 +2493,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/006m.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/006m.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Lorry Mion</strong> liked <strong>Tabler UI Kit</strong>.</div>
@@ -2498,7 +2504,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/004f.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/004f.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Leesa Beaty</strong> posted new video.</div>
@@ -2509,7 +2515,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/007m.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/007m.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Perren Keemar</strong> and 3 others followed you.</div>
@@ -2531,7 +2537,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/009m.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/009m.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Geoffry Flaunders</strong> made a <strong>$10</strong> donation.</div>
@@ -2542,7 +2548,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/010m.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/010m.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Thatcher Keel</strong> created a profile.</div>
@@ -2553,7 +2559,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/005f.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/005f.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Dyann Escala</strong> hosted the event <strong>Tabler UI Birthday</strong>.</div>
@@ -2564,7 +2570,7 @@
                           <div>
                             <div class="row">
                               <div class="col-auto">
-                                <span class="avatar avatar-1" style="background-image: url(https://preview.tabler.io/static//avatars/006f.jpg)"> </span>
+                                <span class="avatar avatar-1" style="background-image: url(./static/avatars/006f.jpg)"> </span>
                               </div>
                               <div class="col">
                                 <div class="text-truncate"><strong>Avivah Mugleston</strong> mentioned you on <strong>Best of 2020</strong>.</div>
@@ -2638,7 +2644,7 @@
                       <tbody>
                         <tr>
                           <td class="w-1">
-                            <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/000m.jpg)"> </span>
+                            <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"> </span>
                           </td>
                           <td class="td-truncate">
                             <div class="text-truncate">Fix dart Sass compatibility (#29755)</div>
@@ -2647,7 +2653,7 @@
                         </tr>
                         <tr>
                           <td class="w-1">
-                            <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/052f.jpg)"> </span>
+                            <span class="avatar avatar-sm" style="background-image: url(./static/avatars/052f.jpg)"> </span>
                           </td>
                           <td class="td-truncate">
                             <div class="text-truncate">Change deprecated html tags to text decoration classes (#29604)</div>
@@ -2656,7 +2662,7 @@
                         </tr>
                         <tr>
                           <td class="w-1">
-                            <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/002m.jpg)"> </span>
+                            <span class="avatar avatar-sm" style="background-image: url(./static/avatars/002m.jpg)"> </span>
                           </td>
                           <td class="td-truncate">
                             <div class="text-truncate">justify-content:between ⇒ justify-content:space-between (#29734)</div>
@@ -2665,7 +2671,7 @@
                         </tr>
                         <tr>
                           <td class="w-1">
-                            <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/003m.jpg)"> </span>
+                            <span class="avatar avatar-sm" style="background-image: url(./static/avatars/003m.jpg)"> </span>
                           </td>
                           <td class="td-truncate">
                             <div class="text-truncate">Update change-version.js (#29736)</div>
@@ -2674,7 +2680,7 @@
                         </tr>
                         <tr>
                           <td class="w-1">
-                            <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/000f.jpg)"> </span>
+                            <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000f.jpg)"> </span>
                           </td>
                           <td class="td-truncate">
                             <div class="text-truncate">Regenerate package-lock.json (#29730)</div>
@@ -3420,7 +3426,7 @@
                           >
                         </td>
                         <td>
-                          <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/000m.jpg)"> </span>
+                          <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"> </span>
                         </td>
                       </tr>
                       <tr>
@@ -3496,7 +3502,7 @@
                           >
                         </td>
                         <td>
-                          <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/052f.jpg)"> </span>
+                          <span class="avatar avatar-sm" style="background-image: url(./static/avatars/052f.jpg)"> </span>
                         </td>
                       </tr>
                       <tr>
@@ -3572,7 +3578,7 @@
                           >
                         </td>
                         <td>
-                          <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/002m.jpg)"> </span>
+                          <span class="avatar avatar-sm" style="background-image: url(./static/avatars/002m.jpg)"> </span>
                         </td>
                       </tr>
                       <tr>
@@ -3648,7 +3654,7 @@
                           >
                         </td>
                         <td>
-                          <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/003m.jpg)"> </span>
+                          <span class="avatar avatar-sm" style="background-image: url(./static/avatars/003m.jpg)"> </span>
                         </td>
                       </tr>
                       <tr>
@@ -3724,7 +3730,7 @@
                           >
                         </td>
                         <td>
-                          <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/000f.jpg)"> </span>
+                          <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000f.jpg)"> </span>
                         </td>
                       </tr>
                       <tr>
@@ -3800,7 +3806,7 @@
                           >
                         </td>
                         <td>
-                          <span class="avatar avatar-sm" style="background-image: url(https://preview.tabler.io/static//avatars/001f.jpg)"> </span>
+                          <span class="avatar avatar-sm" style="background-image: url(./static/avatars/001f.jpg)"> </span>
                         </td>
                       </tr>
                     </table>
@@ -4532,16 +4538,16 @@
       </form>
     </div>
     <!-- BEGIN PAGE LIBRARIES -->
-    <script src="https://preview.tabler.io/dist/libs/apexcharts/dist/apexcharts.min.js?1752697826" defer></script>
-    <script src="https://preview.tabler.io/dist/libs/jsvectormap/dist/jsvectormap.min.js?1752697826" defer></script>
-    <script src="https://preview.tabler.io/dist/libs/jsvectormap/dist/maps/world.js?1752697826" defer></script>
-    <script src="https://preview.tabler.io/dist/libs/jsvectormap/dist/maps/world-merc.js?1752697826" defer></script>
+    <script src="./dist/libs/apexcharts/dist/apexcharts.min.js?1752697826" defer></script>
+    <script src="./dist/libs/jsvectormap/dist/jsvectormap.min.js?1752697826" defer></script>
+    <script src="./dist/libs/jsvectormap/dist/maps/world.js?1752697826" defer></script>
+    <script src="./dist/libs/jsvectormap/dist/maps/world-merc.js?1752697826" defer></script>
     <!-- END PAGE LIBRARIES -->
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="https://preview.tabler.io/dist/js/tabler.min.js?1752697826" defer ></script>
+    <script src="./dist/js/tabler.min.js?1752697826" defer integrity="sha384-pku3birjgGovaJ9ngF7SaxKkF/eYUvBjiMJ+jTtWbNesIj2Rud2K63+4JD7EF4gk"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
     <!-- BEGIN DEMO SCRIPTS -->
-    <script src="https://preview.tabler.io/preview/js/demo.min.js?1752697826" defer></script>
+    <script src="./preview/js/demo.min.js?1752697826" defer></script>
     <!-- END DEMO SCRIPTS -->
     <script src="https://scripts.tabler.io/banner.js" defer data-tblr-ref="tabler-preview-top-banner"></script>
     <!-- BEGIN PAGE SCRIPTS -->
@@ -5685,6 +5691,6 @@
       });
     </script>
     <!-- END PAGE SCRIPTS -->
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" data-cf-beacon='{"rayId":"96ddb9d2996726da","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"84cae67e72b342399609db8f32d1c3ff"}' crossorigin="anonymous"></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"84cae67e72b342399609db8f32d1c3ff","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>

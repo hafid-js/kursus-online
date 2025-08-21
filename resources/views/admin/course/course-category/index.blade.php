@@ -89,6 +89,8 @@
 });
         $(function() {
             const baseUrl = "{{ url('') }}";
+        const modalElement = document.getElementById('dynamic-modal');
+        const dynamicModal = new bootstrap.Modal(modalElement);
 
             // Global AJAX CSRF token setup
             $.ajaxSetup({
@@ -99,7 +101,7 @@
 
             // Handle open Create Modal
             $('.add_course_category').on('click', function() {
-                $('#dynamic-modal').modal('show');
+                        dynamicModal.show();
                 $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
                 $.get(`${baseUrl}/admin/course-categories/create`, function(html) {
@@ -114,7 +116,7 @@
             // Handle open Edit Modal
             $(document).on("click", ".edit_course_category", function(e) {
                 const categoryId = $(this).data('category-id');
-                $('#dynamic-modal').modal('show');
+                        dynamicModal.show();
                 $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
                 $.get(`${baseUrl}/admin/course-categories/${categoryId}/edit`, function(html) {
@@ -141,7 +143,7 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        $('#dynamic-modal').modal('hide');
+                                 dynamicModal.hide();
                         window.location.href = response.redirect || location.href;
                     },
                     error: function(xhr) {
@@ -173,7 +175,7 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        $('#dynamic-modal').modal('hide');
+                                 dynamicModal.hide();
                         location.reload();
                     },
                     error: function(xhr) {

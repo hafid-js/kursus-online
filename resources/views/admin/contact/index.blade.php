@@ -91,6 +91,8 @@
 <script>
     $(function () {
         const baseUrl = "{{ url('') }}";
+        const modalElement = document.getElementById('dynamic-modal');
+        const dynamicModal = new bootstrap.Modal(modalElement);
 
         // Global AJAX CSRF token setup
         $.ajaxSetup({
@@ -101,7 +103,7 @@
 
         // Handle open Create Modal
         $('.add_contact_card').on('click', function () {
-            $('#dynamic-modal').modal('show');
+                    dynamicModal.show();
             $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
             $.get(`${baseUrl}/admin/contact/create`, function (html) {
@@ -114,7 +116,7 @@
         // Handle open Edit Modal
         $('.edit_contact_card').on('click', function () {
             const cardId = $(this).data('contact-id');
-            $('#dynamic-modal').modal('show');
+                    dynamicModal.show();
             $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
             $.get(`${baseUrl}/admin/contact/${cardId}/edit`, function (html) {
@@ -140,7 +142,7 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    $('#dynamic-modal').modal('hide');
+                             dynamicModal.hide();
                    location.reload();
                 },
                 error: function (xhr) {
@@ -173,7 +175,7 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    $('#dynamic-modal').modal('hide');
+                             dynamicModal.hide();
                     location.reload();
                 },
                 error: function (xhr) {

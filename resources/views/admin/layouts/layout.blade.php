@@ -42,7 +42,6 @@
     <link href="{{ asset('admin/assets/css/demo.min.css?1692870487') }}" rel="stylesheet" /> --}}
 
     <!-- jQuery (harus sebelum Select2) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         @import url('https://rsms.me/inter/inter.css');
@@ -431,6 +430,8 @@
             </div>
         </form>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     {{-- plugins --}}
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
@@ -1602,7 +1603,6 @@
         integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
         data-cf-beacon='{"rayId":"96ddb9d2996726da","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"84cae67e72b342399609db8f32d1c3ff"}'
         crossorigin="anonymous"></script>
-</body>
 </body>
 
 </html>

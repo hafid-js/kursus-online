@@ -111,7 +111,7 @@
             $('.add_course_sub_category').on('click', function(e) {
                 e.preventDefault();
                 const categoryId = $(this).data('category-id');
-                $('#dynamic-modal').modal('show');
+                        dynamicModal.show();
                 $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
                 $.ajax({
@@ -130,7 +130,7 @@
             $('.edit_course_sub_category').on('click', function () {
             const categoryId = $(this).data('category-id');
             const subcategoryId = $(this).data('sub-category-id');
-            $('#dynamic-modal').modal('show');
+                    dynamicModal.show();
             $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
             $.get(`${base_url}/admin/${categoryId}/sub-categories/${subcategoryId}/edit`, function (html) {
@@ -156,7 +156,7 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                $('#dynamic-modal').modal('hide');
+                         dynamicModal.hide();
                 location.reload();
             },
 
@@ -189,7 +189,7 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    $('#dynamic-modal').modal('hide');
+                             dynamicModal.hide();
                     location.reload();
                 },
                 error: function (xhr) {

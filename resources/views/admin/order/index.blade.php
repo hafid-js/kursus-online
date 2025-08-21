@@ -128,6 +128,8 @@
 
         $(function() {
             const baseUrl = "{{ url('') }}";
+        const modalElement = document.getElementById('dynamic-modal');
+        const dynamicModal = new bootstrap.Modal(modalElement);
 
             $.ajaxSetup({
                 headers: {
@@ -138,7 +140,7 @@
             // tombol untuk modal A
             $(document).on("click", ".show-order-courses", function(e) {
                 const orderId = $(this).data('order-id');
-                $('#dynamic-modal').modal('show');
+                        dynamicModal.show();
                 $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
                 $.get(`${baseUrl}/admin/orders/${orderId}?modal=courses`, function(html) {
@@ -152,7 +154,7 @@
             // tombol untuk modal B
             $(document).on("click", ".show-order-invoice", function(e) {
                 const orderId = $(this).data('order-id');
-                $('#dynamic-modal').modal('show');
+                        dynamicModal.show();
                 $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
                 $.get(`${baseUrl}/admin/orders/${orderId}?modal=invoice`, function(html) {

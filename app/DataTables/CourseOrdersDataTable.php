@@ -136,10 +136,18 @@ class CourseOrdersDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
+
+    protected $instructorId = null;
+
+    public function setInstructorId($id)
+    {
+        $this->instructorId = $id;
+        return $this;
+    }
+
     public function query(Order $model): QueryBuilder
     {
-
-        return $model->newQuery()
+        $query = $model->newQuery()
             ->select(
                 'orders.invoice_id',
                 DB::raw('MIN(orders.id) as id'),
@@ -164,7 +172,46 @@ class CourseOrdersDataTable extends DataTable
             ->leftJoin('courses', 'courses.id', '=', 'order_items.course_id')
             ->leftJoin('users as instructor', 'instructor.id', '=', 'courses.instructor_id')
             ->groupBy('orders.invoice_id');
+
+        // just for filter if instructorId is not null
+        if (!is_null($this->instructorId)) {
+            $query->where('courses.instructor_id', $this->instructorId);
+        }
+
+        return $query;
     }
+
+
+
+    // public function query(Order $model): QueryBuilder
+    // {
+
+    //     return $model->newQuery()
+    //         ->select(
+    //             'orders.invoice_id',
+    //             DB::raw('MIN(orders.id) as id'),
+    //             DB::raw('SUM(courses.price) as total_amount'),
+    //             DB::raw('SUM(courses.price - (courses.price * COALESCE(courses.discount, 0) / 100)) as paid_amount'),
+    //             DB::raw('MIN(orders.currency) as currency'),
+    //             DB::raw('MIN(users.name) as user_name'),
+    //             DB::raw('MIN(users.image) as user_image'),
+    //             DB::raw('MIN(users.email) as user_email'),
+    //             DB::raw('GROUP_CONCAT(DISTINCT courses.title SEPARATOR ", ") as course_titles'),
+    //             DB::raw('MIN(instructor.name) as instructor_name'),
+    //             DB::raw('COUNT(order_items.id) as items_count'),
+    //             DB::raw('MIN(orders.id) as order_id'),
+    //             DB::raw('MIN(courses.thumbnail) as course_thumbnail'),
+    //             DB::raw('MIN(courses.title) as course_title'),
+    //             DB::raw('IFNULL(MIN(courses.discount), 0) as discount'),
+    //             DB::raw('MIN(orders.status) as status'),
+    //             DB::raw('MIN(orders.created_at) as created_at')
+    //         )
+    //         ->leftJoin('users', 'users.id', '=', 'orders.buyer_id')
+    //         ->leftJoin('order_items', 'order_items.order_id', '=', 'orders.id')
+    //         ->leftJoin('courses', 'courses.id', '=', 'order_items.course_id')
+    //         ->leftJoin('users as instructor', 'instructor.id', '=', 'courses.instructor_id')
+    //         ->groupBy('orders.invoice_id');
+    // }
 
     /**
      * Optional method if you want to use the html builder.

@@ -94,7 +94,9 @@ $(document).on("click", ".delete-item", function (e) {
     let url = $(this).attr("href");
     delete_url = url;
 
-    $("#modal-danger").modal("show");
+    const modalElement = document.getElementById('modal-danger');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
 });
 
 $(".delete-confirm").on("click", function (e) {

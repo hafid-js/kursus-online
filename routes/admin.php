@@ -40,11 +40,13 @@ use App\Http\Controllers\Admin\ProfileUpdateController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialLinkController;
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\TopBarController;
 use App\Http\Controllers\Admin\VideoSectionController;
 use App\Http\Controllers\Admin\WithdrawRequestController;
 use App\Http\Controllers\Admin\HeroController;
+use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Export\ExportController;
 use Illuminate\Support\Facades\Route;
 
@@ -259,7 +261,10 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     // export to excel || pdf
     Route::get('export/course-orders', [ExportController::class, 'courseExportOrders'])->name('export.course-orders');
-    Route::match(['GET', 'POST'],'export/course-orders-pdf', [ExportController::class, 'exportSelected'])->name('export.course-orders-pdf');
+    Route::match(['GET', 'POST'], 'export/course-orders-pdf', [ExportController::class, 'exportSelected'])->name('export.course-orders-pdf');
+
+    Route::resource('students', StudentController::class);
+    Route::resource('instructors', InstructorController::class);
 
 
     // lfm routes

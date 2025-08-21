@@ -35,7 +35,7 @@
                                                             @forelse ($blogs as $blog)
                                                                 <tr>
                                                                     <td>
-                                                                        <x-image-preview src="{{ asset($blog->image) }}"/>
+                                                                        <x-thumbnail-preview src="{{ asset($blog->image) }}"/>
                                                                     </td>
                                                                     <td>{{ $blog->title }}</td>
                                                                     <td>{{ $blog->category->name }}</td>

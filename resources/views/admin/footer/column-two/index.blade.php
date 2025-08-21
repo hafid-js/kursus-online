@@ -90,6 +90,8 @@
 <script>
     $(function () {
         const baseUrl = "{{ url('') }}";
+        const modalElement = document.getElementById('dynamic-modal');
+        const dynamicModal = new bootstrap.Modal(modalElement);
 
         // Global AJAX CSRF token setup
         $.ajaxSetup({
@@ -100,7 +102,7 @@
 
         // Handle open Create Modal
         $('.add_footer_column_two').on('click', function () {
-            $('#dynamic-modal').modal('show');
+                    dynamicModal.show();
             $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
             $.get(`${baseUrl}/admin/footer-column-two/create`, function (html) {
@@ -113,7 +115,7 @@
         // Handle open Edit Modal
         $('.edit_footer_column_two').on('click', function () {
             const columnId = $(this).data('column-id');
-            $('#dynamic-modal').modal('show');
+                    dynamicModal.show();
             $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
             $.get(`${baseUrl}/admin/footer-column-two/${columnId}/edit`, function (html) {
@@ -139,7 +141,7 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    $('#dynamic-modal').modal('hide');
+                             dynamicModal.hide();
                    location.reload();
                 },
                 error: function (xhr) {
@@ -169,7 +171,7 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    $('#dynamic-modal').modal('hide');
+                             dynamicModal.hide();
                     location.reload();
                 },
                 error: function (xhr) {

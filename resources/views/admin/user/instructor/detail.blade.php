@@ -1,0 +1,490 @@
+@extends('admin.layouts.layout')
+@section('content')
+    <div class="page-wrapper">
+        <!-- BEGIN PAGE HEADER -->
+        <div class="page-header d-print-none" aria-label="Page header">
+            <div class="container-xl">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h2 class="page-title">Instructor Details</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- END PAGE HEADER -->
+        <!-- BEGIN PAGE BODY -->
+        <div class="page-body">
+            <div class="container-xl">
+                <div class="row row-cards align-items-stretch">
+                    <div class="col-6">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h3 class="card-title">User Informations</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-2">
+                                    <!-- SVG icon book -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon me-2 text-secondary icon-2">
+                                        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0"></path>
+                                        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0"></path>
+                                        <path d="M3 6l0 13"></path>
+                                        <path d="M12 6l0 13"></path>
+                                        <path d="M21 6l0 13"></path>
+                                    </svg>
+                                    Went to: <strong>University of Ljubljana</strong>
+                                </div>
+                                <div class="mb-2">
+                                    <!-- SVG icon briefcase -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon me-2 text-secondary icon-2">
+                                        <path
+                                            d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z">
+                                        </path>
+                                        <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path>
+                                        <path d="M12 12l0 .01"></path>
+                                        <path d="M3 13a20 20 0 0 0 18 0"></path>
+                                    </svg>
+                                    Worked at: <strong>Devpulse</strong>
+                                </div>
+                                <div class="mb-2">
+                                    <!-- SVG icon home -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon me-2 text-secondary icon-2">
+                                        <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                                        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                                        <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+                                    </svg>
+                                    Lives in: <strong>Šentilj v Slov. Goricah, Slovenia</strong>
+                                </div>
+                                <div class="mb-2">
+                                    <!-- SVG icon map-pin -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon me-2 text-secondary icon-2">
+                                        <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                                        <path
+                                            d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z">
+                                        </path>
+                                    </svg>
+                                    From: <strong><span class="flag flag-xs flag-country-si"></span> Slovenia</strong>
+                                </div>
+                                <div class="mb-2">
+                                    <!-- SVG icon calendar -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon me-2 text-secondary icon-2">
+                                        <path
+                                            d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z">
+                                        </path>
+                                        <path d="M16 3v4"></path>
+                                        <path d="M8 3v4"></path>
+                                        <path d="M4 11h16"></path>
+                                        <path d="M11 15h1"></path>
+                                        <path d="M12 15v3"></path>
+                                    </svg>
+                                    Birth date: <strong>13/01/1985</strong>
+                                </div>
+                                <div>
+                                    <!-- SVG icon clock -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon me-2 text-secondary icon-2">
+                                        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+                                        <path d="M12 7v5l3 3"></path>
+                                    </svg>
+                                    Time zone: <strong>Europe/Ljubljana</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h3 class="card-title">Session Details</h3>
+                            </div>
+                            <div class="card-body">
+                                <dl class="row">
+                                    <dt class="col-5">Date:</dt>
+                                    <dd class="col-7">2020-01-05 16:42:29 UTC</dd>
+                                    <dt class="col-5">Account:</dt>
+                                    <dd class="col-7">tabler</dd>
+                                    <dt class="col-5">Location:</dt>
+                                    <dd class="col-7"><span class="flag flag-1 flag-country-pl"></span> Poland</dd>
+                                    <dt class="col-5">IP Address:</dt>
+                                    <dd class="col-7">46.113.11.3</dd>
+                                    <dt class="col-5">Operating system:</dt>
+                                    <dd class="col-7">OS X 10.15.2 64-bit</dd>
+                                    <dt class="col-5">Browser:</dt>
+                                    <dd class="col-7">Chrome</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Courses</h4>
+                                <div class="card-actions">
+                                    <a href="{{ route('admin.courses.create') }}" class="btn btn-primary">
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M12 5l0 14"></path>
+                                            <path d="M5 12l14 0"></path>
+                                        </svg>
+                                        Add new
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="table-responsive">
+                                    <table class="table table-vcenter card-table">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Instructor</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Approve</th>
+                                                <th>Action</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($courses as $course)
+                                                <tr id="row-{{ $course->id }}">
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $course->title }}</td>
+                                                    <td>{{ config('settings.currency_icon') }}{{ $course->price }}</td>
+                                                    <td>
+                                                        <div class="d-flex py-1 align-items-center">
+                                                            @if (!empty($course->instructor->image))
+                                                                <span class="avatar avatar-2 me-2"
+                                                                    style="background-image: url({{ asset($course->instructor->image) }})"></span>
+                                                            @else
+                                                                <span
+                                                                    class="avatar avatar-2 me-2 bg-primary-lt text-primary fw-bold">
+                                                                    {{ getUserInitials($course->instructor->name) }}
+                                                                </span>
+                                                            @endif
+                                                            <div class="flex-fill">
+                                                                <div class="font-weight-medium">
+                                                                    {{ $course->instructor->name }}</div>
+                                                                <div class="text-secondary"><a href="#"
+                                                                        class="text-reset">{{ $course->instructor->email }}</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ format_to_date($course->created_at) }}</td>
+                                                    <td>
+                                                        @if ($course->is_approved == 'pending')
+                                                            <span class="badge bg-yellow text-yellow-fg">Pending</span>
+                                                        @elseif ($course->is_approved == 'approved')
+                                                            <span class="badge bg-green text-green-fg">Approved</span>
+                                                        @elseif ($course->is_approved == 'rejected')
+                                                            <span class="badge bg-red text-red-fg">Rejected</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <select name="" class="form-control update-approval-status"
+                                                            data-id="{{ $course->id }}">
+                                                            <option @selected($course->is_approved == 'pending') value="pending">Pending
+                                                            </option>
+                                                            <option @selected($course->is_approved == 'approved') value="approved">Approved
+                                                            </option>
+                                                            <option @selected($course->is_approved == 'rejected') value="rejected">Rejected
+                                                            </option>
+                                                        </select>
+                                                    </td>
+
+                                                    <td>
+                                                        <a href="{{ route('admin.courses.edit', ['id' => $course->id, 'step' => 1]) }}"
+                                                            class="text-blue">
+                                                            <i class="ti ti-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="6" class="text-center">No Data Found!
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- {{ $courses->links() }} --}}
+                    </div>
+                         <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="card-title">Orders</h4>
+                            </div>
+                            <div class="card-body border-bottom py-3">
+                                <div class="d-flex">
+                                    <div class="text-secondary">
+                                        Show
+                                        <div class="mx-2 d-inline-block">
+                                            <input id="custom-length" type="number" min="1"
+                                                class="form-control form-control-sm" value="8" size="3"
+                                                aria-label="Invoices count">
+                                        </div>
+                                        entries
+                                    </div>
+                                    <div class="ms-auto text-secondary">
+                                        Search:
+                                        <div class="ms-2 d-inline-block">
+                                            <input id="custom-search" type="text" class="form-control form-control-sm"
+                                                aria-label="Search invoice">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body border-bottom py-3">
+                                <div class="d-flex">
+                                    <div class="d-flex gap-2">
+                                        <a href="#" id="btnExportExcel" class="btn btn-sm btn-success">
+                                            <i class="ti ti-file-export"></i> Excel
+                                        </a>
+                                        <a href="#" id="btnExportPdf" class="btn btn-sm btn-danger">
+                                            <i class="ti ti-file"></i> PDF
+                                        </a>
+                                        <button id="btnPrint" class="btn btn-sm btn-primary">
+                                            <i class="ti ti-printer"></i> Print
+                                        </button>
+                                        <button id="btnReset" class="btn btn-sm btn-warning">
+                                            <i class="fa fa-refresh"></i> Reset
+                                        </button>
+                                        <button id="btnReload" class="btn btn-sm btn-secondary">
+                                            <i class="ti ti-reload"></i> Reload
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                {!! $dataTable->table(
+                                    ['id' => 'courseorders-table', 'class' => 'table table-selectable card-table table-vcenter text-nowrap datatable'],
+                                    true,
+                                ) !!}
+                            </div>
+                            <div class="card-footer">
+                                <div class="row g-2 justify-content-center justify-content-sm-between">
+                                    <div class="col-auto d-flex align-items-center">
+                                        <p class="m-0 text-secondary" id="table-info">
+                                            Showing <strong>0 to 0</strong> of <strong>0 entries</strong>
+                                        </p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <ul class="pagination m-0 ms-auto"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END PAGE BODY -->
+            <!--  BEGIN FOOTER  -->
+            <footer class="footer footer-transparent d-print-none">
+                <div class="container-xl">
+                    <div class="row text-center align-items-center flex-row-reverse">
+                        <div class="col-lg-auto ms-lg-auto">
+                            <ul class="list-inline list-inline-dots mb-0">
+                                <li class="list-inline-item"><a href="https://docs.tabler.io" target="_blank"
+                                        class="link-secondary" rel="noopener">Documentation</a></li>
+                                <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary"
+                                        rel="noopener">Source code</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary"
+                                        rel="noopener">
+                                        <!-- Download SVG icon from http://tabler.io/icons/icon/heart -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon text-pink icon-inline icon-4">
+                                            <path
+                                                d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572">
+                                            </path>
+                                        </svg>
+                                        Sponsor
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                            <ul class="list-inline list-inline-dots mb-0">
+                                <li class="list-inline-item">
+                                    Copyright © 2025
+                                    <a href="." class="link-secondary">Tabler</a>. All rights reserved.
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="./changelog.html" class="link-secondary" rel="noopener"> v1.4.0 </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!--  END FOOTER  -->
+        </div>
+    </div>
+
+        <!-- Dynamic Modal -->
+    <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content dynamic-modal-content">
+                <!-- Content injected via AJAX -->
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@push('styles')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+@endpush
+
+@push('scripts')
+    {!! $dataTable->scripts() !!}
+    <script>
+        $(document).ready(function() {
+
+            // Inisialisasi DataTable
+            let table = $('#courseorders-table').DataTable();
+
+            $('#btnReload').on('click', function() {
+                table.ajax.reload(null, false);
+            });
+
+            $('#btnReset').on('click', function() {
+                table.search('').columns().search('').order([]).page('first').draw();
+                $('#custom-search').val('');
+                $('input[type="checkbox"]').prop('checked', false);
+            });
+
+            $('#courseorders-table').on('draw.dt', function() {
+                $('#select-all').off('click').on('click', function() {
+                    const checked = $(this).is(':checked');
+                    $('.order-checkbox').prop('checked', checked);
+                });
+
+                $(document).off('click', '.order-checkbox').on('click', '.order-checkbox', function() {
+                    const total = $('.order-checkbox').length;
+                    const checked = $('.order-checkbox:checked').length;
+
+                    $('#select-all').prop('checked', total === checked);
+                });
+            });
+
+            initTable('#courseorders-table');
+        });
+
+        $(function() {
+            const baseUrl = "{{ url('') }}";
+        const modalElement = document.getElementById('dynamic-modal');
+        const dynamicModal = new bootstrap.Modal(modalElement);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // tombol untuk modal A
+            $(document).on("click", ".show-order-courses", function(e) {
+                const orderId = $(this).data('order-id');
+                        dynamicModal.show();
+                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+                $.get(`${baseUrl}/admin/orders/${orderId}?modal=courses`, function(html) {
+                    $('.dynamic-modal-content').html(html);
+                }).fail(() => {
+                    $('.dynamic-modal-content').html(
+                        '<div class="p-5 text-danger">Error loading form</div>');
+                });
+            });
+
+            // tombol untuk modal B
+            $(document).on("click", ".show-order-invoice", function(e) {
+                const orderId = $(this).data('order-id');
+                        dynamicModal.show();
+                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+                $.get(`${baseUrl}/admin/orders/${orderId}?modal=invoice`, function(html) {
+                    $('.dynamic-modal-content').html(html);
+                }).fail(() => {
+                    $('.dynamic-modal-content').html(
+                        '<div class="p-5 text-danger">Error loading form</div>');
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            function exportSelectedOrAll(type) {
+                let selectedIds = [];
+                $('.order-checkbox:checked').each(function() {
+                    selectedIds.push($(this).val());
+                });
+
+                if (selectedIds.length > 0) {
+                    let url = `export/course-orders-pdf?type=${type}`;
+
+                    let csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                    let form = $('<form method="POST" action="' + url + '"></form>');
+
+                    form.append('<input type="hidden" name="_token" value="' + csrfToken + '">');
+
+                    selectedIds.forEach(id => {
+                        form.append('<input type="hidden" name="ids[]" value="' + id + '">');
+                    });
+
+                    $('body').append(form);
+                    form.submit();
+                } else {
+                    if (type === 'excel') {
+                        window.location.href = "{{ route('admin.export.course-orders') }}";
+                    } else if (type === 'pdf') {
+                        window.location.href = "{{ route('admin.export.course-orders-pdf') }}";
+                    }
+                }
+            }
+            $('#btnExportExcel').click(function(e) {
+                e.preventDefault();
+                exportSelectedOrAll('excel');
+            });
+
+            $('#btnExportPdf').click(function(e) {
+                e.preventDefault();
+                exportSelectedOrAll('pdf');
+            });
+            $('#btnPrint').click(function() {
+    window.print();
+});
+        });
+    </script>
+@endpush

@@ -16,7 +16,7 @@
                                     <li>Courses</li>
                                 @endif
                                 <div class="card-actions">
-                                    <a href="{{ route('admin.courses.index') }}" class="btn btn-primary">
+                                    <a href="{{ url()->previous() }}" class="btn btn-primary">
                                         <i class="ti ti-arrow-left"></i>
                                         Back
                                     </a>

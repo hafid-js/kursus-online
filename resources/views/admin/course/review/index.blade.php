@@ -188,6 +188,8 @@
             });
             $(function() {
                 const baseUrl = "{{ url('') }}";
+        const modalElement = document.getElementById('dynamic-modal');
+        const dynamicModal = new bootstrap.Modal(modalElement);
 
                 // Global AJAX CSRF token setup
                 $.ajaxSetup({
@@ -199,7 +201,7 @@
                 // Handle open Edit Modal
                 $(document).on("click", '.show-review', function() {
                     const reviewId = $(this).data('review-id');
-                    $('#dynamic-modal').modal('show');
+                            dynamicModal.show();
                     $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
                     $.get(`${baseUrl}/admin/reviews/${reviewId}`, function(html) {

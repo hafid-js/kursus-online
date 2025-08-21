@@ -34,6 +34,33 @@
                         </span>
                     </a>
                 </li>
+                                <li class="nav-item dropdown {{ sidebarItemActive(['admin.students.index','admin.instructors.*']) }}">
+                    <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
+                        data-bs-auto-close="false" role="button" aria-expanded="false">
+                        <span
+                            class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
+                             <i class="ti ti-address-book"></i>
+                        </span>
+                        <span class="nav-link-title">
+                            Users
+                        </span>
+                    </a>
+
+                    <div class="dropdown-menu">
+                        <div class="dropdown-menu-columns">
+                            <div class="dropdown-menu-column">
+                                <a class="dropdown-item {{ sidebarItemActive(['admin.students.*']) }}" href="{{ route('admin.students.index') }}">
+                                    Student
+                                </a>
+                            </div>
+                             <div class="dropdown-menu-column">
+                                <a class="dropdown-item {{ sidebarItemActive(['admin.instructors.*']) }}" href="{{ route('admin.instructors.index') }}">
+                                    Instructor
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li class="nav-item dropdown {{ sidebarItemActive(['admin.courses.index','admin.course-categories.index','admin.course-languages.index','admin.course-levels.index','admin.reviews.*']) }}">
                     <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                         data-bs-auto-close="false" role="button" aria-expanded="false">

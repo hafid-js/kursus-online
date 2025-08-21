@@ -58,131 +58,125 @@
 @endsection
 
 @push('scripts')
-    <script type="module">
-        $(function() {
-            const baseUrl = "{{ url('') }}";
+<script type="module">
+    $(function () {
+        const baseUrl = "{{ url('') }}";
+        const modalElement = document.getElementById('dynamic-modal');
+        const dynamicModal = new bootstrap.Modal(modalElement);
 
-            // Global AJAX CSRF token setup
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        // Setup CSRF Token for all AJAX requests
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Create Modal - Show Form
+        $('.add_blog_category').on('click', function (e) {
+            e.preventDefault();
+            $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+            dynamicModal.show();
+
+            $.get(`${baseUrl}/admin/blog-categories/create`, function (html) {
+                $('.dynamic-modal-content').html(html);
+            }).fail(() => {
+                $('.dynamic-modal-content').html('<div class="p-5 text-danger">Error loading form</div>');
+            });
+        });
+
+        // Edit Modal - Show Form (using event delegation)
+        $(document).on('click', '.edit_blog_category', function (e) {
+            e.preventDefault();
+            const categoryId = $(this).data('category-id');
+
+            if (!categoryId) return alert("Category ID not found.");
+
+            $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+            dynamicModal.show();
+
+            $.get(`${baseUrl}/admin/blog-categories/${categoryId}/edit`, function (html) {
+                $('.dynamic-modal-content').html(html);
+            }).fail(() => {
+                $('.dynamic-modal-content').html('<div class="p-5 text-danger">Error loading form</div>');
+            });
+        });
+
+        // Submit Create Form
+        $(document).on('submit', '#addCategoryForm', function (e) {
+            e.preventDefault();
+
+            const form = this;
+            const formData = new FormData(form);
+            const $submitBtn = $(form).find('button[type="submit"]');
+            const originalText = $submitBtn.html();
+
+            $submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> Saving...');
+            $('#error-name').text('');
+
+            $.ajax({
+                url: "{{ route('admin.blog-categories.store') }}",
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                  modalElement.hide();
+                    location.reload();
+                },
+                error: function (xhr) {
+                    if (xhr.status === 422) {
+                        const errors = xhr.responseJSON.errors;
+                        if (errors.name) $('#error-name').text(errors.name[0]);
+                    }
+                },
+                complete: function () {
+                    $submitBtn.prop('disabled', false).html(originalText);
                 }
             });
-
-            // Handle open Create Modal
-            $('.add_blog_category').on('click', function() {
-                $('#dynamic-modal').modal('show');
-                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
-
-                $.get(`${baseUrl}/admin/blog-categories/create`, function(html) {
-                    $('.dynamic-modal-content').html(html);
-                }).fail(() => {
-                    $('.dynamic-modal-content').html(
-                        '<div class="p-5 text-danger">Error loading form</div>');
-                });
-            });
-
-            // Handle open Edit Modal
-            $('.edit_blog_category').on('click', function() {
-                const categoryId = $(this).data('category-id');
-                $('#dynamic-modal').modal('show');
-                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
-
-                $.get(`${baseUrl}/admin/blog-categories/${categoryId}/edit`, function(html) {
-                    $('.dynamic-modal-content').html(html);
-                }).fail(() => {
-                    $('.dynamic-modal-content').html(
-                        '<div class="p-5 text-danger">Error loading form</div>');
-                });
-            });
-
-            // Handle Create form submission (event delegation)
-            $(document).on('submit', '#addCategoryForm', function(e) {
-                e.preventDefault();
-
-                const form = this;
-                const formData = new FormData(form);
-                const $submitBtn = $(form).find('button[type="submit"]');
-
-                // Disable button & show loading
-                const originalText = $submitBtn.html();
-                $submitBtn.prop('disabled', true).html(
-                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...'
-                );
-
-                // Clear previous errors
-                $('#error-name').text('');
-
-                $.ajax({
-                    url: "{{ route('admin.blog-categories.store') }}",
-                    method: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        $('#dynamic-modal').modal('hide');
-                        form.reset();
-                        location.reload();
-                    },
-                    error: function(xhr) {
-                        if (xhr.status === 422) {
-                            const errors = xhr.responseJSON.errors;
-                            if (errors.name) $('#error-name').text(errors.name[0]);
-                        }
-                    },
-                    complete: function() {
-                        // Re-enable button
-                        $submitBtn.prop('disabled', false).html(originalText);
-                    }
-                });
-            });
-
-
-            // Handle Update form submission (event delegation)
-            $(document).on('submit', '#editCategoryForm', function(e) {
-                e.preventDefault();
-
-                const form = this;
-                const formData = new FormData(form);
-                const actionUrl = $(form).attr('action');
-                const $submitBtn = $(form).find('button[type="submit"]');
-
-                const originalText = $submitBtn.html();
-                $submitBtn.prop('disabled', true).html(
-                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...'
-                );
-                // Clear errors
-                $('#error-update-name').text('');
-
-                $.ajax({
-                    url: actionUrl,
-                    method: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        $('#dynamic-modal').modal('hide');
-                        location.reload();
-                    },
-                    error: function(xhr) {
-                        if (xhr.status === 422) {
-                            const errors = xhr.responseJSON.errors;
-                            if (errors.name) $('#error-update-name').text(errors.name[0]);
-                        }
-                    },
-                    complete: function() {
-                        $submitBtn.prop('disabled', false).html(originalText);
-                    }
-                });
-            });
-
         });
-        document.addEventListener('DOMContentLoaded', function() {
-            initLiveSearch({
-                inputSelector: '#searchInput',
-                resultSelector: '#categoryTableBody',
-                url: "{{ route('admin.blog-categories.index') }}"
+
+        // Submit Update Form
+        $(document).on('submit', '#editCategoryForm', function (e) {
+            e.preventDefault();
+
+            const form = this;
+            const formData = new FormData(form);
+            const actionUrl = $(form).attr('action');
+            const $submitBtn = $(form).find('button[type="submit"]');
+            const originalText = $submitBtn.html();
+
+            $submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> Saving...');
+            $('#error-update-name').text('');
+
+            $.ajax({
+                url: actionUrl,
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    dynamicModal.hide();
+                    location.reload();
+                },
+                error: function (xhr) {
+                    if (xhr.status === 422) {
+                        const errors = xhr.responseJSON.errors;
+                        if (errors.name) $('#error-update-name').text(errors.name[0]);
+                    }
+                },
+                complete: function () {
+                    $submitBtn.prop('disabled', false).html(originalText);
+                }
             });
         });
-    </script>
+
+        // Live Search
+        initLiveSearch({
+            inputSelector: '#searchInput',
+            resultSelector: '#categoryTableBody',
+            url: "{{ route('admin.blog-categories.index') }}"
+        });
+    });
+</script>
 @endpush
+
