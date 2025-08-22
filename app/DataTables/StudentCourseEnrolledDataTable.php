@@ -2,8 +2,9 @@
 
 namespace App\DataTables;
 
-use App\Models\CourseOrder;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\StudentCourseEnrolled;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\EloquentDataTable;
@@ -14,7 +15,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class CourseOrdersDataTable extends DataTable
+class StudentCourseEnrolledDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,20 +24,27 @@ class CourseOrdersDataTable extends DataTable
      */
     private function filterBuyerColumn($query, $keyword): void
     {
-        $query->where('users.name', 'like', "%{$keyword}%")
-            ->orWhere('users.email', 'like', "%{$keyword}%");
+        $query->whereHas('order.customer', function ($q) use ($keyword) {
+            $q->where('name', 'like', "%{$keyword}%")
+                ->orWhere('email', 'like', "%{$keyword}%");
+        });
     }
     private function filterCourseColumn($query, $keyword): void
     {
-        $query->where('courses.title', 'like', "%{$keyword}%")
-            ->orWhere('instructor.name', 'like', "%{$keyword}%");
+        $query->whereHas('course', function ($q) use ($keyword) {
+            $q->where('title', 'like', "%{$keyword}%")
+                ->orWhereHas('instructor', function ($q2) use ($keyword) {
+                    $q2->where('name', 'like', "%{$keyword}%");
+                });
+        });
     }
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         $dataTable = new EloquentDataTable($query);
+
         $dataTable
             ->filterColumn('course', fn($query, $keyword) => $this->filterCourseColumn($query, $keyword))
-            ->filterColumn('user_name', fn($query, $keyword) => $this->filterBuyerColumn($query, $keyword));
+            ->filterColumn('name', fn($query, $keyword) => $this->filterBuyerColumn($query, $keyword));
 
         // order column for title course
         $dataTable->orderColumn('course', function ($query, $order) {
@@ -44,27 +52,34 @@ class CourseOrdersDataTable extends DataTable
         });
 
         // order column for user/buyer name
-        $dataTable->orderColumn('user_name', function ($query, $order) {
+        $dataTable->orderColumn('name', function ($query, $order) {
             $query->orderBy('users.name', $order);
         });
 
+
         return $dataTable
+            ->editColumn('paid_amount', function ($row) {
+                return $row->price;
+            })
+            ->editColumn('price', function ($row) {
+                return $row->course->price;
+            })
             ->addColumn('checkbox', function ($row) {
                 return '<input type="checkbox" class="order-checkbox form-check-input m-0 align-middle" value="' . $row->id . '">';
             })
             ->editColumn('invoice_id', function ($row) {
-                return '#' . strtoupper($row->invoice_id);
+                return '#' . strtoupper($row->order->invoice_id);
             })
             ->editColumn('discount', function ($row) {
-                return $row->discount . '%';
+                return ($row->course->discount ?? 0) . '%';
             })
-            ->addColumn('user_name', function ($row) {
+            ->addColumn('name', function ($row) {
                 $avatar = '';
 
-                if (!empty($row->user_image)) {
-                    $avatar = '<span class="avatar avatar-2 me-2" style="background-image: url(' . asset($row->user_image) . ')"></span>';
+                if (!empty($row->order->customer->image)) {
+                    $avatar = '<span class="avatar avatar-2 me-2" style="background-image: url(' . asset($row->order->customer->image) . ')"></span>';
                 } else {
-                    $initials = getUserInitials($row->user_name);
+                    $initials = getUserInitials($row->order->customer->name);
                     $avatar = '<span class="avatar avatar-2 me-2 bg-primary-lt text-primary fw-bold">' . $initials . '</span>';
                 }
 
@@ -72,7 +87,7 @@ class CourseOrdersDataTable extends DataTable
         <div class="d-flex py-1 align-items-center">
             ' . $avatar . '
             <div class="flex-fill">
-                <div class="font-weight-medium">' . e($row->user_name) . '</div>
+                <div class="font-weight-medium">' . e($row->order->customer->name) . '</div>
                 <div class="font-weight-medium">
                     <div class="text-secondary">
                         <a href="#" class="text-reset">' . e($row->user_email) . '</a>
@@ -85,51 +100,37 @@ class CourseOrdersDataTable extends DataTable
             ->addColumn('course', function ($row) {
                 $avatar = '';
 
-                if (!empty($row->course_thumbnail)) {
-                    $avatar = '<span class="avatar avatar-2 me-2" style="background-image: url(' . asset($row->course_thumbnail) . ')"></span>';
+                if (!empty($row->course->thumbnail)) {
+                    $avatar = '<span class="avatar avatar-2 me-2" style="background-image: url(' . asset($row->course->thumbnail) . ')"></span>';
                 } else {
-                    $initials = getUserInitials($row->course_title);
+                    $initials = getUserInitials($row->course->title);
                     $avatar = '<span class="avatar avatar-2 me-2 bg-primary-lt text-primary fw-bold">' . $initials . '</span>';
-                }
-
-                // Cek if > 1 course in invoice
-                $showButton = ($row->items_count > 1);
-
-                $buttonAnother = '';
-                if ($showButton) {
-                    $buttonAnother = '
-            <a href="#" class="btn btn-sm ms-2 show-order-courses" data-order-id="' . $row->id . '">
-                <i class="ti ti-arrow-down"></i> More
-            </a>
-        ';
                 }
 
                 return '
         <div class="d-flex py-1 align-items-center">
             ' . $avatar . '
             <div class="flex-fill">
-                            <span>' . e($row->course_title) . '</span>
+                            <span>' . e($row->course->title) . '</span>
  <div class="font-weight-medium d-flex justify-content-between align-items-center">
-                <a href="#" class="text-reset ">' . e($row->instructor_name) . '</a>
-                    ' . $buttonAnother . '
+                <a href="#" class="text-reset ">' . e($row->course->instructor->name) . '</a>
                         </div>
             </div>
         </div>
     ';
             })
 
+            ->editColumn('currency', function ($row) {
+                return $row->order->currency;
+            })
+
             ->editColumn('status', function ($row) {
-                return $row->status ? '<span class="badge bg-lime text-lime-fg">Approved</span>' : ' <span class="badge bg-yellow text-yellow-fg">Pending</span>';
+                return $row->order->status ? '<span class="badge bg-lime text-lime-fg">Approved</span>' : ' <span class="badge bg-yellow text-yellow-fg">Pending</span>';
             })
             ->editColumn('created_at', function ($row) {
                 return format_to_date($row->created_at);
             })
-            ->addColumn('action', function ($row) {
-                return '<a data-order-id="' . $row->id . '" class="btn-sm btn-primary show-order-invoice">
-                 <i class="ti ti-eye"></i>
-             </a>';
-            })
-            ->rawColumns(['checkbox', 'action', 'user_name', 'created_at', 'status', 'course', 'discount'])
+            ->rawColumns(['checkbox', 'name', 'created_at', 'status', 'course', 'discount'])
             ->setRowId('id');
     }
 
@@ -137,43 +138,38 @@ class CourseOrdersDataTable extends DataTable
      * Get the query source of dataTable.
      */
 
-    public function query(Order $model): QueryBuilder
-    {
-        $query = $model->newQuery()
-            ->select(
-                'orders.invoice_id',
-                DB::raw('MIN(orders.id) as id'),
-                DB::raw('SUM(courses.price) as total_amount'),
-                DB::raw('SUM(courses.price - (courses.price * COALESCE(courses.discount, 0) / 100)) as paid_amount'),
-                DB::raw('MIN(orders.currency) as currency'),
-                DB::raw('MIN(users.name) as user_name'),
-                DB::raw('MIN(users.image) as user_image'),
-                DB::raw('MIN(users.email) as user_email'),
-                DB::raw('GROUP_CONCAT(DISTINCT courses.title SEPARATOR ", ") as course_titles'),
-                DB::raw('MIN(instructor.name) as instructor_name'),
-                DB::raw('COUNT(order_items.id) as items_count'),
-                DB::raw('MIN(orders.id) as order_id'),
-                DB::raw('MIN(courses.thumbnail) as course_thumbnail'),
-                DB::raw('MIN(courses.title) as course_title'),
-                DB::raw('IFNULL(MIN(courses.discount), 0) as discount'),
-                DB::raw('MIN(orders.status) as status'),
-                DB::raw('MIN(orders.created_at) as created_at')
-            )
-            ->leftJoin('users', 'users.id', '=', 'orders.buyer_id')
-            ->leftJoin('order_items', 'order_items.order_id', '=', 'orders.id')
-            ->leftJoin('courses', 'courses.id', '=', 'order_items.course_id')
-            ->leftJoin('users as instructor', 'instructor.id', '=', 'courses.instructor_id')
-            ->groupBy('orders.invoice_id');
+    protected $instructorId = null;
 
-        return $query;
+    public function setInstructorId($id)
+    {
+        $this->instructorId = $id;
+        return $this;
     }
 
+    public function query(OrderItem $model): QueryBuilder
+    {
+        return $model->newQuery()
+            ->join('orders', 'orders.id', '=', 'order_items.order_id')
+            ->join('courses', 'courses.id', '=', 'order_items.course_id')
+            ->with(['order.customer', 'course.instructor']) // Eager load relasi
+            ->whereHas('course', function ($q) {
+                if ($this->instructorId !== null) {
+                    $q->where('instructor_id', $this->instructorId);
+                }
+            });
+    }
+
+
+
+    /**
+     * Optional method if you want to use the html builder.
+     */
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('courseorders-table')
+            ->setTableId('studentcourseenrolled-table')
             ->columns($this->getColumns())
-            ->minifiedAjax()
+            ->minifiedAjax(route('admin.instructor.course-student-enrolled', ['id' => $this->instructorId]))
             ->orderBy(1)
             ->selectStyleSingle()
             ->parameters([
@@ -205,13 +201,12 @@ class CourseOrdersDataTable extends DataTable
                 ->exportable(false)
                 ->printable(false)
                 ->orderable(false)
-                ->searchable(false)
                 ->width(30)
                 ->addClass('text-center'),
 
             Column::computed('invoice_id')
                 ->title('<span class="d-flex justify-content-start">Invoice</span>')
-                ->searchable(true)
+                ->searchable(false)
                 ->orderable(false)
                 ->escape(false),
 
@@ -221,34 +216,37 @@ class CourseOrdersDataTable extends DataTable
                 ->orderable(true)
                 ->escape(false),
 
-            Column::computed('user_name')
+            Column::computed('name')
                 ->title('<span class="table-sort d-flex justify-content-start">Student</span>')
                 ->searchable(true)
                 ->orderable(true)
                 ->escape(false),
 
-            Column::make('total_amount')
-                ->title('<span class="table-sort d-flex justify-content-start">Total Amount</span>'),
+            Column::make('price')
+                ->title('<span class="table-sort d-flex justify-content-start">Course Price</span>'),
 
             Column::computed('discount')
-                ->title('<span class="table-sort d-flex justify-content-start">Discount</span>'),
+                ->title('<span class="table-sort d-flex justify-content-start">Discount</span>')
+                ->searchable(false)
+                ->orderable(true),
 
             Column::make('paid_amount')
                 ->title('<span class="table-sort d-flex justify-content-start">Paid Amount</span>')
+                ->searchable(false)
                 ->orderable(true),
 
-            Column::make('currency'),
-
+            Column::computed('currency')
+                ->title('<span class="table-sort d-flex justify-content-start">Currency</span>')
+                ->orderable(true),
             Column::computed('status')
                 ->title('<span class="table-sort d-flex justify-content-start">Status</span>')
-                ->searchable(true)
+                ->searchable(false)
                 ->orderable(true),
 
             Column::computed('created_at')
                 ->title('<span class="table-sort d-flex justify-content-start">Order Date</span>')
+                ->searchable(false)
                 ->orderable(true),
-
-            Column::computed('action')
 
         ];
     }
@@ -258,6 +256,6 @@ class CourseOrdersDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'CourseOrders_' . date('YmdHis');
+        return 'StudentCourseEnrolled_' . date('YmdHis');
     }
 }

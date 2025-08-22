@@ -21,6 +21,7 @@ class CourseDataTable extends DataTable
      */
 
 
+
     protected $instructorId = null;
 
     public function setInstructorId($id)
@@ -118,15 +119,16 @@ class CourseDataTable extends DataTable
         return $query;
     }
 
+
     /**
      * Optional method if you want to use the html builder.
      */
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('courseo-table')
+            ->setTableId('course-table')
             ->columns($this->getColumns())
-            ->minifiedAjax()
+            ->minifiedAjax(route('admin.instructor.data-course', ['id' => $this->instructorId]))
             //->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\CourseDataTable;
+use App\DataTables\StudentCourseEnrolledDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Order;
@@ -52,28 +53,34 @@ class InstructorController extends Controller
      * Display the specified resource.
      */
 
-    public function show(CourseDataTable $dataTable, string $id)
-    {
-        $orderItems = OrderItem::with([
-            'course.instructor',
-            'order.customer'
-        ])
-            ->whereHas('course', function ($query) use ($id) {
-                $query->where('instructor_id', $id);
-            })
-            ->get();
+    public function show(
+        CourseDataTable $courseDataTable,
+        StudentCourseEnrolledDataTable $studentCourseEnrolledDataTable,
+        string $id
+    ) {
+        $courseDataTable->setInstructorId($id);
+        $studentCourseEnrolledDataTable->setInstructorId($id);
 
-        $dataTable->setInstructorId($id);
-        return $dataTable->render('admin.user.instructor.detail', compact('orderItems'));
+        return view('admin.user.instructor.detail', [
+            'courseDataTable' => $courseDataTable->html(),
+            'studentCourseEnrolledDataTable' => $studentCourseEnrolledDataTable->html(),
+        ]);
     }
 
+    public function getAllCourse(CourseDataTable $courseDataTable, string $id)
+    {
+        $courseDataTable->setInstructorId($id);
 
+        return $courseDataTable->render('admin.user.instructor.course_table');
+    }
 
-    //         $dataTable->setInstructorId($id); // Filter berdasarkan instructor_id
-    //      $courses = Course::with('instructor')->where('instructor_id', $id)->get();
-    //  // Buat tampilin info di view
+    public function getAllStudentEnrolled(StudentCourseEnrolledDataTable $studentCourseEnrolledDataTable, string $id)
+    {
+        $studentCourseEnrolledDataTable->setInstructorId($id);
 
-    //  return $dataTable->render('admin.user.instructor.detail', compact( 'courses'));
+        return $studentCourseEnrolledDataTable->render('admin.user.instructor.student_enrolled_table');
+    }
+
 
     /**
      * Show the form for editing the specified resource.

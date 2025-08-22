@@ -264,7 +264,11 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::match(['GET', 'POST'], 'export/course-orders-pdf', [ExportController::class, 'exportSelected'])->name('export.course-orders-pdf');
 
     Route::resource('students', StudentController::class);
+    Route::get('instructors/{id}/data-course', [InstructorController::class, 'getAllCourse'])->name('instructor.data-course');
+    Route::get('instructors/{id}/course-student-enrolled', [InstructorController::class, 'getAllStudentEnrolled'])->name('instructor.course-student-enrolled');
     Route::resource('instructors', InstructorController::class);
+
+
 
 
     // lfm routes
