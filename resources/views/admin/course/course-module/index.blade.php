@@ -58,6 +58,17 @@
 
 @push('styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+    <style>
+        .form-control.is-pending{
+       border-color: #f59f00;
+    padding-right: 2.375rem;
+    background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d63939' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cline x1='18' y1='6' x2='6' y2='18'%3e%3c/line%3e%3cline x1='6' y1='6' x2='18' y2='18'%3e%3c/line%3e%3c/svg%3e);
+    background-repeat: no-repeat;
+    background-position: right 1.53125rem center;
+    background-size: 1.8125rem 1.8125rem;
+}
+    </style>
 @endpush
 
 @push('header_scripts')
@@ -86,4 +97,3 @@
         });
     </script>
 @endpush
-

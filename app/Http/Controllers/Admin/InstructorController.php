@@ -19,7 +19,8 @@ class InstructorController extends Controller
     public function index(Request $request)
     {
         $query = User::where('role', 'instructor')
-            ->where('approve_status', 'approved');
+            ->where('approve_status', 'approved')
+            ->where('document_status', 'approved');
 
         if ($request->has('search') && $request->search != '') {
             $query->where('name', 'like', '%' . $request->search . '%');
@@ -61,9 +62,17 @@ class InstructorController extends Controller
         $courseDataTable->setInstructorId($id);
         $studentCourseEnrolledDataTable->setInstructorId($id);
 
+        $instructor = User::findOrFail($id);
+
+        if ($instructor->role !== 'instructor') {
+            abort(404);
+        }
+
+
         return view('admin.user.instructor.detail', [
             'courseDataTable' => $courseDataTable->html(),
             'studentCourseEnrolledDataTable' => $studentCourseEnrolledDataTable->html(),
+            'instructor' => $instructor
         ]);
     }
 

@@ -29,13 +29,6 @@ class CourseDataTable extends DataTable
         $this->instructorId = $id;
         return $this;
     }
-
-    private function filterCourseColumn($query, $keyword): void
-    {
-        $query->where('title', 'like', "%{$keyword}%");
-        $query->where('instructor.name', 'like', "%{$keyword}%");
-    }
-
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
 
@@ -83,14 +76,32 @@ class CourseDataTable extends DataTable
                 return format_to_date($row->created_at);
             })
             ->editColumn('status', function ($row) {
-                return $row->status ? '<span class="badge bg-lime text-lime-fg">Approved</span>' : ' <span class="badge bg-yellow text-yellow-fg">Pending</span>';
+                if ($row->status === 'active') {
+                    return '<span class="badge bg-lime text-lime-fg">Active</span>';
+                } elseif ($row->status === 'inactive') {
+                    return '<span class="badge bg-yellow text-yellow-fg">Inactive</span>';
+                }
+
+                return '<span class="badge bg-secondary">Unknown</span>';
             })
+
             ->editColumn('is_approved', function ($row) {
-                return '<select name="" class="form-control update-approval-status" data-id="' . $row->id . '">
-    <option value="pending" ' . ($row->is_approved == 'pending' ? 'selected' : '') . '>Pending</option>
-    <option value="approved" ' . ($row->is_approved == 'approved' ? 'selected' : '') . '>Approved</option>
-    <option value="rejected" ' . ($row->is_approved == 'rejected' ? 'selected' : '') . '>Rejected</option>
-</select>';
+                $status = $row->is_approved;
+
+                $validationClass = '';
+                if ($status === 'approved') {
+                    $validationClass = 'is-valid';
+                } elseif ($status === 'pending') {
+                    $validationClass = 'is-pending';
+                } else {
+                    $validationClass = 'is-invalid';
+                }
+
+                return '<select name="" class="form-control update-approval-status ' . $validationClass . '" data-id="' . $row->id . '">
+        <option value="pending" ' . ($status == 'pending' ? 'selected' : '') . '>Pending</option>
+        <option value="approved" ' . ($status == 'approved' ? 'selected' : '') . '>Approved</option>
+        <option value="rejected" ' . ($status == 'rejected' ? 'selected' : '') . '>Rejected</option>
+    </select>';
             })
             ->addColumn('action', function ($row) {
                 return ' <a href="' . route('admin.courses.edit', ['id' => $row->id, 'step' => 1]) . '"
@@ -128,8 +139,11 @@ class CourseDataTable extends DataTable
         return $this->builder()
             ->setTableId('course-table')
             ->columns($this->getColumns())
-            ->minifiedAjax(route('admin.instructor.data-course', ['id' => $this->instructorId]))
-            //->dom('Bfrtip')
+            ->minifiedAjax(
+                $this->instructorId
+                    ? route('admin.instructor.data-course', ['id' => $this->instructorId])
+                    : ''
+            )
             ->orderBy(1)
             ->selectStyleSingle()
             ->parameters([

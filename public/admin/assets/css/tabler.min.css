@@ -3800,9 +3800,35 @@ textarea.form-control.is-valid {
     background-position: top 1.53125rem right 1.53125rem
 }
 
+/* is-pending */
+
+.form-control.is-pending,
+.was-validated .form-control:valid {
+    border-color: var( --tblr-warning);
+    padding-right: 2.375rem;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%23ff9500' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0' /%3e%3cpath d='M12 12h3.5' /%3e%3cpath d='M12 7v5' /%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1.53125rem center;
+    background-size: 1.8125rem 1.8125rem
+}
+
+.form-control.is-pending:focus,
+.was-validated .form-control:valid:focus {
+    border-color: var( --tblr-warning);
+    box-shadow: var(--tblr-shadow-input), 0 0 0 .25rem rgba(var(--tblr-success-rgb), .25)
+}
+
+.was-validated textarea.form-control:valid,
+textarea.form-control.is-pending {
+    padding-right: 2.375rem;
+    background-position: top 1.53125rem right 1.53125rem
+}
+
+/* end is-pending */
+
 .form-select.is-valid,
 .was-validated .form-select:valid {
-    border-color: var(--tblr-form-valid-border-color)
+    border-color: var( --tblr-warning)
 }
 
 .form-select.is-valid:not([multiple]):not([size]),

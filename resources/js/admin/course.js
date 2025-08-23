@@ -29,25 +29,6 @@ $(".course-tab").on("click", function (e) {
     $(".course-form").find("input[name=next_step]").val(step);
     $(".course-form").trigger("submit");
 });
-// reusable functions
-
-function updateApproveStatus(id, status) {
-    $.ajax({
-        method: 'PUT',
-        url: base_url + `/admin/courses/${id}/update-approval`,
-        data: {
-            _token: csrf_token,
-            status: status
-        },
-        success: function(data) {
-            window.location.reload()
-        },
-        error: function(xhr, status, error) {
-
-        }
-    })
-}
-
 
 $(".basic_info_form").on("submit", function (e) {
     e.preventDefault();
@@ -304,15 +285,30 @@ $('.sort_chapter_btn').on('click', function() {
     })
 });
 
-$(function() {
     // change course approval status
-    $('.update-approval-status').on('change', function() {
+$(document).on('change', '.update-approval-status', function() {
         let id = $(this).data('id');
         let status = $(this).val();
 
         updateApproveStatus(id, status);
     })
-})
+
+function updateApproveStatus(id, status) {
+    $.ajax({
+        method: 'PUT',
+        url: base_url + `/admin/courses/${id}/update-approval`,
+        data: {
+            _token: csrf_token,
+            status: status
+        },
+        success: function(data) {
+            window.location.reload()
+        },
+        error: function(xhr, status, error) {
+
+        }
+    })
+}
 
 // modal edit course language
 

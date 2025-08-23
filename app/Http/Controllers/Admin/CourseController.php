@@ -36,7 +36,7 @@ class CourseController extends Controller
     public function index(CourseDataTable $dataTable)
     {
         $id = null;
-          $orderItems = OrderItem::with([
+        $orderItems = OrderItem::with([
             'course.instructor',
             'order.customer'
         ])
@@ -52,6 +52,13 @@ class CourseController extends Controller
     function updateApproval(Request $request, Course $course)
     {
         $course->is_approved = $request->status;
+
+        if ($request->status == 'pending' || $request->status == 'rejected') {
+            $course->status = 'inactive';
+        } else if ($request->status == 'approved') {
+            $course->status = 'active';
+        }
+
         $course->save();
 
         return response([
