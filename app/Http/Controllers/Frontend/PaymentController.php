@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Service\OrderService;
 use App\Service\MidtransService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Notification;
@@ -107,14 +108,105 @@ class PaymentController extends Controller
                     $currency,
                     'paypal'
                 );
-                return redirect()->route('order.success');
+                return redirect()->route('paypal.success');
             } catch (\Throwable $th) {
                 throw $th;
             }
         }
 
-        return redirect()->route('order.failed');
+        return redirect()->route('paypal.failed');
     }
+
+     public function createMidtransTransaction(Request $request)
+{
+    // Konfigurasi Midtrans
+    Config::$serverKey = config('midtrans.server_key');
+    Config::$isProduction = config('midtrans.is_production');
+    Config::$isSanitized = true;
+    Config::$is3ds = true;
+
+    // Decode items dari request
+    $items = json_decode($request->items, true);
+    $totalUSD = 0;
+    foreach ($items as $item) {
+        $totalUSD += $item['price'] * ($item['quantity'] ?? 1);
+    }
+
+    // Dapatkan kurs USD -> IDR
+    $rate = $this->getUsdToIdrRate();
+    $totalIDR = round($totalUSD * $rate);
+
+    // Buat parameter Midtrans
+    $params = [
+        'transaction_details' => [
+            'order_id' => 'ORDER-' . uniqid(),
+            'gross_amount' => $totalIDR,
+        ],
+        'customer_details' => [
+            'first_name' => $request->name,
+            'email' => $request->email,
+        ],
+    ];
+
+    $snapToken = Snap::getSnapToken($params);
+
+   return response()->json([
+    'token' => $snapToken
+]);
+}
+
+public function storeAfterPayment(Request $request)
+{
+    try {
+        OrderService::storeOrder(
+            $request->transaction_id,
+            auth()->id(),
+            'approved',
+            $request->main_amount,
+            $request->paid_amount,
+            $request->currency,
+            'midtrans'
+        );
+
+        return response()->json(['success' => true]);
+    } catch (\Throwable $th) {
+        return response()->json(['success' => false], 500);
+    }
+}
+
+
+public function handleNotification(Request $request)
+{
+    $serverKey = config('midtrans.server_key');
+    $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+
+    if ($hashed !== $request->signature_key) {
+        return response()->json(['message' => 'Invalid signature'], 403);
+    }
+
+    if (in_array($request->transaction_status, ['settlement', 'capture'])) {
+        OrderService::storeOrder(
+            $request->transaction_id,
+            auth()->id(),
+            'approved',
+            $request->gross_amount,
+            $request->gross_amount,
+            'IDR',
+            'midtrans'
+        );
+    }
+
+    return response()->json(['message' => 'OK']);
+}
+
+
+private function getUsdToIdrRate()
+{
+    $response = Http::get('https://api.exchangerate.host/latest?base=USD&symbols=IDR');
+    return $response->json()['rates']['IDR'] ?? 16000; // default fallback
+}
+
+
 
 
     function payWithStripe()
@@ -167,16 +259,16 @@ class PaymentController extends Controller
                     'stripe',
                 );
 
-                return redirect()->route('order.success');
+                return redirect()->route('paypal.success');
             } catch (\Throwable $th) {
                 throw $th;
             }
         }
-        return redirect()->route('order.failed');
+        return redirect()->route('paypal.failed');
     }
 
     function stripeCancel(Request $request)
     {
-        return redirect()->route('order.failed');
+        return redirect()->route('paypal.failed');
     }
 }

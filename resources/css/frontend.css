@@ -56,3 +56,24 @@
 	height: 120px !important;
 	object-fit: cover !important;
 }
+
+.swal2-shadow {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* swal fire style */
+.swal2-title {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+}
+
+.confirm-btn {
+  background-color: #356DF1 !important;
+  color: white !important;
+  border: none !important;
+}
+
+

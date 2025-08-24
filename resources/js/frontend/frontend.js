@@ -124,7 +124,9 @@ $(document).ready(function () {
     function fetchCourses() {
         let formData = $("#course-filter-form").serialize();
 
-         const courseIndexUrl = $('meta[name="course-index-url"]').attr('content');
+        const courseIndexUrl = $('meta[name="course-index-url"]').attr(
+            "content"
+        );
 
         $.ajax({
             url: courseIndexUrl,
@@ -157,17 +159,17 @@ $(document).ready(function () {
 });
 
 // upload avatar and live show
-document.getElementById('profile_photo').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
+document
+    .getElementById("profile_photo")
+    .addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
 
-        reader.onload = function(e) {
-            document.getElementById('profilePreview').src = e.target.result;
+            reader.onload = function (e) {
+                document.getElementById("profilePreview").src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
         }
-
-        reader.readAsDataURL(file);
-    }
-});
-
-
+    });

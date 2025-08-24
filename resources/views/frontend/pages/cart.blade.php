@@ -6,10 +6,10 @@
                 <div class="row">
                     <div class="col-12 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
                         <div class="wsus__breadcrumb_text">
-                            <h1>Shopping Cart</h1>
+                            <h1>Cart</h1>
                             <ul>
                                 <li><a href="{{ url('/') }}">Home</a></li>
-                                <li>Shopping Cart</li>
+                                <li>Cart</li>
                             </ul>
                         </div>
                     </div>

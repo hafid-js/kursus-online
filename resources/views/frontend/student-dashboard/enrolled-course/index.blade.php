@@ -81,7 +81,7 @@
                                                                 href="{{ route('student.course-player.index', $enrollment->course?->slug) }}">{{ $enrollment->course?->title }}</a>
                                                             <div class="text-muted">By
                                                                 {{ $enrollment->course?->instructor->name }}</div>
-                                                            @php
+                                                            {{-- @php
                                                                 $watchedLessonCount = \App\Models\WatchHistory::where([
                                                                     'user_id' => user()->id,
                                                                     'course_id' => $enrollment->course?->id,
@@ -93,7 +93,7 @@
                                                                 <a target="_blank"
                                                                     href="{{ route('student.certificate.download', $enrollment->course?->id) }}"
                                                                     class="btn btn-sm btn-warning">Download Certificate</a>
-                                                            @endif
+                                                            @endif --}}
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-primary"

@@ -41,6 +41,7 @@ Route::get('/debug-session-prefix', function () {
     return $redis->getConfig('prefix') ?? 'prefix not found';
 });
 
+
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::get('/courses', [CoursePageController::class, 'index'])->name('courses.index');
@@ -62,6 +63,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('add-to-cart/{course}', [CartController::class, 'addToCart'])->name('add-to-cart');
     Route::get('remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
     // Payment routes
+   Route::post('/midtrans/create-transaction', [PaymentController::class, 'createMidtransTransaction'])->name('midtrans.createTransaction');
+   Route::post('/order/store', [PaymentController::class, 'storeAfterPayment']);
+
+   Route::post('/midtrans/notification', [PaymentController::class, 'handleNotification']);
+
     Route::get('checkout', CheckoutController::class)->name('checkout.index');
     Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
     Route::get('paypal/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.success');
