@@ -263,6 +263,7 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::get('export/course-orders', [ExportController::class, 'courseExportOrders'])->name('export.course-orders');
     Route::match(['GET', 'POST'], 'export/course-orders-pdf', [ExportController::class, 'exportSelected'])->name('export.course-orders-pdf');
 
+    Route::get('students/{id}/course-enrolled', [StudentController::class, 'getAllStudentEnrolled'])->name('student.course-enrolled');
     Route::resource('students', StudentController::class);
     Route::get('instructors/{id}/data-course', [InstructorController::class, 'getAllCourse'])->name('instructor.data-course');
     Route::get('instructors/{id}/course-student-enrolled', [InstructorController::class, 'getAllStudentEnrolled'])->name('instructor.course-student-enrolled');

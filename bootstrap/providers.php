@@ -7,4 +7,6 @@ return [
     App\Providers\SettingServiceProvider::class,
     Yajra\DataTables\DataTablesServiceProvider::class,
     Maatwebsite\Excel\ExcelServiceProvider::class,
+    App\Providers\EventServiceProvider::class,
 ];
+

@@ -2,43 +2,39 @@
 @section('content')
     <div class="page-wrapper">
         <!-- BEGIN PAGE HEADER -->
-        <div class="page-header d-print-none" aria-label="Page header">
+       <div class="page-header d-print-none mb-2" aria-label="Page header">
             <div class="container-xl">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <h2 class="page-title">Students</h2>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <div class="input-icon w-100" style="max-width: 300px; margin-left: auto;">
-                            <input type="text" id="searchInput" class="form-control" placeholder="Search…"
-                                aria-label="Search">
-                            <span class="input-icon-addon">
-                                <!-- Icon search -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="icon icon-1">
-                                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
-                                    <path d="M21 21l-6 -6"></path>
-                                </svg>
-                            </span>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center mb-3">
+                            <div class="col-md-6">
+                                <h2 class="page-title">Students</h2>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <div class="input-icon w-100" style="max-width: 300px; margin-left: auto;">
+                                    <input type="text" id="searchInput" class="form-control-xl" placeholder="Search…"
+                                        aria-label="Search">
+                                    <span class="input-icon-addon">
+                                        <!-- Icon search -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                                            <path d="M21 21l-6 -6"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-cards">
+                            <div id="user-results">
+                                {{-- AJAX content will be injected here --}}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- END PAGE HEADER -->
-        <!-- BEGIN PAGE BODY -->
-        <div class="page-body">
-              <div class="container-xl">
-                <div class="row row-cards">
-                    <div class="container-xl">
-                        <div id="user-results">
-                            {{-- AJAX content will be injected here --}}
-                        </div>
-                    </div>
-
-                </div>
-            </div>
             <!-- END PAGE BODY -->
             <!--  BEGIN FOOTER  -->
             <footer class="footer footer-transparent d-print-none">

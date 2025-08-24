@@ -59,6 +59,7 @@ class InstructorController extends Controller
         StudentCourseEnrolledDataTable $studentCourseEnrolledDataTable,
         string $id
     ) {
+        $studentCourseEnrolledDataTable->setStudentId(null);
         $courseDataTable->setInstructorId($id);
         $studentCourseEnrolledDataTable->setInstructorId($id);
 
@@ -85,6 +86,7 @@ class InstructorController extends Controller
 
     public function getAllStudentEnrolled(StudentCourseEnrolledDataTable $studentCourseEnrolledDataTable, string $id)
     {
+        $studentCourseEnrolledDataTable->setStudentId(null);
         $studentCourseEnrolledDataTable->setInstructorId($id);
 
         return $studentCourseEnrolledDataTable->render('admin.user.instructor.student_enrolled_table');

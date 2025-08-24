@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
-use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -57,6 +55,7 @@ class AuthenticatedSessionController extends Controller
                 return redirect()->route('verification.notice')
                     ->with('status', 'Please verify your email before logging in.');
             }
+            // $this->logUserInfo($request);
             return match (Auth::user()->role) {
                 'student' => redirect()->intended(route('student.dashboard')),
                 'instructor' => redirect()->intended(route('instructor.dashboard')),
@@ -71,6 +70,47 @@ class AuthenticatedSessionController extends Controller
             'email' => 'These credentials do not match our records.',
         ]);
     }
+
+    // public function logUserInfo(Request $request)
+    // {
+    //     $ip = $request->ip();
+    //     $datetime = Carbon::now('UTC');
+
+    //     // Get geolocation
+    //     $locationData = Http::get("http://ip-api.com/json/{$ip}")->json();
+    //     $country = $locationData['country'] ?? 'Unknown';
+
+    //     // Get browser and OS
+    //     $browser = Agent::browser() . ' ' . Agent::version(Agent::browser());
+    //     $os = Agent::platform() . ' ' . Agent::version(Agent::platform());
+
+    //     // Get raw user-agent
+    //     $userAgentString = $request->header('User-Agent');
+
+    //     // store to database
+    //     $log = UserLog::where('user_id', Auth::id())->latest()->first();
+
+    //     if ($log) {
+    //         $log->update([
+    //             'ip_address' => $ip,
+    //             'location' => $country,
+    //             'operating_system' => $os,
+    //             'browser' => $browser,
+    //             'user_agent' => $userAgentString,
+    //             'accessed_at' => $datetime,
+    //         ]);
+    //     } else {
+    //         UserLog::create([
+    //             'user_id' => Auth::id(),
+    //             'ip_address' => $ip,
+    //             'location' => $country,
+    //             'operating_system' => $os,
+    //             'browser' => $browser,
+    //             'user_agent' => $userAgentString,
+    //             'accessed_at' => $datetime,
+    //         ]);
+    //     }
+    // }
 
 
     /**

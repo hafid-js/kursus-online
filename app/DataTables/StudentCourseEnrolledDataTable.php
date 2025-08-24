@@ -4,15 +4,11 @@ namespace App\DataTables;
 
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\StudentCourseEnrolled;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class StudentCourseEnrolledDataTable extends DataTable
@@ -139,25 +135,47 @@ class StudentCourseEnrolledDataTable extends DataTable
      */
 
     protected $instructorId = null;
+    protected $studentId = null;
 
     public function setInstructorId($id)
     {
         $this->instructorId = $id;
         return $this;
     }
+    public function setStudentId($id)
+    {
+        $this->studentId = $id;
+        return $this;
+    }
 
     public function query(OrderItem $model): QueryBuilder
     {
-        return $model->newQuery()
+        $query = $model->newQuery()
             ->join('orders', 'orders.id', '=', 'order_items.order_id')
             ->join('courses', 'courses.id', '=', 'order_items.course_id')
-            ->with(['order.customer', 'course.instructor']) // Eager load relasi
+            ->with(['order.customer', 'course.instructor'])
+
             ->whereHas('course', function ($q) {
                 if ($this->instructorId !== null) {
                     $q->where('instructor_id', $this->instructorId);
                 }
             });
+
+        if ($this->studentId !== null) {
+            $query->whereHas('order', function ($q) {
+                $q->where('buyer_id', $this->studentId);
+            });
+        } else {
+            $query->orWhereHas('order', function ($q) {
+                if ($this->instructorId !== null) {
+                    $q->where('instructor_id', $this->instructorId);
+                }
+            });
+        }
+
+        return $query->select('order_items.*', 'orders.buyer_id', 'courses.id as course_id', 'courses.title as course_name', 'orders.id as order_id');
     }
+
 
 
 
@@ -166,10 +184,16 @@ class StudentCourseEnrolledDataTable extends DataTable
      */
     public function html(): HtmlBuilder
     {
+        $route = '';
+        if ($this->studentId) {
+            $route = route('admin.student.course-enrolled', ['id' => $this->studentId]);
+        } elseif ($this->instructorId) {
+            $route = route('admin.instructor.course-student-enrolled', ['id' => $this->instructorId]);
+        }
         return $this->builder()
             ->setTableId('studentcourseenrolled-table')
             ->columns($this->getColumns())
-            ->minifiedAjax(route('admin.instructor.course-student-enrolled', ['id' => $this->instructorId]))
+            ->minifiedAjax($route)
             ->orderBy(1)
             ->selectStyleSingle()
             ->parameters([
@@ -186,7 +210,7 @@ class StudentCourseEnrolledDataTable extends DataTable
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
+                Button::make('reload'),
             ]);
     }
 
@@ -247,7 +271,6 @@ class StudentCourseEnrolledDataTable extends DataTable
                 ->title('<span class="table-sort d-flex justify-content-start">Order Date</span>')
                 ->searchable(false)
                 ->orderable(true),
-
         ];
     }
 

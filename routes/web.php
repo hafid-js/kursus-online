@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityTrackerController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CertificateController;
@@ -27,6 +28,9 @@ Route::middleware(['web'])->group(function () {
         return session('foo');
     });
 });
+
+Route::post('/track-activity', [ActivityTrackerController::class, 'track']);
+
 
 Route::get('/test', function () {
     return view('test');

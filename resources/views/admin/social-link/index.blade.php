@@ -16,74 +16,66 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="page-body">
-                                <div class="container-xl">
-                                    <div class="row row-cards">
-                                        <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="table-responsive">
-                                                    <table class="table table-vcenter card-table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Icon</th>
-                                                                <th>Url</th>
-                                                                <th>Status</th>
-                                                                <th>Action</th>
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="table-responsive">
+                                        <table class="table table-vcenter card-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Icon</th>
+                                                    <th>Url</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
 
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @forelse ($socialLinks as $socialLink)
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="d-flex py-1 align-items-center">
-                                                                            @if (!empty($socialLink->icon))
-                                                                                <i class="{{ $socialLink->icon }} me-2"></i>
-                                                                            @endif
-                                                                            <div class="flex-fill">
-                                                                                <div class="font-weight-medium">
-                                                                                    {{ $socialLink->icon }}
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($socialLinks as $socialLink)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex py-1 align-items-center">
+                                                                @if (!empty($socialLink->icon))
+                                                                    <i class="{{ $socialLink->icon }} me-2"></i>
+                                                                @endif
+                                                                <div class="flex-fill">
+                                                                    <div class="font-weight-medium">
+                                                                        {{ $socialLink->icon }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
 
-                                                                    <td>{{ $socialLink->url }}</td>
-                                                                    <td>
-                                                                        @if ($socialLink->status == 1)
-                                                                            <span
-                                                                                class="badge bg-lime text-lime-fg">Active</span>
-                                                                        @else
-                                                                            <span class="badge bg-red text-red-fg">No</span>
-                                                                        @endif
-                                                                    </td>
-                                                                    <td>
-                                                                        <a href="#"
-                                                                            class="btn-sm btn-primary edit_social_link"
-                                                                            data-link-id="{{ $socialLink->id }}">
-                                                                            <i class="ti ti-edit"></i>
-                                                                        </a>
-                                                                        <a href="{{ route('admin.social-links.destroy', $socialLink->id) }}"
-                                                                            class="text-red delete-item">
-                                                                            <i class="ti ti-trash"></i>
-                                                                        </a>
-                                                                    </td>
-                                                                </tr>
-                                                            @empty
-                                                                <tr>
-                                                                    <td colspan="5" class="text-center">No Data Found!
-                                                                    </td>
-                                                                </tr>
-                                                            @endforelse
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- {{ $categories->links() }} --}}
+                                                        <td>{{ $socialLink->url }}</td>
+                                                        <td>
+                                                            @if ($socialLink->status == 1)
+                                                                <span class="badge bg-lime text-lime-fg">Active</span>
+                                                            @else
+                                                                <span class="badge bg-red text-red-fg">No</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="btn-sm btn-primary edit_social_link"
+                                                                data-link-id="{{ $socialLink->id }}">
+                                                                <i class="ti ti-edit"></i>
+                                                            </a>
+                                                            <a href="{{ route('admin.social-links.destroy', $socialLink->id) }}"
+                                                                class="text-red delete-item">
+                                                                <i class="ti ti-trash"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5" class="text-center">No Data Found!
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
+                            {{-- {{ $categories->links() }} --}}
                         </div>
                     </div>
                 </div>
@@ -106,8 +98,8 @@
     <script>
         $(function() {
             const baseUrl = "{{ url('') }}";
-        const modalElement = document.getElementById('dynamic-modal');
-        const dynamicModal = new bootstrap.Modal(modalElement);
+            const modalElement = document.getElementById('dynamic-modal');
+            const dynamicModal = new bootstrap.Modal(modalElement);
 
             // Global AJAX CSRF token setup
             $.ajaxSetup({
@@ -118,7 +110,7 @@
 
             // Handle open Create Modal
             $('.add_social_link').on('click', function() {
-                        dynamicModal.show();
+                dynamicModal.show();
                 $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
                 $.get(`${baseUrl}/admin/social-links/create`, function(html) {
@@ -132,7 +124,7 @@
             // Handle open Edit Modal
             $('.edit_social_link').on('click', function() {
                 const linkId = $(this).data('link-id');
-                        dynamicModal.show();
+                dynamicModal.show();
                 $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
 
                 $.get(`${baseUrl}/admin/social-links/${linkId}/edit`, function(html) {
@@ -159,7 +151,7 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                                 dynamicModal.hide();
+                        dynamicModal.hide();
                         location.reload();
                     },
                     error: function(xhr) {
@@ -189,7 +181,7 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                                 dynamicModal.hide();
+                        dynamicModal.hide();
                         location.reload();
                     },
                     error: function(xhr) {

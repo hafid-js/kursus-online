@@ -4,13 +4,13 @@ namespace App\DataTables;
 
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\EloquentDataTable;
 
 class CourseDataTable extends DataTable
 {
@@ -19,9 +19,6 @@ class CourseDataTable extends DataTable
      *
      * @param QueryBuilder $query Results from query() method.
      */
-
-
-
     protected $instructorId = null;
 
     public function setInstructorId($id)
@@ -29,19 +26,18 @@ class CourseDataTable extends DataTable
         $this->instructorId = $id;
         return $this;
     }
+
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-
         $dataTable = new EloquentDataTable($query);
         $dataTable
             ->filterColumn('title', function ($query, $keyword) {
                 $query->where(function ($q) use ($keyword) {
-                    $q->where('courses.title', 'like', "%{$keyword}%")
+                    $q
+                        ->where('courses.title', 'like', "%{$keyword}%")
                         ->orWhere('instructor.name', 'like', "%{$keyword}%");
                 });
             });
-
-
 
         // order column for title course
         $dataTable->orderColumn('title', function ($query, $order) {
@@ -84,7 +80,6 @@ class CourseDataTable extends DataTable
 
                 return '<span class="badge bg-secondary">Unknown</span>';
             })
-
             ->editColumn('is_approved', function ($row) {
                 $status = $row->is_approved;
 
@@ -113,14 +108,14 @@ class CourseDataTable extends DataTable
             ->setRowId('id');
     }
 
-
     /**
      * Get the query source of dataTable.
      */
-
     public function query(Course $model): QueryBuilder
     {
-        $query = $model->newQuery()->leftJoin('users as instructor', 'instructor.id', '=', 'courses.instructor_id')
+        $query = $model
+            ->newQuery()
+            ->leftJoin('users as instructor', 'instructor.id', '=', 'courses.instructor_id')
             ->select('courses.*', 'instructor.name as instructor_name');;
 
         if ($this->instructorId !== null) {
@@ -130,13 +125,13 @@ class CourseDataTable extends DataTable
         return $query;
     }
 
-
     /**
      * Optional method if you want to use the html builder.
      */
     public function html(): HtmlBuilder
     {
-        return $this->builder()
+        return $this
+            ->builder()
             ->setTableId('course-table')
             ->columns($this->getColumns())
             ->minifiedAjax(
@@ -171,30 +166,24 @@ class CourseDataTable extends DataTable
                 ->searchable(true)
                 ->orderable(true)
                 ->escape(false),
-
             Column::make('price')
                 ->title('<span class="table-sort d-flex justify-content-start">Price</span>'),
-
             Column::computed('discount')
                 ->title('<span class="table-sort d-flex justify-content-start">Discount</span>')
                 ->searchable(true)
                 ->orderable(true)
                 ->escape(false),
-
             Column::computed('created_at')
                 ->title('<span class="table-sort d-flex justify-content-start">Created At</span>')
                 ->orderable(true),
-
             Column::computed('status')
                 ->title('<span class="table-sort d-flex justify-content-start">Status</span>')
                 ->searchable(true)
                 ->orderable(true),
-
             Column::computed('is_approved')
                 ->title('<span class="table-sort d-flex justify-content-start">Approve</span>')
                 ->searchable(true)
                 ->orderable(true),
-
             Column::computed('action')
         ];
     }

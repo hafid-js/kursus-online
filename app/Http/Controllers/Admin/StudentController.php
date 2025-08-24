@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\StudentCourseEnrolledDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -48,9 +49,32 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(
+        StudentCourseEnrolledDataTable $studentCourseEnrolledDataTable,
+        string $id
+    ) {
+        $studentCourseEnrolledDataTable->setStudentId($id);
+        $studentCourseEnrolledDataTable->setInstructorId(null);
+
+        $student= User::findOrFail($id);
+
+        if ($student->role !== 'student') {
+            abort(404);
+        }
+
+
+        return view('admin.user.student.detail', [
+            'studentCourseEnrolledDataTable' => $studentCourseEnrolledDataTable->html(),
+            'student' => $student
+        ]);
+    }
+
+    public function getAllStudentEnrolled(StudentCourseEnrolledDataTable $studentCourseEnrolledDataTable, string $id)
     {
-        //
+        $studentCourseEnrolledDataTable->setStudentId($id);
+               $studentCourseEnrolledDataTable->setInstructorId(null);
+
+        return $studentCourseEnrolledDataTable->render('admin.user.student.student_enrolled_table');
     }
 
     /**
