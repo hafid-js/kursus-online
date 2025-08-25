@@ -30,7 +30,7 @@ Aplikasi kursus online berbasis web yang dibangun menggunakan **Laravel**, diran
 | **Midtrans** | Gateway pembayaran (Indonesia) |
 | **PayPal** | Gateway pembayaran (Internasional) |
 | **Yajra DataTables** | Plugin Laravel untuk DataTables |
-| **Google OAuth*** | Autentikasi Pihak Ketiga |
+| **Google OAuth** | Autentikasi Pihak Ketiga |
 
 ---
 <img width="1440" height="900" alt="Tangkapan Layar 2025-08-25 pukul 12 09 00" src="https://github.com/user-attachments/assets/71a53752-20cb-4c26-aad3-750ff6ea5a06" />
