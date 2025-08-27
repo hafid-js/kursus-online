@@ -3,8 +3,8 @@
 @section('content')
 
     <!--===========================
-                        BREADCRUMB START
-                    ============================-->
+                            BREADCRUMB START
+                        ============================-->
     <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
@@ -29,13 +29,13 @@
         </div>
     </section>
     <!--===========================
-                            BREADCRUMB END
-                        ============================-->
+                                BREADCRUMB END
+                            ============================-->
 
 
     <!--===========================
-                            DASHBOARD OVERVIEW START
-                        ============================-->
+                                DASHBOARD OVERVIEW START
+                            ============================-->
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -92,6 +92,9 @@
                                                     <th class="status">
                                                         STATUS
                                                     </th>
+                                                    <th class="approved">
+                                                        APPROVED
+                                                    </th>
                                                     <th class="action">
                                                         ACTION
                                                     </th>
@@ -123,16 +126,30 @@
                                                             <p>{{ $course->enrollments()->count() }}</p>
                                                         </td>
                                                         <td class="status">
-                                                            <p
-                                                                class="{{ $course->status === 'active' ? 'active' : 'delete' }}">
-                                                                {{ $course->status === 'active' ? 'Active' : 'Inactive' }}
-                                                            </p>
+                                                            @if ($course->status === 'active')
+                                                                <p class="active">Active</p>
+                                                            @elseif($course->status === 'inactive')
+                                                                <p class="delete">Active</p>
+                                                            @elseif($course->status === 'draft')
+                                                                <p class="draft">Draft</p>
+                                                            @endif
+                                                        </td>
+                                                        <td class="status">
+                                                            @if ($course->is_approved === 'approved')
+                                                                <p style="background:#159F46;">Approved</p>
+                                                            @elseif($course->is_approved === 'rejected')
+                                                                <p style="background: #dc3545;">Rejected</p>
+                                                            @elseif($course->is_approved === 'pending')
+                                                               <p style="background: #E79520;">Pending</p>
+                                                            @endif
                                                         </td>
                                                         <td class="action">
                                                             <a class="edit"
                                                                 href="{{ route('instructor.courses.edit', ['id' => $course->id, 'step' => 1]) }}"><i
-                                                                    class="far fa-edit" aria-hidden="true"></i></a>
-
+                                                                    class="fa fa-edit" aria-hidden="true"></i></a>
+                                                            <a class="del delete-item"
+                                                                href="{{ route('instructor.courses.destroy', $course->id) }}"><i
+                                                                    class="fas fa-trash-alt" aria-hidden="true"></i></a>
                                                         </td>
                                                     </tr>
                                                 @empty

@@ -126,9 +126,9 @@
                                                     class="far fa-arrow-right"></i></a>
                                             <p>
                                                 @if ($course->discount > 0)
-                                                    <del>${{ $course->price }}</del> ${{ $course->discount }}
+                                                    <del>Rp.{{ $course->price }}</del> Rp.{{ $course->discount }}
                                                 @else
-                                                    ${{ $course->price }}
+ Rp.{{ $course->price }}
                                                 @endif
                                             </p>
                                         </div>
@@ -193,9 +193,9 @@
                                                     class="far fa-arrow-right"></i></a>
                                             <p>
                                                 @if ($course->discount > 0)
-                                                    <del>${{ $course->price }}</del> ${{ $course->discount }}
+                                                    <del>Rp.{{ $course->price }}</del> Rp.{{ $course->discount }}
                                                 @else
-                                                    ${{ $course->price }}
+ Rp.{{ $course->price }}
                                                 @endif
                                             </p>
                                         </div>
@@ -260,9 +260,9 @@
                                                     class="far fa-arrow-right"></i></a>
                                             <p>
                                                 @if ($course->discount > 0)
-                                                    <del>${{ $course->price }}</del> ${{ $course->discount }}
+                                                    <del>Rp.{{ $course->price }}</del> Rp.{{ $course->discount }}
                                                 @else
-                                                    ${{ $course->price }}
+ Rp.{{ $course->price }}
                                                 @endif
                                             </p>
                                         </div>
@@ -327,9 +327,9 @@
                                                     class="far fa-arrow-right"></i></a>
                                             <p>
                                                 @if ($course->discount > 0)
-                                                    <del>${{ $course->price }}</del> ${{ $course->discount }}
+                                                    <del>Rp.{{ $course->price }}</del> Rp.{{ $course->discount }}
                                                 @else
-                                                    ${{ $course->price }}
+ Rp.{{ $course->price }}
                                                 @endif
                                             </p>
                                         </div>
@@ -394,9 +394,9 @@
                                                     class="far fa-arrow-right"></i></a>
                                             <p>
                                                 @if ($course->discount > 0)
-                                                    <del>${{ $course->price }}</del> ${{ $course->discount }}
+                                                    <del>Rp.{{ $course->price }}</del> Rp.{{ $course->discount }}
                                                 @else
-                                                    ${{ $course->price }}
+ Rp.{{ $course->price }}
                                                 @endif
                                             </p>
                                         </div>
@@ -627,10 +627,10 @@
                                                         class="far fa-arrow-right" aria-hidden="true"></i></a>
                                                 <p>
                                                     @if ($course->discount > 0)
-                                <del>${{ $course->price }}</del>
-                                  ${{ getFinalPrice($course->price, $course->discount) }}
+                                <del>Rp.{{ $course->price }}</del>
+                                  Rp.{{ getFinalPrice($course->price, $course->discount) }}
                             @else
-                                ${{ $course->price }}
+                                Rp.{{ $course->price }}
                             @endif
                                                 </p>
 

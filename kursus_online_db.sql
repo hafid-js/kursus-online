@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 03 Agu 2025 pada 12.03
+-- Waktu pembuatan: 26 Agu 2025 pada 11.29
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.0.28
 
@@ -49,7 +49,7 @@ CREATE TABLE `about_us_sections` (
 --
 
 INSERT INTO `about_us_sections` (`id`, `image`, `rounded_text`, `learner_count`, `learner_count_text`, `learner_image`, `title`, `description`, `button_text`, `button_url`, `video_url`, `video_image`, `created_at`, `updated_at`) VALUES
-(1, '/uploads/ha_cource688f09973a293.png', 'take the worldwide best online course', '20K+', 'ENROLLED LEARNERS', '/uploads/ha_cource688f09973a985.png', '20K+ Enrolled Learners Photo take the worldwide best online course Learn More About Us Study & Develop Your Skills Regardless of Location.', '<div class=\"col-xxl-6 col-lg-5 wow fadeInLeft\">\r\n<div class=\"wsus__about_3_img\">\r\n<div class=\"text\">&nbsp;</div>\r\n</div>\r\n</div>\r\n<div class=\"col-xxl-6 col-lg-6 wow fadeInRight\">\r\n<div class=\"wsus__about_3_text\">\r\n<div class=\"wsus__section_heading heading_left mb_15\">&nbsp;</div>\r\n<p>Nullam tincidunt tortor est, ac maximus justo gravida non phasellus dignissim quam odio ipsum sollicitudin rhoncus venenatis ex metus in turpis.</p>\r\n<ul>\r\n<li>Expert Trainers</li>\r\n<li>Online Remote Learning</li>\r\n<li>Lifetime Access</li>\r\n</ul>\r\n</div>\r\n</div>', 'Start Free Trial', '/', 'https://www.youtube.com/watch?v=bixZggaAiJk ', '/uploads/ha_cource688f09a47efaf.jpg', '2025-08-03 00:02:47', '2025-08-03 00:03:00');
+(1, '/uploads/ha_cource688f09973a293.png', 'take the worldwide best online course', '20K+', 'ENROLLED LEARNERS', '/uploads/ha_cource688f09973a985.png', '20K+ Enrolled Learners Photo take the worldwide best online course Learn More About Us Study &amp; Develop Your Skills Regardless of Location.', '<div class=\"col-xxl-6 col-lg-5 wow fadeInLeft\">\r\n<div class=\"wsus__about_3_img\">\r\n<div class=\"text\">&nbsp;</div>\r\n</div>\r\n</div>\r\n<div class=\"col-xxl-6 col-lg-6 wow fadeInRight\">\r\n<div class=\"wsus__about_3_text\">\r\n<div class=\"wsus__section_heading heading_left mb_15\">&nbsp;</div>\r\n<p>Nullam tincidunt tortor est, ac maximus justo gravida non phasellus dignissim quam odio ipsum sollicitudin rhoncus venenatis ex metus in turpis.</p>\r\n<ul>\r\n<li>Expert Trainers</li>\r\n<li>Online Remote Learning</li>\r\n<li>Lifetime Access</li>\r\n</ul>\r\n</div>\r\n</div>', 'Start Free Trial', '/', 'https://www.youtube.com/watch?v=bixZggaAiJk', '/uploads/ha_cource688f09a47efaf.jpg', '2025-08-03 00:02:47', '2025-08-12 02:17:46');
 
 -- --------------------------------------------------------
 
@@ -72,6 +72,20 @@ CREATE TABLE `activity_log` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `activity_log`
+--
+
+INSERT INTO `activity_log` (`id`, `log_name`, `description`, `subject_type`, `event`, `subject_id`, `causer_type`, `causer_id`, `properties`, `batch_uuid`, `created_at`, `updated_at`) VALUES
+(1, 'default', 'User updated their profile', 'App\\Models\\User', NULL, 21, 'App\\Models\\User', 21, '{\"attributes\":{\"image\":\"\\/uploads\\/ha_cource689076b4d8f18.jpg\"}}', NULL, '2025-08-04 02:00:36', '2025-08-04 02:00:36'),
+(2, 'default', 'User updated their profile', 'App\\Models\\User', NULL, 20, 'App\\Models\\User', 20, '{\"attributes\":{\"image\":\"\\/uploads\\/ha_cource68918e46bca82.jpg\"}}', NULL, '2025-08-04 21:53:26', '2025-08-04 21:53:26'),
+(3, 'default', 'User updated their profile', 'App\\Models\\User', NULL, 19, 'App\\Models\\User', 19, '{\"attributes\":{\"image\":\"\\/uploads\\/ha_cource6891951615864.jpg\"}}', NULL, '2025-08-04 22:22:30', '2025-08-04 22:22:30'),
+(4, 'default', 'User updated their profile', 'App\\Models\\User', NULL, 18, 'App\\Models\\User', 18, '{\"attributes\":{\"image\":\"\\/uploads\\/ha_cource68919565dd766.JPG\"}}', NULL, '2025-08-04 22:23:49', '2025-08-04 22:23:49'),
+(5, 'default', 'User updated their profile', 'App\\Models\\User', NULL, 18, 'App\\Models\\User', 18, '{\"attributes\":{\"image\":\"\\/uploads\\/ha_cource6891956f90010.jpg\"}}', NULL, '2025-08-04 22:23:59', '2025-08-04 22:23:59'),
+(6, 'default', 'User updated their profile', 'App\\Models\\User', NULL, 25, 'App\\Models\\User', 25, '{\"attributes\":{\"gender\":\"female\"}}', NULL, '2025-08-08 07:17:08', '2025-08-08 07:17:08'),
+(7, 'default', 'User updated their profile', 'App\\Models\\User', NULL, 18, 'App\\Models\\User', 18, '{\"attributes\":{\"headline\":\"Back-End Developer\"}}', NULL, '2025-08-22 04:44:43', '2025-08-22 04:44:43'),
+(8, 'default', 'User updated their profile', 'App\\Models\\User', NULL, 18, 'App\\Models\\User', 18, '{\"attributes\":{\"bio\":\"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\"}}', NULL, '2025-08-22 04:45:02', '2025-08-22 04:45:02');
+
 -- --------------------------------------------------------
 
 --
@@ -85,6 +99,8 @@ CREATE TABLE `admins` (
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `last_login_at` timestamp NULL DEFAULT NULL,
+  `last_login_ip` varchar(45) DEFAULT NULL,
   `bio` varchar(255) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -95,8 +111,8 @@ CREATE TABLE `admins` (
 -- Dumping data untuk tabel `admins`
 --
 
-INSERT INTO `admins` (`id`, `image`, `name`, `email`, `email_verified_at`, `password`, `bio`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Admin', 'admin@gmail.com', NULL, '$2y$12$z1UfYzhFA9HXLdZ5y2cfB.WLxe7I.diWKd9Se2f6Xs.8HvNFKrzEi', NULL, NULL, '2025-08-02 23:04:59', '2025-08-02 23:04:59');
+INSERT INTO `admins` (`id`, `image`, `name`, `email`, `email_verified_at`, `password`, `last_login_at`, `last_login_ip`, `bio`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, '/uploads/ha_cource68960dd9de0da.jpg', 'Admin', 'admin@gmail.com', NULL, '$2y$12$z1UfYzhFA9HXLdZ5y2cfB.WLxe7I.diWKd9Se2f6Xs.8HvNFKrzEi', '2025-08-26 01:12:47', '127.0.0.1', NULL, 'Q0729hkO3gASDewatm4XVQF9G4PHfPeEBrszKIyKpjv6OOgCAnO3FmgJyy5W', '2025-08-02 23:04:59', '2025-08-26 01:12:47');
 
 -- --------------------------------------------------------
 
@@ -170,7 +186,7 @@ CREATE TABLE `blog_categories` (
 --
 
 INSERT INTO `blog_categories` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'News & Events', 'news-events', 1, '2025-08-02 23:37:00', '2025-08-02 23:37:52'),
+(1, 'News & Events', 'news-events', 1, '2025-08-02 23:37:00', '2025-08-19 01:32:31'),
 (2, 'Learning Tips', 'learning-tips', 1, '2025-08-02 23:37:42', '2025-08-02 23:37:57'),
 (3, 'Career Development', 'career-development', 1, '2025-08-02 23:38:05', '2025-08-02 23:38:05'),
 (4, 'Technology & Trends', 'technology-trends', 1, '2025-08-02 23:38:15', '2025-08-02 23:38:15'),
@@ -193,6 +209,13 @@ CREATE TABLE `blog_comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `blog_comments`
+--
+
+INSERT INTO `blog_comments` (`id`, `user_id`, `blog_id`, `parent_id`, `comment`, `created_at`, `updated_at`) VALUES
+(1, 21, 11, NULL, 'test', '2025-08-08 08:12:17', '2025-08-08 08:12:17');
 
 -- --------------------------------------------------------
 
@@ -260,6 +283,13 @@ CREATE TABLE `carts` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `course_id`, `created_at`, `updated_at`) VALUES
+(53, 18, 4, '2025-08-26 02:24:02', '2025-08-26 02:24:02');
+
 -- --------------------------------------------------------
 
 --
@@ -304,7 +334,7 @@ CREATE TABLE `contacts` (
   `title` varchar(255) NOT NULL,
   `line_one` varchar(255) DEFAULT NULL,
   `line_two` varchar(255) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `status` tinyint(1) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -314,10 +344,10 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `icon`, `title`, `line_one`, `line_two`, `status`, `created_at`, `updated_at`) VALUES
-(1, '/uploads/ha_cource688f105cdcc04.png', 'Office Address', '7232 Broadway Suite 3087', 'Madison Heights, 57256', 1, '2025-08-03 00:31:40', '2025-08-03 00:31:40'),
+(1, '/uploads/ha_cource688f105cdcc04.png', 'Office Address', '7232 Broadway Suite 3087', 'Madison Heights, 57256', 1, '2025-08-03 00:31:40', '2025-08-11 07:56:15'),
 (2, '/uploads/ha_cource688f109f2a973.png', 'Send a Message', 'contact@hafidtech.com', 'afidzpratama@gmail.com', 1, '2025-08-03 00:32:47', '2025-08-03 00:32:47'),
 (3, '/uploads/ha_cource688f10fe97fb7.png', 'Let\'s Discuss', '0882 9865 4539', '88 6548 658 54', 1, '2025-08-03 00:34:22', '2025-08-03 00:34:22'),
-(4, '/uploads/ha_cource688f1123bbff5.png', 'Team Up With Us', 'Sed nec libero ante odio mauris', 'pellentesque eget et neque.', 1, '2025-08-03 00:34:59', '2025-08-03 00:34:59');
+(4, '/uploads/ha_cource688f1123bbff5.png', 'Team Up With Us', 'Sed nec libero ante odio mauris', 'pellentesque eget et neque.', 1, '2025-08-03 00:34:59', '2025-08-11 08:07:27');
 
 -- --------------------------------------------------------
 
@@ -338,7 +368,7 @@ CREATE TABLE `contact_settings` (
 --
 
 INSERT INTO `contact_settings` (`id`, `image`, `map_url`, `created_at`, `updated_at`) VALUES
-(1, '/uploads/ha_cource688f0fd0bdd37.JPG', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4193.755696335635!2d106.8880648!3d-6.1965257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f556d8bb18ef%3A0xaec644895d9e837e!2sTOMORO%20COFFEE%20-%20Rawamangun!5e1!3m2!1sid!2sid!4v1754206091554!5m2!1sid!2sid', '2025-08-03 00:29:20', '2025-08-03 00:29:20');
+(1, '/uploads/ha_cource689afe1778ccb.jpg', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4193.755696335635!2d106.8880648!3d-6.1965257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f556d8bb18ef%3A0xaec644895d9e837e!2sTOMORO%20COFFEE%20-%20Rawamangun!5e1!3m2!1sid!2sid!4v1754206091554!5m2!1sid!2sid', '2025-08-03 00:29:20', '2025-08-12 01:40:55');
 
 -- --------------------------------------------------------
 
@@ -407,11 +437,11 @@ CREATE TABLE `courses` (
 
 INSERT INTO `courses` (`id`, `instructor_id`, `category_id`, `course_type`, `title`, `slug`, `seo_description`, `duration`, `time_zone`, `thumbnail`, `demo_video_storage`, `demo_video_source`, `description`, `capacity`, `price`, `discount`, `certificate`, `qna`, `message_for_reviewer`, `is_approved`, `status`, `course_level_id`, `course_language_id`, `created_at`, `updated_at`) VALUES
 (1, 18, 36, 'course', '30 Days to Learning Laravel', '30-days-to-learning-laravel', '30 Days to Learning Laravel', '560', NULL, '/uploads/ha_cource688f21b638e46.jpg', 'youtube', 'https://www.youtube.com/watch?v=1NjOWtQ7S2o&list=PL3VM-unCzF8hy47mt9-chowaHNjfkuEVz&index=1', '<p>this is course about 30 Days to Learning Laravel</p>', 1000000, 599, NULL, 0, 0, NULL, 'approved', 'active', 1, 1, '2025-08-03 01:45:42', '2025-08-03 02:17:42'),
-(2, 18, 36, 'course', 'Running Clock', 'running-clock', 'Running Clock', '120', NULL, '/uploads/ha_cource688f2a311aa9a.jpg', 'youtube', NULL, '<p>Dalam wawancara mendalam ini, Matt Stauffer &mdash; salah satu pendiri Tighten dan penulis Laravel Up &amp; Running &mdash; berbagi bagaimana Laravel telah membentuk proses perekrutan, manajemen proyek, dan struktur tim di agensinya. Ia menjelaskan mengapa Laravel yang bersifat full-stack memungkinkan tim yang gesit dan efisien serta meminimalkan kesenjangan komunikasi. Matt juga berbagi tentang pengelolaan ekspektasi klien tanpa anggaran yang kaku, dan bagaimana kejujuran dan fleksibilitas menghasilkan hasil proyek yang lebih baik. Selain itu, ia merefleksikan nilai pribadi dan profesional dari penulisan bukunya, dan menawarkan saran bagi para pengembang solo yang bermimpi menjalankan agensi. Buku ini wajib ditonton oleh para pengembang, pekerja lepas, dan siapa pun yang berkecimpung di ekosistem Laravel!</p>', 1000000, 299, NULL, 0, 1, 'Thank for Review This Course!', 'approved', 'active', 2, 2, '2025-08-03 02:21:53', '2025-08-03 02:25:51'),
-(3, 18, 35, 'course', 'How To Contribute to Open Source', 'how-to-contribute-to-open-source', 'how to contribute to open source', '32', NULL, '/uploads/ha_cource688f2bcbd14d6.jpg', 'youtube', 'https://www.youtube.com/watch?v=cAhVwrWpGlo&list=PL3VM-unCzF8jTUFqg8f-UropbAGu4VDIt&index=1', '<p><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">Watch full series at Laracasts: </span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbDd1Y21Rd0N3dDhNamRJejRZN04wRnpTTlFDQXxBQ3Jtc0tuZHRJYjBkc1R2MUhUMXd1UjYtSF9IVURXalJEUElOQ2wxX2lyZWxRMklPX3lTQTRiZVYxLVVvYTR0RWtZdU9abzhJcFhmOVB3ZFZmUGV6R0owVU1fbzY1eTZTMzJQQnlxalp1ZWw0aXFfaEdhektiZw&q=https%3A%2F%2Flaracasts.com%2Fseries%2Flets-build-a-saas-in-laravel&v=cAhVwrWpGlo\" target=\"_blank\" rel=\"nofollow noopener\">https://laracasts.com/series/lets-bui...</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"> No matter what you\'re building, the first steps are going to be similar. In this course we\'ll take a look at the first steps I take on every project, regardless of what else it\'s going to do.</span></p>', 100000, 30, 21, 0, 1, NULL, 'approved', 'active', 1, 2, '2025-08-03 02:28:43', '2025-08-03 02:32:08'),
-(4, 19, 37, 'course', 'JavaScript Tutorial For Beginners', 'javascript-tutorial-for-beginners', 'javascript tutorial', '900', NULL, '/uploads/ha_cource688f2df07e26c.jpg', 'youtube', NULL, '<p>/ konversi tipe = mengubah tipe data suatu nilai ke tipe data lain // (string, angka, boolean) let age = window.prompt(\"Berapa umurmu?\"); console.log(typeof age); age = Number(age); age += 1; console.log(\"Selamat Ulang Tahun! Kamu berumur\", age, \"tahun\"); /* let x; let y; let z; x = Number(\"pizza\"); y = String(3.14); z = Boolean(\"pizza\"); console.log(x, typeof x); console.log(y, typeof y); console.log(z, typeof z);</p>', 578, 21, 4, 0, 1, 'Hi, Happy Coding!', 'approved', 'active', 1, 2, '2025-08-03 02:37:52', '2025-08-03 02:41:00'),
-(5, 19, 40, 'course', 'C++ Tutorial For Beginners', 'c-tutorial-for-beginners', 'C++ tutorial for begginers', '345', NULL, '/uploads/ha_cource688f2fe833240.jpg', 'youtube', NULL, '<p><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">(</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&amp;list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&amp;index=1\" target=\"\">00:00:00</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) Why you should learn C++ (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&amp;list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&amp;index=1&amp;t=168s\" target=\"\">00:02:48</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) VS Code install (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&amp;list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&amp;index=1&amp;t=234s\" target=\"\">00:03:54</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) create a project folder (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&amp;list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&amp;index=1&amp;t=254s\" target=\"\">00:04:14</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) create a C++ file (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&amp;list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&amp;index=1&amp;t=275s\" target=\"\">00:04:35</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) documentation (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&amp;list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&amp;index=1&amp;t=305s\" target=\"\">00:05:05</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) GCC compiler for Linux (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&amp;list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&amp;index=1&amp;t=328s\" target=\"\">00:05:28</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) Clang compiler for Mac OS (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&amp;list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&amp;index=1&amp;t=341s\" target=\"\">00:05:41</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) GCC compiler for Windows (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&amp;list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&amp;index=1&amp;t=550s\" target=\"\">00:09:10</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) Your first C++ program </span></p>', 1000000, 43, 19, 0, 1, 'Happy coding!', 'approved', 'active', 1, 2, '2025-08-03 02:46:16', '2025-08-03 02:49:23'),
-(6, 20, 23, 'course', 'Psychiatric Mental Health Nursing', 'psychiatric-mental-health-nursing', 'menta health nursing', '529', NULL, '/uploads/ha_cource688f320ee05bb.jpg', 'youtube', NULL, '<p>reviews what we changed in our Psychiatric Mental Health flashcards, Edition 3, based on your feedback, and what great stuff stayed the same! If you love our flashcards, we think you\'ll find that our new ones have Leveled Up. Thank you for all your great feedback, comments, and suggestions that make our flashcards a must-have for any nurse!</p>', 190000, 12, NULL, 0, 0, 'Hi, thank for enroll this course', 'approved', 'active', 1, 2, '2025-08-03 02:55:26', '2025-08-03 02:58:55');
+(2, 18, 36, 'course', 'Running Clock', 'running-clock', 'Running Clock', '120', NULL, '/uploads/ha_cource688f2a311aa9a.jpg', 'youtube', 'https://www.youtube.com/watch?v=3kprwEDQIp0', '<p>Dalam wawancara mendalam ini, Matt Stauffer — salah satu pendiri Tighten dan penulis Laravel Up & Running — berbagi bagaimana Laravel telah membentuk proses perekrutan, manajemen proyek, dan struktur tim di agensinya. Ia menjelaskan mengapa Laravel yang bersifat full-stack memungkinkan tim yang gesit dan efisien serta meminimalkan kesenjangan komunikasi. Matt juga berbagi tentang pengelolaan ekspektasi klien tanpa anggaran yang kaku, dan bagaimana kejujuran dan fleksibilitas menghasilkan hasil proyek yang lebih baik. Selain itu, ia merefleksikan nilai pribadi dan profesional dari penulisan bukunya, dan menawarkan saran bagi para pengembang solo yang bermimpi menjalankan agensi. Buku ini wajib ditonton oleh para pengembang, pekerja lepas, dan siapa pun yang berkecimpung di ekosistem Laravel!</p>', 1000000, 299, 0, 0, 1, 'Thank for Review This Course!', 'approved', 'active', 2, 2, '2025-08-03 02:21:53', '2025-08-24 01:07:46'),
+(3, 18, 35, 'course', 'How To Contribute to Open Source', 'how-to-contribute-to-open-source', 'how to contribute to open source', '32', NULL, '/uploads/ha_cource688f2bcbd14d6.jpg', 'youtube', 'https://www.youtube.com/watch?v=cAhVwrWpGlo&list=PL3VM-unCzF8jTUFqg8f-UropbAGu4VDIt&index=1', '<p><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">Watch full series at Laracasts: </span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbDd1Y21Rd0N3dDhNamRJejRZN04wRnpTTlFDQXxBQ3Jtc0tuZHRJYjBkc1R2MUhUMXd1UjYtSF9IVURXalJEUElOQ2wxX2lyZWxRMklPX3lTQTRiZVYxLVVvYTR0RWtZdU9abzhJcFhmOVB3ZFZmUGV6R0owVU1fbzY1eTZTMzJQQnlxalp1ZWw0aXFfaEdhektiZw&q=https%3A%2F%2Flaracasts.com%2Fseries%2Flets-build-a-saas-in-laravel&v=cAhVwrWpGlo\" target=\"_blank\" rel=\"nofollow noopener\">https://laracasts.com/series/lets-bui...</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"> No matter what you\'re building, the first steps are going to be similar. In this course we\'ll take a look at the first steps I take on every project, regardless of what else it\'s going to do.</span></p>', 100000, 30, 21, 0, 1, NULL, 'approved', 'active', 1, 2, '2025-08-03 02:28:43', '2025-08-26 01:04:38'),
+(4, 19, 37, 'course', 'JavaScript Tutorial For Beginners', 'javascript-tutorial-for-beginners', 'javascript tutorial', '900', NULL, '/uploads/ha_cource688f2df07e26c.jpg', 'youtube', 'https://www.youtube.com/watch?v=I68O9oazLbo&list=PLZPZq0r_RZOMRMjHB_IEBjOW_ufr00yG1', '<p>/ konversi tipe = mengubah tipe data suatu nilai ke tipe data lain // (string, angka, boolean) let age = window.prompt(\"Berapa umurmu?\"); console.log(typeof age); age = Number(age); age += 1; console.log(\"Selamat Ulang Tahun! Kamu berumur\", age, \"tahun\"); /* let x; let y; let z; x = Number(\"pizza\"); y = String(3.14); z = Boolean(\"pizza\"); console.log(x, typeof x); console.log(y, typeof y); console.log(z, typeof z);</p>', 578, 21, 4, 0, 1, 'Hi, Happy Coding!', 'approved', 'active', 1, 2, '2025-08-03 02:37:52', '2025-08-05 08:13:22'),
+(5, 19, 40, 'course', 'C++ Tutorial For Beginners', 'c-tutorial-for-beginners', 'C++ tutorial for begginers', '345', NULL, '/uploads/ha_cource688f2fe833240.jpg', 'youtube', 'https://www.youtube.com/watch?v=S3nx34WFXjI', '<p><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">(</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&index=1\" target=\"\">00:00:00</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) Why you should learn C++ (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&index=1&t=168s\" target=\"\">00:02:48</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) VS Code install (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&index=1&t=234s\" target=\"\">00:03:54</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) create a project folder (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&index=1&t=254s\" target=\"\">00:04:14</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) create a C++ file (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&index=1&t=275s\" target=\"\">00:04:35</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) documentation (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&index=1&t=305s\" target=\"\">00:05:05</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) GCC compiler for Linux (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&index=1&t=328s\" target=\"\">00:05:28</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) Clang compiler for Mac OS (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&index=1&t=341s\" target=\"\">00:05:41</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) GCC compiler for Windows (</span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\"><a class=\"yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color\" tabindex=\"0\" href=\"https://www.youtube.com/watch?v=S3nx34WFXjI&list=PLZPZq0r_RZOMHoXIcxze_lP97j2Ase2on&index=1&t=550s\" target=\"\">00:09:10</a></span><span class=\"yt-core-attributed-string--link-inherit-color\" dir=\"auto\">) Your first C++ program </span></p>', 1000000, 43, 19, 0, 1, 'Happy coding!', 'approved', 'active', 1, 2, '2025-08-03 02:46:16', '2025-08-05 08:12:24'),
+(6, 20, 23, 'course', 'Psychiatric Mental Health Nursing', 'psychiatric-mental-health-nursing', 'menta health nursing', '529', NULL, '/uploads/ha_cource688f320ee05bb.jpg', 'youtube', 'https://www.youtube.com/watch?v=Id0eQe8-0OY&list=PLj9YgcGzjQqxzyE7PjC30JUQN7Tjb67IO', '<p>reviews what we changed in our Psychiatric Mental Health flashcards, Edition 3, based on your feedback, and what great stuff stayed the same! If you love our flashcards, we think you\'ll find that our new ones have Leveled Up. Thank you for all your great feedback, comments, and suggestions that make our flashcards a must-have for any nurse!</p>', 190000, 12, NULL, 0, 0, 'Hi, thank for enroll this course', 'approved', 'active', 1, 2, '2025-08-03 02:55:26', '2025-08-04 21:41:01');
 
 -- --------------------------------------------------------
 
@@ -422,6 +452,7 @@ INSERT INTO `courses` (`id`, `instructor_id`, `category_id`, `course_type`, `tit
 CREATE TABLE `course_categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `background` varchar(255) DEFAULT NULL,
   `icon` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
@@ -436,47 +467,47 @@ CREATE TABLE `course_categories` (
 -- Dumping data untuk tabel `course_categories`
 --
 
-INSERT INTO `course_categories` (`id`, `image`, `icon`, `name`, `slug`, `parent_id`, `show_at_trending`, `status`, `created_at`, `updated_at`) VALUES
-(1, '/uploads/ha_cource688efe203caaa.png', NULL, 'Digital Marketing', 'digital-marketing', NULL, 1, 1, '2025-08-02 23:13:52', '2025-08-02 23:13:52'),
-(2, '/uploads/ha_cource688efe42aede8.png', NULL, 'Health & Fitness', 'health-fitness', NULL, 1, 1, '2025-08-02 23:14:26', '2025-08-02 23:14:26'),
-(3, '/uploads/ha_cource688efe544bfc8.png', NULL, 'Motion Graphics', 'motion-graphics', NULL, 1, 1, '2025-08-02 23:14:44', '2025-08-02 23:14:44'),
-(4, '/uploads/ha_cource688efe64cacda.png', NULL, 'HTML & CSS', 'html-css', NULL, 1, 1, '2025-08-02 23:15:00', '2025-08-02 23:15:00'),
-(5, '/uploads/ha_cource688efe75d822f.png', NULL, 'Adobe Illustrator', 'adobe-illustrator', NULL, 1, 1, '2025-08-02 23:15:17', '2025-08-02 23:55:23'),
-(6, '/uploads/ha_cource688efea231c6a.png', NULL, 'Business Strategy', 'business-strategy', NULL, 1, 1, '2025-08-02 23:16:02', '2025-08-02 23:55:26'),
-(7, '/uploads/ha_cource688efeb911004.png', NULL, 'Mobile App Design', 'mobile-app-design', NULL, 1, 1, '2025-08-02 23:16:25', '2025-08-02 23:55:30'),
-(8, '/uploads/ha_cource688efec774836.png', NULL, 'Development', 'development', NULL, 1, 1, '2025-08-02 23:16:39', '2025-08-03 02:09:16'),
-(9, '/uploads/ha_cource688efee6465b5.png', NULL, 'Product Design', 'product-design', NULL, 0, 1, '2025-08-02 23:17:10', '2025-08-02 23:28:11'),
-(10, '/uploads/ha_cource688efefe427d8.png', NULL, 'Computer Science', 'computer-science', NULL, 0, 1, '2025-08-02 23:17:34', '2025-08-02 23:28:15'),
-(11, '/uploads/ha_cource688eff1135fd8.png', NULL, 'Music Class', 'music-class', NULL, 0, 1, '2025-08-02 23:17:53', '2025-08-02 23:28:18'),
-(12, '/uploads/ha_cource688eff24c14c5.png', NULL, 'IT & Software', 'it-software', NULL, 0, 1, '2025-08-02 23:18:12', '2025-08-02 23:28:21'),
-(13, NULL, NULL, 'Social Media Marketing', 'social-media-marketing', 1, 0, 1, '2025-08-03 02:01:46', '2025-08-03 02:01:46'),
-(14, NULL, NULL, 'Search Engine Optimization (SEO)', 'search-engine-optimization-seo', 1, 1, 1, '2025-08-03 02:01:54', '2025-08-03 02:02:21'),
-(15, NULL, NULL, 'Email Marketing', 'email-marketing', 1, 0, 1, '2025-08-03 02:02:07', '2025-08-03 02:02:07'),
-(16, NULL, NULL, 'Content Marketing', 'content-marketing', 1, 0, 1, '2025-08-03 02:02:32', '2025-08-03 02:02:32'),
-(17, NULL, NULL, 'Affiliate Marketing', 'affiliate-marketing', 1, 0, 1, '2025-08-03 02:02:41', '2025-08-03 02:02:41'),
-(18, NULL, NULL, 'Digital Advertising (Google Ads, Facebook Ads)', 'digital-advertising-google-ads-facebook-ads', 1, 0, 1, '2025-08-03 02:02:50', '2025-08-03 02:02:50'),
-(19, NULL, NULL, 'Analytics & Data Tracking', 'analytics-data-tracking', 1, 0, 1, '2025-08-03 02:03:00', '2025-08-03 02:03:00'),
-(20, NULL, NULL, 'Nutrition & Diet', 'nutrition-diet', 2, 0, 1, '2025-08-03 02:03:27', '2025-08-03 02:03:27'),
-(21, NULL, NULL, 'Yoga', 'yoga', 2, 0, 1, '2025-08-03 02:03:36', '2025-08-03 02:03:36'),
-(22, NULL, NULL, 'Home Workouts', 'home-workouts', 2, 0, 1, '2025-08-03 02:03:47', '2025-08-03 02:03:47'),
-(23, NULL, NULL, 'Mental Health', 'mental-health', 2, 0, 1, '2025-08-03 02:03:56', '2025-08-03 02:03:56'),
-(24, NULL, NULL, 'Strength Training', 'strength-training', 2, 1, 1, '2025-08-03 02:04:05', '2025-08-03 02:04:24'),
-(25, NULL, NULL, 'Weight Loss', 'weight-loss', 2, 0, 1, '2025-08-03 02:04:33', '2025-08-03 02:04:33'),
-(26, NULL, NULL, 'Meditation & Mindfulness', 'meditation-mindfulness', 2, 0, 1, '2025-08-03 02:04:43', '2025-08-03 02:04:43'),
-(27, NULL, NULL, 'After Effects Basics', 'after-effects-basics', 3, 0, 1, '2025-08-03 02:06:34', '2025-08-03 02:06:34'),
-(28, NULL, NULL, '2D Animation', '2d-animation', 3, 0, 1, '2025-08-03 02:06:43', '2025-08-03 02:06:43'),
-(29, NULL, NULL, '3D Motion Design', '3d-motion-design', 3, 0, 1, '2025-08-03 02:06:51', '2025-08-03 02:06:51'),
-(30, NULL, NULL, 'Logo Animation', 'logo-animation', 3, 0, 1, '2025-08-03 02:07:00', '2025-08-03 02:07:00'),
-(31, NULL, NULL, 'Typography Animation', 'typography-animation', 3, 0, 1, '2025-08-03 02:07:07', '2025-08-03 02:07:07'),
-(32, NULL, NULL, 'HTML5 Fundamentals', 'html5-fundamentals', 4, 0, 1, '2025-08-03 02:07:33', '2025-08-03 02:07:33'),
-(33, NULL, NULL, 'Responsive Web Design', 'responsive-web-design', 4, 0, 1, '2025-08-03 02:07:44', '2025-08-03 02:07:44'),
-(34, NULL, NULL, 'Web Accessibility', 'web-accessibility', 4, 0, 1, '2025-08-03 02:07:52', '2025-08-03 02:07:52'),
-(35, NULL, NULL, 'Sass & CSS Preprocessors', 'sass-css-preprocessors', 4, 0, 1, '2025-08-03 02:08:00', '2025-08-03 02:08:00'),
-(36, NULL, NULL, 'Laravel', 'laravel', 8, 0, 1, '2025-08-03 02:09:25', '2025-08-03 02:09:25'),
-(37, NULL, NULL, 'Javascript', 'javascript', 8, 0, 1, '2025-08-03 02:09:30', '2025-08-03 02:09:30'),
-(38, NULL, NULL, 'Golang', 'golang', 8, 0, 1, '2025-08-03 02:09:35', '2025-08-03 02:09:35'),
-(39, NULL, NULL, 'Ruby on Rails', 'ruby-on-rails', 8, 0, 1, '2025-08-03 02:09:46', '2025-08-03 02:09:46'),
-(40, NULL, NULL, 'C++', 'c', 8, 0, 1, '2025-08-03 02:09:51', '2025-08-03 02:09:51');
+INSERT INTO `course_categories` (`id`, `image`, `background`, `icon`, `name`, `slug`, `parent_id`, `show_at_trending`, `status`, `created_at`, `updated_at`) VALUES
+(1, '/uploads/ha_cource688efe203caaa.png', '/uploads/ha_cource68914aabd5e99.jpg', NULL, 'Digital Marketing', 'digital-marketing', NULL, 1, 0, '2025-08-02 23:13:52', '2025-08-15 01:39:18'),
+(2, '/uploads/ha_cource688efe42aede8.png', '/uploads/ha_cource6890c2fe948b4.jpg', NULL, 'Health & Fitness', 'health-fitness', NULL, 1, 1, '2025-08-02 23:14:26', '2025-08-04 07:26:11'),
+(3, '/uploads/ha_cource688efe544bfc8.png', '/uploads/ha_cource68914abcc803e.jpg', NULL, 'Motion Graphics', 'motion-graphics', NULL, 1, 0, '2025-08-02 23:14:44', '2025-08-15 01:39:36'),
+(4, '/uploads/ha_cource688efe64cacda.png', '/uploads/ha_cource68914ad0e8ba7.jpg', NULL, 'HTML & CSS', 'html-css', NULL, 1, 1, '2025-08-02 23:15:00', '2025-08-16 20:21:17'),
+(5, '/uploads/ha_cource688efe75d822f.png', '/uploads/ha_cource68914ae28e8f2.jpg', NULL, 'Adobe Illustrator', 'adobe-illustrator', NULL, 1, 1, '2025-08-02 23:15:17', '2025-08-04 17:05:54'),
+(6, '/uploads/ha_cource688efea231c6a.png', '/uploads/ha_cource68914b040d768.jpg', NULL, 'Business Strategy', 'business-strategy', NULL, 1, 1, '2025-08-02 23:16:02', '2025-08-04 17:06:28'),
+(7, '/uploads/ha_cource688efeb911004.png', '/uploads/ha_cource68914b0fb6b8b.jpg', NULL, 'Mobile App Design', 'mobile-app-design', NULL, 1, 1, '2025-08-02 23:16:25', '2025-08-04 17:06:39'),
+(8, '/uploads/ha_cource688efec774836.png', '/uploads/ha_cource68914b231ce83.jpg', NULL, 'Development', 'development', NULL, 1, 1, '2025-08-02 23:16:39', '2025-08-04 17:06:59'),
+(9, '/uploads/ha_cource688efee6465b5.png', '/uploads/ha_cource68914b2f08d64.jpg', NULL, 'Product Design', 'product-design', NULL, 1, 0, '2025-08-02 23:17:10', '2025-08-19 03:40:32'),
+(10, '/uploads/ha_cource688efefe427d8.png', '/uploads/ha_cource68914b3c7b1dc.jpg', NULL, 'Computer Science', 'computer-science', NULL, 0, 1, '2025-08-02 23:17:34', '2025-08-04 17:07:24'),
+(11, '/uploads/ha_cource688eff1135fd8.png', '/uploads/ha_cource68914b50a7eb2.jpg', NULL, 'Music Class', 'music-class', NULL, 0, 0, '2025-08-02 23:17:53', '2025-08-15 01:39:32'),
+(12, '/uploads/ha_cource688eff24c14c5.png', '/uploads/ha_cource68914ea927027.jpg', NULL, 'IT & Software', 'it-software', NULL, 0, 1, '2025-08-02 23:18:12', '2025-08-04 17:22:01'),
+(13, NULL, NULL, NULL, 'Social Media Marketing', 'social-media-marketing', 1, 0, 1, '2025-08-03 02:01:46', '2025-08-10 23:06:38'),
+(14, NULL, NULL, NULL, 'Search Engine Optimization (SEO)', 'search-engine-optimization-seo', 1, 1, 1, '2025-08-03 02:01:54', '2025-08-03 02:02:21'),
+(15, NULL, NULL, NULL, 'Email Marketing', 'email-marketing', 1, 0, 1, '2025-08-03 02:02:07', '2025-08-03 02:02:07'),
+(16, NULL, NULL, NULL, 'Content Marketing', 'content-marketing', 1, 0, 1, '2025-08-03 02:02:32', '2025-08-03 02:02:32'),
+(17, NULL, NULL, NULL, 'Affiliate Marketing', 'affiliate-marketing', 1, 0, 1, '2025-08-03 02:02:41', '2025-08-03 02:02:41'),
+(18, NULL, NULL, NULL, 'Digital Advertising (Google Ads, Facebook Ads)', 'digital-advertising-google-ads-facebook-ads', 1, 0, 1, '2025-08-03 02:02:50', '2025-08-03 02:02:50'),
+(19, NULL, NULL, NULL, 'Analytics & Data Tracking', 'analytics-data-tracking', 1, 0, 1, '2025-08-03 02:03:00', '2025-08-03 02:03:00'),
+(20, NULL, NULL, NULL, 'Nutrition & Diet', 'nutrition-diet', 2, 0, 1, '2025-08-03 02:03:27', '2025-08-03 02:03:27'),
+(21, NULL, NULL, NULL, 'Yoga', 'yoga', 2, 0, 1, '2025-08-03 02:03:36', '2025-08-03 02:03:36'),
+(22, NULL, NULL, NULL, 'Home Workouts', 'home-workouts', 2, 0, 1, '2025-08-03 02:03:47', '2025-08-03 02:03:47'),
+(23, NULL, NULL, NULL, 'Mental Health', 'mental-health', 2, 0, 1, '2025-08-03 02:03:56', '2025-08-03 02:03:56'),
+(24, NULL, NULL, NULL, 'Strength Training', 'strength-training', 2, 1, 1, '2025-08-03 02:04:05', '2025-08-03 02:04:24'),
+(25, NULL, NULL, NULL, 'Weight Loss', 'weight-loss', 2, 0, 1, '2025-08-03 02:04:33', '2025-08-03 02:04:33'),
+(26, NULL, NULL, NULL, 'Meditation & Mindfulness', 'meditation-mindfulness', 2, 0, 1, '2025-08-03 02:04:43', '2025-08-03 02:04:43'),
+(27, NULL, NULL, NULL, 'After Effects Basics', 'after-effects-basics', 3, 0, 1, '2025-08-03 02:06:34', '2025-08-03 02:06:34'),
+(28, NULL, NULL, NULL, '2D Animation', '2d-animation', 3, 0, 1, '2025-08-03 02:06:43', '2025-08-03 02:06:43'),
+(29, NULL, NULL, NULL, '3D Motion Design', '3d-motion-design', 3, 0, 1, '2025-08-03 02:06:51', '2025-08-03 02:06:51'),
+(30, NULL, NULL, NULL, 'Logo Animation', 'logo-animation', 3, 0, 1, '2025-08-03 02:07:00', '2025-08-03 02:07:00'),
+(31, NULL, NULL, NULL, 'Typography Animation', 'typography-animation', 3, 0, 1, '2025-08-03 02:07:07', '2025-08-03 02:07:07'),
+(32, NULL, NULL, NULL, 'HTML5 Fundamentals', 'html5-fundamentals', 4, 0, 1, '2025-08-03 02:07:33', '2025-08-03 02:07:33'),
+(33, NULL, NULL, NULL, 'Responsive Web Design', 'responsive-web-design', 4, 0, 1, '2025-08-03 02:07:44', '2025-08-03 02:07:44'),
+(34, NULL, NULL, NULL, 'Web Accessibility', 'web-accessibility', 4, 0, 1, '2025-08-03 02:07:52', '2025-08-03 02:07:52'),
+(35, NULL, NULL, NULL, 'Sass & CSS Preprocessors', 'sass-css-preprocessors', 4, 0, 1, '2025-08-03 02:08:00', '2025-08-03 02:08:00'),
+(36, NULL, NULL, NULL, 'Laravel', 'laravel', 8, 0, 1, '2025-08-03 02:09:25', '2025-08-03 02:09:25'),
+(37, NULL, NULL, NULL, 'Javascript', 'javascript', 8, 0, 1, '2025-08-03 02:09:30', '2025-08-03 02:09:30'),
+(38, NULL, NULL, NULL, 'Golang', 'golang', 8, 0, 1, '2025-08-03 02:09:35', '2025-08-03 02:09:35'),
+(39, NULL, NULL, NULL, 'Ruby on Rails', 'ruby-on-rails', 8, 0, 1, '2025-08-03 02:09:46', '2025-08-03 02:09:46'),
+(40, NULL, NULL, NULL, 'C++', 'c', 8, 0, 1, '2025-08-03 02:09:51', '2025-08-03 02:09:51');
 
 -- --------------------------------------------------------
 
@@ -576,9 +607,10 @@ CREATE TABLE `course_languages` (
 --
 
 INSERT INTO `course_languages` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'Indonesian', 'indonesian', '2025-08-02 23:33:52', '2025-08-02 23:33:52'),
+(1, 'Indonesian', 'indonesian', '2025-08-02 23:33:52', '2025-08-13 23:11:32'),
 (2, 'English', 'english', '2025-08-02 23:33:57', '2025-08-02 23:33:57'),
-(3, 'Melayu', 'melayu', '2025-08-02 23:34:29', '2025-08-02 23:34:29');
+(3, 'Melayu', 'melayu', '2025-08-02 23:34:29', '2025-08-02 23:34:29'),
+(4, 'Qatar', 'qatar', '2025-08-11 01:58:49', '2025-08-14 08:51:22');
 
 -- --------------------------------------------------------
 
@@ -601,7 +633,7 @@ CREATE TABLE `course_levels` (
 INSERT INTO `course_levels` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 (1, 'Beginner', 'begginer', '2025-08-02 23:34:45', '2025-08-02 23:35:03'),
 (2, 'Intermediate', 'intermediate', '2025-08-02 23:35:08', '2025-08-02 23:35:08'),
-(3, 'Expert', 'expert', '2025-08-02 23:35:14', '2025-08-02 23:35:14');
+(3, 'Expert', 'expert', '2025-08-02 23:35:14', '2025-08-11 05:33:18');
 
 -- --------------------------------------------------------
 
@@ -638,6 +670,21 @@ CREATE TABLE `enrollments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `enrollments`
+--
+
+INSERT INTO `enrollments` (`id`, `user_id`, `course_id`, `instructor_id`, `have_access`, `created_at`, `updated_at`) VALUES
+(8, 26, 5, 19, 1, '2025-08-17 21:32:31', '2025-08-17 21:32:31'),
+(9, 26, 6, 20, 1, '2025-08-17 21:32:31', '2025-08-17 21:32:31'),
+(14, 26, 2, 18, 1, '2025-08-21 01:07:29', '2025-08-21 01:07:29'),
+(26, 21, 5, 19, 1, '2025-08-24 06:59:15', '2025-08-24 06:59:15'),
+(27, 21, 4, 19, 1, '2025-08-24 06:59:15', '2025-08-24 06:59:15'),
+(28, 21, 3, 18, 1, '2025-08-24 07:13:17', '2025-08-24 07:13:17'),
+(29, 21, 1, 18, 1, '2025-08-24 07:13:17', '2025-08-24 07:13:17'),
+(30, 21, 6, 20, 1, '2025-08-24 22:00:39', '2025-08-24 22:00:39'),
+(31, 18, 5, 19, 1, '2025-08-26 02:21:12', '2025-08-26 02:21:12');
+
 -- --------------------------------------------------------
 
 --
@@ -672,6 +719,13 @@ CREATE TABLE `featured_instructors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `featured_instructors`
+--
+
+INSERT INTO `featured_instructors` (`id`, `title`, `subtitle`, `button_text`, `button_url`, `instructor_id`, `featured_courses`, `instructor_image`, `created_at`, `updated_at`) VALUES
+(1, 'Find Your Match From Spotlighted Collection', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s', 'All Featured Courses', '/', 18, '[\"1\",\"2\",\"3\"]', '/uploads/ha_cource68907cda43b4c.png', '2025-08-04 02:26:50', '2025-08-04 02:26:50');
 
 -- --------------------------------------------------------
 
@@ -735,7 +789,7 @@ CREATE TABLE `footer_column_ones` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `status` tinyint(1) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -745,11 +799,11 @@ CREATE TABLE `footer_column_ones` (
 --
 
 INSERT INTO `footer_column_ones` (`id`, `title`, `url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Life Coach', '/', 1, '2025-08-03 01:00:40', '2025-08-03 01:00:40'),
+(1, 'Life Coach', '/', 1, '2025-08-03 01:00:40', '2025-08-12 22:56:58'),
 (2, 'Business Coach', '/', 1, '2025-08-03 01:00:54', '2025-08-03 01:00:54'),
 (3, 'Health Coach', '/', 1, '2025-08-03 01:01:05', '2025-08-03 01:01:05'),
 (4, 'Development', '/', 1, '2025-08-03 01:01:17', '2025-08-03 01:01:17'),
-(5, 'SEO Optimize', '/', 1, '2025-08-03 01:01:28', '2025-08-03 01:01:28');
+(5, 'SEO Optimize', '/', 1, '2025-08-03 01:01:28', '2025-08-19 01:35:57');
 
 -- --------------------------------------------------------
 
@@ -761,7 +815,7 @@ CREATE TABLE `footer_column_twos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `status` tinyint(1) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -771,10 +825,10 @@ CREATE TABLE `footer_column_twos` (
 --
 
 INSERT INTO `footer_column_twos` (`id`, `title`, `url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'The Arts', '/', 1, '2025-08-03 01:01:39', '2025-08-03 01:01:39'),
+(1, 'The Arts', '/', NULL, '2025-08-03 01:01:39', '2025-08-12 22:52:36'),
 (2, 'Human Sciences', '/', 1, '2025-08-03 01:02:08', '2025-08-03 01:02:08'),
 (3, 'Economics', '/', 1, '2025-08-03 01:02:20', '2025-08-03 01:02:20'),
-(4, 'Natural Sciences', '/', 1, '2025-08-03 01:02:39', '2025-08-03 01:02:39'),
+(4, 'Natural Sciences', '/', 1, '2025-08-03 01:02:39', '2025-08-11 21:27:58'),
 (5, 'Business', '/', 1, '2025-08-03 01:03:04', '2025-08-03 01:03:04');
 
 -- --------------------------------------------------------
@@ -805,7 +859,7 @@ CREATE TABLE `heroes` (
 --
 
 INSERT INTO `heroes` (`id`, `label`, `title`, `subtitle`, `button_text`, `button_url`, `video_button_text`, `video_button_url`, `banner_item_title`, `banner_item_subtitle`, `image`, `round_text`, `created_at`, `updated_at`) VALUES
-(1, 'Show Up For Learning', 'Premier E-Learning Courses From EduCore', 'Nullam tincidunt tortor est, ac maximus justo gravida non phasellus dignissim quam odio ipsum sollicitudin rhoncus venenatis ex metus in turpis.', 'Start Free Trial', '/', 'See Our Lesson Showcase', 'https://www.youtube.com/watch?v=3ToEb_WMYzg&list=RD3ToEb_WMYzg&start_radio=1', '250+ Popular Course', 'Explore a variety of fresh topics', '/uploads/ha_cource688f0640c66e4.png', 'BEST ONLINE COURSE TAKE THE WORLDWIDE', '2025-08-02 23:48:32', '2025-08-02 23:48:32');
+(1, 'Show Up For Learning', 'Premier E-Learning Courses From EduCore', 'Nullam tincidunt tortor est, ac maximus justo gravida non phasellus dignissim quam odio ipsum sollicitudin rhoncus venenatis ex metus in turpis.', 'Start Free Trial', '/', 'See Our Lesson Showcase', 'https://www.youtube.com/watch?v=8Of9aA2pFrE&amp;amp;amp;amp;amp;amp;amp;amp;list=RDbAp3BPUfj2o&amp;amp;amp;amp;amp;amp;amp;amp;index=5', '250+ Popular Course', 'Explore a variety of fresh topics', '/uploads/ha_cource688f0640c66e4.png', 'BEST ONLINE COURSE TAKE THE WORLDWIDE', '2025-08-02 23:48:32', '2025-08-26 01:38:08');
 
 -- --------------------------------------------------------
 
@@ -873,6 +927,13 @@ CREATE TABLE `latest_course_sections` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `latest_course_sections`
+--
+
+INSERT INTO `latest_course_sections` (`id`, `category_one`, `category_two`, `category_three`, `category_four`, `category_five`, `created_at`, `updated_at`) VALUES
+(1, 36, 29, 23, NULL, 40, '2025-08-09 00:43:33', '2025-08-12 17:08:46');
 
 -- --------------------------------------------------------
 
@@ -946,7 +1007,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (53, '2025_07_30_113953_create_activity_log_table', 1),
 (54, '2025_07_30_113954_add_event_column_to_activity_log_table', 1),
 (55, '2025_07_30_113955_add_batch_uuid_column_to_activity_log_table', 1),
-(56, '2025_08_03_082508_update_blogs_table', 2);
+(56, '2025_08_03_082508_update_blogs_table', 2),
+(57, '2025_08_05_232252_add_document_status_to_users_table', 3),
+(60, '2025_08_24_033829_add_last_login_to_users_table', 4),
+(61, '2025_08_24_042141_add_last_login_to_admins_table', 5);
 
 -- --------------------------------------------------------
 
@@ -1068,6 +1132,18 @@ CREATE TABLE `orders` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `orders`
+--
+
+INSERT INTO `orders` (`id`, `invoice_id`, `buyer_id`, `status`, `total_amount`, `paid_amount`, `currency`, `has_coupon`, `coupon_code`, `coupon_amount`, `transaction_id`, `payment_method`, `created_at`, `updated_at`) VALUES
+(5, '68a2acdfc0016', 26, 'approved', 46.83, 46.83, 'USD', 0, NULL, NULL, '4RS48916C0200553X', 'paypal', '2025-08-17 21:32:31', '2025-08-17 21:32:31'),
+(7, '68a6d3c1431c5', 26, 'approved', 299, 299, 'USD', 0, NULL, NULL, '25032576DA6744705', 'paypal', '2025-08-21 01:07:29', '2025-08-21 01:07:29'),
+(16, '68ab1ab302102', 21, 'approved', 1024000, 1024000, 'IDR', 0, NULL, NULL, 'c133dc9c-8272-4414-830b-20a1d43f0379', 'midtrans', '2025-08-24 06:59:15', '2025-08-24 06:59:15'),
+(17, '68ab1dfd6313d', 21, 'approved', 10064000, 10064000, 'IDR', 0, NULL, NULL, '5f2fab88-3503-4bde-9836-b0a047a2ab8e', 'midtrans', '2025-08-24 07:13:17', '2025-08-24 07:13:17'),
+(18, '68abedf76661a', 21, 'approved', 192000, 192000, 'IDR', 0, NULL, NULL, '3bcff727-23b1-422a-8bfe-5a194121fe5f', 'midtrans', '2025-08-24 22:00:39', '2025-08-24 22:00:39'),
+(19, '68ad7c88d909f', 18, 'approved', 688000, 688000, 'IDR', 0, NULL, NULL, '39b6cb30-4b48-4a36-9444-b0b0e8e10200', 'midtrans', '2025-08-26 02:21:12', '2025-08-26 02:21:12');
+
 -- --------------------------------------------------------
 
 --
@@ -1086,6 +1162,20 @@ CREATE TABLE `order_items` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `course_id`, `qty`, `price`, `commission_rate`, `item_type`, `created_at`, `updated_at`) VALUES
+(8, 5, 5, 1, 19, 70, 'course', '2025-08-17 21:32:31', '2025-08-17 21:32:31'),
+(14, 7, 2, 1, 299, 70, 'course', '2025-08-21 01:07:29', '2025-08-21 01:07:29'),
+(26, 16, 5, 1, 19, 70, 'course', '2025-08-24 06:59:15', '2025-08-24 06:59:15'),
+(27, 16, 4, 1, 4, 70, 'course', '2025-08-24 06:59:15', '2025-08-24 06:59:15'),
+(28, 17, 3, 1, 21, 70, 'course', '2025-08-24 07:13:17', '2025-08-24 07:13:17'),
+(29, 17, 1, 1, 599, 70, 'course', '2025-08-24 07:13:17', '2025-08-24 07:13:17'),
+(30, 18, 6, 1, 12, 70, 'course', '2025-08-24 22:00:39', '2025-08-24 22:00:39'),
+(31, 19, 5, 1, 19, 70, 'course', '2025-08-26 02:21:12', '2025-08-26 02:21:12');
+
 -- --------------------------------------------------------
 
 --
@@ -1097,6 +1187,13 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('afidzpratama@gmail.com', '$2y$12$CN4FjxEQrJ3dX.6edhTJfeo4pHpkE0MzGSXUGqnog/fGQ4Ss7o.cG', '2025-08-08 08:20:50');
 
 -- --------------------------------------------------------
 
@@ -1117,12 +1214,12 @@ CREATE TABLE `payment_settings` (
 --
 
 INSERT INTO `payment_settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES
-(1, 'paypal_mode', 'sandbox', '2025-08-03 01:11:46', '2025-08-03 01:11:46'),
-(2, 'paypal_client_id', 'AWPDtCm44vXv5NDEavf4026oMpPS1tlOSMfIF-NRqbgE9WKTXFcvAyn9DHb2Y-AMdsj2WckhSuKPqTY2', '2025-08-03 01:11:46', '2025-08-03 01:11:46'),
-(3, 'paypal_client_secret', 'EKkvn-FnfwoszpgcImTjxxo-Apd-2UNbxRbivkf2HcoIa4ZJv24_lywlaNRJmiPD4LQEd05mWsBIrdS6', '2025-08-03 01:11:46', '2025-08-03 01:11:46'),
-(4, 'paypal_currency', 'USD', '2025-08-03 01:11:46', '2025-08-03 01:11:46'),
-(5, 'paypal_rate', '1', '2025-08-03 01:11:46', '2025-08-03 01:11:46'),
-(6, 'paypal_app_id', 'sb-sqjju41840836_api1.business.example.com', '2025-08-03 01:11:46', '2025-08-03 01:11:46');
+(1, 'paypal_mode', 'sandbox', '2024-10-09 00:07:45', '2024-10-09 02:49:14'),
+(2, 'paypal_client_id', 'AWPDtCm44vXv5NDEavf4026oMpPS1tlOSMfIF-NRqbgE9WKTXFcvAyn9DHb2Y-AMdsj2WckhSuKPqTY2', '2024-10-09 00:07:45', '2024-10-09 02:49:08'),
+(3, 'paypal_client_secret', 'EKkvn-FnfwoszpgcImTjxxo-Apd-2UNbxRbivkf2HcoIa4ZJv24_lywlaNRJmiPD4LQEd05mWsBIrdS6', '2024-10-09 00:07:45', '2024-10-09 02:49:08'),
+(4, 'paypal_currency', 'USD', '2024-10-09 00:07:45', '2024-10-09 02:48:23'),
+(5, 'paypal_rate', '1', '2024-10-09 00:07:45', '2024-10-09 02:47:56'),
+(6, 'paypal_app_id', 'XJC46AEBAMYBC', '2024-10-09 00:07:45', '2025-08-03 22:59:59');
 
 -- --------------------------------------------------------
 
@@ -1175,6 +1272,14 @@ CREATE TABLE `reviews` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `course_id`, `review`, `rating`, `status`, `created_at`, `updated_at`) VALUES
+(3, 21, 5, 'test', 3, 0, '2025-08-24 06:59:45', '2025-08-24 06:59:45'),
+(4, 21, 1, 'test', 3, 0, '2025-08-24 07:13:49', '2025-08-24 07:13:49');
+
 -- --------------------------------------------------------
 
 --
@@ -1204,6 +1309,31 @@ CREATE TABLE `settings` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `settings`
+--
+
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES
+(1, 'site_name', 'Hafid Tech Course', '2024-10-12 23:07:49', '2024-10-12 23:11:58'),
+(2, 'default_currency', 'IDR', '2024-10-12 23:07:49', '2025-08-24 05:49:02'),
+(3, 'currency_icon', 'Rp.', '2024-10-12 23:07:49', '2025-08-24 05:49:02'),
+(4, 'phone', '+1 (228) 498-7767', '2024-10-12 23:09:47', '2024-10-12 23:10:06'),
+(5, 'location', 'Sint nostrud laboru', '2024-10-12 23:10:06', '2024-10-12 23:10:06'),
+(6, 'commission_rate', '70', '2024-10-13 02:43:53', '2024-10-13 02:43:53'),
+(7, 'receiver_email', 'admin.support@gmail.com', '2024-10-30 21:35:32', '2024-10-30 21:35:32'),
+(8, 'sender_email', 'admin@gmail.com', '2024-10-30 21:35:32', '2024-10-30 21:35:32'),
+(9, 'site_logo', '/uploads/ha_cource6890bda70e9d2.png', '2024-11-10 02:50:10', '2025-08-04 07:03:19'),
+(10, 'site_footer_logo', '/uploads/ha_cource6890bda712b0b.png', '2024-11-10 02:50:10', '2025-08-04 07:03:19'),
+(11, 'site_favicon', '/uploads/ha_cource6890bda712c69.png', '2024-11-10 02:50:10', '2025-08-04 07:03:19'),
+(12, 'site_breadcrumb', '/uploads/ha_cource6890bda712d44.jpg', '2024-11-10 02:50:10', '2025-08-04 07:03:19'),
+(13, 'mail_mailer', 'smtp', '2024-11-10 04:50:17', '2025-08-12 23:19:59'),
+(14, 'mail_host', 'sandbox.smtp.mailtrap.io', '2024-11-10 04:50:17', '2024-11-10 04:50:49'),
+(15, 'mail_port', '2525', '2024-11-10 04:50:17', '2024-11-10 04:50:49'),
+(16, 'mail_username', '64873daf495440', '2024-11-10 04:50:17', '2025-08-06 01:29:01'),
+(17, 'mail_password', 'ad63d0846ee854', '2024-11-10 04:50:17', '2025-08-06 01:29:01'),
+(18, 'mail_encryption', 'tls', '2024-11-10 04:50:17', '2024-11-10 04:50:49'),
+(19, 'mail_queue', '1', '2024-11-10 04:50:17', '2025-08-23 19:49:52');
+
 -- --------------------------------------------------------
 
 --
@@ -1224,7 +1354,7 @@ CREATE TABLE `social_links` (
 --
 
 INSERT INTO `social_links` (`id`, `icon`, `url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'fab fa-facebook-f', 'https://facebook.com', 1, '2025-08-03 01:03:57', '2025-08-03 01:03:57'),
+(1, 'fab fa-facebook-f', 'https://facebook.com', 0, '2025-08-03 01:03:57', '2025-08-19 01:36:22'),
 (2, 'fab fa-twitter', 'https://twitter.com', 1, '2025-08-03 01:04:14', '2025-08-03 01:04:14'),
 (3, 'fab fa-linkedin', 'https://linkedin.com', 1, '2025-08-03 01:04:28', '2025-08-03 01:04:28');
 
@@ -1299,19 +1429,25 @@ CREATE TABLE `users` (
   `gauth_id` varchar(255) DEFAULT NULL,
   `gauth_type` varchar(255) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
+  `last_login_at` timestamp NULL DEFAULT NULL,
+  `last_login_ip` varchar(45) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `document_status` enum('pending','approved','rejected') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `role`, `image`, `name`, `headline`, `email`, `bio`, `gender`, `document`, `email_verified_at`, `password`, `facebook`, `x`, `linkedin`, `website`, `github`, `approve_status`, `login_as`, `wallet`, `gauth_id`, `gauth_type`, `remember_token`, `created_at`, `updated_at`) VALUES
-(17, 'student', NULL, 'Widya Nursita', NULL, 'student@gmail.com', NULL, NULL, NULL, NULL, '$2y$12$mIuhJ0uG2Rr647HMbybn2uWvgqvj5mLZuX1eQpy3JDdwM592CB7w.', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 0, NULL, NULL, NULL, NULL, NULL),
-(18, 'instructor', NULL, 'Kim Jong Un', NULL, 'instructor@gmail.com', NULL, NULL, NULL, '2025-08-03 01:36:21', '$2y$12$7Vg6PqTzo.Vmf6J7rWWA0.z/qRyE2IO5LqxuKf.HdQWbUVm0oRtSO', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 0, NULL, NULL, NULL, NULL, '2025-08-03 01:36:21'),
-(19, 'instructor', NULL, 'Bruno Earth', NULL, 'bruno@gmail.com', NULL, NULL, '/uploads/ha_cource688f2d1d01af5.png', '2025-08-03 02:34:50', '$2y$12$EUeb1ghMC5c.9kiDiL0/Ru9qk0zm6qTef4GIue3grvAk.z.7yx7OS', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 0, NULL, NULL, NULL, '2025-08-03 02:34:21', '2025-08-03 02:34:50'),
-(20, 'instructor', NULL, 'Sally Fatimah', NULL, 'sally@gmail.com', NULL, NULL, '/uploads/ha_cource688f31769a5e0.jpg', '2025-08-03 02:53:10', '$2y$12$cjQPnqLRNC8uxneKRgJ5DeOHTAE9euE7wZ/ZomKx8n.BASEwNMzba', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 0, NULL, NULL, NULL, '2025-08-03 02:52:55', '2025-08-03 02:53:10');
+INSERT INTO `users` (`id`, `role`, `image`, `name`, `headline`, `email`, `bio`, `gender`, `document`, `email_verified_at`, `password`, `facebook`, `x`, `linkedin`, `website`, `github`, `approve_status`, `login_as`, `wallet`, `gauth_id`, `gauth_type`, `remember_token`, `last_login_at`, `last_login_ip`, `created_at`, `updated_at`, `document_status`) VALUES
+(18, 'instructor', '/uploads/ha_cource6891956f90010.jpg', 'Kim Jong Un', 'Back-End Developer', 'kimjongun@gmail.com', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.', NULL, '/uploads/ha_cource688f2d1d01af5.png', '2025-08-03 01:36:21', '$2y$12$7Vg6PqTzo.Vmf6J7rWWA0.z/qRyE2IO5LqxuKf.HdQWbUVm0oRtSO', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 2782.5, NULL, NULL, NULL, '2025-08-26 01:04:28', '127.0.0.1', NULL, '2025-08-26 01:04:28', 'approved'),
+(19, 'instructor', '/uploads/ha_cource6891951615864.jpg', 'Bruno Earth', NULL, 'bruno@gmail.com', NULL, NULL, '/uploads/ha_cource688f2d1d01af5.png', '2025-08-03 02:34:50', '$2y$12$EUeb1ghMC5c.9kiDiL0/Ru9qk0zm6qTef4GIue3grvAk.z.7yx7OS', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 128.1, NULL, NULL, NULL, NULL, NULL, '2025-08-03 02:34:21', '2025-08-26 02:21:12', 'approved'),
+(20, 'instructor', '/uploads/ha_cource68918e46bca82.jpg', 'Sally Fatimah', NULL, 'sally@gmail.com', NULL, NULL, '/uploads/ha_cource688f31769a5e0.jpg', '2025-08-03 02:53:10', '$2y$12$cjQPnqLRNC8uxneKRgJ5DeOHTAE9euE7wZ/ZomKx8n.BASEwNMzba', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 50.4, NULL, NULL, NULL, NULL, NULL, '2025-08-03 02:52:55', '2025-08-24 22:00:39', 'approved'),
+(21, 'student', '/uploads/ha_cource689076b4d8f18.jpg', 'Khafid', NULL, 'afidzpratama@gmail.com', NULL, NULL, '/uploads/ha_cource68961262a2c89.png', '2025-08-03 03:18:38', '$2y$12$s75ZlGVRIbwK9VeKFBohGuHi2AxmIgVicNK0smWEoj2xEv9R/PaAa', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 0, '105235256157177159515', 'google', NULL, '2025-08-26 01:04:15', '127.0.0.1', '2025-08-03 03:18:38', '2025-08-26 01:04:15', NULL),
+(23, 'instructor', NULL, 'Aulia Rahma', NULL, 'aulia@gmail.com', NULL, NULL, '/uploads/ha_cource6895b07728ec3.jpg', '2025-08-06 01:30:09', '$2y$12$qYJiD2O/cwVt7Yd2L5SFJu8xMwks8ZhlGIavlRuHkH.twmn2v2FJ.', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 0, NULL, NULL, NULL, NULL, NULL, '2025-08-06 01:29:51', '2025-08-08 01:09:04', 'approved'),
+(25, 'instructor', NULL, 'Dita Sari', NULL, 'dita@gmail.com', NULL, 'female', '/uploads/ha_cource6896052c2c7b3.png', '2025-08-08 07:10:22', '$2y$12$n.ljOWVaX4bY0etEMfHpNubM3KrbfJK3OFLJpC4H0FjfBOB1SYSyW', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 0, NULL, NULL, NULL, NULL, NULL, '2025-08-08 07:09:48', '2025-08-08 07:17:08', 'pending'),
+(26, 'student', NULL, 'Kamerad Dyatlov', NULL, 'tapi.ngapain@gmail.com', NULL, NULL, NULL, '2025-08-17 05:49:01', '$2y$12$hBp3OI0WsLACuks1GiV.zueMxUQrj7FxoRYUzZ8yTSMVCoKjBqRMO', NULL, NULL, NULL, NULL, NULL, 'approved', NULL, 0, '115078127909503996664', 'google', NULL, NULL, NULL, '2025-08-17 05:49:01', '2025-08-17 05:49:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -1353,6 +1489,22 @@ CREATE TABLE `watch_histories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `watch_histories`
+--
+
+INSERT INTO `watch_histories` (`id`, `user_id`, `course_id`, `chapter_id`, `lesson_id`, `is_completed`, `created_at`, `updated_at`) VALUES
+(1, 21, 3, 4, 9, 1, '2025-08-04 01:17:10', '2025-08-24 06:56:22'),
+(2, 21, 5, 6, 12, 1, '2025-08-04 01:18:00', '2025-08-04 02:28:02'),
+(3, 21, 5, 6, 13, 1, '2025-08-04 01:18:01', '2025-08-24 22:01:29'),
+(4, 18, 5, 6, 12, 1, '2025-08-04 01:41:44', '2025-08-04 01:42:29'),
+(5, 18, 5, 6, 13, 1, '2025-08-04 01:42:31', '2025-08-04 01:42:36'),
+(6, 18, 6, 7, 14, 0, '2025-08-06 22:48:23', '2025-08-06 22:48:23'),
+(7, 18, 6, 7, 15, 0, '2025-08-06 22:48:28', '2025-08-08 07:35:21'),
+(8, 21, 2, 3, 6, 0, '2025-08-24 06:37:37', '2025-08-24 06:37:37'),
+(9, 21, 4, 5, 10, 0, '2025-08-24 06:51:23', '2025-08-24 06:51:23'),
+(10, 21, 1, 1, 1, 0, '2025-08-24 06:54:32', '2025-08-24 22:01:39');
 
 -- --------------------------------------------------------
 
@@ -1781,13 +1933,13 @@ ALTER TABLE `about_us_sections`
 -- AUTO_INCREMENT untuk tabel `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `become_instructor_sections`
@@ -1805,13 +1957,13 @@ ALTER TABLE `blogs`
 -- AUTO_INCREMENT untuk tabel `blog_categories`
 --
 ALTER TABLE `blog_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `blog_comments`
 --
 ALTER TABLE `blog_comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `brands`
@@ -1823,7 +1975,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT untuk tabel `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT untuk tabel `certificate_builders`
@@ -1841,7 +1993,7 @@ ALTER TABLE `certificate_builder_items`
 -- AUTO_INCREMENT untuk tabel `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `contact_settings`
@@ -1865,7 +2017,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT untuk tabel `course_categories`
 --
 ALTER TABLE `course_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT untuk tabel `course_chapters`
@@ -1883,13 +2035,13 @@ ALTER TABLE `course_chapter_lessions`
 -- AUTO_INCREMENT untuk tabel `course_languages`
 --
 ALTER TABLE `course_languages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `course_levels`
 --
 ALTER TABLE `course_levels`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `custom_pages`
@@ -1901,7 +2053,7 @@ ALTER TABLE `custom_pages`
 -- AUTO_INCREMENT untuk tabel `enrollments`
 --
 ALTER TABLE `enrollments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -1913,7 +2065,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `featured_instructors`
 --
 ALTER TABLE `featured_instructors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `features`
@@ -1931,7 +2083,7 @@ ALTER TABLE `footers`
 -- AUTO_INCREMENT untuk tabel `footer_column_ones`
 --
 ALTER TABLE `footer_column_ones`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `footer_column_twos`
@@ -1961,13 +2113,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT untuk tabel `latest_course_sections`
 --
 ALTER TABLE `latest_course_sections`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT untuk tabel `newsletters`
@@ -1979,13 +2131,13 @@ ALTER TABLE `newsletters`
 -- AUTO_INCREMENT untuk tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT untuk tabel `payment_settings`
@@ -2009,13 +2161,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT untuk tabel `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `social_links`
@@ -2039,7 +2191,7 @@ ALTER TABLE `top_bars`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `video_sections`
@@ -2051,7 +2203,7 @@ ALTER TABLE `video_sections`
 -- AUTO_INCREMENT untuk tabel `watch_histories`
 --
 ALTER TABLE `watch_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `withdraws`

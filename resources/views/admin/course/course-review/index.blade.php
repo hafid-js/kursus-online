@@ -1,21 +1,13 @@
 @extends('admin.layouts.layout')
 @section('content')
     <div class="page-wrapper">
-        <!-- Page body -->
         <div class="page-body">
             <div class="container-xl">
                 <div class="row row-cards">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Courses</h4>
-                                <div class="card-actions">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <a href="{{ route('admin.courses.create') }}" class="btn btn-primary">
-                                            <i class="ti ti-plus"></i> Add new
-                                        </a>
-                                    </div>
-                                </div>
+                                <h3 class="card-title">Course Reviews</h3>
                             </div>
                             <div class="card-body border-bottom py-3">
                                 <div class="d-flex">
@@ -24,7 +16,7 @@
                                         <div class="mx-2 d-inline-block">
                                             <input type="number" min="1"
                                                 class="form-control form-control-sm custom-length-input"
-                                                data-table-id="course-table" value="10" size="3"
+                                                data-table-id="reviews" value="10" size="3"
                                                 aria-label="Invoices count">
                                         </div>
                                         entries
@@ -38,12 +30,15 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="table-responsive">
                                 {!! $dataTable->table(
-                                    ['id' => 'course-table', 'class' => 'table table-selectable card-table table-vcenter text-nowrap datatable'],
+                                    ['id' => 'reviews', 'class' => 'table table-selectable card-table table-vcenter text-nowrap datatable'],
                                     true,
                                 ) !!}
                             </div>
+
+                            <!-- Custom Footer -->
                             <div class="card-footer">
                                 <div class="row g-2 justify-content-center justify-content-sm-between">
                                     <div class="col-auto d-flex align-items-center">
@@ -61,47 +56,62 @@
                 </div>
             </div>
         </div>
-    </div>
-@endsection
 
-@push('styles')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 
-    <style>
-        .form-control.is-pending {
-            border-color: #f59f00;
-            padding-right: 2.375rem;
-            background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d63939' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cline x1='18' y1='6' x2='6' y2='18'%3e%3c/line%3e%3cline x1='6' y1='6' x2='18' y2='18'%3e%3c/line%3e%3c/svg%3e);
-            background-repeat: no-repeat;
-            background-position: right 1.53125rem center;
-            background-size: 1.8125rem 1.8125rem;
-        }
-    </style>
-@endpush
+        <!-- Dynamic Modal -->
+        <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content dynamic-modal-content">
+                    <!-- Content injected via AJAX -->
+                </div>
+            </div>
+        </div>
+    @endsection
 
-@push('header_scripts')
-    @vite('resources/js/admin/course.js')
-@endpush
+    @push('scripts')
+        {!! $dataTable->scripts() !!}
+    @endpush
 
-@push('scripts')
-    {!! $dataTable->scripts() !!}
-    <script>
-        $(document).ready(function() {
-
-            // Inisialisasi DataTable
-            let table = $('#course-table').DataTable();
-
-            $('#btnReload').on('click', function() {
-                table.ajax.reload(null, false);
+    @push('scripts')
+        <script>
+            $('#reviews thead tr').first().html(`
+        <th>No.</th>
+        <th>Course</th>
+        <th>Student</th>
+        <th>Rating</th>
+        <th>Detail Review</th>
+        <th>Status</th>
+        <th>Created At</th>
+        <th colspan="2" class="text-center">Action</th>
+    `);
+            $(document).ready(function() {
+                initTable('#reviews');
             });
+            $(function() {
+                const baseUrl = "{{ url('') }}";
+                const modalElement = document.getElementById('dynamic-modal');
+                const dynamicModal = new bootstrap.Modal(modalElement);
 
-            $('#btnReset').on('click', function() {
-                table.search('').columns().search('').order([]).page('first').draw();
-                $('#custom-search').val('');
-                $('input[type="checkbox"]').prop('checked', false);
+                // Global AJAX CSRF token setup
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                // Handle open Edit Modal
+                $(document).on("click", '.show-review', function() {
+                    const reviewId = $(this).data('review-id');
+                    dynamicModal.show();
+                    $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+                    $.get(`${baseUrl}/admin/reviews/${reviewId}`, function(html) {
+                        $('.dynamic-modal-content').html(html);
+                    }).fail(() => {
+                        $('.dynamic-modal-content').html(
+                            '<div class="p-5 text-danger">Error loading form</div>');
+                    });
+                });
             });
-
-            initTable('#course-table');
-        });
-    </script>
-@endpush
+        </script>
+    @endpush

@@ -76,6 +76,8 @@ class CourseDataTable extends DataTable
                     return '<span class="badge bg-lime text-lime-fg">Active</span>';
                 } elseif ($row->status === 'inactive') {
                     return '<span class="badge bg-yellow text-yellow-fg">Inactive</span>';
+                } else if ($row->status === 'draft') {
+                    return '<span class="badge bg-secondary text-secondary-fg">Draft</span>';
                 }
 
                 return '<span class="badge bg-secondary">Unknown</span>';
@@ -116,7 +118,8 @@ class CourseDataTable extends DataTable
         $query = $model
             ->newQuery()
             ->leftJoin('users as instructor', 'instructor.id', '=', 'courses.instructor_id')
-            ->select('courses.*', 'instructor.name as instructor_name');;
+            ->select('courses.*', 'instructor.name as instructor_name')->where('courses.status', '!=', 'draft');
+
 
         if ($this->instructorId !== null) {
             $query->where('instructor_id', $this->instructorId);

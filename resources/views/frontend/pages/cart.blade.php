@@ -57,7 +57,7 @@
                                                     @if ($item->course->discount > 0)
                                                         <del>
                                                             <strong
-                                                                class="text-primary">${{ $item->course->price }}</strong>
+                                                                class="text-primary">Rp.{{ $item->course->price }}</strong>
                                                         </del>
                                                         @php
                                                             $discount = $item->course->discount ?? 0;
@@ -73,11 +73,11 @@
                                                             <span class="ms-2">
                                                                 (Final Price:
                                                                 <strong
-                                                                    class="text-primary">${{ number_format($finalPrice, 2) }}</strong>)
+                                                                    class="text-primary">Rp.{{ number_format($finalPrice, 2) }}</strong>)
                                                             </span>
                                                         </div>
                                                     @else
-                                                        <strong class="text-primary">${{ $item->course->price }}</strong>
+                                                        <strong class="text-primary">Rp.{{ $item->course->price }}</strong>
                                                     @endif
                                                 </td>
                                                 {{--
@@ -109,15 +109,15 @@
                     <div class="col-xxl-7 col-md-5 col-lg-6 wow fadeInUp"
                         style="visibility: visible; animation-name: fadeInUp;">
                         <div class="continue_shopping">
-                            <a href="{{ route('courses.index') }}" class="common_btn">continue shopping</a>
+                            <a href="{{ route('courses.index') }}" class="common_btn"><i class="fa fa-plus"></i> Add More</a>
                         </div>
                     </div>
                     <div class="col-xxl-4 col-md-7 col-lg-6 wow fadeInUp"
                         style="visibility: visible; animation-name: fadeInUp;">
                         <div class="total_price">
                             <div class="subtotal_area">
-                                <h5>Total<span>${{ cartTotal() }}</span></h5>
-                                <a href="{{ route('checkout.index') }}" class="common_btn">proceed checkout</a>
+                                <h5>Total :<span>Rp.{{ cartTotal() }}</span></h5>
+                                <a href="{{ route('checkout.index') }}" class="common_btn">proceed checkout<i class="fa fa-arrow-right"></i> </a>
                             </div>
                         </div>
                     </div>

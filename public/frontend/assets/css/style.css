@@ -14216,6 +14216,9 @@ footer {
 .wsus__dash_course_table .status .delete {
     background: #E53935;
 }
+.wsus__dash_course_table .status .draft {
+    background: #6c757d;
+}
 
 /* dashboard courses end */
 

@@ -98,17 +98,17 @@
                                 <div class="text-secondary">
                                     Show
                                     <div class="mx-2 d-inline-block">
-                                        <input id="custom-length" type="number" min="1"
-                                            class="form-control form-control-sm" value="8" size="3"
-                                            aria-label="Invoices count">
+                                        <input data-table-id="course-table" type="number" min="1"
+                                            class="form-control form-control-sm custom-length-input" value="10"
+                                            size="3" aria-label="Invoices count">
                                     </div>
                                     entries
                                 </div>
                                 <div class="ms-auto text-secondary">
                                     Search:
                                     <div class="ms-2 d-inline-block">
-                                        <input id="course-search" type="text" class="form-control form-control-sm"
-                                            aria-label="Search invoice">
+                                        <input type="text" class="form-control form-control-sm custom-search-input"
+                                            data-table-id="course-table" aria-label="Search invoice">
                                     </div>
                                 </div>
                             </div>
@@ -143,17 +143,17 @@
                                 <div class="text-secondary">
                                     Show
                                     <div class="mx-2 d-inline-block">
-                                        <input id="custom-length" type="number" min="1"
-                                            class="form-control form-control-sm" value="8" size="3"
-                                            aria-label="Invoices count">
+                                        <input data-table-id="studentcourseenrolled-table" type="number" min="1"
+                                            class="form-control form-control-sm custom-length-input" value="10"
+                                            size="3" aria-label="Invoices count">
                                     </div>
                                     entries
                                 </div>
                                 <div class="ms-auto text-secondary">
                                     Search:
                                     <div class="ms-2 d-inline-block">
-                                        <input id="studentcourseenrolled-search" type="text"
-                                            class="form-control form-control-sm" aria-label="Search invoice">
+                                        <input data-table-id="studentcourseenrolled-table" type="text"
+                                            class="form-control form-control-sm custom-search-input" aria-label="Search invoice">
                                     </div>
                                 </div>
                             </div>
@@ -276,154 +276,140 @@
 @push('scripts')
     {!! $courseDataTable->scripts() !!}
     {!! $studentCourseEnrolledDataTable->scripts() !!}
-    <script>
-        $(document).ready(function() {
-            let courseDataTable = $('#course-table').DataTable();
-            let studentCourseEnrolledDataTable = $('#studentcourseenrolled-table').DataTable();
+   <script>
+    $(document).ready(function () {
+    // Reusable: Custom length input
+    $(document).on('change', '.custom-length-input', function () {
+        const tableId = $(this).data('table-id');
+        const length = parseInt($(this).val());
+        if (!isNaN(length) && length > 0) {
+            $('#' + tableId).DataTable().page.len(length).draw();
+        }
+    });
 
-            initTable('#course-table');
-            initTable('#studentcourseenrolled-table');
+    // Reusable: Custom search input
+    $(document).on('keyup', '.custom-search-input', function () {
+        const tableId = $(this).data('table-id');
+        const value = $(this).val();
+        $('#' + tableId).DataTable().search(value).draw();
+    });
 
-            $('#course-search').on('keyup', function() {
-                courseDataTable.search(this.value).draw();
-            });
+    // Reusable: Reload button
+    $(document).on('click', '#btnReload', function () {
+        const tableId = 'studentcourseenrolled-table'; // Bisa ditambah data attribute jika mau dinamis
+        $('#' + tableId).DataTable().ajax.reload(null, false);
+    });
 
-            $('#studentcourseenrolled-search').on('keyup', function() {
-                studentCourseEnrolledDataTable.search(this.value).draw();
-            });
+    // Reusable: Reset button
+    $(document).on('click', '#btnReset', function () {
+        const tableId = 'studentcourseenrolled-table';
+        const table = $('#' + tableId).DataTable();
+        table.search('').columns().search('').order([]).page('first').draw();
 
-            $('#btnReload').on('click', function() {
-                table.ajax.reload(null, false);
-            });
+        // Reset inputs (optional)
+        $('.custom-search-input[data-table-id="' + tableId + '"]').val('');
+        $('.custom-length-input[data-table-id="' + tableId + '"]').val(10);
+        $('#' + tableId + ' input[type="checkbox"]').prop('checked', false);
+    });
 
-            $('#btnReset').on('click', function() {
-                table.search('').columns().search('').order([]).page('first').draw();
-                $('#custom-search').val('');
-                $('input[type="checkbox"]').prop('checked', false);
-            });
-
-            $('#courseorders-table').on('draw.dt', function() {
-                $('#select-all').off('click').on('click', function() {
-                    const checked = $(this).is(':checked');
-                    $('.order-checkbox').prop('checked', checked);
-                });
-
-                $(document).off('click', '.order-checkbox').on('click', '.order-checkbox', function() {
-                    const total = $('.order-checkbox').length;
-                    const checked = $('.order-checkbox:checked').length;
-
-                    $('#select-all').prop('checked', total === checked);
-                });
-            });
-
-            initTable('#courseorders-table');
+    // Checkbox logic (optional if needed)
+    $('#studentcourseenrolled-table').on('draw.dt', function () {
+        $('#select-all').off('click').on('click', function () {
+            const checked = $(this).is(':checked');
+            $('.order-checkbox').prop('checked', checked);
         });
 
-        $(function() {
-            const baseUrl = "{{ url('') }}";
-            const modalElement = document.getElementById('dynamic-modal');
-            const dynamicModal = new bootstrap.Modal(modalElement);
+        $(document).off('click', '.order-checkbox').on('click', '.order-checkbox', function () {
+            const total = $('.order-checkbox').length;
+            const checked = $('.order-checkbox:checked').length;
+            $('#select-all').prop('checked', total === checked);
+        });
+    });
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            // tombol untuk modal A
-            $(document).on("click", ".show-order-courses", function(e) {
-                const orderId = $(this).data('order-id');
-                dynamicModal.show();
-                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
-
-                $.get(`${baseUrl}/admin/orders/${orderId}?modal=courses`, function(html) {
-                    $('.dynamic-modal-content').html(html);
-                }).fail(() => {
-                    $('.dynamic-modal-content').html(
-                        '<div class="p-5 text-danger">Error loading form</div>');
-                });
-            });
-
-            // tombol untuk modal B
-            $(document).on("click", ".show-order-invoice", function(e) {
-                const orderId = $(this).data('order-id');
-                dynamicModal.show();
-                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
-
-                $.get(`${baseUrl}/admin/orders/${orderId}?modal=invoice`, function(html) {
-                    $('.dynamic-modal-content').html(html);
-                }).fail(() => {
-                    $('.dynamic-modal-content').html(
-                        '<div class="p-5 text-danger">Error loading form</div>');
-                });
-            });
+    // Export
+    function exportSelectedOrAll(type) {
+        let selectedIds = [];
+        $('.order-checkbox:checked').each(function () {
+            selectedIds.push($(this).val());
         });
 
-
-
-        $(document).ready(function() {
-            function exportSelectedOrAll(type) {
-                let selectedIds = [];
-                $('.order-checkbox:checked').each(function() {
-                    selectedIds.push($(this).val());
-                });
-
-                if (selectedIds.length > 0) {
-                    let url = `export/course-orders-pdf?type=${type}`;
-
-                    let csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-                    let form = $('<form method="POST" action="' + url + '"></form>');
-
-                    form.append('<input type="hidden" name="_token" value="' + csrfToken + '">');
-
-                    selectedIds.forEach(id => {
-                        form.append('<input type="hidden" name="ids[]" value="' + id + '">');
-                    });
-
-                    $('body').append(form);
-                    form.submit();
-                } else {
-                    if (type === 'excel') {
-                        window.location.href = "{{ route('admin.export.course-orders') }}";
-                    } else if (type === 'pdf') {
-                        window.location.href = "{{ route('admin.export.course-orders-pdf') }}";
-                    }
-                }
+        if (selectedIds.length > 0) {
+            let url = `export/course-orders-pdf?type=${type}`;
+            let csrfToken = $('meta[name="csrf-token"]').attr('content');
+            let form = $('<form method="POST" action="' + url + '"></form>');
+            form.append('<input type="hidden" name="_token" value="' + csrfToken + '">');
+            selectedIds.forEach(id => {
+                form.append('<input type="hidden" name="ids[]" value="' + id + '">');
+            });
+            $('body').append(form);
+            form.submit();
+        } else {
+            if (type === 'excel') {
+                window.location.href = "{{ route('admin.export.course-orders') }}";
+            } else if (type === 'pdf') {
+                window.location.href = "{{ route('admin.export.course-orders-pdf') }}";
             }
-            $('#btnExportExcel').click(function(e) {
-                e.preventDefault();
-                exportSelectedOrAll('excel');
-            });
+        }
+    }
 
-            $('#btnExportPdf').click(function(e) {
-                e.preventDefault();
-                exportSelectedOrAll('pdf');
-            });
-            $('#btnPrint').click(function() {
-                window.print();
-            });
+    $('#btnExportExcel').click(function (e) {
+        e.preventDefault();
+        exportSelectedOrAll('excel');
+    });
+
+    $('#btnExportPdf').click(function (e) {
+        e.preventDefault();
+        exportSelectedOrAll('pdf');
+    });
+
+    $('#btnPrint').click(function () {
+        window.print();
+    });
+
+    // Toggle bio read more
+    document.querySelectorAll('.toggle-bio').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            const parent = this.closest('dd');
+            const shortBio = parent.querySelector('.short-bio');
+            const fullBio = parent.querySelector('.full-bio');
+
+            if (shortBio.classList.contains('d-none')) {
+                shortBio.classList.remove('d-none');
+                fullBio.classList.add('d-none');
+                this.textContent = 'Read More';
+            } else {
+                shortBio.classList.add('d-none');
+                fullBio.classList.remove('d-none');
+                this.textContent = 'Close';
+            }
         });
+    });
 
-        // show full bio
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.toggle-bio').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const parent = this.closest('dd');
-                    const shortBio = parent.querySelector('.short-bio');
-                    const fullBio = parent.querySelector('.full-bio');
+    // Dynamic modal
+    const baseUrl = "{{ url('') }}";
+    const modalElement = document.getElementById('dynamic-modal');
+    const dynamicModal = new bootstrap.Modal(modalElement);
 
-                    if (shortBio.classList.contains('d-none')) {
-                        shortBio.classList.remove('d-none');
-                        fullBio.classList.add('d-none');
-                        this.textContent = 'Read More';
-                    } else {
-                        shortBio.classList.add('d-none');
-                        fullBio.classList.remove('d-none');
-                        this.textContent = 'Close';
-                    }
-                });
-            });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).on("click", ".show-order-courses, .show-order-invoice", function () {
+        const orderId = $(this).data('order-id');
+        const type = $(this).hasClass('show-order-courses') ? 'courses' : 'invoice';
+
+        dynamicModal.show();
+        $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+        $.get(`${baseUrl}/admin/orders/${orderId}?modal=${type}`, function (html) {
+            $('.dynamic-modal-content').html(html);
+        }).fail(() => {
+            $('.dynamic-modal-content').html('<div class="p-5 text-danger">Error loading form</div>');
         });
-    </script>
+    });
+});
+
+   </script>
 @endpush

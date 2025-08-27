@@ -1,16 +1,20 @@
-import './bootstrap';
+import "./bootstrap";
 
-import Alpine from 'alpinejs';
+import Alpine from "alpinejs";
 
-import 'laravel-datatables-vite';
+import "laravel-datatables-vite";
+
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
+
+window.notyf = new Notyf({
+    duration: 3000,
+    position: {
+        x: "right",
+        y: "top",
+    },
+});
 
 window.Alpine = Alpine;
 
 Alpine.start();
-
-// import 'jquery';
-// import 'datatables.net-bs5';
-// import 'datatables.net-buttons-bs5';
-// import 'datatables.net-buttons/js/buttons.html5';
-// import 'datatables.net-buttons/js/buttons.print';
-

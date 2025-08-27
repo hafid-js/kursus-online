@@ -9,8 +9,12 @@ const update_url = base_url + "/admin/courses/update";
 
 // notyf init
 var notyf = new Notyf({
-    duration: 8000,
-    dismissible: true
+    duration: 3000,
+    dismissible: true,
+    position: {
+        x: 'center',
+        y: 'top'
+    }
 });
 
 var loader = `
@@ -79,6 +83,12 @@ $(".basic_info_update_form").on("submit", function (e) {
             });
         },
         complete: function () {},
+    });
+});
+
+document.querySelectorAll(".only-number").forEach(function (input) {
+    input.addEventListener("input", function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
     });
 });
 
@@ -302,6 +312,7 @@ function updateApproveStatus(id, status) {
             status: status
         },
         success: function(data) {
+         notyf.success(data.message);
             window.location.reload()
         },
         error: function(xhr, status, error) {
@@ -309,27 +320,6 @@ function updateApproveStatus(id, status) {
         }
     })
 }
-
-// modal edit course language
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     const modal = document.getElementById('edit-language-modal');
-
-//     modal.addEventListener('show.bs.modal', function (event) {
-//         const button = event.relatedTarget;
-
-//         const id = button.getAttribute('data-id');
-//         const name = button.getAttribute('data-name');
-//         const action = button.getAttribute('data-action');
-
-//         // Set action URL and input values
-//         const form = modal.querySelector('form');
-//         form.action = action;
-
-//         modal.querySelector('#edit-language-id').value = id;
-//         modal.querySelector('#edit-language-name').value = name;
-//     });
-// });
 
 $('.edit_category').on('click', function() {
     $("#dynamic-modal").modal("show");
@@ -353,6 +343,12 @@ $('.edit_category').on('click', function() {
                 notyf.error(value[0]);
             });
         },
+    });
+});
+
+document.querySelectorAll(".only-number").forEach(function (input) {
+    input.addEventListener("input", function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
     });
 });
 

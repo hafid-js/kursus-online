@@ -144,7 +144,7 @@ class CourseOrdersDataTable extends DataTable
                 'orders.invoice_id',
                 DB::raw('MIN(orders.id) as id'),
                 DB::raw('SUM(courses.price) as total_amount'),
-                DB::raw('SUM(courses.price - (courses.price * COALESCE(courses.discount, 0) / 100)) as paid_amount'),
+                DB::raw('ROUND(SUM(courses.price - (courses.price * COALESCE(courses.discount, 0) / 100)), 2) AS paid_amount'),
                 DB::raw('MIN(orders.currency) as currency'),
                 DB::raw('MIN(users.name) as user_name'),
                 DB::raw('MIN(users.image) as user_image'),

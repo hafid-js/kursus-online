@@ -33,6 +33,8 @@ class StudentCourseEnrolledDataTable extends DataTable
                     $q2->where('name', 'like', "%{$keyword}%");
                 });
         });
+
+        // dd($query);
     }
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
@@ -48,7 +50,7 @@ class StudentCourseEnrolledDataTable extends DataTable
         });
 
         // order column for user/buyer name
-        $dataTable->orderColumn('name', function ($query, $order) {
+        $dataTable->orderColumn('users', function ($query, $order) {
             $query->orderBy('users.name', $order);
         });
 
@@ -154,7 +156,6 @@ class StudentCourseEnrolledDataTable extends DataTable
             ->join('orders', 'orders.id', '=', 'order_items.order_id')
             ->join('courses', 'courses.id', '=', 'order_items.course_id')
             ->with(['order.customer', 'course.instructor'])
-
             ->whereHas('course', function ($q) {
                 if ($this->instructorId !== null) {
                     $q->where('instructor_id', $this->instructorId);
@@ -165,16 +166,23 @@ class StudentCourseEnrolledDataTable extends DataTable
             $query->whereHas('order', function ($q) {
                 $q->where('buyer_id', $this->studentId);
             });
-        } else {
-            $query->orWhereHas('order', function ($q) {
-                if ($this->instructorId !== null) {
-                    $q->where('instructor_id', $this->instructorId);
-                }
-            });
         }
 
-        return $query->select('order_items.*', 'orders.buyer_id', 'courses.id as course_id', 'courses.title as course_name', 'orders.id as order_id');
+        return $query->select(
+            'order_items.*',
+            'orders.buyer_id',
+            'orders.invoice_id',
+            'orders.currency',
+            'orders.status',
+            'orders.created_at as order_created_at',
+            'courses.id as course_id',
+            'courses.title as course_title',
+            'courses.price as course_price',
+            'courses.discount as course_discount',
+            'courses.thumbnail as course_thumbnail'
+        );
     }
+
 
 
 
@@ -262,14 +270,14 @@ class StudentCourseEnrolledDataTable extends DataTable
             Column::computed('currency')
                 ->title('<span class="table-sort d-flex justify-content-start">Currency</span>')
                 ->orderable(true),
-            Column::computed('status')
+            Column::computed('order.status')
                 ->title('<span class="table-sort d-flex justify-content-start">Status</span>')
-                ->searchable(false)
+                ->searchable(true)
                 ->orderable(true),
 
             Column::computed('created_at')
                 ->title('<span class="table-sort d-flex justify-content-start">Order Date</span>')
-                ->searchable(false)
+                ->searchable(true)
                 ->orderable(true),
         ];
     }

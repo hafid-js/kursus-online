@@ -32,7 +32,7 @@ class LatestCourseSectionController extends Controller
         LatestCourseSection::updateOrCreate(['id' => 1], $validatedData);
 
         Cache::forget('homepage_latest_courses');
-        notyf()->success('Latest Course Section Updated Successfully');
+        notyf()->success('Updated Successfully');
 
         return redirect()->back();
     }

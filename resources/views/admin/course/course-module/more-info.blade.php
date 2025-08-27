@@ -14,14 +14,14 @@
                     <div class="col-xl-6">
                         <div class="add_course_more_info_input">
                             <label for="#">Capacity</label>
-                            <input type="text" placeholder="Capacity" name="capacity" value="{{ $course?->capacity }}">
+                            <input type="text" placeholder="Capacity" class="only-number" name="capacity" value="{{ $course?->capacity }}">
                             <p>leave blank for unlimited</p>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <div class="add_course_more_info_input">
                             <label for="#">Course Duration (Minutes)*</label>
-                            <input type="text" placeholder="300" name="duration" value="{{ $course->duration }}">
+                            <input type="text" placeholder="300" class="only-number" name="duration" value="{{ $course->duration }}">
                         </div>
                     </div>
                     <div class="col-xl-6">

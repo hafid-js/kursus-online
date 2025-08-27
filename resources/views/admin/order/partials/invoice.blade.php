@@ -48,16 +48,16 @@
                                 <td class="text-center">
                                     1
                                 </td>
-                                <td class="text-end">${{ $item->price }}</td>
+                                <td class="text-end">Rp.{{ $item->price }}</td>
                             </tr>
                         @endforeach
                         <tr>
                             <td colspan="3" class="strong text-end">Subtotal</td>
-                            <td class="text-end">${{ $order->total_amount }}</td>
+                            <td class="text-end">Rp.{{ $order->total_amount }}</td>
                         </tr>
                         <tr>
                             <td colspan="3" class="strong text-end">Paid Amount</td>
-                            <td class="text-end">${{ $order->paid_amount }}
+                            <td class="text-end">Rp.{{ $order->paid_amount }}
                                 {{ $order->currency }}</td>
                         </tr>
                     </tbody>

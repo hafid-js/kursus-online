@@ -242,6 +242,7 @@ class CourseController extends Controller
                 $course = Course::findOrFail($request->id);
                 $course->message_for_reviewer = $request->message;
                 $course->status = $request->status;
+                $course->is_approved = 'pending';
                 $course->save();
 
                 notyf()->success('Updated Successfuly!');

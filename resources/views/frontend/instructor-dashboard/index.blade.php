@@ -188,7 +188,7 @@
                                                             <p>{{ $data->total_buyers }}</p>
                                                         </td>
                                                         <td class="amount">
-                                                            <p>${{ number_format($data->total_revenue, 2) }}</p>
+                                                            <p>Rp.{{ number_format($data->total_revenue, 2) }}</p>
                                                         </td>
                                                     </tr>
                                                 @empty

@@ -87,7 +87,7 @@
                                                                 {{ $item->course->instructor->name }}</div>
                                                         </td>
                                                         <td class="quantity">1</td>
-                                                        <td class="price">${{ number_format($item->course->price, 2) }}
+                                                        <td class="price">Rp.{{ number_format($item->course->price, 2) }}
                                                         </td>
                                                         <td class="discount">{{ $item->course->discount ?? 0 }}%</td>
                                                     </tr>
@@ -109,8 +109,8 @@
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="wsus__invoice_final_total_right">
-                                        <h6>Subtotal:<span>${{ $order->total_amount }}</span></h6>
-                                        <h5>Paid Amount: <span>${{ $order->paid_amount }}
+                                        <h6>Subtotal:<span>Rp.{{ $order->total_amount }}</span></h6>
+                                        <h5>Paid Amount: <span>Rp.{{ $order->paid_amount }}
                                                 {{ $order->currency }}</span></h5>
                                     </div>
                                 </div>

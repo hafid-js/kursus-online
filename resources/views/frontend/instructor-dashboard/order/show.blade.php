@@ -103,7 +103,7 @@
                                                             <p>1</p>
                                                         </td>
                                                         <td class="total">
-                                                            <p>${{ $item->price }}</p>
+                                                            <p>Rp.{{ $item->price }}</p>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -123,8 +123,8 @@
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="wsus__invoice_final_total_right">
-                                        <h6>Subtotal:<span>${{ $order->total_amount }}</span></h6>
-                                        <h5>Paid Amount: <span>${{ $order->paid_amount }}
+                                        <h6>Subtotal:<span>Rp.{{ $order->total_amount }}</span></h6>
+                                        <h5>Paid Amount: <span>Rp.{{ $order->paid_amount }}
                                                 {{ $order->currency }}</span></h5>
                                     </div>
                                 </div>

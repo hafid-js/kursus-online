@@ -134,6 +134,13 @@ if (!function_exists('getUserInitials')) {
     }
 }
 
+function generateOrderId() {
+    $prefix = 'ORDER-';
+    $date = date('Ymd');
+    $random = strtoupper(substr(bin2hex(random_bytes(3)), 0, 6));
+    return $prefix . $date . '-' . $random;
+}
+
 
 
 

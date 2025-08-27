@@ -3,6 +3,13 @@ const base_url = $(`meta[name="base_url"]`).attr("content");
 const basic_info_url = base_url + "/instructor/courses/create";
 const update_url = base_url + "/instructor/courses/update";
 
+import { Notyf } from 'notyf';
+
+// notyf init
+var notyf = new Notyf({
+    duration: 3000,
+    dismissible: true,
+});
 
 var loader = `
 <div class="modal-content text-center text-primary p-2" style="display:inline">
@@ -19,6 +26,12 @@ $(".course-tab").on("click", function (e) {
     let step = $(this).data("step");
     $(".course-form").find("input[name=next_step]").val(step);
     $(".course-form").trigger("submit");
+});
+
+document.querySelectorAll(".only-number").forEach(function (input) {
+    input.addEventListener("input", function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 });
 
 $(".basic_info_form").on("submit", function (e) {

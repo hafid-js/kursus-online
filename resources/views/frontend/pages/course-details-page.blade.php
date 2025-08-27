@@ -410,7 +410,7 @@
                         <h3 class="wsus__courses_sidebar_price">
                             @if ($course->discount > 0)
                                 Price:
-                                <del>{{ config('settings.currency_icon') }}{{ $course->price }}</del>${{ $course->discount }}
+                                <del>{{ config('settings.currency_icon') }}{{ $course->price }}</del>Rp.{{ $course->discount }}
                             @elseif($course->price <= 0)
                                 FREE
                             @else

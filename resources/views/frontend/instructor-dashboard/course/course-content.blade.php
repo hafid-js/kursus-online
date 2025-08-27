@@ -36,7 +36,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <a class="edit edit_chapter" data-course-id="{{ $chapter->course_id }}" data-chapter-id="{{ $chapter->id }}" href="#"><i class="far fa-edit" aria-hidden="true"></i></a>
+                        <a class="edit edit_chapter" data-course-id="{{ $chapter->course_id }}" data-chapter-id="{{ $chapter->id }}" href="#"><i class="fa fa-edit" aria-hidden="true"></i></a>
                         <a class="del delete-item" href="{{ route('instructor.course-content.destroy-chapter', $chapter->id) }}"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
                     </div>
                 </h2>
@@ -48,7 +48,7 @@
                                 <span>{{ $lesson->title }}</span>
                                 <div class="add_course_content_action_btn">
                                     <a class="edit edit_lesson" data-lesson-id="{{ $lesson->id }}" data-chapter-id="{{ $chapter->id }}" data-course-id="{{ $chapter->course_id }}"
-                                        href="javascript:;"><i class="far fa-edit" aria-hidden="true"></i></a>
+                                        href="javascript:;"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                     <a class="del delete-item" href="{{ route('instructor.course-content.destroy-lesson', $lesson->id) }}"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
                                     <a class="arrow dragger" href="javascript:;"><i class="fas fa-arrows-alt" aria-hidden="true"></i></a>
                                 </div>

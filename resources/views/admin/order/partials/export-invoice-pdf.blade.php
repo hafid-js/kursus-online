@@ -100,9 +100,9 @@
                             <td>{{ $order->course_title }}</td>
                             <td>{{ $order->instructor }}</td>
                             <td>1</td>
-                            <td>${{ number_format($price, 2) }}</td>
+                            <td>Rp.{{ number_format($price, 2) }}</td>
                             <td>{{ $discount }}%</td>
-                            <td>${{ number_format($final, 2) }}</td>
+                            <td>Rp.{{ number_format($final, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -112,7 +112,7 @@
                 <tr>
                     <td style="text-align: right; padding-right: 5px;"><strong>Total:</strong></td>
                     <td style="text-align: left;">
-                        ${{ number_format($total, 2) }} {{ $orders->first()->currency ?? 'USD' }}
+                        Rp.{{ number_format($total, 2) }} {{ $orders->first()->currency ?? 'USD' }}
                     </td>
                 </tr>
             </table>

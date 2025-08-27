@@ -97,8 +97,9 @@
                                 <div class="text-secondary">
                                     Show
                                     <div class="mx-2 d-inline-block">
-                                        <input id="custom-length" type="number" min="1"
-                                            class="form-control form-control-sm" value="8" size="3"
+                                        <input type="number" min="1"
+                                            class="form-control form-control-sm custom-length-input"
+                                                data-table-id="studentcourseenrolled-table" value="10" size="3"
                                             aria-label="Invoices count">
                                     </div>
                                     entries

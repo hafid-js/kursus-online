@@ -135,8 +135,9 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-12">
-                                        <textarea rows="5" placeholder="Leave a comment" name="comment"></textarea>
+                                        <textarea rows="5" placeholder="Leave a comment" name="comment" required></textarea>
                                     </div>
+                                    <x-input-error :messages="$errors->get('comment')" class="mt-2 mb-2" />
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fas fa-paper-plane me-1"></i> Submit</button>

@@ -17,63 +17,53 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <x-input-block name="label" value="{{ $hero?->label }}"/>
-                                                <x-input-error :messages="$errors->get('label')" class="mt-2" />
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <x-input-block name="title" value="{{ $hero?->title }}"/>
-                                                <x-input-error :messages="$errors->get('title')" class="mt-2" />
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <x-input-block name="subtitle" value="{{ $hero?->subtitle }}"/>
-                                                <x-input-error :messages="$errors->get('subtitle')" class="mt-2" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <x-input-block name="button_text" value="{{ $hero?->button_text }}"/>
-                                                <x-input-error :messages="$errors->get('button_text')" class="mt-2" />
                                             </div>
                                         </div>
                                          <div class="col-md-6">
                                             <div class="mb-3">
                                                 <x-input-block name="button_url" value="{{ $hero?->button_url }}"/>
-                                                <x-input-error :messages="$errors->get('button_url')" class="mt-2" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <x-input-block name="video_button_text" value="{{ $hero?->video_button_text }}"/>
-                                                <x-input-error :messages="$errors->get('video_button_text')" class="mt-2" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <x-input-block name="video_button_url" value="{{ $hero?->video_button_url }}"/>
-                                                <x-input-error :messages="$errors->get('video_button_url')" class="mt-2" />
                                             </div>
                                         </div>
                                          <div class="col-md-6">
                                             <div class="mb-3">
                                                 <x-input-block name="banner_item_title" value="{{ $hero?->banner_item_title }}"/>
-                                                <x-input-error :messages="$errors->get('banner_item_title')" class="mt-2" />
                                             </div>
                                         </div>
                                          <div class="col-md-6">
                                             <div class="mb-3">
                                                 <x-input-block name="banner_item_subtitle" value="{{ $hero?->banner_item_subtitle }}"/>
-                                                <x-input-error :messages="$errors->get('banner_item_subtitle')" class="mt-2" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <x-input-block name="round_text" value="{{ $hero?->round_text }}"/>
-                                                <x-input-error :messages="$errors->get('round_text')" class="mt-2" />
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -81,7 +71,6 @@
                                                 <span class="avatar avatar-xl mb-3" style="background-image: url({{ asset($hero?->image) }})"> </span>
                                                 <x-input-file-block name="image"/>
                                                  <input type="hidden" name="old_image" value="{{ $hero?->image }}">
-                                                <x-input-error :messages="$errors->get('image')" class="mt-2" />
                                             </div>
                                         </div>
                                         <div class="mb-3">

@@ -137,9 +137,9 @@
                     <div class="total_payment_price">
                         <h4>Total Cart <span>(0{{ cartCount() }})</span></h4>
                         <ul>
-                            <li>Subtotal :<span>${{ cartTotal() }}</span></li>
+                            <li>Subtotal :<span>Rp.{{ cartTotal() }}</span></li>
                         </ul>
-                        <a href="#" class="common_btn">now payment</a>
+                        {{-- <a href="#" class="common_btn">now payment</a> --}}
                     </div>
                 </div>
             </div>
@@ -148,143 +148,170 @@
 @endsection
 
 @push('scripts')
-<script
-    type="text/javascript"
-    src="https://app.sandbox.midtrans.com/snap/snap.js"
-    data-client-key="{{ config('midtrans.client_key') }}">
-</script>
-<script>
-    $(function() {
-        $(".confirm-payment").on("click", function(e) {
-            e.preventDefault();
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
+    <script>
+        $(function() {
+            $(".confirm-payment").on("click", function(e) {
+                e.preventDefault();
 
-            const name = $(this).data('name');
-            const email = $(this).data('email');
-            const userId = $(this).data('id');
-            const rawItems = $(this).data('items');
+                const name = $(this).data('name');
+                const email = $(this).data('email');
+                const userId = $(this).data('id');
+                const rawItems = $(this).data('items');
 
-            const items = typeof rawItems === 'string' ? JSON.parse(rawItems) : rawItems;
+                const items = typeof rawItems === 'string' ? JSON.parse(rawItems) : rawItems;
 
-            let total = 0;
-            let tableRows = '';
+                let total = 0;
+                let tableRows = '';
 
-            const formatDollar = val => new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD'
-            }).format(val);
+                const formatRupiah = val => new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR'
+}).format(val);
 
-            items.forEach((item, index) => {
-                const quantity = item.quantity ?? 1;
-                const discount = item.discount ?? '0%';
-                const itemTotal = item.price * quantity;
-                total += itemTotal;
 
-                tableRows += `
+                items.forEach((item, index) => {
+                    const quantity = item.quantity ?? 1;
+                    const discount = item.discount ?? '0%';
+                    const itemTotal = item.price * quantity;
+                    total += itemTotal;
+
+                    tableRows += `
                     <tr>
                         <td>${index + 1}</td>
                         <td>${item.title}</td>
-                        <td>${formatDollar(item.price)}</td>
+                        <td>${formatRupiah(item.price)}</td>
                         <td>${discount}</td>
-                        <td>${formatDollar(itemTotal)}</td>
+                        <td>${formatRupiah(itemTotal)}</td>
                     </tr>
                 `;
-            });
+                });
 
-            const subtotalFormatted = formatDollar(total);
+                const subtotalFormatted = formatRupiah(total);
 
-            Swal.fire({
-                title: 'Confirm Your Orders',
-                width: 1000,
-                html: `
-                    <div class="table-responsive">
-                        <table class="table table-bordered" style="font-size:14px;">
-                            <thead>
-                                <tr style="background:#f2f2f2;">
-                                    <th>No</th>
-                                    <th>Item</th>
-                                    <th>Price</th>
-                                    <th>Discount</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${tableRows}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="text-align:right; font-weight:bold; margin-top:1rem;">
-                        Subtotal: ${subtotalFormatted}
-                    </div>
-                `,
-                showCancelButton: true,
-                confirmButtonText: 'Pay Now',
-                cancelButtonText: 'Cancel',
-                customClass: {
-                    confirmButton: 'btn btn-primary',
-                    cancelButton: 'btn btn-secondary'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: '/midtrans/create-transaction',
-                        method: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            user_id: userId,
-                            items: JSON.stringify(items),
-                            name: name,
-                            email: email,
-                        },
-                        success: function(response) {
-                            snap.pay(response.token, {
-                                onSuccess: function(result) {
-                                    console.log('Pembayaran sukses', result);
+                Swal.fire({
+                    title: 'Confirm Your Orders',
+                    width: 1000,
+                    html: `
+        <div class="table-responsive">
+            <table class="table table-bordered" style="font-size:14px;">
+                <thead>
+                    <tr style="background:#f2f2f2;">
+                        <th>No</th>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Discount</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align:right; font-weight:bold; margin-top:1rem;">
+            Subtotal: ${subtotalFormatted}
+        </div>
+    `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Process',
+                    cancelButtonText: 'Cancel',
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                        cancelButton: 'btn btn-secondary'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
 
-                                    fetch('/order/store', {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                        },
-                                        body: JSON.stringify({
-                                            transaction_id: result.transaction_id,
-                                            main_amount: result.gross_amount,
-                                            paid_amount: result.gross_amount,
-                                            currency: 'IDR'
-                                        })
-                                    })
-                                    .then(res => res.json())
-                                    .then(data => {
-                                        if (data.success) {
-                                           window.location.href = "http://127.0.0.1:8000/student/dashboard";
-                                        } else {
-                                            Swal.fire('Error', 'Gagal menyimpan order', 'error');
-                                        }
-                                    })
-                                    .catch(() => {
-                                        Swal.fire('Error', 'Terjadi kesalahan saat menyimpan order', 'error');
-                                    });
-                                },
-                                onPending: function(result) {
-                                    console.log('Pembayaran pending', result);
-                                },
-                                onError: function(result) {
-                                    console.log('Pembayaran error', result);
-                                },
-                                onClose: function() {
-                                    console.log('User menutup popup pembayaran');
-                                }
-                            });
-                        },
-                        error: function(err) {
-                            Swal.fire('Error', 'Gagal membuat transaksi', 'error');
-                        }
-                    });
-                }
+                        // ⏳ Tampilkan loading sebelum proses Midtrans
+                        Swal.fire({
+                            title: 'Processing...',
+                            html: 'Please wait while we prepare your payment...',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        $.ajax({
+                            url: '/midtrans/create-transaction',
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                user_id: userId,
+                                items: JSON.stringify(items),
+                                name: name,
+                                email: email,
+                            },
+                            success: function(response) {
+                                Swal.close();
+
+                                snap.pay(response.token, {
+                                    onSuccess: function(result) {
+                                        console.log('Payment successful',
+                                            result);
+
+                                        fetch('/order/store', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                                },
+                                                body: JSON.stringify({
+                                                    transaction_id: result
+                                                        .transaction_id,
+                                                    main_amount: result
+                                                        .gross_amount,
+                                                    paid_amount: result
+                                                        .gross_amount,
+                                                    currency: 'IDR'
+                                                })
+                                            })
+                                            .then(res => res.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    window.location
+                                                        .href =
+                                                        "http://127.0.0.1:8000/student/dashboard";
+                                                } else {
+                                                    Swal.fire('Error',
+                                                        'Failed to save order',
+                                                        'error');
+                                                }
+                                            })
+                                            .catch(() => {
+                                                Swal.fire('Error',
+                                                    'An error occurred while saving the order',
+                                                    'error');
+                                            });
+                                    },
+                                    onPending: function(result) {
+                                        console.log('Payment pending',
+                                            result);
+                                    },
+                                    onError: function(result) {
+                                        console.log('Payment error',
+                                        result);
+                                    },
+                                    onClose: function() {
+                                        console.log(
+                                            'User closed the payment popup'
+                                            );
+                                    }
+                                });
+                            },
+                            error: function(err) {
+                                Swal.close();
+                                Swal.fire('Error', 'Failed to create transaction',
+                                    'error');
+                            }
+
+                        });
+                    }
+                });
+
             });
         });
-    });
-</script>
-
+    </script>
 @endpush
-

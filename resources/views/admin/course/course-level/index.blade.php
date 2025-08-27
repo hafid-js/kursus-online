@@ -20,6 +20,7 @@
                                     <table class="table table-vcenter card-table">
                                         <thead>
                                             <tr>
+                                                <th>No</th>
                                                 <th>Name</th>
                                                 <th>Slug</th>
                                                 <th>Action</th>
@@ -29,6 +30,7 @@
                                         <tbody>
                                             @forelse ($levels as $level)
                                                 <tr>
+                                                    <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $level->name }}</td>
                                                     <td>{{ $level->slug }}</td>
                                                     <td>

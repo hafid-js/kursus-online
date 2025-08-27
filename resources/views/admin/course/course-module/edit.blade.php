@@ -62,14 +62,14 @@
                     <div class="col-xl-6">
                         <div class="add_course_basic_info_imput">
                             <label for="#">Price *</label>
-                            <input type="text" placeholder="Price" name="price" value="{{ $course->price }}">
+                            <input type="text" placeholder="Price" class="only-number" name="price" value="{{ $course->price }}">
                             <p>Put 0 for free</p>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <div class="add_course_basic_info_imput">
-                            <label for="#">Discount Price</label>
-                            <input type="text" placeholder="Price" name="discount" value="{{ $course->discount }}">
+                            <label for="#">Discount (%)</label>
+                            <input type="number"  class="only-number" placeholder="" name="discount" value="{{ $course->discount }}">
                         </div>
                     </div>
                     <div class="col-xl-12">

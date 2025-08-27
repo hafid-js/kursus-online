@@ -94,20 +94,25 @@ class PaymentController extends Controller
             $capture = $response['purchase_units'][0]['payments']['captures'][0];
 
             $transactionId = $capture['id'];
+
             $mainAmount = cartTotal();
             $paidAmount = $capture['amount']['value'];
             $currency = $capture['amount']['currency_code'];
 
+            $orderId = generateOrderId();
+
             try {
                 OrderService::storeOrder(
-                    $transactionId,
+                    $orderId,
                     auth()->user()->id,
                     'approved',
                     $mainAmount,
                     $paidAmount,
                     $currency,
-                    'paypal'
+                    'paypal',
+                    $transactionId
                 );
+
                 return redirect()->route('paypal.success');
             } catch (\Throwable $th) {
                 throw $th;
@@ -117,94 +122,93 @@ class PaymentController extends Controller
         return redirect()->route('paypal.failed');
     }
 
-     public function createMidtransTransaction(Request $request)
-{
-    // Konfigurasi Midtrans
-    Config::$serverKey = config('midtrans.server_key');
-    Config::$isProduction = config('midtrans.is_production');
-    Config::$isSanitized = true;
-    Config::$is3ds = true;
+    public function createMidtransTransaction(Request $request)
+    {
+        // Konfigurasi Midtrans
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
 
-    // Decode items dari request
-    $items = json_decode($request->items, true);
-    $totalUSD = 0;
-    foreach ($items as $item) {
-        $totalUSD += $item['price'] * ($item['quantity'] ?? 1);
+        // Decode items dari request
+        $items = json_decode($request->items, true);
+        $totalUSD = 0;
+        foreach ($items as $item) {
+            $totalUSD += $item['price'] * ($item['quantity'] ?? 1);
+        }
+
+        $rate = $this->getUsdToIdrRate();
+        $totalIDR = round($totalUSD * $rate);
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => generateOrderId(),
+                'gross_amount' => $totalIDR,
+            ],
+            'customer_details' => [
+                'first_name' => $request->name,
+                'email' => $request->email,
+            ],
+        ];
+
+
+        $snapToken = Snap::getSnapToken($params);
+
+        return response()->json([
+            'token' => $snapToken
+        ]);
     }
 
-    // Dapatkan kurs USD -> IDR
-    $rate = $this->getUsdToIdrRate();
-    $totalIDR = round($totalUSD * $rate);
+    public function storeAfterPayment(Request $request)
+    {
+        try {
+            OrderService::storeOrder(
+                $request->transaction_id,
+                auth()->id(),
+                'approved',
+                $request->main_amount,
+                $request->paid_amount,
+                $request->currency,
+                'midtrans'
+            );
 
-    // Buat parameter Midtrans
-    $params = [
-        'transaction_details' => [
-            'order_id' => 'ORDER-' . uniqid(),
-            'gross_amount' => $totalIDR,
-        ],
-        'customer_details' => [
-            'first_name' => $request->name,
-            'email' => $request->email,
-        ],
-    ];
-
-    $snapToken = Snap::getSnapToken($params);
-
-   return response()->json([
-    'token' => $snapToken
-]);
-}
-
-public function storeAfterPayment(Request $request)
-{
-    try {
-        OrderService::storeOrder(
-            $request->transaction_id,
-            auth()->id(),
-            'approved',
-            $request->main_amount,
-            $request->paid_amount,
-            $request->currency,
-            'midtrans'
-        );
-
-        return response()->json(['success' => true]);
-    } catch (\Throwable $th) {
-        return response()->json(['success' => false], 500);
-    }
-}
-
-
-public function handleNotification(Request $request)
-{
-    $serverKey = config('midtrans.server_key');
-    $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
-
-    if ($hashed !== $request->signature_key) {
-        return response()->json(['message' => 'Invalid signature'], 403);
+            return response()->json(['success' => true]);
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false], 500);
+        }
     }
 
-    if (in_array($request->transaction_status, ['settlement', 'capture'])) {
-        OrderService::storeOrder(
-            $request->transaction_id,
-            auth()->id(),
-            'approved',
-            $request->gross_amount,
-            $request->gross_amount,
-            'IDR',
-            'midtrans'
-        );
+
+    public function handleNotification(Request $request)
+    {
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+
+        if ($hashed !== $request->signature_key) {
+            return response()->json(['message' => 'Invalid signature'], 403);
+        }
+
+        if (in_array($request->transaction_status, ['settlement', 'capture'])) {
+            OrderService::storeOrder(
+                $request->transaction_id,
+                auth()->id(),
+                'approved',
+                $request->gross_amount,
+                $request->gross_amount,
+                'IDR',
+                'midtrans'
+            );
+        }
+
+        return response()->json(['message' => 'OK']);
     }
 
-    return response()->json(['message' => 'OK']);
-}
 
-
-private function getUsdToIdrRate()
-{
-    $response = Http::get('https://api.exchangerate.host/latest?base=USD&symbols=IDR');
-    return $response->json()['rates']['IDR'] ?? 16000; // default fallback
-}
+    private function getUsdToIdrRate()
+    {
+        $response = Http::get('https://api.exchangerate.host/latest?base=USD&symbols=IDR');
+        return $response->json()['rates']['IDR'] ?? 16000; // default fallback
+    }
 
 
 
