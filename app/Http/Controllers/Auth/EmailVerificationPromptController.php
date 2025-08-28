@@ -16,9 +16,9 @@ class EmailVerificationPromptController extends Controller
     {
         return $request->user()->hasVerifiedEmail()
             ? redirect()->intended(
-                $request->user()->role === 'student'
+                'student' === $request->user()->role
                     ? route('student.dashboard')
-                    : ($request->user()->role === 'instructor'
+                    : ('instructor' === $request->user()->role
                         ? route('instructor.dashboard')
                         : '/')
             )

@@ -3,20 +3,18 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RefreshTokenRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
     /**
-     * User registration
+     * User registration.
      */
 
     // registeration new user
@@ -28,7 +26,7 @@ class AuthController extends Controller
         $validated['email_verified_at'] = now();
         $validated['password'] = bcrypt($validated['password']);
 
-        if ($validated['role'] === 'instructor') {
+        if ('instructor' === $validated['role']) {
             if ($request->hasFile('document')) {
                 $validated['document'] = $request->file('document')->store('documents', 'public');
             } else {
@@ -39,7 +37,7 @@ class AuthController extends Controller
                 ], 422);
             }
             $validated['approve_status'] = 'pending';
-        } elseif ($validated['role'] === 'student') {
+        } elseif ('student' === $validated['role']) {
             $validated['approve_status'] = 'approved';
         } else {
             return response()->json([
@@ -68,47 +66,46 @@ class AuthController extends Controller
         ], 201);
     }
 
-
     /**
-     * Login user
+     * Login user.
      */
     public function login(Request $request)
-{
-    $request->validate([
-        'email'    => 'required|email',
-        'password' => 'required',
-    ]);
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-    $user = User::where('email', $request->email)->first();
-    if (!$user || !Hash::check($request->password, $user->password)) {
+        $user = User::where('email', $request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Email or password is incorrect.',
+            ], 401);
+        }
+
+        if ('approved' !== $user->approve_status) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Your account is not approved yet.',
+            ], 403);
+        }
+
+        $tokenResult = $user->createToken($user->role . '-token');
+
         return response()->json([
-            'status' => 'error',
-            'message' => 'Email or password is incorrect.',
-        ], 401);
+            'status' => 'success',
+            'message' => 'Login successful',
+            'data' => [
+                'user' => $user,
+                'token' => $tokenResult->accessToken,
+                'expires_at' => $tokenResult->token->expires_at,
+            ],
+        ]);
     }
-
-    if ($user->approve_status !== 'approved') {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Your account is not approved yet.',
-        ], 403);
-    }
-
-    $tokenResult = $user->createToken($user->role . '-token');
-
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Login successful',
-        'data' => [
-            'user' => $user,
-            'token' => $tokenResult->accessToken,
-            'expires_at' => $tokenResult->token->expires_at,
-        ]
-    ]);
-}
 
     /**
-     * Refresh access token
+     * Refresh access token.
      */
     public function refreshToken(RefreshTokenRequest $request): JsonResponse
     {
@@ -129,7 +126,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Logout user and revoke tokens
+     * Logout user and revoke tokens.
      */
     public function destroy(Request $request): JsonResponse
     {

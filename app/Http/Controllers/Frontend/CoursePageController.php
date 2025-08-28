@@ -10,14 +10,12 @@ use App\Models\CourseLevel;
 use App\Models\Enrollment;
 use App\Models\Review;
 use App\Models\User;
-use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CoursePageController extends Controller
 {
-    function index(Request $request)
+    public function index(Request $request)
     {
         $courses = Course::with('enrollments')->where('is_approved', 'approved')->where('status', 'active')->when($request->has('search') && $request->filled('search'), function ($query) use ($request) {
             $query->where('title', 'like', '%' . $request->search . '%')->orWhere('description', 'like', '%' . $request->search . '%');
@@ -52,7 +50,7 @@ class CoursePageController extends Controller
             })
 
             ->orderBy('id', $request->filled('order') ? $request->order : 'desc')
-            ->paginate(12);
+            ->paginate(9);
         $categories = CourseCategory::where('status', '1')->whereNull('parent_id')->get();
         $levels = CourseLevel::all();
         $languages = CourseLanguage::all();
@@ -63,7 +61,7 @@ class CoursePageController extends Controller
         return view('frontend.pages.course-page', compact('courses', 'categories', 'levels', 'languages'));
     }
 
-    function show(string $slug)
+    public function show(string $slug)
     {
         $course = Course::with('reviews')->where('slug', $slug)
             ->where('is_approved', 'approved')
@@ -88,12 +86,12 @@ class CoursePageController extends Controller
         return view('frontend.pages.course-details-page', compact('course', 'reviews', 'students', 'avgInstructorRating'));
     }
 
-    function storeReview(Request $request): RedirectResponse
+    public function storeReview(Request $request): RedirectResponse
     {
         $request->validate([
             'rating' => ['required', 'numeric'],
             'review' => ['required', 'string', 'max:1000'],
-            'course' => ['required', 'integer']
+            'course' => ['required', 'integer'],
         ]);
 
         $checkPurchase = Enrollment::where('user_id', user()->id)->where('course_id', $request->course)->exists();
@@ -101,11 +99,13 @@ class CoursePageController extends Controller
 
         if (!$checkPurchase) {
             notyf()->error('Please Purchase Course First!');
+
             return redirect()->back();
         }
 
         if ($alreadyReviewed) {
             notyf()->error('You Already Reviewed This Course!');
+
             return redirect()->back();
         }
 
@@ -117,6 +117,7 @@ class CoursePageController extends Controller
         $review->save();
 
         notyf()->success('Review Submitted Successfully!');
+
         return redirect()->back();
     }
 }

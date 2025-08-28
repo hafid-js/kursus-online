@@ -13,22 +13,22 @@ class ActivityTrackerController extends Controller
         $response = Http::withBasicAuth('elastic', 'r5h*GlS2Mc4HdSrlQUip') // Ganti dengan password kamu
             ->withOptions(['verify' => false]) // Abaikan SSL di localhost
             ->post('https://localhost:9200/user-activity/_doc', [
-                'user_id'   => $request->user_id,
-                'ip'        => $request->ip,
-                'city'      => $request->city,
-                'region'    => $request->region,
-                'country'   => $request->country,
-                'latitude'  => $request->latitude,
+                'user_id' => $request->user_id,
+                'ip' => $request->ip,
+                'city' => $request->city,
+                'region' => $request->region,
+                'country' => $request->country,
+                'latitude' => $request->latitude,
                 'longitude' => $request->longitude,
-                'browser'   => $request->browser,
-                'device'    => $request->device,
-                'page'      => $request->page,
-                'timestamp' => $request->timestamp
+                'browser' => $request->browser,
+                'device' => $request->device,
+                'page' => $request->page,
+                'timestamp' => $request->timestamp,
             ]);
 
         return response()->json([
             'status' => 'ok',
-            'elastic_response' => $response->json()
+            'elastic_response' => $response->json(),
         ]);
     }
 }

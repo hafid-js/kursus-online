@@ -4,42 +4,33 @@ namespace App\DataTables;
 
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\EloquentDataTable;
 
 class CourseDataTable extends DataTable
 {
-    /**
-     * Build the DataTable class.
-     *
-     * @param QueryBuilder $query Results from query() method.
-     */
-    protected $instructorId = null;
+    protected $instructorId;
 
     public function setInstructorId($id)
     {
         $this->instructorId = $id;
+
         return $this;
     }
 
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         $dataTable = new EloquentDataTable($query);
-        $dataTable
-            ->filterColumn('title', function ($query, $keyword) {
-                $query->where(function ($q) use ($keyword) {
-                    $q
-                        ->where('courses.title', 'like', "%{$keyword}%")
-                        ->orWhere('instructor.name', 'like', "%{$keyword}%");
-                });
-            });
 
-        // order column for title course
+        $dataTable->filterColumn('title', function ($query, $keyword) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('courses.title', 'like', "%{$keyword}%")
+                  ->orWhere('instructor.name', 'like', "%{$keyword}%");
+            });
+        });
+
         $dataTable->orderColumn('title', function ($query, $order) {
             $query->orderBy('title', $order);
         });
@@ -47,94 +38,72 @@ class CourseDataTable extends DataTable
         return $dataTable
             ->addIndexColumn()
             ->editColumn('title', function ($row) {
-                return '<div class="d-flex py-1 align-items-center">
-                                                                <span class="avatar avatar-2 me-2"
-                                                                    style="background-image: url(' . asset($row->thumbnail) . ')"></span>
-                                                            <div class="flex-fill">
-                                                                <div class="font-weight-medium">
-                                                                    ' . $row->title . '</div>
-                                                                    <div class="font-weight-medium">
-                                                                        <div class="text-secondary">
-                                                                            <a href="#"
-                                                                                class="text-reset">' . $row->instructor->name . '</a>
-                                                                        </div>
-                                                                    </div>
-                                                            </div>
-                                                        </div>';
+                return '
+                    <div class="d-flex py-1 align-items-center">
+                        <span class="avatar avatar-2 me-2" style="background-image: url(' . asset($row->thumbnail) . ')"></span>
+                        <div class="flex-fill">
+                            <div class="font-weight-medium">' . $row->title . '</div>
+                            <div class="text-secondary">
+                                <a href="#" class="text-reset">' . $row->instructor->name . '</a>
+                            </div>
+                        </div>
+                    </div>
+                ';
             })
-            ->editColumn('price', function ($row) {
-                return $row->price;
-            })
-            ->editColumn('discount', function ($row) {
-                return $row->discount ?? 0 . '%';
-            })
-            ->editColumn('created_at', function ($row) {
-                return format_to_date($row->created_at);
-            })
+            ->editColumn('price', fn ($row) => $row->price)
+            ->editColumn('discount', fn ($row) => ($row->discount ?? 0) . '%')
+            ->editColumn('created_at', fn ($row) => format_to_date($row->created_at))
             ->editColumn('status', function ($row) {
-                if ($row->status === 'active') {
-                    return '<span class="badge bg-lime text-lime-fg">Active</span>';
-                } elseif ($row->status === 'inactive') {
-                    return '<span class="badge bg-yellow text-yellow-fg">Inactive</span>';
-                } else if ($row->status === 'draft') {
-                    return '<span class="badge bg-secondary text-secondary-fg">Draft</span>';
-                }
-
-                return '<span class="badge bg-secondary">Unknown</span>';
+                return match ($row->status) {
+                    'active' => '<span class="badge bg-lime text-lime-fg">Active</span>',
+                    'inactive' => '<span class="badge bg-yellow text-yellow-fg">Inactive</span>',
+                    'draft' => '<span class="badge bg-secondary text-secondary-fg">Draft</span>',
+                    default => '<span class="badge bg-secondary">Unknown</span>',
+                };
             })
             ->editColumn('is_approved', function ($row) {
                 $status = $row->is_approved;
 
-                $validationClass = '';
-                if ($status === 'approved') {
-                    $validationClass = 'is-valid';
-                } elseif ($status === 'pending') {
-                    $validationClass = 'is-pending';
-                } else {
-                    $validationClass = 'is-invalid';
-                }
+                $validationClass = match ($status) {
+                    'approved' => 'is-valid',
+                    'pending' => 'is-pending',
+                    default => 'is-invalid',
+                };
 
-                return '<select name="" class="form-control update-approval-status ' . $validationClass . '" data-id="' . $row->id . '">
-        <option value="pending" ' . ($status == 'pending' ? 'selected' : '') . '>Pending</option>
-        <option value="approved" ' . ($status == 'approved' ? 'selected' : '') . '>Approved</option>
-        <option value="rejected" ' . ($status == 'rejected' ? 'selected' : '') . '>Rejected</option>
-    </select>';
+                return '
+                    <select class="form-control update-approval-status ' . $validationClass . '" data-id="' . $row->id . '">
+                        <option value="pending" ' . ('pending' === $status ? 'selected' : '') . '>Pending</option>
+                        <option value="approved" ' . ('approved' === $status ? 'selected' : '') . '>Approved</option>
+                        <option value="rejected" ' . ('rejected' === $status ? 'selected' : '') . '>Rejected</option>
+                    </select>
+                ';
             })
-            ->addColumn('action', function ($row) {
-                return ' <a href="' . route('admin.courses.edit', ['id' => $row->id, 'step' => 1]) . '"
-                                                            class="text-blue">
-                                                            <i class="ti ti-edit"></i>
-                                                        </a>';
-            })
+            ->addColumn('action', fn ($row) => '
+                <a href="' . route('admin.courses.edit', ['id' => $row->id, 'step' => 1]) . '" class="text-blue">
+                    <i class="ti ti-edit"></i>
+                </a>
+            ')
             ->rawColumns(['title', 'price', 'discount', 'created_at', 'status', 'is_approved', 'action'])
             ->setRowId('id');
     }
 
-    /**
-     * Get the query source of dataTable.
-     */
     public function query(Course $model): QueryBuilder
     {
-        $query = $model
-            ->newQuery()
+        $query = $model->newQuery()
             ->leftJoin('users as instructor', 'instructor.id', '=', 'courses.instructor_id')
-            ->select('courses.*', 'instructor.name as instructor_name')->where('courses.status', '!=', 'draft');
+            ->select('courses.*', 'instructor.name as instructor_name')
+            ->where('courses.status', '!=', 'draft');
 
-
-        if ($this->instructorId !== null) {
+        if (null !== $this->instructorId) {
             $query->where('instructor_id', $this->instructorId);
         }
 
         return $query;
     }
 
-    /**
-     * Optional method if you want to use the html builder.
-     */
     public function html(): HtmlBuilder
     {
-        return $this
-            ->builder()
+        return $this->builder()
             ->setTableId('course-table')
             ->columns($this->getColumns())
             ->minifiedAjax(
@@ -154,9 +123,6 @@ class CourseDataTable extends DataTable
             ]);
     }
 
-    /**
-     * Get the dataTable columns definition.
-     */
     public function getColumns(): array
     {
         return [
@@ -164,36 +130,45 @@ class CourseDataTable extends DataTable
                 ->title('No')
                 ->searchable(false)
                 ->orderable(false),
+
             Column::computed('title', 'instructor_name')
                 ->title('<span class="table-sort d-flex justify-content-start">Title</span>')
                 ->searchable(true)
                 ->orderable(true)
                 ->escape(false),
+
             Column::make('price')
                 ->title('<span class="table-sort d-flex justify-content-start">Price</span>'),
+
             Column::computed('discount')
                 ->title('<span class="table-sort d-flex justify-content-start">Discount</span>')
                 ->searchable(true)
                 ->orderable(true)
                 ->escape(false),
+
             Column::computed('created_at')
                 ->title('<span class="table-sort d-flex justify-content-start">Created At</span>')
                 ->orderable(true),
+
             Column::computed('status')
                 ->title('<span class="table-sort d-flex justify-content-start">Status</span>')
                 ->searchable(true)
                 ->orderable(true),
+
             Column::computed('is_approved')
                 ->title('<span class="table-sort d-flex justify-content-start">Approve</span>')
                 ->searchable(true)
                 ->orderable(true),
+
             Column::computed('action')
+                ->title('Action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center'),
         ];
     }
 
-    /**
-     * Get the filename for export.
-     */
     protected function filename(): string
     {
         return 'Course_' . date('YmdHis');

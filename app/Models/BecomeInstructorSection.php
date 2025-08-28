@@ -14,6 +14,6 @@ class BecomeInstructorSection extends Model
         'subtitle',
         'button_text',
         'button_url',
-        'image'
+        'image',
     ];
 }

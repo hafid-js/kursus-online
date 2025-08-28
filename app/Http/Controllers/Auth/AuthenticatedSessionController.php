@@ -55,6 +55,7 @@ class AuthenticatedSessionController extends Controller
                 return redirect()->route('verification.notice')
                     ->with('status', 'Please verify your email before logging in.');
             }
+
             // $this->logUserInfo($request);
             return match (Auth::user()->role) {
                 'student' => redirect()->intended(route('student.dashboard')),
@@ -62,7 +63,6 @@ class AuthenticatedSessionController extends Controller
                 default => redirect('/'),
             };
         }
-
 
         RateLimiter::hit($key, 120);
 
@@ -111,7 +111,6 @@ class AuthenticatedSessionController extends Controller
     //         ]);
     //     }
     // }
-
 
     /**
      * Destroy an authenticated session.

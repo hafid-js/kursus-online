@@ -446,6 +446,7 @@
     <script src="{{ asset('admin/assets/js/tabler.min.js?1692870487') }} " defer></script>
     <script src="{{ asset('admin/assets/js/demo.min.js?1692870487') }} " defer></script>
 
+
     <script>
         $(document).ready(function() {
             $('.select2').select2({

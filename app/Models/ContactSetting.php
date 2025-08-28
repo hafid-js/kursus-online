@@ -9,5 +9,5 @@ class ContactSetting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['image','map_url'];
+    protected $fillable = ['image', 'map_url'];
 }

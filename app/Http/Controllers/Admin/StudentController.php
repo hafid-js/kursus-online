@@ -17,7 +17,7 @@ class StudentController extends Controller
         $query = User::where('role', 'student')
             ->where('approve_status', 'approved');
 
-        if ($request->has('search') && $request->search != '') {
+        if ($request->has('search') && '' != $request->search) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
@@ -35,7 +35,6 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -43,7 +42,6 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -56,23 +54,22 @@ class StudentController extends Controller
         $studentCourseEnrolledDataTable->setStudentId($id);
         $studentCourseEnrolledDataTable->setInstructorId(null);
 
-        $student= User::findOrFail($id);
+        $student = User::findOrFail($id);
 
-        if ($student->role !== 'student') {
+        if ('student' !== $student->role) {
             abort(404);
         }
 
-
         return view('admin.user.student.detail', [
             'studentCourseEnrolledDataTable' => $studentCourseEnrolledDataTable->html(),
-            'student' => $student
+            'student' => $student,
         ]);
     }
 
     public function getAllStudentEnrolled(StudentCourseEnrolledDataTable $studentCourseEnrolledDataTable, string $id)
     {
         $studentCourseEnrolledDataTable->setStudentId($id);
-               $studentCourseEnrolledDataTable->setInstructorId(null);
+        $studentCourseEnrolledDataTable->setInstructorId(null);
 
         return $studentCourseEnrolledDataTable->render('admin.user.student.student_enrolled_table');
     }
@@ -82,7 +79,6 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        //
     }
 
     /**
@@ -90,7 +86,6 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
     }
 
     /**
@@ -98,6 +93,5 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 }

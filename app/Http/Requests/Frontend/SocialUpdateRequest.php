@@ -22,11 +22,10 @@ class SocialUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'facebook' => ['nullable','url','max:255'],
-            'x' => ['nullable','url','max:255'],
-            'linkedin' => ['nullable','url','max:255'],
-            'website' => ['nullable','url','max:255'],
-
+            'facebook' => ['nullable', 'url', 'max:255'],
+            'x' => ['nullable', 'url', 'max:255'],
+            'linkedin' => ['nullable', 'url', 'max:255'],
+            'website' => ['nullable', 'url', 'max:255'],
         ];
     }
 }

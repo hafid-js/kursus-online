@@ -9,7 +9,7 @@ class StoreReviewRequest extends FormRequest
     public function authorize()
     {
         // Pastikan user sudah login via Passport (API auth)
-        return $this->user() != null;
+        return null != $this->user();
     }
 
     public function rules()

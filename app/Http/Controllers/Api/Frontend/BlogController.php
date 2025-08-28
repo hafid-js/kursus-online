@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BlogResource;
 use App\Http\Resources\BlogCategoryResource;
 use App\Http\Resources\BlogCommentResource;
+use App\Http\Resources\BlogResource;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogComment;

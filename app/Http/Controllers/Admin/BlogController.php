@@ -7,7 +7,6 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogComment;
 use App\Traits\FileUpload;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -15,19 +14,19 @@ use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
-
     use FileUpload;
 
     public function index()
     {
         $blogs = Blog::with('category')->paginate(20);
+
         return view('admin.blog.index', compact('blogs'));
     }
-
 
     public function create()
     {
         $categories = BlogCategory::all();
+
         return view('admin.blog.create', compact('categories'));
     }
 
@@ -83,6 +82,7 @@ class BlogController extends Controller
     {
         $blog = Blog::findOrFail($id);
         $categories = BlogCategory::all();
+
         return view('admin.blog.edit', compact('blog', 'categories'));
     }
 
@@ -98,7 +98,6 @@ class BlogController extends Controller
             'category' => ['required', 'exists:blog_categories,id'],
             'status' => ['nullable', 'boolean'],
         ]);
-
 
         $blog = Blog::findOrFail($id);
 
@@ -133,9 +132,11 @@ class BlogController extends Controller
             $blog->delete();
             Cache::forget('homepage_blogs');
             notyf()->success('Delete Succesfully!');
+
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch (Exception $e) {
-            logger("Blog Error >> " . $e);
+        } catch (\Exception $e) {
+            logger('Blog Error >> ' . $e);
+
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

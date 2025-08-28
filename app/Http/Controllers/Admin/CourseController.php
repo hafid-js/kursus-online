@@ -11,18 +11,14 @@ use App\Models\CourseChapter;
 use App\Models\CourseChapterLession;
 use App\Models\CourseLanguage;
 use App\Models\CourseLevel;
-use App\Models\OrderItem;
 use App\Models\User;
 use App\Traits\FileUpload;
 use Exception;
 use Flasher\Laravel\Http\Response;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-
-use function Laravel\Prompts\alert;
 
 class CourseController extends Controller
 {
@@ -35,27 +31,17 @@ class CourseController extends Controller
 
     public function index(CourseDataTable $dataTable)
     {
-        $id = null;
-        $orderItems = OrderItem::with([
-            'course.instructor',
-            'order.customer'
-        ])
-            ->whereHas('course', function ($query) use ($id) {
-                $query->where('instructor_id', $id);
-            })
-            ->get();
-        $dataTable->setInstructorId($id);
-        return $dataTable->render('admin.course.course-module.index', compact('orderItems'));
+        return $dataTable->render('admin.course.course-module.index');
     }
 
     // change approve status
-    function updateApproval(Request $request, Course $course)
+    public function updateApproval(Request $request, Course $course)
     {
         $course->is_approved = $request->status;
 
-        if ($request->status == 'pending' || $request->status == 'rejected') {
+        if ('pending' == $request->status || 'rejected' == $request->status) {
             $course->status = 'inactive';
-        } else if ($request->status == 'approved') {
+        } elseif ('approved' == $request->status) {
             $course->status = 'active';
         }
 
@@ -63,17 +49,18 @@ class CourseController extends Controller
 
         return response([
             'status' => 'success',
-            'message' => 'Updated Successfully!'
+            'message' => 'Updated Successfully!',
         ]);
     }
 
-    function create()
+    public function create()
     {
         $instructors = User::where('role', 'instructor')->where('approve_status', 'approved')->get();
+
         return view('admin.course.course-module.create', compact('instructors'));
     }
 
-    function storeBasicInfo(CourseBasicInfoCreateRequest $request)
+    public function storeBasicInfo(CourseBasicInfoCreateRequest $request)
     {
         $thumbnailPath = $this->uploadFile($request->file('thumbnail'));
         $course = new Course();
@@ -95,16 +82,16 @@ class CourseController extends Controller
         return response([
             'status' => 'success',
             'message' => 'Updated Successfully!.',
-            'redirect' => route('admin.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
+            'redirect' => route('admin.courses.edit', ['id' => $course->id, 'step' => $request->next_step]),
         ]);
     }
 
-    function edit(Request $request)
+    public function edit(Request $request)
     {
-
         switch ($request->step) {
             case '1':
                 $course = Course::findOrFail($request->id);
+
                 return view('admin.course.course-module.edit', compact('course'));
                 break;
 
@@ -113,6 +100,7 @@ class CourseController extends Controller
                 $levels = CourseLevel::all();
                 $languages = CourseLanguage::all();
                 $course = Course::findOrFail($request->id);
+
                 return view('admin.course.course-module.more-info', compact('categories', 'levels', 'languages', 'course'));
                 break;
 
@@ -122,18 +110,20 @@ class CourseController extends Controller
                     'course_id' => $course->id,
                 ])->orderBy('order')->get();
                 $editMode = true;
+
                 return view('admin.course.course-module.course-content', compact('course', 'chapters', 'editMode'));
                 break;
 
             case '4':
                 $course = Course::findOrFail($request->id);
                 $editMode = true;
+
                 return view('admin.course.course-module.finish', compact('editMode', 'course'));
                 break;
         }
     }
 
-    function update(Request $request)
+    public function update(Request $request)
     {
         switch ($request->current_step) {
             case '1':
@@ -145,7 +135,7 @@ class CourseController extends Controller
                     'discount' => ['nullable', 'numeric'],
                     'description' => ['required'],
                     'thumbnail' => ['nullable', 'image', 'max:3000'],
-                    'demo_video_source' => ['nullable']
+                    'demo_video_source' => ['nullable'],
                 ];
 
                 if ($request->filled('file')) {
@@ -182,12 +172,11 @@ class CourseController extends Controller
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',
-                    'redirect' => route('admin.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
+                    'redirect' => route('admin.courses.edit', ['id' => $course->id, 'step' => $request->next_step]),
                 ]);
                 break;
 
             case '2':
-
                 // validation
                 $request->validate([
                     'capacity' => ['nullable', 'numeric'],
@@ -196,7 +185,7 @@ class CourseController extends Controller
                     'certificate' => ['nullable', 'boolean'],
                     'category' => ['required', 'integer'],
                     'level' => ['required', 'integer'],
-                    'language' => ['required', 'integer']
+                    'language' => ['required', 'integer'],
                 ]);
 
                 // update course data
@@ -213,7 +202,7 @@ class CourseController extends Controller
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',
-                    'redirect' => route('admin.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
+                    'redirect' => route('admin.courses.edit', ['id' => $course->id, 'step' => $request->next_step]),
                 ]);
                 break;
 
@@ -240,7 +229,7 @@ class CourseController extends Controller
                     ->firstOrFail();
 
                 // Tentukan file_path dari source
-                $filePath = $request->source === 'upload' ? $request->file : $request->url;
+                $filePath = 'upload' === $request->source ? $request->file : $request->url;
 
                 // Update data lesson
                 $lesson->title = $request->title;
@@ -252,7 +241,6 @@ class CourseController extends Controller
                 $lesson->downloadable = $request->has('downloadable') ? 1 : 0;
                 $lesson->description = $request->description;
                 $lesson->save();
-
 
                 // Kembalikan response untuk frontend (AJAX atau redirect)
                 return response([
@@ -267,11 +255,10 @@ class CourseController extends Controller
                 break;
 
             case '4':
-
                 // validation
                 $request->validate([
                     'message' => ['nullable', 'max:1000', 'string'],
-                    'status' => ['required', 'in:active,inactive,draft']
+                    'status' => ['required', 'in:active,inactive,draft'],
                 ]);
 
                 // update course data
@@ -281,16 +268,16 @@ class CourseController extends Controller
                 $course->save();
 
                 notyf()->success('Updated Successfuly!');
+
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',
-                    'redirect' => route('admin.courses.index')
+                    'redirect' => route('admin.courses.index'),
                 ]);
 
                 break;
         }
     }
-
 
     // public function destroy(Course $course)
     //     {

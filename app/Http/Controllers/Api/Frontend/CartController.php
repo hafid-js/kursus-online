@@ -40,9 +40,9 @@ class CartController extends Controller
     {
         $user = Auth::guard('api')->user();
 
-        if ($user->role === 'instructor') {
+        if ('instructor' === $user->role) {
             return response()->json([
-                'message' => 'Please use a student account to add to cart.'
+                'message' => 'Please use a student account to add to cart.',
             ], 403);
         }
 
@@ -52,14 +52,14 @@ class CartController extends Controller
 
         if ($alreadyExists) {
             return response()->json([
-                'message' => 'Course already in cart.'
+                'message' => 'Course already in cart.',
             ], 409);
         }
 
         $course = Course::find($id);
         if (!$course) {
             return response()->json([
-                'message' => 'Course not found.'
+                'message' => 'Course not found.',
             ], 404);
         }
 
@@ -72,7 +72,7 @@ class CartController extends Controller
 
         return response()->json([
             'message' => 'Course added to cart successfully.',
-            'data' => new CartResource($cart)
+            'data' => new CartResource($cart),
         ], 201);
     }
 
@@ -86,14 +86,14 @@ class CartController extends Controller
 
         if (!$cart) {
             return response()->json([
-                'message' => 'Cart item not found.'
+                'message' => 'Cart item not found.',
             ], 404);
         }
 
         $cart->delete();
 
         return response()->json([
-            'message' => 'Item removed from cart successfully.'
+            'message' => 'Item removed from cart successfully.',
         ], 200);
     }
 }

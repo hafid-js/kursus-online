@@ -10,15 +10,17 @@ class Enrollment extends Model
 {
     use HasFactory;
 
-     function course() : BelongsTo {
-        return $this->belongsTo(Course::class, 'course_id','id');
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 
-    function user() : BelongsTo {
-        return $this->belongsTo(User::class, 'user_id','id');
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-     public function student()
+    public function student()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

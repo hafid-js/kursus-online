@@ -22,7 +22,6 @@ class StoreBlogCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
         ];
     }
 }

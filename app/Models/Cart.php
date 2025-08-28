@@ -10,12 +10,13 @@ class Cart extends Model
 {
     use HasFactory;
 
-
-    function course() : BelongsTo {
+    public function course(): BelongsTo
+    {
         return $this->belongsTo(Course::class);
     }
 
-    function user() : BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(user::class);
     }
 }

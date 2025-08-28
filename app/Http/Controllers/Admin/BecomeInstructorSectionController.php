@@ -10,14 +10,15 @@ use Illuminate\Support\Facades\Cache;
 
 class BecomeInstructorSectionController extends Controller
 {
-
     use FileUpload;
 
     public function index()
     {
         $becomeInstructor = BecomeInstructorSection::first();
+
         return view('admin.sections.become-instructor.index', compact('becomeInstructor'));
     }
+
     public function store(Request $request)
     {
         $validateData = $request->validate([
@@ -36,13 +37,14 @@ class BecomeInstructorSectionController extends Controller
 
         BecomeInstructorSection::updateOrCreate(
             [
-                'id' => 1
+                'id' => 1,
             ],
             $validateData
         );
 
         Cache::forget('homepage_instructor_banner');
         notyf()->success('Update Successfully!');
+
         return redirect()->back();
     }
 }

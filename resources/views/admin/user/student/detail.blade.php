@@ -30,34 +30,56 @@
                             <h3 class="card-title">Information Details</h3>
                         </div>
                         <div class="card-body">
-                            <dl class="row">
-                                <dt class="col-5">Full Name:</dt>
-                                <dd class="col-7">{{ $student->name }}</dd>
-                                <dt class="col-5">Headline:</dt>
-                                <dd class="col-7">{{ $student->headline ?? '-' }}</dd>
-                                <dt class="col-5">Email:</dt>
-                                <dd class="col-7">{{ $student->email }}</dd>
-                                <dt class="col-5">Gender:</dt>
-                                <dd class="col-7">{{ $student->gender ?? '-' }}</dd>
-                                <dt class="col-5">Bio:</dt>
-                                @php
-                                    $fullBio = $student->bio ?? '-';
-                                    $maxWords = 20;
-                                    $words = str_word_count(strip_tags($fullBio), 1); // Pisah kata
-                                    $shortBio = implode(' ', array_slice($words, 0, $maxWords));
-                                    $needsToggle = count($words) > $maxWords;
-                                @endphp
-
-                                <dd class="col-7">
-                                    @if ($needsToggle)
-                                        <span class="short-bio">{{ $shortBio }}...</span>
-                                        <span class="full-bio d-none">{{ $fullBio }}</span>
-                                        <a href="javascript:void(0)" class="text-primary toggle-bio">Read More</a>
+                            <div class="position-relative">
+                                <div style="position: absolute; top: 0; right: 0;">
+                                    @if (!empty($student->image))
+                                        <img src="{{ asset($student->image) }}" alt="Instructor Image"
+                                            class="img-thumbnail" style="max-width: 120px;max-height:100px;">
                                     @else
-                                        {{ $fullBio }}
+                                        <p>No image available</p>
                                     @endif
-                                </dd>
-                            </dl>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <dl class="row">
+                                            <dt class="col-3 col-md-2">Full Name</dt>
+                                            <dd class="col-9 col-md-10">{{ $student->name }}</dd>
+
+                                            <dt class="col-3 col-md-2">Headline</dt>
+                                            <dd class="col-9 col-md-10">{{ $student->headline ?? '-' }}</dd>
+
+                                            <dt class="col-3 col-md-2">Email</dt>
+                                            <dd class="col-9 col-md-10">{{ $student->email }}</dd>
+
+                                            <dt class="col-3 col-md-2">Gender</dt>
+                                            <dd class="col-9 col-md-10">{{ $student->gender ?? '-' }}</dd>
+
+                                            <dt class="col-3 col-md-2">Bio</dt>
+                                            <dd class="col-9 col-md-10">
+                                                @php
+                                                    $fullBio = $student->bio ?? '-';
+                                                    $maxWords = 20;
+                                                    $words = str_word_count(strip_tags($fullBio), 1);
+                                                    $shortBio = implode(' ', array_slice($words, 0, $maxWords));
+                                                    $needsToggle = count($words) > $maxWords;
+                                                @endphp
+
+                                                @if ($needsToggle)
+                                                    <span class="short-bio">{{ $shortBio }}...</span>
+                                                    <span class="full-bio d-none">{{ $fullBio }}</span>
+                                                    <a href="javascript:void(0)" class="text-primary toggle-bio">Read
+                                                        More</a>
+                                                @else
+                                                    {{ $fullBio }}
+                                                @endif
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -71,17 +93,17 @@
                         </div>
                         <div class="card-body">
                             <dl class="row">
-                                <dt class="col-5">Date:</dt>
+                                <dt class="col-5">Date</dt>
                                 <dd class="col-7">2020-01-05 16:42:29 UTC</dd>
                                 {{-- <dt class="col-5">Account:</dt>
                                 <dd class="col-7">tabler</dd> --}}
-                                <dt class="col-5">Location:</dt>
+                                <dt class="col-5">Location</dt>
                                 <dd class="col-7"><span class="flag flag-1 flag-country-pl"></span> Poland</dd>
-                                <dt class="col-5">IP Address:</dt>
+                                <dt class="col-5">IP Address</dt>
                                 <dd class="col-7">46.113.11.3</dd>
-                                <dt class="col-5">Operating system:</dt>
+                                <dt class="col-5">Operating system</dt>
                                 <dd class="col-7">OS X 10.15.2 64-bit</dd>
-                                <dt class="col-5">Browser:</dt>
+                                <dt class="col-5">Browser</dt>
                                 <dd class="col-7">Chrome</dd>
                             </dl>
                         </div>

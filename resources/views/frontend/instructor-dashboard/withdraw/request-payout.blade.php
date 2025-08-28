@@ -32,7 +32,7 @@
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
-                @include('frontend.instructor-dashboard.sidebar')
+                @include('frontend.layouts.sidebar')
                 <div class="col-xl-9 col-md-8 wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;">
                     <div class="row">
                         <div class="col-xl-4 col-sm-6 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">

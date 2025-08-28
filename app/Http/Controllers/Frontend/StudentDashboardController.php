@@ -7,7 +7,6 @@ use App\Models\Order;
 use App\Models\Review;
 use App\Models\User;
 use App\Traits\FileUpload;
-use Exception;
 use Illuminate\Http\Request;
 
 class StudentDashboardController extends Controller
@@ -39,7 +38,7 @@ class StudentDashboardController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role === 'instructor') {
+        if ('instructor' === $user->role) {
             return view('frontend.dashboard.already-instructor');
         }
 
@@ -56,7 +55,7 @@ class StudentDashboardController extends Controller
 
         $user->update([
             'document' => $filePath,
-            'document_status' => 'pending'
+            'document_status' => 'pending',
         ]);
 
         notyf()->success('Instructor application submitted successfully!');
@@ -84,8 +83,8 @@ class StudentDashboardController extends Controller
             return redirect()
                 ->back()
                 ->with('success', 'Review deleted successfully!');
-        } catch (Exception $e) {
-            logger("Review Error >> " . $e);
+        } catch (\Exception $e) {
+            logger('Review Error >> ' . $e);
 
             return redirect()
                 ->back()

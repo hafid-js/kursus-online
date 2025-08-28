@@ -11,6 +11,6 @@ class InstructorPayoutInformation extends Model
     protected $fillable = [
         'instructor_id',
         'gateway',
-        'information'
+        'information',
     ];
 }

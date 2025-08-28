@@ -22,10 +22,10 @@ class CourseSubCategoryStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['nullable','image','max:3000'],
-            'name' => ['required','string','max:255','unique:course_categories,name'],
-            'icon' => ['required','max:40','string'],
-            'status' => ['nullable','boolean'],
+            'image' => ['nullable', 'image', 'max:3000'],
+            'name' => ['required', 'string', 'max:255', 'unique:course_categories,name'],
+            'icon' => ['required', 'max:40', 'string'],
+            'status' => ['nullable', 'boolean'],
         ];
     }
 }

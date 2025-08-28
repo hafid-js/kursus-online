@@ -3,9 +3,7 @@
 use Illuminate\Support\Str;
 
 return [
-
     'default' => env('DB_CONNECTION', 'mysql'),
-
 
     'connections' => [
         'sqlite' => [
@@ -86,48 +84,40 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
-
     ],
 
     'migrations' => 'migrations',
 
-   'redis' => [
+    'redis' => [
+        'client' => env('REDIS_CLIENT', 'phpredis'),
 
-    'client' => env('REDIS_CLIENT', 'phpredis'),
+        'options' => [
+            'cluster' => env('REDIS_CLUSTER', 'redis'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
+        ],
 
-   'options' => [
-    'cluster' => env('REDIS_CLUSTER', 'redis'),
-    'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
-],
+        'default' => [
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_DB', 0),
+            // prefix default untuk cache (bisa override)
+            'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_cache_'),
+        ],
+        'cache' => [
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_CACHE_DB', 0),
+            'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_cache_'),
+        ],
 
-    'default' => [
-        'host' => env('REDIS_HOST', '127.0.0.1'),
-        'password' => env('REDIS_PASSWORD', null),
-        'port' => env('REDIS_PORT', 6379),
-        'database' => env('REDIS_DB', 0),
-        // prefix default untuk cache (bisa override)
-        'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_cache_'),
+        'session' => [
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_SESSION_DB', 2),
+            'prefix' => env('SESSION_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_session_'),
+        ],
     ],
-'cache' => [
-    'host' => env('REDIS_HOST', '127.0.0.1'),
-    'password' => env('REDIS_PASSWORD', null),
-    'port' => env('REDIS_PORT', 6379),
-    'database' => env('REDIS_CACHE_DB', 0),
-    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_cache_'),
-],
-
-   'session' => [
-    'host' => env('REDIS_HOST', '127.0.0.1'),
-    'password' => env('REDIS_PASSWORD', null),
-    'port' => env('REDIS_PORT', 6379),
-    'database' => env('REDIS_SESSION_DB', 2),
-    'prefix' => env('SESSION_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_session_'),
-],
-
-],
-
-
-
-
-
 ];

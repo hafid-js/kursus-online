@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +19,9 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(Request): (Response) $next
      */
-    public function handle(Request $request, Closure $next, string ...$guards): Response
+    public function handle(Request $request, \Closure $next, string ...$guards): Response
     {
         $guards = empty($guards) ? [null] : $guards;
 
@@ -50,15 +49,14 @@ class RedirectIfAuthenticated
      */
     protected function defaultRedirectUri(?string $guard): string
     {
-
         $routes = [
             'admin' => 'admin.dashboard',
-            'web' => 'dashboard'
+            'web' => 'dashboard',
         ];
 
-        if(array_key_exists($guard, $routes)) {
+        if (array_key_exists($guard, $routes)) {
             $routeName = $routes[$guard];
-            if(Route::has($routeName)) {
+            if (Route::has($routeName)) {
                 return route($routeName);
             }
         }
@@ -69,7 +67,8 @@ class RedirectIfAuthenticated
     /**
      * Specify the callback that should be used to generate the redirect path.
      *
-     * @param  callable  $redirectToCallback
+     * @param callable $redirectToCallback
+     *
      * @return void
      */
     public static function redirectUsing(callable $redirectToCallback)
@@ -77,4 +76,3 @@ class RedirectIfAuthenticated
         static::$redirectToCallback = $redirectToCallback;
     }
 }
-

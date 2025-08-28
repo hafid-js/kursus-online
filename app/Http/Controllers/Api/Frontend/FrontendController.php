@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubscribeNewsletterRequest;
 use App\Http\Requests\StoreBlogCommentRequest;
-use App\Http\Resources\BlogResource;
+use App\Http\Requests\SubscribeNewsletterRequest;
 use App\Http\Resources\BlogCommentResource;
+use App\Http\Resources\BlogResource;
 use App\Models\AboutUsSection;
 use App\Models\BecomeInstructorSection;
 use App\Models\Blog;
@@ -34,7 +34,7 @@ class FrontendController extends Controller
         $hero = Hero::first();
         $feature = Feature::first() ?? [];
         $featureCategories = CourseCategory::withCount(['subCategories as active_course_count' => function ($q) {
-            $q->whereHas('courses', fn($q2) => $q2->where(['is_approved' => 'approved', 'status' => 'active']));
+            $q->whereHas('courses', fn ($q2) => $q2->where(['is_approved' => 'approved', 'status' => 'active']));
         }])->whereNull('parent_id')->where('show_at_trending', 1)->limit(12)->get();
         $about = AboutUsSection::first();
         $latestCourses = LatestCourseSection::first();
@@ -107,16 +107,12 @@ class FrontendController extends Controller
     {
         $blogs = Blog::with('comments')
             ->where('status', 1)
-            ->when($request->filled('search'), fn($q) =>
-                $q->where(fn($q2) =>
-                    $q2->where('title', 'like', '%' . $request->search . '%')
+            ->when($request->filled('search'), fn ($q) => $q->where(fn ($q2) => $q2->where('title', 'like', '%' . $request->search . '%')
                        ->orWhere('description', 'like', '%' . $request->search . '%')
-                )
             )
-            ->when($request->filled('category'), fn($q) =>
-                $q->whereHas('category', fn($q2) =>
-                    $q2->where('slug', $request->category)
-                )
+            )
+            ->when($request->filled('category'), fn ($q) => $q->whereHas('category', fn ($q2) => $q2->where('slug', $request->category)
+            )
             )
             ->paginate(20);
 
@@ -128,7 +124,7 @@ class FrontendController extends Controller
                 'last_page' => $blogs->lastPage(),
                 'per_page' => $blogs->perPage(),
                 'total' => $blogs->total(),
-            ]
+            ],
         ]);
     }
 
@@ -152,7 +148,7 @@ class FrontendController extends Controller
                 'blog' => new BlogResource($blog),
                 'recentBlogs' => BlogResource::collection($recentBlogs),
                 'blogCategories' => $blogCategories,
-            ]
+            ],
         ]);
     }
 

@@ -9,7 +9,7 @@ use App\Models\OrderItem;
 
 class OrderService
 {
-    static function storeOrder(
+    public static function storeOrder(
         string $transaction_id,
         int $buyer_id,
         string $status,

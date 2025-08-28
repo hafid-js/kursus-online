@@ -2,7 +2,6 @@
 
 namespace App\DataTables;
 
-use App\Models\CourseReview;
 use App\Models\Review;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -16,7 +15,7 @@ class CourseReviewsDataTable extends DataTable
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder $query Results from query() method.
+     * @param QueryBuilder $query results from query() method
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
@@ -32,7 +31,7 @@ class CourseReviewsDataTable extends DataTable
 
         return $dataTable
             ->addIndexColumn()
-            ->addColumn('course_title', fn($row) => $row->course?->title ?? '-')
+            ->addColumn('course_title', fn ($row) => $row->course?->title ?? '-')
             ->addColumn('user_name', function ($row) {
                 $avatar = '';
 
@@ -75,8 +74,8 @@ class CourseReviewsDataTable extends DataTable
             })
             ->editColumn('status_form', function ($row) {
                 $csrf = csrf_token();
-                $selectedPending = $row->status == 0 ? 'selected' : '';
-                $selectedApproved = $row->status == 1 ? 'selected' : '';
+                $selectedPending = 0 == $row->status ? 'selected' : '';
+                $selectedApproved = 1 == $row->status ? 'selected' : '';
 
                 return '
             <form action="' . route('admin.reviews.update', $row->id) . '" method="POST">
@@ -98,7 +97,6 @@ class CourseReviewsDataTable extends DataTable
             ->setRowId('id');
     }
 
-
     /**
      * Get the query source of dataTable.
      */
@@ -110,7 +108,6 @@ class CourseReviewsDataTable extends DataTable
             ->leftJoin('courses', 'courses.id', '=', 'reviews.course_id')
             ->with(['user:id,name,email,image', 'course:id,title']);
     }
-
 
     /**
      * Optional method if you want to use the html builder.
@@ -132,14 +129,13 @@ class CourseReviewsDataTable extends DataTable
                 'dom' => 'rt',
             ])
 
-
             ->buttons([
                 Button::make('excel'),
                 Button::make('csv'),
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
+                Button::make('reload'),
             ]);
     }
 
@@ -182,7 +178,6 @@ class CourseReviewsDataTable extends DataTable
                 ->escape(false),
             Column::computed('status_form')->title(''),
             Column::computed('action')->title('Action'),
-
         ];
     }
 

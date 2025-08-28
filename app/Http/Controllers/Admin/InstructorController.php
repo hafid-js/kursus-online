@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\CourseDataTable;
 use App\DataTables\StudentCourseEnrolledDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\Course;
-use App\Models\Order;
-use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,7 +19,7 @@ class InstructorController extends Controller
             ->where('approve_status', 'approved')
             ->where('document_status', 'approved');
 
-        if ($request->has('search') && $request->search != '') {
+        if ($request->has('search') && '' != $request->search) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
@@ -34,12 +31,12 @@ class InstructorController extends Controller
 
         return view('admin.user.instructor.index', compact('users'));
     }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -47,13 +44,11 @@ class InstructorController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
      * Display the specified resource.
      */
-
     public function show(
         CourseDataTable $courseDataTable,
         StudentCourseEnrolledDataTable $studentCourseEnrolledDataTable,
@@ -65,15 +60,14 @@ class InstructorController extends Controller
 
         $instructor = User::findOrFail($id);
 
-        if ($instructor->role !== 'instructor') {
+        if ('instructor' !== $instructor->role) {
             abort(404);
         }
-
 
         return view('admin.user.instructor.detail', [
             'courseDataTable' => $courseDataTable->html(),
             'studentCourseEnrolledDataTable' => $studentCourseEnrolledDataTable->html(),
-            'instructor' => $instructor
+            'instructor' => $instructor,
         ]);
     }
 
@@ -92,13 +86,11 @@ class InstructorController extends Controller
         return $studentCourseEnrolledDataTable->render('admin.user.instructor.student_enrolled_table');
     }
 
-
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
     }
 
     /**
@@ -106,7 +98,6 @@ class InstructorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
     }
 
     /**
@@ -114,6 +105,5 @@ class InstructorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 }

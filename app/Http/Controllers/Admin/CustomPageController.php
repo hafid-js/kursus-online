@@ -4,24 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CustomPage;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class CustomPageController extends Controller
 {
-
     public function index()
     {
         $pages = CustomPage::paginate(20);
+
         return view('admin.custom-page.index', compact('pages'));
     }
 
-
     public function create()
     {
-
         return view('admin.custom-page.create');
     }
 
@@ -49,6 +46,7 @@ class CustomPageController extends Controller
         Cache::forget("custom_page_{$page->slug}");
 
         notyf()->success('Created Successfully');
+
         return to_route('admin.custom-page.index');
     }
 
@@ -80,6 +78,7 @@ class CustomPageController extends Controller
         Cache::forget("custom_page_{$page->slug}");
 
         notyf()->success('Updated Successfully');
+
         return to_route('admin.custom-page.index');
     }
 
@@ -94,9 +93,11 @@ class CustomPageController extends Controller
             Cache::forget("custom_page_{$slug}");
 
             notyf()->success('Delete Succesfully!');
+
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch (Exception $e) {
-            logger("Custom Page Error >> " . $e);
+        } catch (\Exception $e) {
+            logger('Custom Page Error >> ' . $e);
+
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

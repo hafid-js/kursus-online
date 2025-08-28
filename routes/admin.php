@@ -31,6 +31,8 @@ use App\Http\Controllers\Admin\FeaturedInstructorController;
 use App\Http\Controllers\Admin\FooterColumnOneController;
 use App\Http\Controllers\Admin\FooterColumnTwoController;
 use App\Http\Controllers\Admin\FooterController;
+use App\Http\Controllers\Admin\HeroController;
+use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\InstructorRequestController;
 use App\Http\Controllers\Admin\LatestCourseSectionController;
 use App\Http\Controllers\Admin\OrderController;
@@ -45,12 +47,10 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\TopBarController;
 use App\Http\Controllers\Admin\VideoSectionController;
 use App\Http\Controllers\Admin\WithdrawRequestController;
-use App\Http\Controllers\Admin\HeroController;
-use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Export\ExportController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(["middleware" => "guest:admin", "prefix" => "admin", "as" => "admin."], function () {
+Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     // Route::get('register', [RegisteredUserController::class, 'create'])
     //     ->name('register');
 
@@ -74,7 +74,7 @@ Route::group(["middleware" => "guest:admin", "prefix" => "admin", "as" => "admin
         ->name('password.store');
 });
 
-Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin."], function () {
+Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -126,7 +126,6 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::put('/{course_category}/sub-categories/{course_sub_category}', [CourseSubCategoryController::class, 'update'])->name('course-sub-categories.update');
     Route::delete('/{course_category}/sub-categories/{course_sub_category}', [CourseSubCategoryController::class, 'destroy'])->name('course-sub-categories.destroy');
 
-
     // course module routes
     Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
     Route::put('courses/{course}/update-approval', [CourseController::class, 'updateApproval'])->name('courses.update-approval');
@@ -148,8 +147,6 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::get('course-content/edit-lesson', [CourseContentController::class, 'editLesson'])->name('course-content.edit-lesson');
     Route::post('course-content/{id}/edit-lesson', [CourseContentController::class, 'updateLesson'])->name('course-content.update-lesson');
     Route::delete('course-content/{id}/lesson', [CourseContentController::class, 'destroyLesson'])->name('course-content.destroy-lesson');
-
-
 
     Route::post('course-chapter/{chapter}/sort-lesson', [CourseContentController::class, 'sortLesson'])->name('course-chapter.sort-lesson');
 
@@ -211,7 +208,6 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     // brand section
     Route::resource('brand-section', BrandSectionController::class);
 
-
     // featured instructor section
     Route::get('get-instructor-courses/{id}', [FeaturedInstructorController::class, 'getInstructorCourses'])->name('featured-instructor.index');
     Route::resource('featured-instructor-section', FeaturedInstructorController::class);
@@ -269,11 +265,8 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     Route::get('instructors/{id}/course-student-enrolled', [InstructorController::class, 'getAllStudentEnrolled'])->name('instructor.course-student-enrolled');
     Route::resource('instructors', InstructorController::class);
 
-
-
-
     // lfm routes
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
-        \UniSharp\LaravelFilemanager\Lfm::routes();
+        UniSharp\LaravelFilemanager\Lfm::routes();
     });
 });

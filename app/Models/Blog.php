@@ -11,16 +11,18 @@ class Blog extends Model
 {
     use HasFactory;
 
-    function category() : BelongsTo {
-        return $this->belongsTo(BlogCategory::class,'blog_category_id','id');
-
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(BlogCategory::class, 'blog_category_id', 'id');
     }
 
-    function author() : BelongsTo {
+    public function author(): BelongsTo
+    {
         return $this->belongsTo(Admin::class, 'user_id', 'id');
     }
 
-    function comments() : HasMany {
-        return $this->hasMany(BlogComment::class,'blog_id','id');
+    public function comments(): HasMany
+    {
+        return $this->hasMany(BlogComment::class, 'blog_id', 'id');
     }
 }

@@ -20,12 +20,13 @@ class RegisterRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules()
-{
-    return [
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-        'password' => ['required', 'string', 'confirmed', 'min:8'],
-        'role' => ['required', 'in:student,instructor'],
-        'document' => ['nullable', 'file', 'mimes:pdf,doc,docx,jpg,png', 'max:12000'],
-    ];
-}}
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'confirmed', 'min:8'],
+            'role' => ['required', 'in:student,instructor'],
+            'document' => ['nullable', 'file', 'mimes:pdf,doc,docx,jpg,png', 'max:12000'],
+        ];
+    }
+}

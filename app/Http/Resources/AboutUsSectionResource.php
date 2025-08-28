@@ -6,7 +6,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class AboutUsSectionResource extends JsonResource
 {
-
     public function toArray($request): array
     {
         return [

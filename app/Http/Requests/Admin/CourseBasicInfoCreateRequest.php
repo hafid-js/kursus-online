@@ -22,15 +22,15 @@ class CourseBasicInfoCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'instructor' => ['required','integer'],
-            'title' => ['required','max:255','string'],
-            'seo_description' => ['nullable','max:255','string'],
-            'demo_video_storage' => ['nullable','in:youtube,vimeo,external_link,upload','string'],
-            'price' => ['required','numeric'],
-            'discount' => ['nullable','numeric'],
+            'instructor' => ['required', 'integer'],
+            'title' => ['required', 'max:255', 'string'],
+            'seo_description' => ['nullable', 'max:255', 'string'],
+            'demo_video_storage' => ['nullable', 'in:youtube,vimeo,external_link,upload', 'string'],
+            'price' => ['required', 'numeric'],
+            'discount' => ['nullable', 'numeric'],
             'description' => ['required'],
-            'thumbnail' => ['required','image','max:3000'],
-            'demo_video_source' => ['nullable']
+            'thumbnail' => ['required', 'image', 'max:3000'],
+            'demo_video_source' => ['nullable'],
         ];
     }
 }

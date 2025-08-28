@@ -9,5 +9,5 @@ class VideoSection extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['background','video_url','description','button_text','button_url'];
+    protected $fillable = ['background', 'video_url', 'description', 'button_text', 'button_url'];
 }

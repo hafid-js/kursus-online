@@ -5,11 +5,11 @@ use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CertificateController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\CourseContentController;
 use App\Http\Controllers\Frontend\CourseController;
 use App\Http\Controllers\Frontend\CoursePageController;
 use App\Http\Controllers\Frontend\EnrolledCourseController;
-use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\InstructorDashboardController;
 use App\Http\Controllers\Frontend\InstructorOrderController;
@@ -20,17 +20,16 @@ use App\Http\Controllers\Frontend\StudentDashboardController;
 use App\Http\Controllers\Frontend\StudentOrderController;
 use App\Http\Controllers\Frontend\WithdrawController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 
 Route::middleware(['web'])->group(function () {
     Route::get('/test-session', function () {
         session(['foo' => 'bar']);
+
         return session('foo');
     });
 });
 
 Route::post('/track-activity', [ActivityTrackerController::class, 'track']);
-
 
 Route::get('/test', function () {
     return view('test');
@@ -38,9 +37,9 @@ Route::get('/test', function () {
 
 Route::get('/debug-session-prefix', function () {
     $redis = app('redis')->connection('session');
+
     return $redis->getConfig('prefix') ?? 'prefix not found';
 });
-
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
@@ -63,10 +62,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('add-to-cart/{course}', [CartController::class, 'addToCart'])->name('add-to-cart');
     Route::get('remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
     // Payment routes
-   Route::post('/midtrans/create-transaction', [PaymentController::class, 'createMidtransTransaction'])->name('midtrans.createTransaction');
-   Route::post('/order/store', [PaymentController::class, 'storeAfterPayment']);
+    Route::post('/midtrans/create-transaction', [PaymentController::class, 'createMidtransTransaction'])->name('midtrans.createTransaction');
+    Route::post('/order/store', [PaymentController::class, 'storeAfterPayment']);
 
-   Route::post('/midtrans/notification', [PaymentController::class, 'handleNotification']);
+    Route::post('/midtrans/notification', [PaymentController::class, 'handleNotification']);
 
     Route::get('checkout', CheckoutController::class)->name('checkout.index');
     Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
@@ -86,7 +85,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Routes tanpa middleware auth & verified
 Route::get('order-failed', [PaymentController::class, 'orderFailed'])->name('order.failed');
 
-
 // custom page routes
 Route::get('page/{slug}', [FrontendController::class, 'customPage'])->name('custom-page');
 
@@ -99,7 +97,6 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'p
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
     Route::get('/become-instructor', [StudentDashboardController::class, 'becomeInstructor'])->name('become-instructor');
     Route::post('/become-instructor/{user}', [StudentDashboardController::class, 'becomeInstructorUpdate'])->name('become-instructor.update');
-
 
     // profile routes
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
@@ -163,6 +160,7 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
 
     Route::middleware(['auth', 'verified.document'])->group(function () {
         // course routes
+        Route::get('instructors/{id}/data-course', [CourseController::class, 'getAllCourse'])->name('data-course');
         Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
         Route::get('courses/students', [CourseController::class, 'students'])->name('courses.students');
         Route::get('courses/create', [CourseController::class, 'create'])->name('courses.create');
@@ -189,10 +187,9 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
     });
     // lfm routes
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-        \UniSharp\LaravelFilemanager\Lfm::routes();
+        UniSharp\LaravelFilemanager\Lfm::routes();
     });
 });
-
 
 require __DIR__ . '/auth.php';
 

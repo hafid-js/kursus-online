@@ -9,32 +9,35 @@ use Illuminate\Http\Request;
 
 class WithdrawController extends Controller
 {
-    function index()
+    public function index()
     {
         return view('frontend.instructor-dashboard.withdraw.index');
     }
 
-    function requestPayoutIndex()
+    public function requestPayoutIndex()
     {
         $currentBalance = user()->wallet;
         $pendingBalance = Withdraw::where('instructor_id', user()->id)->where('status', 'pending')->sum('amount');
         $totalPayout = Withdraw::where('instructor_id', user()->id)->where('status', 'approved')->sum('amount');
+
         return view('frontend.instructor-dashboard.withdraw.request-payout', compact('currentBalance', 'pendingBalance', 'totalPayout'));
     }
 
-    function requestPayout(Request $request): RedirectResponse
+    public function requestPayout(Request $request): RedirectResponse
     {
         $request->validate([
             'amount' => 'required|numeric',
         ]);
 
         if (user()->wallet < $request->amount) {
-            notyf()->error("Insufficient Balance!");
+            notyf()->error('Insufficient Balance!');
+
             return redirect()->back();
         }
 
         if (Withdraw::where('instructor_id', user()->id)->where('status', 'pending')->exists()) {
             notyf()->error('Withdraw Request Already Pending!');
+
             return redirect()->back();
         }
 
@@ -44,6 +47,7 @@ class WithdrawController extends Controller
         ]);
 
         notyf()->success('Withdraw Request Sent!');
+
         return redirect()->back();
     }
 }

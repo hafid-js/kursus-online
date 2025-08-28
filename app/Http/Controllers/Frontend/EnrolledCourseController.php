@@ -13,7 +13,6 @@ use Illuminate\Http\Response;
 
 class EnrolledCourseController extends Controller
 {
-
     public function index()
     {
         $enrollments = Enrollment::with('course')
@@ -21,17 +20,16 @@ class EnrolledCourseController extends Controller
             ->whereHas('course')
             ->get();
 
-        if (user()->role === 'student') {
+        if ('student' === user()->role) {
             return view('frontend.student-dashboard.enrolled-course.index', compact('enrollments'));
-        } elseif (user()->role === 'instructor') {
+        } elseif ('instructor' === user()->role) {
             return view('frontend.instructor-dashboard.enrolled-course.index', compact('enrollments'));
         } else {
             abort(403, 'Unauthorized role.');
         }
     }
 
-
-    public function playerIndex(String $slug)
+    public function playerIndex(string $slug)
     {
         $course = Course::with('language', 'level', 'chapters.lessons')
             ->withCount(['enrollments as student_count' => function ($query) {
@@ -49,13 +47,13 @@ class EnrolledCourseController extends Controller
         $lessonCount = CourseChapterLession::where('course_id', $course->id)->count();
         $lastWatchHistory = WatchHistory::where([
             'user_id' => user()->id,
-            'course_id' => $course->id
+            'course_id' => $course->id,
         ])->orderBy('updated_at', 'desc')->first();
 
         $watchedLessonIds = WatchHistory::where([
             'user_id' => user()->id,
             'course_id' => $course->id,
-            'is_completed' => 1
+            'is_completed' => 1,
         ])->pluck('lesson_id')->toArray();
 
         $lessonIds = $course->chapters->flatMap(function ($chapter) {
@@ -72,7 +70,7 @@ class EnrolledCourseController extends Controller
         $showCertificate = $totalLessonCount > 0 && $completedCount === $totalLessonCount;
 
         $reviews = Review::where('course_id', $course->id)->get();
-        $viewPath = user()->role === 'instructor'
+        $viewPath = 'instructor' === user()->role
             ? 'frontend.instructor-dashboard.enrolled-course.player-index'
             : 'frontend.student-dashboard.enrolled-course.player-index';
 
@@ -86,57 +84,58 @@ class EnrolledCourseController extends Controller
         ));
     }
 
-
-    function getLessonContent(Request $request)
+    public function getLessonContent(Request $request)
     {
         $lesson = CourseChapterLession::where([
             'course_id' => $request->course_id,
             'chapter_id' => $request->chapter_id,
-            'id' => $request->lesson_id
+            'id' => $request->lesson_id,
         ])->first();
 
         return response()->json($lesson);
     }
-    function updateWatchHistory(Request $request)
+
+    public function updateWatchHistory(Request $request)
     {
         WatchHistory::updateOrCreate(
             [
                 'user_id' => user()->id,
-                'lesson_id' => $request->lesson_id
+                'lesson_id' => $request->lesson_id,
             ],
             [
                 'course_id' => $request->course_id,
                 'chapter_id' => $request->chapter_id,
-                'updated_at' => now()
+                'updated_at' => now(),
             ]
         );
     }
 
-    function updateLessonCompletion(Request $request): Response
+    public function updateLessonCompletion(Request $request): Response
     {
         $watchedLesson = WatchHistory::where([
             'user_id' => user()->id,
-            'lesson_id' => $request->lesson_id
+            'lesson_id' => $request->lesson_id,
         ])->first();
 
         WatchHistory::updateOrCreate(
             [
                 'user_id' => user()->id,
-                'lesson_id' => $request->lesson_id
+                'lesson_id' => $request->lesson_id,
             ],
             [
                 'course_id' => $request->course_id,
                 'chapter_id' => $request->chapter_id,
-                'is_completed' => $watchedLesson->is_completed == 1 ? 0 : 1,
+                'is_completed' => 1 == $watchedLesson->is_completed ? 0 : 1,
             ]
         );
 
         return response(['status' => 'success', 'message' => 'Great job completing this lesson!']);
     }
 
-    function fileDownload(string $id)
+    public function fileDownload(string $id)
     {
         $lesson = CourseChapterLession::findOrFail($id);
+
         return response()->download(public_path($lesson->file_path));
     }
 }

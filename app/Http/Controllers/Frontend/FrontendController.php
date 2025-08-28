@@ -25,61 +25,60 @@ use Illuminate\Support\Facades\Cache;
 
 class FrontendController extends Controller
 {
-
-    function index(): View
+    public function index(): View
     {
-        $hero = Cache::rememberForever('homepage_hero',  function () {
+        $hero = Cache::rememberForever('homepage_hero', function () {
             return Hero::first();
         });
 
-        $feature = Cache::rememberForever('homepage_feature',  function () {
+        $feature = Cache::rememberForever('homepage_feature', function () {
             return Feature::first() ?? new Feature();
         });
 
-        $featureCategories = Cache::rememberForever('homepage_feature_categories',  function () {
+        $featureCategories = Cache::rememberForever('homepage_feature_categories', function () {
             return CourseCategory::withCount([
                 'subCategories as active_course_count' => function ($query) {
                     $query->whereHas('courses', function ($query) {
                         $query->where(['is_approved' => 'approved', 'status' => 'active']);
                     });
-                }
+                },
             ])
                 ->where(['parent_id' => null, 'show_at_trending' => 1])
                 ->limit(12)
                 ->get();
         });
 
-        $about = Cache::rememberForever('homepage_about',  function () {
+        $about = Cache::rememberForever('homepage_about', function () {
             return AboutUsSection::first();
         });
 
-        $latestCourses = Cache::rememberForever('homepage_latest_courses',  function () {
+        $latestCourses = Cache::rememberForever('homepage_latest_courses', function () {
             return LatestCourseSection::first();
         });
 
-        $becomeInstructorBanner = Cache::rememberForever('homepage_instructor_banner',  function () {
+        $becomeInstructorBanner = Cache::rememberForever('homepage_instructor_banner', function () {
             return BecomeInstructorSection::first();
         });
 
-        $video = Cache::rememberForever('homepage_video_section',  function () {
+        $video = Cache::rememberForever('homepage_video_section', function () {
             return VideoSection::first();
         });
 
-        $brands = Cache::rememberForever('homepage_brands',  function () {
+        $brands = Cache::rememberForever('homepage_brands', function () {
             return Brand::where('status', 1)->get();
         });
 
-        $featuredInstructor = Cache::rememberForever('homepage_featured_instructor',  function () {
+        $featuredInstructor = Cache::rememberForever('homepage_featured_instructor', function () {
             return FeaturedInstructor::first();
         });
 
         $featuredInstructorCourses = Course::whereIn('id', json_decode($featuredInstructor?->featured_courses ?? '[]'))->get();
 
-        $testimonials = Cache::rememberForever('homepage_testimonials',  function () {
+        $testimonials = Cache::rememberForever('homepage_testimonials', function () {
             return Testimonial::all();
         });
 
-        $blogs = Cache::rememberForever('homepage_blogs',  function () {
+        $blogs = Cache::rememberForever('homepage_blogs', function () {
             return Blog::where('status', 1)->latest()->limit(6)->get();
         });
 
@@ -99,8 +98,7 @@ class FrontendController extends Controller
         ));
     }
 
-
-    function about()
+    public function about()
     {
         $about = Cache::rememberForever('homepage_about', function () {
             return AboutUsSection::first();
@@ -114,17 +112,18 @@ class FrontendController extends Controller
         $blogs = Cache::rememberForever('homepage_blogs', function () {
             return Blog::where('status', 1)->latest()->limit(6)->get();
         });
+
         return view('frontend.pages.about', compact('about', 'counter', 'testimonials', 'blogs'));
     }
 
-    function subscribe(Request $request): Response
+    public function subscribe(Request $request): Response
     {
         $request->validate([
-            'email' => 'required|email|unique:newsletters,email'
+            'email' => 'required|email|unique:newsletters,email',
         ], [
             'email.required' => 'Email is required',
             'email.email' => 'Email is invalid',
-            'email.unique' => 'Email is already subscribed'
+            'email.unique' => 'Email is already subscribed',
         ]);
 
         $newsletter = new Newsletter();
@@ -133,11 +132,11 @@ class FrontendController extends Controller
 
         return response([
             'status' => 'success',
-            'message' => 'Successfully Subscribed!'
+            'message' => 'Successfully Subscribed!',
         ]);
     }
 
-    function customPage(string $slug)
+    public function customPage(string $slug)
     {
         $page = Cache::rememberForever("custom_page_{$slug}", function () use ($slug) {
             return CustomPage::where('slug', $slug)->where('status', 1)->firstOrFail();
@@ -153,7 +152,7 @@ class FrontendController extends Controller
                 $query->whereHas('courses', function ($query) {
                     $query->where(['is_approved' => 'approved', 'status' => 'active']);
                 });
-            }
+            },
         ])
             ->whereNull('parent_id')
             ->paginate(12);

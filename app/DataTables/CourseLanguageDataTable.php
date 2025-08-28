@@ -8,16 +8,12 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class CourseLanguageDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
-     *
-     * @param QueryBuilder $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
@@ -34,16 +30,17 @@ class CourseLanguageDataTable extends DataTable
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
                 return '
-                <a class="edit edit_course_language" data-language-id="' . $row->id . '" href="javascript:;"><i class="ti ti-edit" aria-hidden="true"></i></a>
-                <a href="' . route('admin.course-languages.destroy', $row->id) . '" class="text-red delete-item">
-                    <i class="ti ti-trash"></i>
-                </a>';
+                    <a href="javascript:;" class="edit edit_course_language" data-language-id="' . $row->id . '">
+                        <i class="ti ti-edit"></i>
+                    </a>
+                    <a href="' . route('admin.course-languages.destroy', $row->id) . '" class="text-red delete-item">
+                        <i class="ti ti-trash"></i>
+                    </a>
+                ';
             })
             ->rawColumns(['action'])
             ->setRowId('id');
     }
-
-
 
     /**
      * Get the query source of dataTable.
@@ -53,9 +50,8 @@ class CourseLanguageDataTable extends DataTable
         return $model->newQuery();
     }
 
-
     /**
-     * Optional method if you want to use the html builder.
+     * Optional method if you want to use the HTML builder.
      */
     public function html(): HtmlBuilder
     {
@@ -71,23 +67,21 @@ class CourseLanguageDataTable extends DataTable
                 'paging' => true,
                 'info' => true,
                 'searching' => true,
+                'ordering' => true,
                 'dom' => 'rt',
             ])
-
-
             ->buttons([
                 Button::make('excel'),
                 Button::make('csv'),
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
+                Button::make('reload'),
             ]);
     }
 
-
     /**
-     * Get the dataTable columns definition.
+     * Get the DataTable columns definition.
      */
     public function getColumns(): array
     {
@@ -97,17 +91,26 @@ class CourseLanguageDataTable extends DataTable
                 ->searchable(false)
                 ->orderable(false)
                 ->width(80),
+
             Column::make('name')
                 ->title('<span class="table-sort d-flex justify-content-start">Name</span>')
                 ->orderable(true)
-                ->escape(false)->width('600'),
-            Column::make('slug')->title('<span class="table-sort d-flex justify-content-start">Slug</span>')
+                ->escape(false)
+                ->width(600),
+
+            Column::make('slug')
+                ->title('<span class="table-sort d-flex justify-content-start">Slug</span>')
                 ->orderable(true)
-                ->escape(false)->width('100'),
-            Column::computed('action')->title('Action')->width('100'),
+                ->escape(false)
+                ->width(100),
+
+            Column::computed('action')
+                ->title('Action')
+                ->searchable(false)
+                ->orderable(false)
+                ->width(100),
         ];
     }
-
 
     /**
      * Get the filename for export.

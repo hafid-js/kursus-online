@@ -24,11 +24,13 @@ class Order extends Model
         'payment_method',
     ];
 
-    public function customer() : BelongsTo {
+    public function customer(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'buyer_id', 'id');
     }
 
-    public function orderItems() : HasMany {
+    public function orderItems(): HasMany
+    {
         return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
 }

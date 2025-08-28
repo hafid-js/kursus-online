@@ -15,9 +15,9 @@ class EmailVerificationNotificationController extends Controller
     {
         if ($request->user()->hasVerifiedEmail()) {
             return redirect()->intended(
-                $request->user()->role === 'student'
+                'student' === $request->user()->role
                     ? route('student.dashboard')
-                    : ($request->user()->role === 'instructor'
+                    : ('instructor' === $request->user()->role
                         ? route('instructor.dashboard')
                         : '/')
             );

@@ -5,36 +5,35 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use App\Traits\FileUpload;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class ContactController extends Controller
 {
-
     use FileUpload;
 
     public function index()
     {
         $contactCards = Contact::all();
-        return view('admin.contact.index',compact('contactCards'));
-    }
 
+        return view('admin.contact.index', compact('contactCards'));
+    }
 
     public function create()
     {
         $editMode = false;
+
         return response()->view('admin.contact.contact-modal', compact('editMode'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'icon' => ['required','image','max:3000'],
-            'title' => ['required','string','max:255'],
-            'line_one' => ['required','string','max:255'],
-            'line_two' => ['required','string','max:255'],
-            'status' => ['nullable','boolean'],
+            'icon' => ['required', 'image', 'max:3000'],
+            'title' => ['required', 'string', 'max:255'],
+            'line_one' => ['required', 'string', 'max:255'],
+            'line_two' => ['required', 'string', 'max:255'],
+            'status' => ['nullable', 'boolean'],
         ]);
 
         $icon = $this->uploadFile($request->file('icon'));
@@ -48,27 +47,28 @@ class ContactController extends Controller
         $contact->save();
 
         notyf()->success('Created Successfully!');
+
         return redirect()->route('admin.contact.index');
     }
 
     public function edit(Contact $contact)
     {
         $editMode = true;
-        return response()->view('admin.contact.contact-modal', compact('contact','editMode'));
-    }
 
+        return response()->view('admin.contact.contact-modal', compact('contact', 'editMode'));
+    }
 
     public function update(Request $request, Contact $contact)
     {
         $request->validate([
-            'icon' => ['nullable','image','max:3000'],
-            'title' => ['required','string','max:255'],
-            'line_one' => ['required','string','max:255'],
-            'line_two' => ['required','string','max:255'],
-            'status' => ['nullable','boolean'],
+            'icon' => ['nullable', 'image', 'max:3000'],
+            'title' => ['required', 'string', 'max:255'],
+            'line_one' => ['required', 'string', 'max:255'],
+            'line_two' => ['required', 'string', 'max:255'],
+            'status' => ['nullable', 'boolean'],
         ]);
 
-        if($request->hasFile('icon')) {
+        if ($request->hasFile('icon')) {
             $icon = $this->uploadFile($request->file('icon'));
             $this->deleteFile($request->old_icon);
             $contact->icon = $icon;
@@ -83,9 +83,9 @@ class ContactController extends Controller
         Cache::forget('contact_cards');
 
         notyf()->success('Updated Successfully!');
+
         return redirect()->route('admin.contact.index');
     }
-
 
     public function destroy(Contact $contact)
     {
@@ -94,9 +94,11 @@ class ContactController extends Controller
             $contact->delete();
             Cache::forget('contact_cards');
             notyf()->success('Deleted Successfully!');
+
             return response(['message' => 'Deleted Successfully!']);
-        } catch(Exception $e) {
-            logger("Course Language Error>> ".$e);
+        } catch (\Exception $e) {
+            logger('Course Language Error>> ' . $e);
+
             return response(['message' => 'Something went wrong!']);
         }
     }

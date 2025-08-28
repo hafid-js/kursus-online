@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserLog extends Model
 {
-
-     use HasFactory;
+    use HasFactory;
 
     protected $fillable = [
         'user_id',
@@ -19,6 +18,7 @@ class UserLog extends Model
         'user_agent',
         'accessed_at',
     ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

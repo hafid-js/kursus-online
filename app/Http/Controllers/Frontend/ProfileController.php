@@ -17,19 +17,21 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     use FileUpload;
-    function index()
+
+    public function index()
     {
         return view('frontend.student-dashboard.profile.index');
     }
 
-    function instructorIndex()
+    public function instructorIndex()
     {
         $gateways = PayoutGateway::where('status', 1)->get();
         $gatewayInfo = InstructorPayoutInformation::where('instructor_id', 2)->first();
+
         return view('frontend.instructor-dashboard.profile.index', compact('gateways', 'gatewayInfo'));
     }
 
-    function profileUpdate(ProfileUpdateRequest $request): RedirectResponse
+    public function profileUpdate(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = Auth::user();
 
@@ -55,7 +57,7 @@ class ProfileController extends Controller
         return redirect()->back();
     }
 
-    function updatePassword(PasswordUpdateRequest $request): RedirectResponse
+    public function updatePassword(PasswordUpdateRequest $request): RedirectResponse
     {
         $user = Auth::user();
         $user->password = bcrypt($request->password);
@@ -66,7 +68,7 @@ class ProfileController extends Controller
         return redirect()->back();
     }
 
-    function updateSocial(SocialUpdateRequest $request): RedirectResponse
+    public function updateSocial(SocialUpdateRequest $request): RedirectResponse
     {
         $user = Auth::user();
         $user->facebook = $request->facebook;
@@ -80,13 +82,13 @@ class ProfileController extends Controller
         return redirect()->back();
     }
 
-    function updateGatewayInfo(Request $request)
+    public function updateGatewayInfo(Request $request)
     {
         InstructorPayoutInformation::updateOrCreate(
             ['instructor_id' => user()->id],
             [
                 'gateway' => $request->gateway,
-                'information' => $request->information
+                'information' => $request->information,
             ]
         );
 

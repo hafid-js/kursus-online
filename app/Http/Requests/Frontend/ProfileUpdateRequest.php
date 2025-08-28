@@ -22,12 +22,12 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','max:255','string'],
+            'name' => ['required', 'max:255', 'string'],
             'headline' => ['nullable', 'max:255', 'string'],
-            'email' => ['required','max:255','email','unique:users,email,'.auth()->user()->id],
-            'about' => ['nullable','string','max:6000'],
-            'gender' => ['nullable','in:male,female'],
-            'avatar' => ['nullable','mimes:jpg,png,jpeg','max:2000'],
+            'email' => ['required', 'max:255', 'email', 'unique:users,email,' . auth()->user()->id],
+            'about' => ['nullable', 'string', 'max:6000'],
+            'gender' => ['nullable', 'in:male,female'],
+            'avatar' => ['nullable', 'mimes:jpg,png,jpeg', 'max:2000'],
         ];
     }
 }

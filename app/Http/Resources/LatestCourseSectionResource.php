@@ -6,7 +6,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class LatestCourseSectionResource extends JsonResource
 {
-
     public function toArray($request): array
     {
         return [

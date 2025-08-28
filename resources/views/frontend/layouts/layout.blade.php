@@ -7,7 +7,7 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="base_url" content="{{ url('/') }}">
     <meta name="csrf_token" content="{{ csrf_token() }}">
-        <meta name="course-index-url" content="{{ route('courses.index') }}">
+    <meta name="course-index-url" content="{{ route('courses.index') }}">
     @stack('meta')
     <title>EduCore - Online Courses & Education HTML Template</title>
     <link rel="icon" type="image/png" href="{{ asset(config('settings.site_favicon')) }}">
@@ -33,7 +33,20 @@
     <link rel=" stylesheet" href="{{ asset('frontend/assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
-    @vite(['resources/css/frontend.css', 'resources/js/frontend/frontend.js']);
+
+    @stack('styles')
+
+    <style>
+        .wsus__dashboard_sidebar {
+            position: sticky;
+            top: 100px;
+            align-self: start;
+            height: fit-content;
+            z-index: 100;
+        }
+    </style>
+
+    @vite(['resources/js/frontend/course.js','resources/js/frontend/frontend.js','resources/css/frontend.css', 'resources/js/frontend/player.js']);
     @stack('header_scripts')
 </head>
 
@@ -151,6 +164,8 @@
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
+    {{-- yajra datatables --}}
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     @stack('scripts')
 </body>
 

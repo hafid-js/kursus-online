@@ -44,8 +44,8 @@ class CoursePageController extends Controller
                 $query->whereIn('course_language_id', $request->language);
             })
             ->when(
-                $request->has('from') && $request->has('to') &&
-                $request->filled('from') && $request->filled('to'),
+                $request->has('from') && $request->has('to')
+                && $request->filled('from') && $request->filled('to'),
                 function ($query) use ($request) {
                     $query->whereBetween('price', [$request->from, $request->to]);
                 }

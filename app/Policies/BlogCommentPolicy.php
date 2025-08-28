@@ -10,7 +10,7 @@ class BlogCommentPolicy
     // User harus login untuk buat komentar
     public function create(User $user)
     {
-        return $user !== null;
+        return null !== $user;
     }
 
     // Contoh lain: hanya pemilik komentar yang boleh hapus

@@ -15,6 +15,7 @@ class AboutUsSectionController extends Controller
     public function index()
     {
         $about = AboutUsSection::first();
+
         return view('admin.sections.about-section.index', compact('about'));
     }
 

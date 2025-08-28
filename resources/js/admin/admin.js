@@ -531,5 +531,5 @@ window.initTable = function (tableSelector) {
     const info = table.page.info();
     renderPagination(info.page + 1, info.pages);
 
-    return table; // optional kalau mau simpan instance
+    return table;
 };

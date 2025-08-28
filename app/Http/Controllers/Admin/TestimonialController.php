@@ -5,21 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Testimonial;
 use App\Traits\FileUpload;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class TestimonialController extends Controller
 {
-
     use FileUpload;
 
     public function index()
     {
-         $testimonials = Testimonial::paginate(20);
+        $testimonials = Testimonial::paginate(20);
+
         return view('admin.sections.testimonial.index', compact('testimonials'));
     }
-
 
     public function create()
     {
@@ -28,7 +26,7 @@ class TestimonialController extends Controller
 
     public function store(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'rating' => ['required', 'numeric'],
             'review' => ['required', 'string', 'max:1000'],
             'name' => ['required', 'string', 'max:255'],
@@ -47,22 +45,19 @@ class TestimonialController extends Controller
         $testimonial->save();
 
         Cache::forget('homepage_testimonials');
-        notyf()->success("Created Successfully!");
+        notyf()->success('Created Successfully!');
 
         return redirect()->route('admin.testimonial-section.index');
     }
 
-
-
     public function edit(Testimonial $testimonial_section)
     {
-         return view('admin.sections.testimonial.edit', compact('testimonial_section'));
+        return view('admin.sections.testimonial.edit', compact('testimonial_section'));
     }
-
 
     public function update(Request $request, string $id)
     {
-         $request->validate([
+        $request->validate([
             'rating' => ['required', 'numeric'],
             'review' => ['required', 'string', 'max:1000'],
             'name' => ['required', 'string', 'max:255'],
@@ -70,10 +65,9 @@ class TestimonialController extends Controller
             'image' => ['nullable', 'image', 'max:3000'],
         ]);
 
-
         $testimonial = Testimonial::findOrFail($id);
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $image = $this->uploadFile($request->file('image'));
             $this->deleteFile($request->old_image);
             $testimonial->user_image = $image;
@@ -84,24 +78,25 @@ class TestimonialController extends Controller
         $testimonial->user_title = $request->title;
         $testimonial->save();
 
-         Cache::forget('homepage_testimonials');
-        notyf()->success("Created Successfully!");
+        Cache::forget('homepage_testimonials');
+        notyf()->success('Created Successfully!');
 
         return redirect()->route('admin.testimonial-section.index');
     }
 
-
     public function destroy(Testimonial $testimonial_section)
     {
         try {
-              // throw ValidationException::withMessages(['you have error']);
+            // throw ValidationException::withMessages(['you have error']);
             $this->deleteFile($testimonial_section->image);
             $testimonial_section->delete();
-             Cache::forget('homepage_testimonials');
+            Cache::forget('homepage_testimonials');
             notyf()->success('Delete Succesfully!');
+
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch(Exception $e) {
-            logger("Course Language Error >> ".$e);
+        } catch (\Exception $e) {
+            logger('Course Language Error >> ' . $e);
+
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

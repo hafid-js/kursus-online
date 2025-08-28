@@ -5,24 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\CourseLanguageDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\CourseLanguage;
-use Exception;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class CourseLanguageController extends Controller
 {
-
-     public function index(CourseLanguageDataTable $dataTable)
+    public function index(CourseLanguageDataTable $dataTable)
     {
         return $dataTable->render('admin.course.course-language.index');
     }
 
-
     public function create()
     {
         $editMode = false;
+
         return response()->view('admin.course.course-language.partials.language-modal', compact('editMode'));
     }
 
@@ -38,18 +35,16 @@ class CourseLanguageController extends Controller
         notyf()->success('Created Successfully!');
 
         return response()->json([
-            'redirect' => route('admin.course-languages.index')
+            'redirect' => route('admin.course-languages.index'),
         ]);
     }
-
-
 
     public function edit(CourseLanguage $course_language)
     {
         $editMode = true;
+
         return response()->view('admin.course.course-language.partials.language-modal', compact('course_language', 'editMode'));
     }
-
 
     public function update(Request $request, CourseLanguage $course_language)
     {
@@ -62,16 +57,17 @@ class CourseLanguageController extends Controller
         return to_route('admin.course-languages.index');
     }
 
-
     public function destroy(CourseLanguage $course_language)
     {
         try {
             // throw ValidationException::withMessages(['you have error']);
             $course_language->delete();
             notyf()->success('Delete Succesfully!');
+
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch (Exception $e) {
-            logger("Course Language Error >> " . $e);
+        } catch (\Exception $e) {
+            logger('Course Language Error >> ' . $e);
+
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

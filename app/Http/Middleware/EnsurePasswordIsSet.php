@@ -2,12 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use Illuminate\Support\Facades\Auth;
 
 class EnsurePasswordIsSet
 {
-    public function handle($request, Closure $next)
+    public function handle($request, \Closure $next)
     {
         $user = Auth::user();
 
@@ -17,11 +16,10 @@ class EnsurePasswordIsSet
         }
 
         // Cek apakah password masih default atau belum diset user
-        if ($user->approve_status !== 'approved') {
+        if ('approved' !== $user->approve_status) {
             return redirect()->route('set.password')->with('warning', 'Please set your password first.');
         }
 
         return $next($request);
     }
 }
-

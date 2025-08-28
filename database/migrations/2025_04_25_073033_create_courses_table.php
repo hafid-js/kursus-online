@@ -4,10 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use function Laravel\Prompts\text;
-
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -24,7 +21,7 @@ return new class extends Migration
             $table->string('duration')->nullable();
             $table->string('time_zone')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->enum('demo_video_storage', ['upload','youtube','vimeo','external_link'])->nullable();
+            $table->enum('demo_video_storage', ['upload', 'youtube', 'vimeo', 'external_link'])->nullable();
             $table->text('demo_video_source')->nullable();
             $table->text('description')->nullable();
             $table->integer('capacity')->nullable();
@@ -33,8 +30,8 @@ return new class extends Migration
             $table->boolean('certificate')->default(0)->nullable();
             $table->boolean('qna')->default(0)->nullable();
             $table->text('message_for_reviewer')->nullable();
-            $table->enum('is_approved', ['pending','approved','rejected'])->default('pending');
-            $table->enum('status', ['active','inactive','draft'])->default('draft');
+            $table->enum('is_approved', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['active', 'inactive', 'draft'])->default('draft');
             $table->foreignId('course_level_id')->nullable();
             $table->foreignId('course_language_id')->nullable();
             $table->timestamps();

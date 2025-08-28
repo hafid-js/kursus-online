@@ -3,11 +3,10 @@
 namespace App\Exports;
 
 use App\Models\Order;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 class CourseOrderExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
 {
@@ -17,6 +16,7 @@ class CourseOrderExport implements FromCollection, WithHeadings, WithMapping, Sh
     {
         $this->ids = $ids;
     }
+
     public function collection()
     {
         return Order::select(
@@ -34,27 +34,27 @@ class CourseOrderExport implements FromCollection, WithHeadings, WithMapping, Sh
         ->leftJoin('order_items', 'order_items.order_id', '=', 'orders.id')
         ->leftJoin('courses', 'courses.id', '=', 'order_items.course_id')
         ->leftJoin('users', 'users.id', '=', 'orders.buyer_id')
-        ->leftJoin('users as instructor', 'instructor.id' ,'=', 'courses.instructor_id')
+        ->leftJoin('users as instructor', 'instructor.id', '=', 'courses.instructor_id')
          ->when(!empty($this->ids), function ($q) {
-            $q->whereIn('orders.id', $this->ids);
-        })
+             $q->whereIn('orders.id', $this->ids);
+         })
         ->get();
     }
 
     public function headings(): array
     {
         return [
-        'Invoice',
-        'Course',
-        'Instructor',
-        'Total Amount',
-        'Paid Amount',
-        'Student',
-        'Course Price',
-        'Currency',
-        'Status',
-        'Order Date',
-    ];
+            'Invoice',
+            'Course',
+            'Instructor',
+            'Total Amount',
+            'Paid Amount',
+            'Student',
+            'Course Price',
+            'Currency',
+            'Status',
+            'Order Date',
+        ];
     }
 
     public function map($row): array

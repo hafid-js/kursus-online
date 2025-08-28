@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -20,15 +19,15 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained('courses');
             $table->foreignId('chapter_id')->constrained('course_chapters')->onDelete('cascade');
             $table->text('file_path');
-            $table->enum('storage', ['upload','youtube','vimeo','external_link']);
+            $table->enum('storage', ['upload', 'youtube', 'vimeo', 'external_link']);
             $table->string('volume')->nullable();
             $table->string('duration');
-            $table->enum('file_type',['video','audio','doc','file','pdf']);
+            $table->enum('file_type', ['video', 'audio', 'doc', 'file', 'pdf']);
             $table->boolean('downloadable')->default(0);
             $table->integer('order');
             $table->boolean('is_preview')->default(0);
             $table->boolean('status')->default(1);
-            $table->enum('lesson_type',['lesson','live']);
+            $table->enum('lesson_type', ['lesson', 'live']);
             $table->timestamps();
         });
     }

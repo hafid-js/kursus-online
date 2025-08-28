@@ -9,28 +9,33 @@ use Illuminate\Http\Request;
 
 class WithdrawRequestController extends Controller
 {
-    function index() {
+    public function index()
+    {
         $withdraws = Withdraw::with('instructor')->paginate(25);
+
         return view('admin.withdraw-request.index', compact('withdraws'));
     }
 
-    function show(Withdraw $withdraw) {
+    public function show(Withdraw $withdraw)
+    {
         return view('admin.withdraw-request.show', compact('withdraw'));
     }
 
-    function updateStatus(Request $request, Withdraw $withdraw) : RedirectResponse {
+    public function updateStatus(Request $request, Withdraw $withdraw): RedirectResponse
+    {
         $request->validate([
-            'status' => 'required|in:pending,approved,rejected'
+            'status' => 'required|in:pending,approved,rejected',
         ]);
 
         $withdraw->status = $request->status;
-        if($request->status == 'approved') {
+        if ('approved' == $request->status) {
             $withdraw->instructor->wallet = ($withdraw->instructor->wallet = $withdraw->amount);
             $withdraw->instructor->save();
         }
         $withdraw->save();
 
         notyf()->success('Updated Successfully');
+
         return redirect()->route('admin.withdraw-request.index');
     }
 }

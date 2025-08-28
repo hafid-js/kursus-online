@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Cache;
 
 class PaymentSettingController extends Controller
 {
-    function index()
+    public function index()
     {
         return view('admin.payment-setting.index');
     }
 
-    function paypalSetting(Request $request): RedirectResponse
+    public function paypalSetting(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
             'paypal_mode' => ['required', 'in:live,sandbox'],
@@ -36,7 +36,7 @@ class PaymentSettingController extends Controller
         return redirect()->back();
     }
 
-    function stripeSetting(Request $request): RedirectResponse
+    public function stripeSetting(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
             'stripe_status' => ['required', 'in:active,inactive'],

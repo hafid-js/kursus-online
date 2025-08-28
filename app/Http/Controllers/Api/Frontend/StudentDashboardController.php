@@ -9,13 +9,13 @@ use App\Models\Order;
 use App\Models\Review;
 use App\Models\User;
 use App\Traits\FileUpload;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class StudentDashboardController extends Controller
 {
     use FileUpload;
+
     public function index(): JsonResponse
     {
         $user = auth()->user();
@@ -45,7 +45,7 @@ class StudentDashboardController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role === 'instructor') {
+        if ('instructor' === $user->role) {
             return response()->json([
                 'success' => false,
                 'message' => 'You are already an instructor.',
@@ -113,8 +113,8 @@ class StudentDashboardController extends Controller
                 'success' => true,
                 'message' => 'Review deleted successfully',
             ]);
-        } catch (Exception $e) {
-            logger("Review delete error: " . $e->getMessage());
+        } catch (\Exception $e) {
+            logger('Review delete error: ' . $e->getMessage());
 
             return response()->json([
                 'success' => false,

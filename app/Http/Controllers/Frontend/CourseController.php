@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\DataTables\Frontend\Instructor\CourseDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CourseBasicInfoCreateRequest;
 use App\Models\Course;
@@ -15,29 +16,59 @@ use App\Models\OrderItem;
 use App\Models\User;
 use App\Models\WatchHistory;
 use App\Traits\FileUpload;
-use Exception;
 use Flasher\Laravel\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use PhpParser\Node\Expr\Cast\String_;
 
 class CourseController extends Controller
 {
     use FileUpload;
-    function index()
+    // function index()
+    // {
+    //     $courses = Course::where('instructor_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+    //     return view('frontend.instructor-dashboard.course.index', compact('courses',));
+    // }
+
+    //   public function index(CourseDataTable $dataTable)
+    // {
+    //     $id = 18;
+    //     $orderItems = OrderItem::with([
+    //         'course.instructor',
+    //         'order.customer'
+    //     ])
+    //         ->whereHas('course', function ($query) use ($id) {
+    //             $query->where('instructor_id', $id);
+    //         })
+    //         ->get();
+    //     $dataTable->setInstructorId($id);
+
+    //     dd($orderItems);
+    //     return $dataTable->render('frontend.instructor-dashboard.course.index', compact('orderItems'));
+    // }
+
+    public function index(CourseDataTable $courseDataTable)
     {
-        $courses = Course::where('instructor_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
-        return view('frontend.instructor-dashboard.course.index', compact('courses',));
+        $id = user()->id;
+        $courseDataTable->setInstructorId($id);
+
+        return $courseDataTable->render('frontend.instructor-dashboard.course.index');
     }
 
-    function create()
+    public function getAllCourse(CourseDataTable $courseDataTable, string $id)
+    {
+        $courseDataTable->setInstructorId($id);
+
+        return $courseDataTable->render('frontend.instructor-dashboard.course.index');
+    }
+
+    public function create()
     {
         return view('frontend.instructor-dashboard.course.create');
     }
 
-    function storeBasicInfo(CourseBasicInfoCreateRequest $request)
+    public function storeBasicInfo(CourseBasicInfoCreateRequest $request)
     {
         $thumbnailPath = $this->uploadFile($request->file('thumbnail'));
         $course = new Course();
@@ -59,16 +90,16 @@ class CourseController extends Controller
         return response([
             'status' => 'success',
             'message' => 'Updated Successfully!.',
-            'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
+            'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step]),
         ]);
     }
 
-    function edit(Request $request)
+    public function edit(Request $request)
     {
-
         switch ($request->step) {
             case '1':
                 $course = Course::findOrFail($request->id);
+
                 return view('frontend.instructor-dashboard.course.edit', compact('course'));
                 break;
 
@@ -77,6 +108,7 @@ class CourseController extends Controller
                 $levels = CourseLevel::all();
                 $languages = CourseLanguage::all();
                 $course = Course::findOrFail($request->id);
+
                 return view('frontend.instructor-dashboard.course.more-info', compact('categories', 'levels', 'languages', 'course'));
                 break;
 
@@ -84,21 +116,23 @@ class CourseController extends Controller
                 $course = Course::findOrFail($request->id);
                 $chapters = CourseChapter::where([
                     'course_id' => $course->id,
-                    'instructor_id' => Auth::user()->id
+                    'instructor_id' => Auth::user()->id,
                 ])->orderBy('order')->get();
                 $editMode = true;
+
                 return view('frontend.instructor-dashboard.course.course-content', compact('course', 'chapters', 'editMode'));
                 break;
 
             case '4':
                 $course = Course::findOrFail($request->id);
                 $editMode = true;
+
                 return view('frontend.instructor-dashboard.course.finish', compact('editMode', 'course'));
                 break;
         }
     }
 
-    function update(Request $request)
+    public function update(Request $request)
     {
         switch ($request->current_step) {
             case '1':
@@ -110,7 +144,7 @@ class CourseController extends Controller
                     'discount' => ['nullable', 'numeric'],
                     'description' => ['required'],
                     'thumbnail' => ['nullable', 'image', 'max:3000'],
-                    'demo_video_source' => ['nullable']
+                    'demo_video_source' => ['nullable'],
                 ];
 
                 if ($request->filled('file')) {
@@ -143,10 +177,11 @@ class CourseController extends Controller
 
                 // save course id on session
                 Session::put('course_create_id', $course->id);
+
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',
-                    'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
+                    'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step]),
                 ]);
                 break;
 
@@ -159,7 +194,7 @@ class CourseController extends Controller
                     'certificate' => ['nullable', 'boolean'],
                     'category' => ['required', 'integer'],
                     'level' => ['required', 'integer'],
-                    'language' => ['required', 'integer']
+                    'language' => ['required', 'integer'],
                 ]);
 
                 // update course data
@@ -176,12 +211,11 @@ class CourseController extends Controller
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',
-                    'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step])
+                    'redirect' => route('instructor.courses.edit', ['id' => $course->id, 'step' => $request->next_step]),
                 ]);
                 break;
 
             case '3':
-
                 // Validasi
                 $request->validate([
                     'id' => ['required', 'integer', 'exists:lessons,id'],
@@ -204,7 +238,7 @@ class CourseController extends Controller
                     ->firstOrFail();
 
                 // Tentukan file_path dari source
-                $filePath = $request->source === 'upload' ? $request->file : $request->url;
+                $filePath = 'upload' === $request->source ? $request->file : $request->url;
 
                 // Update data lesson
                 $lesson->title = $request->title;
@@ -216,7 +250,6 @@ class CourseController extends Controller
                 $lesson->downloadable = $request->has('downloadable') ? 1 : 0;
                 $lesson->description = $request->description;
                 $lesson->save();
-
 
                 // Kembalikan response untuk frontend (AJAX atau redirect)
                 return response([
@@ -231,11 +264,10 @@ class CourseController extends Controller
                 break;
 
             case '4':
-
                 // validation
                 $request->validate([
                     'message' => ['nullable', 'max:1000', 'string'],
-                    'status' => ['required', 'in:active,inactive,draft']
+                    'status' => ['required', 'in:active,inactive,draft'],
                 ]);
 
                 // update course data
@@ -246,10 +278,11 @@ class CourseController extends Controller
                 $course->save();
 
                 notyf()->success('Updated Successfuly!');
+
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully!.',
-                    'redirect' => route('instructor.courses.index')
+                    'redirect' => route('instructor.courses.index'),
                 ]);
 
                 break;
@@ -276,7 +309,7 @@ class CourseController extends Controller
                 $watchedLessonIds = WatchHistory::where([
                     'user_id' => $userId,
                     'course_id' => $courseId,
-                    'is_completed' => 1
+                    'is_completed' => 1,
                 ])->pluck('lesson_id')->toArray();
 
                 $watchedCount = count($watchedLessonIds);
@@ -289,6 +322,7 @@ class CourseController extends Controller
 
                 return $item;
             });
+
         return view('frontend.instructor-dashboard.students.index', compact('students'));
     }
 
@@ -304,9 +338,11 @@ class CourseController extends Controller
 
             // Optional: notifikasi khusus untuk instructor
             notyf()->success('Course deleted successfully!');
+
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch (Exception $e) {
-            logger("Instructor Course Delete Error >> " . $e->getMessage());
+        } catch (\Exception $e) {
+            logger('Instructor Course Delete Error >> ' . $e->getMessage());
+
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

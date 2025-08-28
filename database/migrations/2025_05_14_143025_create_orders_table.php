@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,7 +14,7 @@ return new class extends Migration
             $table->id();
             $table->string('invoice_id');
             $table->foreignId('buyer_id')->constrained('users');
-            $table->enum('status',['pending','approved'])->default('pending');
+            $table->enum('status', ['pending', 'approved'])->default('pending');
             $table->double('total_amount');
             $table->double('paid_amount');
             $table->string('currency');

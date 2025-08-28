@@ -1,16 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Frontend\FrontendController;
 use App\Http\Controllers\Api\Frontend\InstructorDashboardController;
 use App\Http\Controllers\Api\Frontend\StudentDashboardController;
+use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/refresh-token', [AuthController::class, 'refreshToken']);
-
 
 Route::get('/about', [FrontendController::class, 'about']);
 Route::post('/subscribe', [FrontendController::class, 'subscribe']);

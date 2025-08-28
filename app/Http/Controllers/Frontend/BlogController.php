@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    function index(Request $request)
+    public function index(Request $request)
     {
         $blogs = Blog::with('comments')->where('status', 1)
             ->when($request->filled('search'), function ($query) use ($request) {
@@ -24,24 +24,26 @@ class BlogController extends Controller
                 });
             })
             ->paginate(10);
+
         return view('frontend.pages.blog', compact('blogs'));
     }
 
-    function show(string $slug)
+    public function show(string $slug)
     {
-        $blog = Blog::with(['author', 'category','comments'])->where('slug', $slug)->where('status', 1)->firstOrFail();
+        $blog = Blog::with(['author', 'category', 'comments'])->where('slug', $slug)->where('status', 1)->firstOrFail();
         $recentBlogs = Blog::where('status', 1)->where('slug', '!=', $slug)->latest()->take(3)->get();
         $blogCategories = BlogCategory::withCount('blogs')->where('status', 1)->get();
+
         return view('frontend.pages.blog-detail', compact('blog', 'recentBlogs', 'blogCategories'));
     }
 
-    function storeComment(Request $request, string $id) : RedirectResponse {
-
+    public function storeComment(Request $request, string $id): RedirectResponse
+    {
         $request->validate([
-            'comment' => ['required','string','min:3','max:255'],
-            'parent_id' => ['nullable','exists:blog_comments,id'],
+            'comment' => ['required', 'string', 'min:3', 'max:255'],
+            'parent_id' => ['nullable', 'exists:blog_comments,id'],
         ]
-    );
+        );
 
         BlogComment::create([
             'user_id' => auth()->id(),
@@ -51,6 +53,7 @@ class BlogController extends Controller
         ]);
 
         notyf()->success('Comment Added Successfully!');
+
         return redirect()->back();
     }
 }

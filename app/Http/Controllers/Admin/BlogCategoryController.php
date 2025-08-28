@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class BlogCategoryController extends Controller
 {
-
     public function index(Request $request)
     {
         $query = BlogCategory::query();
@@ -30,10 +28,10 @@ class BlogCategoryController extends Controller
         return view('admin.blog.category.index', compact('categories'));
     }
 
-
     public function create()
     {
         $editMode = false;
+
         return response()->view('admin.blog.category.partials.category-modal', compact('editMode'));
     }
 
@@ -57,6 +55,7 @@ class BlogCategoryController extends Controller
                 'redirect' => route('admin.blog-categories.index'),
             ]);
         }
+
         return to_route('admin.blog-categories.index');
     }
 
@@ -69,11 +68,13 @@ class BlogCategoryController extends Controller
     {
         $category = BlogCategory::findOrFail($id);
         $editMode = true;
+
         return response()->view('admin.blog.category.partials.category-modal', compact('category', 'editMode'));
     }
 
-    public function show() {}
-
+    public function show()
+    {
+    }
 
     public function update(Request $request, string $id)
     {
@@ -95,9 +96,9 @@ class BlogCategoryController extends Controller
                 'redirect' => route('admin.blog-categories.index'),
             ]);
         }
+
         return to_route('admin.blog-categories.index');
     }
-
 
     public function destroy(string $id)
     {
@@ -105,9 +106,11 @@ class BlogCategoryController extends Controller
             $category = BlogCategory::findOrFail($id);
             $category->delete();
             notyf()->success('Delete Succesfully!');
+
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch (Exception $e) {
-            logger("Blog Category Error >> " . $e);
+        } catch (\Exception $e) {
+            logger('Blog Category Error >> ' . $e);
+
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

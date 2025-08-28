@@ -15,8 +15,8 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-
     use FileUpload;
+
     /**
      * Display the registration view.
      */
@@ -30,42 +30,42 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-
-   public function store(Request $request): RedirectResponse
-{
-    $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    ]);
-
-    if ($request->type === 'student') {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'student',
-            'approve_status' => 'pending'
+    public function store(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-    } elseif ($request->type === 'instructor') {
-        $request->validate(['document' => ['required','mimes:pdf,doc,docx,jpg,png','max:12000']]);
-        $filePath = $this->uploadFile($request->file('document'));
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'instructor',
-            'approve_status' => 'pending',
-            'document' => $filePath,
-            'document_status' => 'pending'
-        ]);
-    } else {
-        abort(404);
+
+        if ('student' === $request->type) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'student',
+                'approve_status' => 'pending',
+            ]);
+        } elseif ('instructor' === $request->type) {
+            $request->validate(['document' => ['required', 'mimes:pdf,doc,docx,jpg,png', 'max:12000']]);
+            $filePath = $this->uploadFile($request->file('document'));
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'instructor',
+                'approve_status' => 'pending',
+                'document' => $filePath,
+                'document_status' => 'pending',
+            ]);
+        } else {
+            abort(404);
+        }
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect()->route('verification.notice');
     }
-
-    event(new Registered($user));
-
-    Auth::login($user);
-
-    return redirect()->route('verification.notice');
-}}
+}

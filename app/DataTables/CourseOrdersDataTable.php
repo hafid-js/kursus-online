@@ -2,7 +2,6 @@
 
 namespace App\DataTables;
 
-use App\Models\CourseOrder;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
@@ -10,8 +9,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class CourseOrdersDataTable extends DataTable
@@ -19,24 +16,26 @@ class CourseOrdersDataTable extends DataTable
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder $query Results from query() method.
+     * @param QueryBuilder $query results from query() method
      */
     private function filterBuyerColumn($query, $keyword): void
     {
         $query->where('users.name', 'like', "%{$keyword}%")
             ->orWhere('users.email', 'like', "%{$keyword}%");
     }
+
     private function filterCourseColumn($query, $keyword): void
     {
         $query->where('courses.title', 'like', "%{$keyword}%")
             ->orWhere('instructor.name', 'like', "%{$keyword}%");
     }
+
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         $dataTable = new EloquentDataTable($query);
         $dataTable
-            ->filterColumn('course', fn($query, $keyword) => $this->filterCourseColumn($query, $keyword))
-            ->filterColumn('user_name', fn($query, $keyword) => $this->filterBuyerColumn($query, $keyword));
+            ->filterColumn('course', fn ($query, $keyword) => $this->filterCourseColumn($query, $keyword))
+            ->filterColumn('user_name', fn ($query, $keyword) => $this->filterBuyerColumn($query, $keyword));
 
         // order column for title course
         $dataTable->orderColumn('course', function ($query, $order) {
@@ -136,7 +135,6 @@ class CourseOrdersDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-
     public function query(Order $model): QueryBuilder
     {
         $query = $model->newQuery()
@@ -190,7 +188,7 @@ class CourseOrdersDataTable extends DataTable
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
+                Button::make('reload'),
             ]);
     }
 
@@ -248,8 +246,7 @@ class CourseOrdersDataTable extends DataTable
                 ->title('<span class="table-sort d-flex justify-content-start">Order Date</span>')
                 ->orderable(true),
 
-            Column::computed('action')
-
+            Column::computed('action'),
         ];
     }
 

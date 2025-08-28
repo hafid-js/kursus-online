@@ -7,19 +7,20 @@ use App\Http\Requests\Admin\FeatureUpdateRequest;
 use App\Models\Feature;
 use App\Traits\FileUpload;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class FeatureController extends Controller
 {
-
     use FileUpload;
 
     public function index()
     {
         $feature = Feature::first();
+
         return view('admin.sections.feature.index', compact('feature'));
-  }    /**
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(FeatureUpdateRequest $request): RedirectResponse
@@ -32,7 +33,6 @@ class FeatureController extends Controller
             'subtitle_two' => $request->subtitle_two,
             'subtitle_three' => $request->subtitle_three,
         ];
-
 
         if ($request->hasFile('image_one')) {
             $image_one = $this->uploadFile($request->file('image_one'));
@@ -53,14 +53,14 @@ class FeatureController extends Controller
         }
         Feature::updateOrCreate(
             [
-                'id' => 1
+                'id' => 1,
             ],
             $data
         );
 
         Cache::forget('homepage_feature');
 
-        notyf()->success("Updated Successfully!");
+        notyf()->success('Updated Successfully!');
 
         return redirect()->back();
     }

@@ -3,7 +3,6 @@
 use Illuminate\Support\Str;
 
 return [
-
     'driver' => env('SESSION_DRIVER', 'file'),
 
     'connection' => env('SESSION_CONNECTION', null),
@@ -17,7 +16,7 @@ return [
 
     'files' => storage_path('framework/sessions'),
 
-    'cookie' => env('SESSION_COOKIE', Str::slug(env('APP_NAME', 'laravel'), '_').'_session'),
+    'cookie' => env('SESSION_COOKIE', Str::slug(env('APP_NAME', 'laravel'), '_') . '_session'),
     'path' => '/',
 
     'domain' => env('SESSION_DOMAIN', null),
@@ -27,6 +26,4 @@ return [
     'http_only' => true,
 
     'same_site' => 'lax',
-
 ];
-

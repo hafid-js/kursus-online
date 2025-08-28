@@ -14,11 +14,13 @@ use Illuminate\Http\Response;
 class CertificateBuilderController extends Controller
 {
     use FileUpload;
+
     public function index()
     {
         $certificate = CertificateBuilder::first();
         $certificateItems = CertificateBuilderItem::all();
-        return view('admin.course.certificate-builder.index', compact('certificate','certificateItems'));
+
+        return view('admin.course.certificate-builder.index', compact('certificate', 'certificateItems'));
     }
 
     public function update(CertificateBuilderUpdateRequest $request): RedirectResponse
@@ -26,7 +28,7 @@ class CertificateBuilderController extends Controller
         $data = [
             'title' => $request->title,
             'sub_title' => $request->subtitle,
-            'description' => $request->description
+            'description' => $request->description,
         ];
 
         if ($request->hasFile('signature')) {
@@ -40,7 +42,7 @@ class CertificateBuilderController extends Controller
 
         CertificateBuilder::updateOrCreate(
             [
-                'id' => 1
+                'id' => 1,
             ],
             $data
         );
@@ -50,20 +52,21 @@ class CertificateBuilderController extends Controller
         return redirect()->back();
     }
 
-    function itemUpdate(Request $request): Response
+    public function itemUpdate(Request $request): Response
     {
         $request->validate([
             'element_id' => 'required|in:title,subtitle,description,signature',
         ]);
         CertificateBuilderItem::updateOrCreate(
             [
-                'element_id' => $request->element_id
+                'element_id' => $request->element_id,
             ],
             [
                 'x_position' => $request->x_position,
-                'y_position' => $request->y_position
+                'y_position' => $request->y_position,
             ]
         );
+
         return response(['success' => true]);
     }
 }

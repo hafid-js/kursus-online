@@ -4,21 +4,22 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens, MustVerifyEmailTrait;
+    use HasFactory;
+    use Notifiable;
+    use HasApiTokens;
+    use MustVerifyEmailTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -35,7 +36,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'document_status',
         'gauth_id',
         'gauth_type',
-
     ];
 
     /**
@@ -61,27 +61,27 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    function courses(): HasMany
+    public function courses(): HasMany
     {
         return $this->hasMany(Course::class, 'instructor_id', 'id');
     }
 
-    function gatewayInfo(): HasOne
+    public function gatewayInfo(): HasOne
     {
         return $this->hasOne(InstructorPayoutInformation::class, 'instructor_id', 'id');
     }
 
-    function students(): HasMany
+    public function students(): HasMany
     {
         return $this->hasMany(Enrollment::class, 'instructor_id', 'id');
     }
 
-    function reviews(): HasMany
+    public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'instructor_id', 'id');
     }
 
-    function enrollments(): HasMany
+    public function enrollments(): HasMany
     {
         return $this->hasMany(Enrollment::class, 'user_id', 'id');
     }

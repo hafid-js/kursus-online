@@ -14,9 +14,10 @@ class CheckoutController extends Controller
     public function __invoke(Request $request)
     {
         $user = auth()->user();
-          $cart = Cart::with('course')
-                ->where('user_id', $user->id)
-                ->get();
-        return view('frontend.pages.checkout-page', compact('cart','user'));
+        $cart = Cart::with('course')
+              ->where('user_id', $user->id)
+              ->get();
+
+        return view('frontend.pages.checkout-page', compact('cart', 'user'));
     }
 }

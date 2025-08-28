@@ -22,11 +22,11 @@ class CourseCategoryStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['required','image','max:3000'],
-            'background' => ['required','image','max:3000'],
-            'name' => ['required','string','max:255','unique:course_categories,name'],
-            'show_at_trending' => ['nullable','boolean'],
-            'status' => ['nullable','boolean'],
+            'image' => ['required', 'image', 'max:3000'],
+            'background' => ['required', 'image', 'max:3000'],
+            'name' => ['required', 'string', 'max:255', 'unique:course_categories,name'],
+            'show_at_trending' => ['nullable', 'boolean'],
+            'status' => ['nullable', 'boolean'],
         ];
     }
 }

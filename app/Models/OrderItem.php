@@ -10,11 +10,13 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    function course() : BelongsTo {
-        return $this->belongsTo(Course::class, 'course_id','id');
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 
-    function order() : BelongsTo {
+    public function order(): BelongsTo
+    {
         return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 }

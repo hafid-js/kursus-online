@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Artisan;
 
 class DatabaseClearController extends Controller
 {
-    function index(){
+    public function index()
+    {
         return view('admin.database-clear.index');
     }
 
-    function destroy(Request $request){
+    public function destroy(Request $request)
+    {
         try {
             Artisan::call('migrate:fresh --seed');
             Artisan::call('optimize:clear');

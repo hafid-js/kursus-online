@@ -4,14 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Carbon\Carbon;
-use Exception;
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class OauthController extends Controller
@@ -24,18 +20,16 @@ class OauthController extends Controller
     public function handleProviderCallback()
     {
         try {
-
             $user = Socialite::driver('google')->user();
 
             $finduser = User::where('gauth_id', $user->id)->first();
 
             if ($finduser) {
-
                 Auth::login($finduser);
 
-                if ($finduser->role == 'student') {
+                if ('student' == $finduser->role) {
                     return redirect()->intended(route('student.dashboard', absolute: false));
-                } elseif ($finduser->role == 'instructor') {
+                } elseif ('instructor' == $finduser->role) {
                     return redirect()->intended(route('instructor.dashboard', absolute: false));
                 } else {
                     return abort(404);
@@ -59,8 +53,9 @@ class OauthController extends Controller
 
                 // return redirect()->intended(route('student.dashboard', absolute: false));
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             \Log::error('Google OAuth Error: ' . $e->getMessage());
+
             return redirect()->route('login')->with('error', 'Something went wrong with Google login.');
         }
     }

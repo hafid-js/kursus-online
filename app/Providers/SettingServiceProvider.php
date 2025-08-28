@@ -13,7 +13,7 @@ class SettingServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(SettingService::class, function() {
+        $this->app->singleton(SettingService::class, function () {
             return new SettingService();
         });
     }
@@ -26,7 +26,7 @@ class SettingServiceProvider extends ServiceProvider
         $settings = $this->app->make(SettingService::class);
         $settings->setGlobalSettings();
 
-              // set mail config
+        // set mail config
         Config::set('mail.mailers.smtp', [
             'transport' => config('settings.mail_mailer'),
             'host' => config('settings.mail_host'),
@@ -38,7 +38,7 @@ class SettingServiceProvider extends ServiceProvider
 
         Config::set('mail_queue.is_queue', config('settings.mail_queue'));
 
-        Config::set('mail.from',[
+        Config::set('mail.from', [
             'address' => config('settings.sender_email'),
             'name' => config('settings.site_name'),
         ]);

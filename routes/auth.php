@@ -35,8 +35,9 @@ Route::middleware('guest:web')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
 
-         Route::get('oauth/google', [OauthController::class, 'redirectToProvider'])->name('oauth.google');
-    Route::get('oauth/google/callback', [OauthController::class, 'handleProviderCallback'])->name('oauth.google.callback');});
+    Route::get('oauth/google', [OauthController::class, 'redirectToProvider'])->name('oauth.google');
+    Route::get('oauth/google/callback', [OauthController::class, 'handleProviderCallback'])->name('oauth.google.callback');
+});
 
 Route::middleware('auth:web')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)

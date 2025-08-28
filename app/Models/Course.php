@@ -11,43 +11,49 @@ class Course extends Model
 {
     use HasFactory;
 
-
-    function instructor(): HasOne
+    public function instructor(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'instructor_id');
     }
 
-    function category() : HasOne {
+    public function category(): HasOne
+    {
         return $this->hasOne(CourseCategory::class, 'id', 'category_id');
     }
 
-    function level() : HasOne {
-        return $this->hasOne(CourseLevel::class, 'id','course_level_id');
+    public function level(): HasOne
+    {
+        return $this->hasOne(CourseLevel::class, 'id', 'course_level_id');
     }
 
-    function language() : HasOne {
-        return $this->hasOne(CourseLanguage::class,'id','course_language_id');
+    public function language(): HasOne
+    {
+        return $this->hasOne(CourseLanguage::class, 'id', 'course_language_id');
     }
 
-    function chapters() : HasMany {
-        return $this->hasMany(CourseChapter::class, 'course_id','id')->orderBy('order');
+    public function chapters(): HasMany
+    {
+        return $this->hasMany(CourseChapter::class, 'course_id', 'id')->orderBy('order');
     }
 
-    function lessons() : HasMany {
+    public function lessons(): HasMany
+    {
         return $this->hasMany(CourseChapterLession::class, 'course_id', 'id');
     }
 
-    function reviews() : HasMany {
+    public function reviews(): HasMany
+    {
         return $this->hasMany(Review::class, 'course_id', 'id');
     }
 
-    function enrollments() : HasMany {
+    public function enrollments(): HasMany
+    {
         return $this->hasMany(Enrollment::class, 'course_id', 'id');
     }
 
     public function students()
-{
-    return $this->belongsToMany(User::class, 'enrollments', 'course_id', 'user_id')
-                ->where('role', 'student');
-}
+    {
+        return $this->belongsToMany(User::class, 'enrollments', 'course_id', 'user_id')
+                    ->where('role', 'student');
+    }
 }

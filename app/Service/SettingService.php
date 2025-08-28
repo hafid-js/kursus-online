@@ -7,14 +7,15 @@ use Illuminate\Support\Facades\Cache;
 
 class SettingService
 {
-
-    function getSettings(): array {
-        return Cache::rememberForever('settings', function() {
-            return Setting::pluck('value','key')->toArray();
+    public function getSettings(): array
+    {
+        return Cache::rememberForever('settings', function () {
+            return Setting::pluck('value', 'key')->toArray();
         });
     }
 
-    function setGlobalSettings() {
+    public function setGlobalSettings()
+    {
         $setting = $this->getSettings();
         config()->set('settings', $setting);
     }

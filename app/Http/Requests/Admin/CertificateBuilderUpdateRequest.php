@@ -22,11 +22,11 @@ class CertificateBuilderUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['nullable','max:255','string'],
-            'sub_title' => ['nullable','max:255','string'],
-            'description' => ['nullable','string'],
-            'signature' => ['nullable','image', 'max:3000'],
-            'background' => ['nullable','image', 'max:3000'],
+            'title' => ['nullable', 'max:255', 'string'],
+            'sub_title' => ['nullable', 'max:255', 'string'],
+            'description' => ['nullable', 'string'],
+            'signature' => ['nullable', 'image', 'max:3000'],
+            'background' => ['nullable', 'image', 'max:3000'],
         ];
     }
 }

@@ -20,6 +20,6 @@ class AboutUsSection extends Model
         'video_url',
         'image',
         'learner_image',
-        'video_image'
+        'video_image',
     ];
 }

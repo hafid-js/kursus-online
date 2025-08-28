@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\CourseChapter;
 use App\Models\CourseChapterLession;
-use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -115,9 +114,11 @@ class CourseContentController extends Controller
         try {
             $chapter = CourseChapter::findOrFail($id);
             $chapter->delete();
+
             return response()->json(['message' => 'Chapter deleted successfully']);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             logger($e);
+
             return response()->json(['message' => 'Something went wrong'], 500);
         }
     }
@@ -185,9 +186,11 @@ class CourseContentController extends Controller
         try {
             $lesson = CourseChapterLession::findOrFail($id);
             $lesson->delete();
+
             return response()->json(['message' => 'Lesson deleted successfully']);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             logger($e);
+
             return response()->json(['message' => 'Something went wrong'], 500);
         }
     }

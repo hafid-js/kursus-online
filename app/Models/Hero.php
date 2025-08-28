@@ -20,6 +20,6 @@ class Hero extends Model
         'banner_item_title',
         'banner_item_subtitle',
         'round_text',
-        'image'
+        'image',
     ];
 }

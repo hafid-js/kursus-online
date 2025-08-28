@@ -22,9 +22,9 @@ class CourseSubCategoryUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['nullable','image','max:3000'],
-            'name' => ['required','string','max:255','unique:course_categories,name,'. $this->course_sub_category->id],
-            'status' => ['nullable','boolean'],
+            'image' => ['nullable', 'image', 'max:3000'],
+            'name' => ['required', 'string', 'max:255', 'unique:course_categories,name,' . $this->course_sub_category->id],
+            'status' => ['nullable', 'boolean'],
         ];
     }
 }

@@ -4,10 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use function Pest\Laravel\json;
-
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('featured_instructors', function (Blueprint $table) {
             $table->id();
-             $table->string('title')->nullable();
+            $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
             $table->string('button_text')->nullable();
             $table->string('button_url')->nullable();

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Exports\CourseOrderExport;
+use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\CourseOrderExport;
 
 class ExportController extends Controller
 {
@@ -16,8 +16,10 @@ class ExportController extends Controller
         $ids = array_filter(explode(',', $request->ids ?? ''));
         if (empty($ids)) {
             Notyf()->error('No orders selected for export.');
+
             return redirect()->back();
         }
+
         return Excel::download(new CourseOrderExport($ids), 'course_orders.xlsx');
     }
 
@@ -28,10 +30,11 @@ class ExportController extends Controller
 
         if (empty($ids)) {
             Notyf()->error('No orders selected for export.');
+
             return redirect()->back();
         }
 
-        if ($type === 'pdf') {
+        if ('pdf' === $type) {
             $ordersGrouped = Order::whereIn('orders.id', $ids)
                 ->select(
                     'orders.invoice_id',
@@ -54,10 +57,9 @@ class ExportController extends Controller
                 ->get()
                 ->groupBy('order_id'); // group by invoice
 
-            $pdf = PDF::loadView('admin.order.partials.export-invoice-pdf', [
-                'groupedOrders' => $ordersGrouped
+            $pdf = Pdf::loadView('admin.order.partials.export-invoice-pdf', [
+                'groupedOrders' => $ordersGrouped,
             ]);
-
 
             return $pdf->stream('multiple-invoices.pdf');
         }

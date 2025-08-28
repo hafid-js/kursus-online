@@ -10,7 +10,8 @@ class Withdraw extends Model
 {
     use HasFactory;
 
-    function instructor(): BelongsTo {
+    public function instructor(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'instructor_id', 'id');
     }
 }

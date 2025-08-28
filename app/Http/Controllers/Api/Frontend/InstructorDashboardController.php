@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\OrderItemResource;
 use App\Http\Resources\CourseResource;
+use App\Http\Resources\OrderItemResource;
 use App\Models\Course;
 use App\Models\OrderItem;
 use Illuminate\Http\JsonResponse;
@@ -28,12 +28,12 @@ class InstructorDashboardController extends Controller
             ->count();
 
         $orderItems = OrderItem::with('course')
-            ->whereHas('course', fn($q) => $q->where('instructor_id', $user->id))
+            ->whereHas('course', fn ($q) => $q->where('instructor_id', $user->id))
             ->latest()
             ->take(10)
             ->get();
 
-        $bestSellingCourses = OrderItem::whereHas('order', fn($q) => $q->where('status', 'approved'))
+        $bestSellingCourses = OrderItem::whereHas('order', fn ($q) => $q->where('status', 'approved'))
             ->with('course')
             ->get()
             ->groupBy('course_id')
@@ -41,7 +41,7 @@ class InstructorDashboardController extends Controller
                 $firstItem = $items->first();
 
                 $totalBuyers = $items->pluck('order.buyer_id')->unique()->count();
-                $totalRevenue = $items->sum(fn($item) => $item->price * $item->qty);
+                $totalRevenue = $items->sum(fn ($item) => $item->price * $item->qty);
 
                 return (object) [
                     'course' => $firstItem->course,

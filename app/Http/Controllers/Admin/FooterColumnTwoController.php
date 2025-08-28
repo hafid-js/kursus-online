@@ -4,32 +4,30 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\FooterColumnTwo;
-use Exception;
 use Illuminate\Http\Request;
 
 class FooterColumnTwoController extends Controller
 {
-
     public function index()
     {
         $columnTwo = FooterColumnTwo::paginate(20);
+
         return view('admin.footer.column-two.index', compact('columnTwo'));
     }
 
-
-     public function create()
+    public function create()
     {
         $editMode = false;
+
         return response()->view('admin.footer.column-two.column-modal', compact('editMode'));
     }
-
 
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required','string','max:255'],
-            'url' => ['required','max:255'],
-            'status' => ['nullable','boolean'],
+            'title' => ['required', 'string', 'max:255'],
+            'url' => ['required', 'max:255'],
+            'status' => ['nullable', 'boolean'],
         ]);
 
         $columnTwo = new FooterColumnTwo();
@@ -39,6 +37,7 @@ class FooterColumnTwoController extends Controller
         $columnTwo->save();
 
         notyf()->success('Created Successfully');
+
         return to_route('admin.footer-column-two.index');
     }
 
@@ -46,15 +45,16 @@ class FooterColumnTwoController extends Controller
     {
         $editMode = true;
         $column = FooterColumnTwo::findOrFail($id);
-        return response()->view('admin.footer.column-two.column-modal', compact('column','editMode'));
+
+        return response()->view('admin.footer.column-two.column-modal', compact('column', 'editMode'));
     }
 
     public function update(Request $request, string $id)
     {
-         $request->validate([
-            'title' => ['required','string','max:255'],
-            'url' => ['required','max:255'],
-            'status' => ['nullable','boolean'],
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'url' => ['required', 'max:255'],
+            'status' => ['nullable', 'boolean'],
         ]);
 
         $columnTwo = FooterColumnTwo::findOrFail($id);
@@ -64,19 +64,21 @@ class FooterColumnTwoController extends Controller
         $columnTwo->save();
 
         notyf()->success('Updated Successfully');
+
         return to_route('admin.footer-column-two.index');
     }
-
 
     public function destroy(string $id)
     {
         $column = FooterColumnTwo::findOrFail($id);
-         try {
+        try {
             $column->delete();
             notyf()->success('Delete Succesfully!');
+
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch(Exception $e) {
-            logger("Footer Column Error >> ".$e);
+        } catch (\Exception $e) {
+            logger('Footer Column Error >> ' . $e);
+
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

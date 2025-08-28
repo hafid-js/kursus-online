@@ -16,7 +16,7 @@ class StudentCourseEnrolledDataTable extends DataTable
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder $query Results from query() method.
+     * @param QueryBuilder $query results from query() method
      */
     private function filterBuyerColumn($query, $keyword): void
     {
@@ -25,6 +25,7 @@ class StudentCourseEnrolledDataTable extends DataTable
                 ->orWhere('email', 'like', "%{$keyword}%");
         });
     }
+
     private function filterCourseColumn($query, $keyword): void
     {
         $query->whereHas('course', function ($q) use ($keyword) {
@@ -36,6 +37,7 @@ class StudentCourseEnrolledDataTable extends DataTable
 
         // dd($query);
     }
+
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         $dataTable = new EloquentDataTable($query);
@@ -53,7 +55,6 @@ class StudentCourseEnrolledDataTable extends DataTable
         $dataTable->orderColumn('users', function ($query, $order) {
             $query->orderBy('users.name', $order);
         });
-
 
         return $dataTable
             ->editColumn('paid_amount', function ($row) {
@@ -135,18 +136,20 @@ class StudentCourseEnrolledDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-
-    protected $instructorId = null;
-    protected $studentId = null;
+    protected $instructorId;
+    protected $studentId;
 
     public function setInstructorId($id)
     {
         $this->instructorId = $id;
+
         return $this;
     }
+
     public function setStudentId($id)
     {
         $this->studentId = $id;
+
         return $this;
     }
 
@@ -157,12 +160,12 @@ class StudentCourseEnrolledDataTable extends DataTable
             ->join('courses', 'courses.id', '=', 'order_items.course_id')
             ->with(['order.customer', 'course.instructor'])
             ->whereHas('course', function ($q) {
-                if ($this->instructorId !== null) {
+                if (null !== $this->instructorId) {
                     $q->where('instructor_id', $this->instructorId);
                 }
             });
 
-        if ($this->studentId !== null) {
+        if (null !== $this->studentId) {
             $query->whereHas('order', function ($q) {
                 $q->where('buyer_id', $this->studentId);
             });
@@ -183,10 +186,6 @@ class StudentCourseEnrolledDataTable extends DataTable
         );
     }
 
-
-
-
-
     /**
      * Optional method if you want to use the html builder.
      */
@@ -198,6 +197,7 @@ class StudentCourseEnrolledDataTable extends DataTable
         } elseif ($this->instructorId) {
             $route = route('admin.instructor.course-student-enrolled', ['id' => $this->instructorId]);
         }
+
         return $this->builder()
             ->setTableId('studentcourseenrolled-table')
             ->columns($this->getColumns())

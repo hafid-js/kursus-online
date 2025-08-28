@@ -5,7 +5,7 @@ return [
         'upload' => 'Upload',
         'youtube' => 'Youtube',
         'vimeo' => 'Vimeo',
-        'external_link' => 'External Link'
+        'external_link' => 'External Link',
     ],
     'file_type' => [
         'video' => 'Video',
@@ -13,5 +13,5 @@ return [
         'doc' => 'Doc',
         'pdf' => 'Pdf',
         'file' => 'File',
-    ]
+    ],
 ];

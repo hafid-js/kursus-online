@@ -6,29 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
 use App\Models\Contact;
 use App\Models\ContactSetting;
-use App\Models\Enrollment;
-use App\Models\Review;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-    function index()
+    public function index()
     {
         $contactCards = Cache::rememberForever('contact_cards', function () {
             return Contact::where('status', 1)->get();
         });
 
-
         $contactSetting = Cache::rememberForever('contact_setting', function () {
             return ContactSetting::first();
         });
+
         return view('frontend.pages.contact', compact('contactCards', 'contactSetting'));
     }
 
-    function sendMail(Request $request)
+    public function sendMail(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],

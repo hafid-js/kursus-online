@@ -8,15 +8,11 @@ use App\Http\Requests\Admin\CourseCategoryStoreRequest;
 use App\Http\Requests\Admin\CourseCategoryUpdateRequest;
 use App\Models\CourseCategory;
 use App\Traits\FileUpload;
-use Exception;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class CourseCategoryController extends Controller
 {
-
     use FileUpload;
 
     public function index(CourseCategoriesDataTable $dataTable)
@@ -24,11 +20,10 @@ class CourseCategoryController extends Controller
         return $dataTable->render('admin.course.course-category.index');
     }
 
-
-
     public function create()
     {
         $editMode = false;
+
         return response()->view('admin.course.course-category.partials.category-modal', compact('editMode'));
     }
     // public function edit($id): \Illuminate\Http\Response
@@ -37,7 +32,6 @@ class CourseCategoryController extends Controller
     //     $editMode = true;
     //     return response()->view('admin.course.course-category.category-modal', compact('category', 'editMode'));
     // }
-
 
     public function store(CourseCategoryStoreRequest $request)
     {
@@ -56,25 +50,25 @@ class CourseCategoryController extends Controller
 
         if ($request->ajax()) {
             notyf()->success('Created Succesfully!');
+
             return response()->json([
                 'message' => 'Created Successfully!',
                 'redirect' => route('admin.course-categories.index'),
             ]);
 
             return response()->json([
-                'redirect' => route('admin.course-categories.index')
+                'redirect' => route('admin.course-categories.index'),
             ]);
         }
     }
-
 
     public function edit($id): \Illuminate\Http\Response
     {
         $category = CourseCategory::findOrFail($id);
         $editMode = true;
+
         return response()->view('admin.course.course-category.partials.category-modal', compact('category', 'editMode'));
     }
-
 
     public function update(CourseCategoryUpdateRequest $request, CourseCategory $course_category)
     {
@@ -100,20 +94,18 @@ class CourseCategoryController extends Controller
         $course_category->save();
 
         Cache::forget('homepage_feature_categories');
-        notyf()->success("Updated Successfully!");
+        notyf()->success('Updated Successfully!');
 
         return response()->json([
-            'redirect' => route('admin.course-categories.index')
+            'redirect' => route('admin.course-categories.index'),
         ]);
     }
-
-
 
     public function destroy(CourseCategory $course_category)
     {
         if (CourseCategory::where('parent_id', $course_category->id)->exists()) {
             return response([
-                'message' => 'Cannot delete a category with subcategory!'
+                'message' => 'Cannot delete a category with subcategory!',
             ], 422);
         }
         try {
@@ -122,9 +114,11 @@ class CourseCategoryController extends Controller
             $course_category->delete();
             Cache::forget('homepage_feature_categories');
             notyf()->success('Delete Succesfully!');
+
             return response(['message' => 'Delete Successfully!'], 200);
-        } catch (Exception $e) {
-            logger("Course Language Error >> " . $e);
+        } catch (\Exception $e) {
+            logger('Course Language Error >> ' . $e);
+
             return response(['message' => 'Something went wrong!'], 500);
         }
     }

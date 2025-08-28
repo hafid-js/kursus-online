@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Service\OrderService;
 use Illuminate\Http\Request;
-use Midtrans\Config;
-use Midtrans\Snap;
-use Midtrans\Notification;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Stripe\Checkout\Session as StripeSession;
 use Stripe\Stripe;
@@ -27,22 +24,22 @@ class PaymentController extends Controller
     public function paypalConfig(): array
     {
         return [
-            'mode'    => config('gateway_settings.paypal_mode'),
+            'mode' => config('gateway_settings.paypal_mode'),
             'sandbox' => [
-                'client_id'         => config('gateway_settings.paypal_client_id'),
-                'client_secret'     => config('gateway_settings.paypal_client_secret'),
-                'app_id'            => 'APP-80W284485P519543T',
+                'client_id' => config('gateway_settings.paypal_client_id'),
+                'client_secret' => config('gateway_settings.paypal_client_secret'),
+                'app_id' => 'APP-80W284485P519543T',
             ],
             'live' => [
-                'client_id'         => config('gateway_settings.paypal_client_id'),
-                'client_secret'     => config('gateway_settings.paypal_client_secret'),
-                'app_id'            => config('gateway_settings.paypal_app_id'),
+                'client_id' => config('gateway_settings.paypal_client_id'),
+                'client_secret' => config('gateway_settings.paypal_client_secret'),
+                'app_id' => config('gateway_settings.paypal_app_id'),
             ],
-            'payment_action' => "Sale",
-            'currency'       => config('gateway_settings.paypal_currency'),
-            'notify_url'     => '',
-            'locale'         => 'en_US',
-            'validate_ssl'   => true,
+            'payment_action' => 'Sale',
+            'currency' => config('gateway_settings.paypal_currency'),
+            'notify_url' => '',
+            'locale' => 'en_US',
+            'validate_ssl' => true,
         ];
     }
 
@@ -69,9 +66,9 @@ class PaymentController extends Controller
             ],
         ]);
 
-        if (isset($response['id']) && $response['id'] != null) {
+        if (isset($response['id']) && null != $response['id']) {
             foreach ($response['links'] as $link) {
-                if ($link['rel'] == 'approve') {
+                if ('approve' == $link['rel']) {
                     return response()->json([
                         'approval_url' => $link['href'],
                     ]);
@@ -89,7 +86,7 @@ class PaymentController extends Controller
 
         $response = $provider->capturePaymentOrder($request->token);
 
-        if (isset($response['status']) && $response['status'] === 'COMPLETED') {
+        if (isset($response['status']) && 'COMPLETED' === $response['status']) {
             $capture = $response['purchase_units'][0]['payments']['captures'][0];
 
             $transactionId = $capture['id'];
@@ -107,6 +104,7 @@ class PaymentController extends Controller
                     $currency,
                     'paypal'
                 );
+
                 return response()->json(['message' => 'Order completed successfully']);
             } catch (\Throwable $th) {
                 return response()->json(['error' => 'Order processing failed'], 500);
@@ -148,7 +146,7 @@ class PaymentController extends Controller
 
         $response = StripeSession::retrieve($request->session_id);
 
-        if ($response->payment_status === 'paid') {
+        if ('paid' === $response->payment_status) {
             $transactionId = $response->payment_intent;
             $mainAmount = cartTotal();
             $paidAmount = $response->amount_total / 100;

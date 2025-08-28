@@ -11,22 +11,22 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-
-    function index()
+    public function index()
     {
         $cart = Cart::with(['course'])->where(['user_id' => user()->id])->paginate();
+
         return view('frontend.pages.cart', compact('cart'));
     }
 
     public function cartCount()
     {
         $count = Cart::where('user_id', auth('web')->id())->count();
+
         return response()->json(['count' => $count]);
     }
 
-    function addToCart(int $id): Response
+    public function addToCart(int $id): Response
     {
-
         // if (Cart::where([
         //     'course_id' => $id,
         //     'user_id' => Auth::guard('web')->user()->id
@@ -36,8 +36,8 @@ class CartController extends Controller
         //     ], 401);
         // }
 
-        if(Cart::where(['course_id' => $id,'user_id' => Auth::guard('web')->user()->id])->exists()) {
-            return response(['message' => 'Already Added!'],409);
+        if (Cart::where(['course_id' => $id, 'user_id' => Auth::guard('web')->user()->id])->exists()) {
+            return response(['message' => 'Already Added!'], 409);
         }
 
         $course = Course::findOrFail($id);
@@ -47,14 +47,16 @@ class CartController extends Controller
         $cart->save();
 
         return response([
-            'message' => 'Added Successfully!'
+            'message' => 'Added Successfully!',
         ], 200);
     }
 
-    function removeFromCart(int $id): RedirectResponse
+    public function removeFromCart(int $id): RedirectResponse
     {
         $cart = Cart::where(['id' => $id, 'user_id' => user()->id])->firstOrFail();
         $cart->delete();
         notyf()->success('Removed Successfully!');
+
         return redirect()->back();
-    }}
+    }
+}

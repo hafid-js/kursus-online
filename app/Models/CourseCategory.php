@@ -11,15 +11,18 @@ class CourseCategory extends Model
 {
     use HasFactory;
 
-    function subCategories() : HasMany {
-        return $this->hasMany(CourseCategory::class,'parent_id')->where('status','1');
+    public function subCategories(): HasMany
+    {
+        return $this->hasMany(CourseCategory::class, 'parent_id')->where('status', '1');
     }
 
-    function parentCategory() : BelongsTo {
-        return $this->belongsTo(CourseCategory::class,'parent_id');
+    public function parentCategory(): BelongsTo
+    {
+        return $this->belongsTo(CourseCategory::class, 'parent_id');
     }
 
-    function courses() : HasMany {
+    public function courses(): HasMany
+    {
         return $this->hasMany(Course::class, 'category_id')->where(['is_approved' => 'approved', 'status' => 'active']);
     }
 }

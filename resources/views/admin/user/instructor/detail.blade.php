@@ -30,34 +30,56 @@
                             <h3 class="card-title">Information Details</h3>
                         </div>
                         <div class="card-body">
-                            <dl class="row">
-                                <dt class="col-5">Full Name:</dt>
-                                <dd class="col-7">{{ $instructor->name }}</dd>
-                                <dt class="col-5">Headline:</dt>
-                                <dd class="col-7">{{ $instructor->headline ?? '-' }}</dd>
-                                <dt class="col-5">Email:</dt>
-                                <dd class="col-7">{{ $instructor->email }}</dd>
-                                <dt class="col-5">Gender:</dt>
-                                <dd class="col-7">{{ $instructor->gender ?? '-' }}</dd>
-                                <dt class="col-5">Bio:</dt>
-                                @php
-                                    $fullBio = $instructor->bio ?? '-';
-                                    $maxWords = 20;
-                                    $words = str_word_count(strip_tags($fullBio), 1); // Pisah kata
-                                    $shortBio = implode(' ', array_slice($words, 0, $maxWords));
-                                    $needsToggle = count($words) > $maxWords;
-                                @endphp
-
-                                <dd class="col-7">
-                                    @if ($needsToggle)
-                                        <span class="short-bio">{{ $shortBio }}...</span>
-                                        <span class="full-bio d-none">{{ $fullBio }}</span>
-                                        <a href="javascript:void(0)" class="text-primary toggle-bio">Read More</a>
+                            <div class="position-relative">
+                                <div style="position: absolute; top: 0; right: 0;">
+                                    @if (!empty($instructor->image))
+                                        <img src="{{ asset($instructor->image) }}" alt="Instructor Image"
+                                            class="img-thumbnail" style="max-width: 120px;max-height:100px;">
                                     @else
-                                        {{ $fullBio }}
+                                        <p>No image available</p>
                                     @endif
-                                </dd>
-                            </dl>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <dl class="row">
+                                            <dt class="col-3 col-md-2">Full Name</dt>
+                                            <dd class="col-9 col-md-10">{{ $instructor->name }}</dd>
+
+                                            <dt class="col-3 col-md-2">Headline</dt>
+                                            <dd class="col-9 col-md-10">{{ $instructor->headline ?? '-' }}</dd>
+
+                                            <dt class="col-3 col-md-2">Email</dt>
+                                            <dd class="col-9 col-md-10">{{ $instructor->email }}</dd>
+
+                                            <dt class="col-3 col-md-2">Gender</dt>
+                                            <dd class="col-9 col-md-10">{{ $instructor->gender ?? '-' }}</dd>
+
+                                            <dt class="col-3 col-md-2">Bio</dt>
+                                            <dd class="col-9 col-md-10">
+                                                @php
+                                                    $fullBio = $instructor->bio ?? '-';
+                                                    $maxWords = 20;
+                                                    $words = str_word_count(strip_tags($fullBio), 1);
+                                                    $shortBio = implode(' ', array_slice($words, 0, $maxWords));
+                                                    $needsToggle = count($words) > $maxWords;
+                                                @endphp
+
+                                                @if ($needsToggle)
+                                                    <span class="short-bio">{{ $shortBio }}...</span>
+                                                    <span class="full-bio d-none">{{ $fullBio }}</span>
+                                                    <a href="javascript:void(0)" class="text-primary toggle-bio">Read
+                                                        More</a>
+                                                @else
+                                                    {{ $fullBio }}
+                                                @endif
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -71,17 +93,17 @@
                         </div>
                         <div class="card-body">
                             <dl class="row">
-                                <dt class="col-5">Date:</dt>
+                                <dt class="col-5">Date</dt>
                                 <dd class="col-7">2020-01-05 16:42:29 UTC</dd>
                                 {{-- <dt class="col-5">Account:</dt>
                                 <dd class="col-7">tabler</dd> --}}
-                                <dt class="col-5">Location:</dt>
+                                <dt class="col-5">Location</dt>
                                 <dd class="col-7"><span class="flag flag-1 flag-country-pl"></span> Poland</dd>
-                                <dt class="col-5">IP Address:</dt>
+                                <dt class="col-5">IP Address</dt>
                                 <dd class="col-7">46.113.11.3</dd>
-                                <dt class="col-5">Operating system:</dt>
+                                <dt class="col-5">Operating system</dt>
                                 <dd class="col-7">OS X 10.15.2 64-bit</dd>
-                                <dt class="col-5">Browser:</dt>
+                                <dt class="col-5">Browser</dt>
                                 <dd class="col-7">Chrome</dd>
                             </dl>
                         </div>
@@ -153,7 +175,8 @@
                                     Search:
                                     <div class="ms-2 d-inline-block">
                                         <input data-table-id="studentcourseenrolled-table" type="text"
-                                            class="form-control form-control-sm custom-search-input" aria-label="Search invoice">
+                                            class="form-control form-control-sm custom-search-input"
+                                            aria-label="Search invoice">
                                     </div>
                                 </div>
                             </div>
@@ -276,140 +299,141 @@
 @push('scripts')
     {!! $courseDataTable->scripts() !!}
     {!! $studentCourseEnrolledDataTable->scripts() !!}
-   <script>
-    $(document).ready(function () {
-    // Reusable: Custom length input
-    $(document).on('change', '.custom-length-input', function () {
-        const tableId = $(this).data('table-id');
-        const length = parseInt($(this).val());
-        if (!isNaN(length) && length > 0) {
-            $('#' + tableId).DataTable().page.len(length).draw();
-        }
-    });
-
-    // Reusable: Custom search input
-    $(document).on('keyup', '.custom-search-input', function () {
-        const tableId = $(this).data('table-id');
-        const value = $(this).val();
-        $('#' + tableId).DataTable().search(value).draw();
-    });
-
-    // Reusable: Reload button
-    $(document).on('click', '#btnReload', function () {
-        const tableId = 'studentcourseenrolled-table'; // Bisa ditambah data attribute jika mau dinamis
-        $('#' + tableId).DataTable().ajax.reload(null, false);
-    });
-
-    // Reusable: Reset button
-    $(document).on('click', '#btnReset', function () {
-        const tableId = 'studentcourseenrolled-table';
-        const table = $('#' + tableId).DataTable();
-        table.search('').columns().search('').order([]).page('first').draw();
-
-        // Reset inputs (optional)
-        $('.custom-search-input[data-table-id="' + tableId + '"]').val('');
-        $('.custom-length-input[data-table-id="' + tableId + '"]').val(10);
-        $('#' + tableId + ' input[type="checkbox"]').prop('checked', false);
-    });
-
-    // Checkbox logic (optional if needed)
-    $('#studentcourseenrolled-table').on('draw.dt', function () {
-        $('#select-all').off('click').on('click', function () {
-            const checked = $(this).is(':checked');
-            $('.order-checkbox').prop('checked', checked);
-        });
-
-        $(document).off('click', '.order-checkbox').on('click', '.order-checkbox', function () {
-            const total = $('.order-checkbox').length;
-            const checked = $('.order-checkbox:checked').length;
-            $('#select-all').prop('checked', total === checked);
-        });
-    });
-
-    // Export
-    function exportSelectedOrAll(type) {
-        let selectedIds = [];
-        $('.order-checkbox:checked').each(function () {
-            selectedIds.push($(this).val());
-        });
-
-        if (selectedIds.length > 0) {
-            let url = `export/course-orders-pdf?type=${type}`;
-            let csrfToken = $('meta[name="csrf-token"]').attr('content');
-            let form = $('<form method="POST" action="' + url + '"></form>');
-            form.append('<input type="hidden" name="_token" value="' + csrfToken + '">');
-            selectedIds.forEach(id => {
-                form.append('<input type="hidden" name="ids[]" value="' + id + '">');
+    <script>
+        $(document).ready(function() {
+            // Reusable: Custom length input
+            $(document).on('change', '.custom-length-input', function() {
+                const tableId = $(this).data('table-id');
+                const length = parseInt($(this).val());
+                if (!isNaN(length) && length > 0) {
+                    $('#' + tableId).DataTable().page.len(length).draw();
+                }
             });
-            $('body').append(form);
-            form.submit();
-        } else {
-            if (type === 'excel') {
-                window.location.href = "{{ route('admin.export.course-orders') }}";
-            } else if (type === 'pdf') {
-                window.location.href = "{{ route('admin.export.course-orders-pdf') }}";
+
+            // Reusable: Custom search input
+            $(document).on('keyup', '.custom-search-input', function() {
+                const tableId = $(this).data('table-id');
+                const value = $(this).val();
+                $('#' + tableId).DataTable().search(value).draw();
+            });
+
+            // Reusable: Reload button
+            $(document).on('click', '#btnReload', function() {
+                const tableId =
+                    'studentcourseenrolled-table';
+                $('#' + tableId).DataTable().ajax.reload(null, false);
+            });
+
+            // Reusable: Reset button
+            $(document).on('click', '#btnReset', function() {
+                const tableId = 'studentcourseenrolled-table';
+                const table = $('#' + tableId).DataTable();
+                table.search('').columns().search('').order([]).page('first').draw();
+
+                // Reset inputs (optional)
+                $('.custom-search-input[data-table-id="' + tableId + '"]').val('');
+                $('.custom-length-input[data-table-id="' + tableId + '"]').val(10);
+                $('#' + tableId + ' input[type="checkbox"]').prop('checked', false);
+            });
+
+            // Checkbox logic (optional if needed)
+            $('#studentcourseenrolled-table').on('draw.dt', function() {
+                $('#select-all').off('click').on('click', function() {
+                    const checked = $(this).is(':checked');
+                    $('.order-checkbox').prop('checked', checked);
+                });
+
+                $(document).off('click', '.order-checkbox').on('click', '.order-checkbox', function() {
+                    const total = $('.order-checkbox').length;
+                    const checked = $('.order-checkbox:checked').length;
+                    $('#select-all').prop('checked', total === checked);
+                });
+            });
+
+            // Export
+            function exportSelectedOrAll(type) {
+                let selectedIds = [];
+                $('.order-checkbox:checked').each(function() {
+                    selectedIds.push($(this).val());
+                });
+
+                if (selectedIds.length > 0) {
+                    let url = `export/course-orders-pdf?type=${type}`;
+                    let csrfToken = $('meta[name="csrf-token"]').attr('content');
+                    let form = $('<form method="POST" action="' + url + '"></form>');
+                    form.append('<input type="hidden" name="_token" value="' + csrfToken + '">');
+                    selectedIds.forEach(id => {
+                        form.append('<input type="hidden" name="ids[]" value="' + id + '">');
+                    });
+                    $('body').append(form);
+                    form.submit();
+                } else {
+                    if (type === 'excel') {
+                        window.location.href = "{{ route('admin.export.course-orders') }}";
+                    } else if (type === 'pdf') {
+                        window.location.href = "{{ route('admin.export.course-orders-pdf') }}";
+                    }
+                }
             }
-        }
-    }
 
-    $('#btnExportExcel').click(function (e) {
-        e.preventDefault();
-        exportSelectedOrAll('excel');
-    });
+            $('#btnExportExcel').click(function(e) {
+                e.preventDefault();
+                exportSelectedOrAll('excel');
+            });
 
-    $('#btnExportPdf').click(function (e) {
-        e.preventDefault();
-        exportSelectedOrAll('pdf');
-    });
+            $('#btnExportPdf').click(function(e) {
+                e.preventDefault();
+                exportSelectedOrAll('pdf');
+            });
 
-    $('#btnPrint').click(function () {
-        window.print();
-    });
+            $('#btnPrint').click(function() {
+                window.print();
+            });
 
-    // Toggle bio read more
-    document.querySelectorAll('.toggle-bio').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            const parent = this.closest('dd');
-            const shortBio = parent.querySelector('.short-bio');
-            const fullBio = parent.querySelector('.full-bio');
+            // Toggle bio read more
+            document.querySelectorAll('.toggle-bio').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const parent = this.closest('dd');
+                    const shortBio = parent.querySelector('.short-bio');
+                    const fullBio = parent.querySelector('.full-bio');
 
-            if (shortBio.classList.contains('d-none')) {
-                shortBio.classList.remove('d-none');
-                fullBio.classList.add('d-none');
-                this.textContent = 'Read More';
-            } else {
-                shortBio.classList.add('d-none');
-                fullBio.classList.remove('d-none');
-                this.textContent = 'Close';
-            }
+                    if (shortBio.classList.contains('d-none')) {
+                        shortBio.classList.remove('d-none');
+                        fullBio.classList.add('d-none');
+                        this.textContent = 'Read More';
+                    } else {
+                        shortBio.classList.add('d-none');
+                        fullBio.classList.remove('d-none');
+                        this.textContent = 'Close';
+                    }
+                });
+            });
+
+            // Dynamic modal
+            const baseUrl = "{{ url('') }}";
+            const modalElement = document.getElementById('dynamic-modal');
+            const dynamicModal = new bootstrap.Modal(modalElement);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(document).on("click", ".show-order-courses, .show-order-invoice", function() {
+                const orderId = $(this).data('order-id');
+                const type = $(this).hasClass('show-order-courses') ? 'courses' : 'invoice';
+
+                dynamicModal.show();
+                $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
+
+                $.get(`${baseUrl}/admin/orders/${orderId}?modal=${type}`, function(html) {
+                    $('.dynamic-modal-content').html(html);
+                }).fail(() => {
+                    $('.dynamic-modal-content').html(
+                        '<div class="p-5 text-danger">Error loading form</div>');
+                });
+            });
         });
-    });
-
-    // Dynamic modal
-    const baseUrl = "{{ url('') }}";
-    const modalElement = document.getElementById('dynamic-modal');
-    const dynamicModal = new bootstrap.Modal(modalElement);
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $(document).on("click", ".show-order-courses, .show-order-invoice", function () {
-        const orderId = $(this).data('order-id');
-        const type = $(this).hasClass('show-order-courses') ? 'courses' : 'invoice';
-
-        dynamicModal.show();
-        $('.dynamic-modal-content').html('<div class="p-5 text-center">Loading...</div>');
-
-        $.get(`${baseUrl}/admin/orders/${orderId}?modal=${type}`, function (html) {
-            $('.dynamic-modal-content').html(html);
-        }).fail(() => {
-            $('.dynamic-modal-content').html('<div class="p-5 text-danger">Error loading form</div>');
-        });
-    });
-});
-
-   </script>
+    </script>
 @endpush

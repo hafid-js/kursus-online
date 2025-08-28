@@ -8,17 +8,14 @@ use App\Models\OrderItem;
 use App\Models\Review;
 use App\Models\User;
 use App\Traits\FileUpload;
-use Carbon\Carbon;
-use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class InstructorDashboardController extends Controller
 {
-
     use FileUpload;
-    function index(): View
+
+    public function index(): View
     {
         $pendingCourses = Course::where('instructor_id', user()->id)->where('is_approved', 'pending')->orderBy('id', 'DESC')->limit(5)->count();
         $approvedCourses = Course::where('instructor_id', user()->id)->where('is_approved', 'approved')->orderBy('id', 'DESC')->limit(5)->count();
@@ -44,7 +41,7 @@ class InstructorDashboardController extends Controller
                     return $item->price * $item->qty;
                 });
 
-                return (object)[
+                return (object) [
                     'course' => $firstItem->course,
                     'total_buyers' => $totalBuyers,
                     'total_revenue' => $totalRevenue,
@@ -57,7 +54,7 @@ class InstructorDashboardController extends Controller
         return view('frontend.instructor-dashboard.index', compact('pendingCourses', 'approvedCourses', 'rejectedCourses', 'orderItems', 'bestSellingCourses'));
     }
 
-     public function documentUpdate(Request $request, User $user)
+    public function documentUpdate(Request $request, User $user)
     {
         $request->validate([
             'document' => ['required', 'mimes:pdf,doc,docx,jpg,png', 'max:1200'],
@@ -67,7 +64,7 @@ class InstructorDashboardController extends Controller
 
         $user->update([
             'document' => $filePath,
-            'document_status' => 'pending'
+            'document_status' => 'pending',
         ]);
 
         notyf()->success('Document Submitted Successfully!');
@@ -95,8 +92,8 @@ class InstructorDashboardController extends Controller
             return redirect()
                 ->back()
                 ->with('success', 'Review deleted successfully!');
-        } catch (Exception $e) {
-            logger("Review Error >> " . $e);
+        } catch (\Exception $e) {
+            logger('Review Error >> ' . $e);
 
             return redirect()
                 ->back()

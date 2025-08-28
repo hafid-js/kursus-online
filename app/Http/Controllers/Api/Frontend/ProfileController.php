@@ -21,6 +21,7 @@ class ProfileController extends Controller
     {
         // Kalau untuk API, biasanya return data profile user saja
         $user = Auth::user();
+
         return response()->json($user);
     }
 
@@ -88,7 +89,7 @@ class ProfileController extends Controller
             ['instructor_id' => Auth::id()],
             [
                 'gateway' => $request->gateway,
-                'information' => $request->information
+                'information' => $request->information,
             ]
         );
 

@@ -12,6 +12,6 @@ class CertificateBuilderItem extends Model
     protected $fillable = [
         'element_id',
         'x_position',
-        'y_position'
+        'y_position',
     ];
 }
