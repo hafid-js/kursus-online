@@ -42,6 +42,7 @@ class CourseDataTable extends DataTable
         });
 
         return $dataTable
+                  ->addIndexColumn()
             ->editColumn('thumbnail', function ($row) {
                 return '
                     <div class="image_category">
@@ -164,6 +165,12 @@ class CourseDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+             Column::computed('DT_RowIndex')
+                ->title('No')
+                ->searchable(false)
+                ->width(10)
+                ->orderable(false),
+
             Column::computed('thumbnail')
                 ->title('<span class="image">COURSES</span>')
                 ->orderable(true)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\DataTables\Frontend\Instructor\CourseEnrolledDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\CourseChapterLession;
@@ -13,17 +14,29 @@ use Illuminate\Http\Response;
 
 class EnrolledCourseController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     $enrollments = Enrollment::with('course')
+    //         ->where('user_id', user()->id)
+    //         ->whereHas('course')
+    //         ->get();
+
+    //     if ('student' === user()->role) {
+    //         return view('frontend.student-dashboard.enrolled-course.index', compact('enrollments'));
+    //     } elseif ('instructor' === user()->role) {
+    //         return view('frontend.instructor-dashboard.enrolled-course.index', compact('enrollments'));
+    //     } else {
+    //         abort(403, 'Unauthorized role.');
+    //     }
+    // }
+
+    public function index(CourseEnrolledDataTable $courseDataTable)
     {
-        $enrollments = Enrollment::with('course')
-            ->where('user_id', user()->id)
-            ->whereHas('course')
-            ->get();
 
         if ('student' === user()->role) {
-            return view('frontend.student-dashboard.enrolled-course.index', compact('enrollments'));
+            return $courseDataTable->render('frontend.student-dashboard.enrolled-course.index');
         } elseif ('instructor' === user()->role) {
-            return view('frontend.instructor-dashboard.enrolled-course.index', compact('enrollments'));
+            return $courseDataTable->render('frontend.instructor-dashboard.enrolled-course.index');
         } else {
             abort(403, 'Unauthorized role.');
         }

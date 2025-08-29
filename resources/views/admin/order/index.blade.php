@@ -18,7 +18,7 @@
                                         <div class="mx-2 d-inline-block">
                                             <input type="number" min="1"
                                                 class="form-control form-control-sm custom-length-input"
-                                                data-table-id="courseorders-table" value="10" size="3"
+                                                data-table-id="courseorders-table" value="8" size="3"
                                                 aria-label="Invoices count">
                                         </div>
                                         entries

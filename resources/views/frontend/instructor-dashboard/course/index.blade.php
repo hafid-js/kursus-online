@@ -222,44 +222,24 @@
 
             table.on('draw', function() {
 
-                // add class for tr and th
-                $('#course-table tbody tr').each(function() {
-                    $(this).find('th').eq(0).addClass('image');
-                });
-                $('#course-table tbody tr').each(function() {
-                    $(this).find('th').eq(1).addClass('details');
-                });
-                $('#course-table tbody tr').each(function() {
-                    $(this).find('th').eq(2).addClass('sale');
-                });
-                $('#course-table tbody tr').each(function() {
-                    $(this).find('th').eq(3).addClass('status');
-                });
-                $('#course-table tbody tr').each(function() {
-                    $(this).find('th').eq(4).addClass('status');
-                });
-                $('#course-table tbody tr').each(function() {
-                    $(this).find('th').eq(5).addClass('action');
-                });
-
                 // add class for tr and td
                 $('#course-table tbody tr').each(function() {
-                    $(this).find('td').eq(0).addClass('image');
+                    $(this).find('td').eq(1).addClass('image');
                 });
                 $('#course-table tbody tr').each(function() {
-                    $(this).find('td').eq(1).addClass('details');
+                    $(this).find('td').eq(2).addClass('details');
                 });
                 $('#course-table tbody tr').each(function() {
-                    $(this).find('td').eq(2).addClass('sale');
-                });
-                $('#course-table tbody tr').each(function() {
-                    $(this).find('td').eq(3).addClass('status');
+                    $(this).find('td').eq(3).addClass('sale');
                 });
                 $('#course-table tbody tr').each(function() {
                     $(this).find('td').eq(4).addClass('status');
                 });
                 $('#course-table tbody tr').each(function() {
-                    $(this).find('td').eq(5).addClass('action');
+                    $(this).find('td').eq(5).addClass('status');
+                });
+                $('#course-table tbody tr').each(function() {
+                    $(this).find('td').eq(6).addClass('action');
                 });
             });
             $('#btnReload').on('click', function() {

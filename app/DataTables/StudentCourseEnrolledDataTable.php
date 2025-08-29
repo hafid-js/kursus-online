@@ -43,8 +43,8 @@ class StudentCourseEnrolledDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         $dataTable
-            ->filterColumn('course', fn($query, $keyword) => $this->filterCourseColumn($query, $keyword))
-            ->filterColumn('name', fn($query, $keyword) => $this->filterBuyerColumn($query, $keyword));
+            ->filterColumn('course', fn ($query, $keyword) => $this->filterCourseColumn($query, $keyword))
+            ->filterColumn('name', fn ($query, $keyword) => $this->filterBuyerColumn($query, $keyword));
 
         // order column for title course
         $dataTable->orderColumn('course', function ($query, $order) {

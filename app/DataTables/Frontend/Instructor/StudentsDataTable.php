@@ -101,7 +101,7 @@ class StudentsDataTable extends DataTable
                     ->orderBy(1)
             ->selectStyleSingle()
             ->parameters([
-                'pageLength' => 10,
+                'pageLength' => 8,
                 'lengthChange' => false,
                 'paging' => true,
                 'info' => true,

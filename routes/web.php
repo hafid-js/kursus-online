@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityTrackerController;
+use App\Http\Controllers\Export\ExportController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CertificateController;
@@ -184,6 +185,9 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
 
         Route::get('withdrawals/request-payout', [WithdrawController::class, 'requestPayoutIndex'])->name('withdraw.request-payout');
         Route::post('withdrawals/request-payout', [WithdrawController::class, 'requestPayout'])->name('withdraw.request-payout.create');
+
+        Route::get('export/students', [ExportController::class, 'studentExportOrders'])->name('export.students');
+        Route::match(['GET', 'POST'], 'export/students-pdf', [ExportController::class, 'studentExportSelected'])->name('export.students-pdf');
     });
     // lfm routes
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

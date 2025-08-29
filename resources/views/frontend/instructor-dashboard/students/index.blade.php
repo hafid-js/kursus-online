@@ -1,7 +1,12 @@
 @extends('frontend.layouts.layout')
 
 @section('content')
- <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
+    <style>
+        .wsus__dashboard_searchbox {
+            gap: 10px;
+        }
+    </style>
+    <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
                 <div class="row">
@@ -27,84 +32,38 @@
                         <div class="wsus__dashboard_contant_top">
                             <div class="wsus__dashboard_heading">
                                 <h5>Students</h5>
-                                <p>Manage your students- and its update like live, draft and insight.</p>
+                                <p>Easily manage your students and view updates including course status, progress insights,
+                                    and enrollment states.</p>
                             </div>
                         </div>
 
-                        <form action="#" class="wsus__dashboard_searchbox">
-                            <input type="text" id="custom-search" placeholder="Student Profile Name">
-                            <button class="common_btn">Search</button>
-                        </form>
-
                         <div class="wsus__dash_student_table">
+                            <div class="wsus__dash_course_searchbox">
+                                <a class="common_btn" id="btnExportExcel">Export Report</a>
+                                <div class="input">
+                                    <input id="custom-search" type="text" placeholder="Search Student Name ...">
+                                    <button><i class="far fa-search" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="table-responsive">
-                                           {!! $dataTable->table(['id' => 'students-table', 'class' => 'table'], true) !!}
-                                        {{-- <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <th class="name">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                id="inlineCheckbox1" value="option1">
-                                                            <label class="form-check-label" for="inlineCheckbox1">STUDENT
-                                                                NAME</label>
-                                                        </div>
-                                                    </th>
-                                                     <th class="date">
-                                                        ENROLLED
-                                                    </th>
-                                                    <th class="date">
-                                                        COURSE
-                                                    </th>
-
-
-                                                    <th class="progres">
-                                                        PROGRESS
-                                                    </th>
-
-                                                </tr>
-                                                @forelse ($students as $student)
-                                                    <tr>
-                                                        <td class="name">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option1">
-                                                        </div>
-                                                        <div class="img">
-                                                            <img src="{{ $student->order->customer->image ? asset($student->order->customer->image) : url('frontend/assets/images/image-profile.png') }}" alt="student" class="img-fluid w-100">
-                                                        </div>
-                                                        <a href="#">{{ $student->order->customer->name }}</a>
-                                                    </td>
-                                                     <td class="date">
-                                                            <p> {{ $student->order->created_at }}</p>
-                                                        </td>
-                                                        <td class="date">
-                                                            <p class="title">{{ $student->course->title }}</p>
-                                                        </td>
-
-
-                                                        <td class="progres">
-                                                            <p>{{ $student->watchedCount }} of {{ $student->lessonCount }}
-                                                                ({{ $student->progressPercent }}%)
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td class="text-center" colspan="3">
-                                                            No Data Found
-                                                        </td>
-                                                    </tr>
-                                                @endforelse
-                                            </tbody>
-                                        </table> --}}
+                                        {!! $dataTable->table(['id' => 'students-table', 'class' => 'table'], true) !!}
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="wsus__pagination mt_50 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <i class="far fa-arrow-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -114,7 +73,7 @@
 
 @push('scripts')
     {!! $dataTable->scripts() !!}
-         <script>
+    <script>
         window.initTable = function(tableSelector) {
             let table = $(tableSelector).DataTable();
 
@@ -229,16 +188,6 @@
             // Inisialisasi DataTable
             let table = $('#students-table').DataTable();
 
-            // $('#btnReload').on('click', function() {
-            //     table.ajax.reload(null, false);
-            // });
-
-            // $('#btnReset').on('click', function() {
-            //     table.search('').columns().search('').order([]).page('first').draw();
-            //     $('#custom-search').val('');
-            //     $('input[type="checkbox"]').prop('checked', false);
-            // });
-
             table.on('draw', function() {
                 // add class for tr and td
                 $('#students-table tbody tr').each(function() {
@@ -267,7 +216,7 @@
             initTable('#students-table');
 
 
-             $('#students-table').on('draw.dt', function() {
+            $('#students-table').on('draw.dt', function() {
                 $('#select-all').off('click').on('click', function() {
                     const checked = $(this).is(':checked');
                     $('.student-checkbox').prop('checked', checked);
@@ -280,8 +229,51 @@
                     $('#select-all').prop('checked', total === checked);
                 });
             });
+
+        });
+
+        $(document).ready(function() {
+            function exportSelectedOrAll(type) {
+                let selectedIds = [];
+                $('.student-checkbox:checked').each(function() {
+                    selectedIds.push($(this).val());
+                });
+
+                if (selectedIds.length > 0) {
+                    let url = `export/students-pdf?type=${type}`;
+
+                    let csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                    let form = $('<form method="POST" action="' + url + '"></form>');
+
+                    form.append('<input type="hidden" name="_token" value="' + csrfToken + '">');
+
+                    selectedIds.forEach(id => {
+                        form.append('<input type="hidden" name="ids[]" value="' + id + '">');
+                    });
+
+                    $('body').append(form);
+                    form.submit();
+                } else {
+                    if (type === 'excel') {
+                        window.location.href = "{{ route('instructor.export.students') }}";
+                    } else if (type === 'pdf') {
+                        window.location.href = "{{ route('instructor.export.students-pdf') }}";
+                    }
+                }
+            }
+            $('#btnExportExcel').click(function(e) {
+                e.preventDefault();
+                exportSelectedOrAll('excel');
+            });
+
+            $('#btnExportPdf').click(function(e) {
+                e.preventDefault();
+                exportSelectedOrAll('pdf');
+            });
+            $('#btnPrint').click(function() {
+                window.print();
+            });
         });
     </script>
-
 @endpush
-
