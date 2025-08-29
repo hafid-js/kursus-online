@@ -128,13 +128,13 @@ class PaymentController extends Controller
 
         // Decode items dari request
         $items = json_decode($request->items, true);
-        $totalUSD = 0;
+        $totalIDR = 0;
         foreach ($items as $item) {
-            $totalUSD += $item['price'] * ($item['quantity'] ?? 1);
+            $totalIDR += $item['price'] * ($item['quantity'] ?? 1);
         }
 
-        $rate = $this->getUsdToIdrRate();
-        $totalIDR = round($totalUSD * $rate);
+        // $rate = $this->getUsdToIdrRate();
+        // $totalIDR = round($totalUSD * $rate);
 
         $params = [
             'transaction_details' => [

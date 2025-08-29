@@ -137,7 +137,7 @@
                     <div class="total_payment_price">
                         <h4>Total Cart <span>(0{{ cartCount() }})</span></h4>
                         <ul>
-                            <li>Subtotal :<span>Rp.{{ cartTotal() }}</span></li>
+                            <li>Subtotal :<span>Rp.{{ number_format(cartTotal(),2) }}</span></li>
                         </ul>
                         {{-- <a href="#" class="common_btn">now payment</a> --}}
                     </div>

@@ -87,7 +87,7 @@ class CourseDataTable extends DataTable
                         <i class="fas fa-trash-alt" aria-hidden="true"></i>
                     </a>';
             })
-            ->rawColumns(['thumbnail', 'title', 'sale', 'status', 'is_approved', 'action'])
+            ->rawColumns(['thumbnail', 'title', 'sale', 'status', 'is_approved'])
             ->setRowId('id');
     }
 
@@ -192,9 +192,9 @@ class CourseDataTable extends DataTable
                 ->orderable(true)
                 ->escape(false),
 
-            Column::computed('action')
-                ->title('ACTION')
-                ->escape(false),
+            // Column::computed('action')
+            //     ->title('ACTION')
+            //     ->escape(false),
         ];
     }
 

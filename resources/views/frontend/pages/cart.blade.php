@@ -57,7 +57,7 @@
                                                     @if ($item->course->discount > 0)
                                                         <del>
                                                             <strong
-                                                                class="text-primary">Rp.{{ $item->course->price }}</strong>
+                                                                class="text-primary">Rp.{{ number_format($item->course->price,2) }}</strong>
                                                         </del>
                                                         @php
                                                             $discount = $item->course->discount ?? 0;
@@ -77,7 +77,7 @@
                                                             </span>
                                                         </div>
                                                     @else
-                                                        <strong class="text-primary">Rp.{{ $item->course->price }}</strong>
+                                                        <strong class="text-primary">Rp.{{ number_format($item->course->price, 2) }}</strong>
                                                     @endif
                                                 </td>
                                                 {{--
@@ -116,7 +116,7 @@
                         style="visibility: visible; animation-name: fadeInUp;">
                         <div class="total_price">
                             <div class="subtotal_area">
-                                <h5>Total :<span>Rp.{{ cartTotal() }}</span></h5>
+                                <h5>Total :<span>Rp.{{ number_format(cartTotal(),2) }}</span></h5>
                                 <a href="{{ route('checkout.index') }}" class="common_btn">proceed checkout<i class="fa fa-arrow-right"></i> </a>
                             </div>
                         </div>

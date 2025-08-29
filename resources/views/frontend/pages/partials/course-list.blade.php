@@ -85,10 +85,10 @@
                         </a>
                         <p>
                            @if ($course->discount > 0)
-                                <del>Rp.{{ $course->price }}</del>
-                                  Rp.{{ getFinalPrice($course->price, $course->discount) }}
+                                <del>Rp.{{ number_format($course->price, 2) }}</del>
+                                  Rp.{{ number_format(getFinalPrice($course->price, $course->discount),2) }}
                             @else
-                                Rp.{{ $course->price }}
+                                Rp.{{ number_format($course->price, 2) }}
                             @endif
                         </p>
                     @endif

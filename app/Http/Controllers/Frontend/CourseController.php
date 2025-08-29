@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\DataTables\Frontend\Instructor\CourseDataTable;
+use App\DataTables\Frontend\Instructor\StudentsDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CourseBasicInfoCreateRequest;
 use App\Models\Course;
@@ -289,41 +290,44 @@ class CourseController extends Controller
         }
     }
 
-    public function students()
+    public function students(StudentsDataTable $studentsDataTable)
     {
         $instructorId = user()->id;
 
-        $students = OrderItem::whereHas('course', function ($query) use ($instructorId) {
-            $query->where('instructor_id', $instructorId);
-        })
-            ->with(['course', 'order.customer']) // buyer = student
-            ->get()
-            ->map(function ($item) {
-                $courseId = $item->course_id;
-                $userId = $item->order->customer->id;
+        // $students = OrderItem::whereHas('course', function ($query) use ($instructorId) {
+        //     $query->where('instructor_id', $instructorId);
+        // })
+        //     ->with(['course', 'order.customer']) // buyer = student
+        //     ->get()
+        //     ->map(function ($item) {
+        //         $courseId = $item->course_id;
+        //         $userId = $item->order->customer->id;
 
-                // calculate total lessons
-                $lessonCount = CourseChapterLession::where('course_id', $courseId)->count();
+        //         // calculate total lessons
+        //         $lessonCount = CourseChapterLession::where('course_id', $courseId)->count();
 
-                // retrieve all lessons that have been watched (is_completed = 1)
-                $watchedLessonIds = WatchHistory::where([
-                    'user_id' => $userId,
-                    'course_id' => $courseId,
-                    'is_completed' => 1,
-                ])->pluck('lesson_id')->toArray();
+        //         // retrieve all lessons that have been watched (is_completed = 1)
+        //         $watchedLessonIds = WatchHistory::where([
+        //             'user_id' => $userId,
+        //             'course_id' => $courseId,
+        //             'is_completed' => 1,
+        //         ])->pluck('lesson_id')->toArray();
 
-                $watchedCount = count($watchedLessonIds);
-                $progressPercent = $lessonCount > 0 ? round(($watchedCount / $lessonCount) * 100) : 0;
+        //         $watchedCount = count($watchedLessonIds);
+        //         $progressPercent = $lessonCount > 0 ? round(($watchedCount / $lessonCount) * 100) : 0;
 
-                // store into additional property
-                $item->lessonCount = $lessonCount;
-                $item->watchedCount = $watchedCount;
-                $item->progressPercent = $progressPercent;
+        //         // store into additional property
+        //         $item->lessonCount = $lessonCount;
+        //         $item->watchedCount = $watchedCount;
+        //         $item->progressPercent = $progressPercent;
 
-                return $item;
-            });
+        //         return $item;
+        //     });
 
-        return view('frontend.instructor-dashboard.students.index', compact('students'));
+        $id = user()->id;
+        $studentsDataTable->setInstructorId($id);
+
+        return $studentsDataTable->render('frontend.instructor-dashboard.students.index');
     }
 
     public function destroy(Course $course)

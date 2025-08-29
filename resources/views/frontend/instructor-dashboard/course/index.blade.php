@@ -57,7 +57,7 @@
                                 <div class="nice-select add_course_basic_info_imput" tabindex="0" id="sortCourse">
                                     <span class="current">Sort by</span>
                                     <ul class="list">
-                                        <li data-value="created_at_desc" class="option selected">Newest</li>
+                                        <li data-value="best_seller" class="option">Best Seller</li>
                                         <li data-value="created_at_asc" class="option">Oldest</li>
                                         <li data-value="price_asc" class="option">Price: Low to High</li>
                                         <li data-value="price_desc" class="option">Price: High to Low</li>
