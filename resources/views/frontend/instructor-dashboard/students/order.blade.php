@@ -2,8 +2,8 @@
 
 @section('content')
     <!--===========================
-                        BREADCRUMB START
-                    ============================-->
+                            BREADCRUMB START
+                        ============================-->
     <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
@@ -22,13 +22,13 @@
         </div>
     </section>
     <!--===========================
-                        BREADCRUMB END
-                    ============================-->
+                            BREADCRUMB END
+                        ============================-->
 
 
     <!--===========================
-                        DASHBOARD OVERVIEW START
-                    ============================-->
+                            DASHBOARD OVERVIEW START
+                        ============================-->
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -57,10 +57,39 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $orderItem->course->title }}</td>
                                             <td>{{ $orderItem->order->customer->name }}</td>
-                                            <td>{{ $orderItem->price }}</td>
+                                            <td>Rp.{{ number_format($orderItem->price, 2) }}</td>
                                             <td>{{ $orderItem->commission_rate ?? 0 }}%</td>
-                                            <td>{{ calculateCommission($orderItem->price, $orderItem->commission_rate) }}
-                                                {{ $orderItem->order->currency }}</td>
+
+                                            {{-- <td>{{ calculateCommission($orderItem->price, $orderItem->commission_rate) }}
+                                                {{ $orderItem->order->currency }}</td> --}}
+                                            @if ($orderItem->order->currency === 'IDR')
+                                                <td>{{ format_rupiah(
+                                                    calculateCommissionInIdr(
+                                                        $orderItem->price,
+                                                        $orderItem->commission_rate,
+                                                        $orderItem->order->currency,
+                                                        $orderItem->order->created_at,
+                                                    ),
+                                                ) }}
+                                                </td>
+                                                @elseif($orderItem->order->currency != 'IDR')
+                                                    <td>
+                                                        {{ number_format(calculateCommission($orderItem->price, $orderItem->commission_rate), 2) }}
+                                                        {{ $orderItem->order->currency }}
+
+                                                        <br>
+
+                                                        {{ format_rupiah(
+                                                            calculateCommissionInIdr(
+                                                                $orderItem->price,
+                                                                $orderItem->commission_rate,
+                                                                $orderItem->order->currency,
+                                                                $orderItem->order->created_at,
+                                                            ),
+                                                        ) }}
+                                                    </td>
+                                                    @endif
+
                                         </tr>
                                     @empty
                                         <tr>
@@ -82,6 +111,6 @@
     </div>
     </section>
     <!--===========================
-                        DASHBOARD OVERVIEW END
-                    ============================-->
+                            DASHBOARD OVERVIEW END
+                        ============================-->
 @endsection

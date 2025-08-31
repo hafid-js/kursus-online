@@ -20,15 +20,26 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return view('frontend.student-dashboard.profile.index');
+        if (user()->role === 'student') {
+            return view('frontend.student-dashboard.profile.index');
+        } else if (user()->role === 'instructor') {
+            return view('frontend.instructor-dashboard.profile.index');
+        } else {
+            abort(404);
+        }
     }
-
-    public function instructorIndex()
+    public function show()
     {
-        $gateways = PayoutGateway::where('status', 1)->get();
-        $gatewayInfo = InstructorPayoutInformation::where('instructor_id', 2)->first();
+        if (user()->role === 'student') {
+            return view('frontend.student-dashboard.profile.detail');
+        } else if (user()->role === 'instructor') {
+            $gateways = PayoutGateway::where('status', 1)->get();
+            $gatewayInfo = InstructorPayoutInformation::where('instructor_id', 2)->first();
 
-        return view('frontend.instructor-dashboard.profile.index', compact('gateways', 'gatewayInfo'));
+            return view('frontend.instructor-dashboard.profile.detail', compact('gateways', 'gatewayInfo'));
+        } else {
+            abort(404);
+        }
     }
 
     public function profileUpdate(ProfileUpdateRequest $request): RedirectResponse

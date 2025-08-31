@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Api\Frontend;
 
 use App\Events\User\UserProfileUpdated;
 use App\Http\Controllers\Controller;
@@ -19,22 +19,21 @@ class ProfileController extends Controller
 
     public function index()
     {
-        // Kalau untuk API, biasanya return data profile user saja
         $user = Auth::user();
 
         return response()->json($user);
     }
 
-    public function instructorIndex()
-    {
-        $gateways = PayoutGateway::where('status', 1)->get();
-        $gatewayInfo = InstructorPayoutInformation::where('instructor_id', Auth::id())->first();
+    // public function instructorIndex()
+    // {
+    //     $gateways = PayoutGateway::where('status', 1)->get();
+    //     $gatewayInfo = InstructorPayoutInformation::where('instructor_id', Auth::id())->first();
 
-        return response()->json([
-            'gateways' => $gateways,
-            'gatewayInfo' => $gatewayInfo,
-        ]);
-    }
+    //     return response()->json([
+    //         'gateways' => $gateways,
+    //         'gatewayInfo' => $gatewayInfo,
+    //     ]);
+    // }
 
     public function profileUpdate(ProfileUpdateRequest $request)
     {

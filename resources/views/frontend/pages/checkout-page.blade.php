@@ -25,6 +25,8 @@
             $items[] = [
                 'title' => $item->course->title,
                 'price' => $item->course->price,
+                'discount' => $item->course->discount ?? '0%',
+                'quantity' => $item->quantity ?? 1,
             ];
         }
     @endphp
@@ -137,7 +139,7 @@
                     <div class="total_payment_price">
                         <h4>Total Cart <span>(0{{ cartCount() }})</span></h4>
                         <ul>
-                            <li>Subtotal :<span>Rp.{{ number_format(cartTotal(),2) }}</span></li>
+                            <li>Subtotal :<span>Rp.{{ number_format(cartTotal(), 2) }}</span></li>
                         </ul>
                         {{-- <a href="#" class="common_btn">now payment</a> --}}
                     </div>
@@ -155,26 +157,32 @@
             $(".confirm-payment").on("click", function(e) {
                 e.preventDefault();
 
+                const formatRupiah = val => new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR'
+                }).format(val);
+
                 const name = $(this).data('name');
                 const email = $(this).data('email');
                 const userId = $(this).data('id');
                 const rawItems = $(this).data('items');
+                const totalDiscount = {{ cartTotalDiscount() ?? 0 }};
+                const totalDiscountFormatted = formatRupiah(totalDiscount);
 
                 const items = typeof rawItems === 'string' ? JSON.parse(rawItems) : rawItems;
 
                 let total = 0;
+                let originalTotal = 0;
                 let tableRows = '';
-
-                const formatRupiah = val => new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR'
-}).format(val);
-
 
                 items.forEach((item, index) => {
                     const quantity = item.quantity ?? 1;
-                    const discount = item.discount ?? '0%';
-                    const itemTotal = item.price * quantity;
+                    const discountPercent = parseFloat(item.discount) || 0;
+                    const originalPriceTotal = item.price * quantity;
+                    const discountAmount = (discountPercent / 100) * originalPriceTotal;
+                    const itemTotal = originalPriceTotal - discountAmount;
+
+                    originalTotal += originalPriceTotal;
                     total += itemTotal;
 
                     tableRows += `
@@ -182,38 +190,48 @@
                         <td>${index + 1}</td>
                         <td>${item.title}</td>
                         <td>${formatRupiah(item.price)}</td>
-                        <td>${discount}</td>
+                        <td>${item.discount}%</td>
                         <td>${formatRupiah(itemTotal)}</td>
                     </tr>
                 `;
                 });
 
-                const subtotalFormatted = formatRupiah(total);
+                const totalFormatted = formatRupiah(total);
+                const subtotalFormatted = formatRupiah(originalTotal);
 
                 Swal.fire({
                     title: 'Confirm Your Orders',
                     width: 1000,
                     html: `
-        <div class="table-responsive">
-            <table class="table table-bordered" style="font-size:14px;">
-                <thead>
-                    <tr style="background:#f2f2f2;">
-                        <th>No</th>
-                        <th>Item</th>
-                        <th>Price</th>
-                        <th>Discount</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${tableRows}
-                </tbody>
-            </table>
-        </div>
-        <div style="text-align:right; font-weight:bold; margin-top:1rem;">
-            Subtotal: ${subtotalFormatted}
-        </div>
-    `,
+                <div class="table-responsive">
+                    <table class="table table-bordered" style="font-size:14px;">
+                        <thead>
+                            <tr style="background:#f2f2f2;">
+                                <th>No</th>
+                                <th>Item</th>
+                                <th>Price</th>
+                                <th>Discount</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display: flex; flex-direction: column; align-items: flex-end; font-weight: bold; margin-top: 1rem; gap: 0.4rem;">
+                    <div class="text-dark" style="font-size: 1rem;">
+                        Subtotal: <span style="color: black;">${subtotalFormatted}</span>
+                    </div>
+                    <div class="text-dark" style="font-size: 1rem;">
+                        Discount: <span style="color: red;"><del>${totalDiscountFormatted}</del></span>
+                    </div>
+                    <div class="text-primary" style="font-size: 1.2rem;">
+                        Total: <span style="color: black;">${totalFormatted}</span>
+                    </div>
+                </div>
+                `,
                     showCancelButton: true,
                     confirmButtonText: 'Process',
                     cancelButtonText: 'Cancel',
@@ -223,8 +241,6 @@
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-
-                        // ⏳ Tampilkan loading sebelum proses Midtrans
                         Swal.fire({
                             title: 'Processing...',
                             html: 'Please wait while we prepare your payment...',
@@ -271,9 +287,22 @@
                                             .then(res => res.json())
                                             .then(data => {
                                                 if (data.success) {
-                                                    window.location
-                                                        .href =
-                                                        "http://127.0.0.1:8000/student/dashboard";
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        title: 'Thank you for your order!',
+                                                        text: 'Happy learning and enjoy your new course(s)!',
+                                                        showConfirmButton: false,
+                                                        timer: 5000,
+                                                        timerProgressBar: true
+                                                    });
+
+                                                    setTimeout(() => {
+                                                        window
+                                                            .location
+                                                            .href =
+                                                            data
+                                                            .redirect;
+                                                    }, 5000);
                                                 } else {
                                                     Swal.fire('Error',
                                                         'Failed to save order',
@@ -292,12 +321,18 @@
                                     },
                                     onError: function(result) {
                                         console.log('Payment error',
-                                        result);
+                                            result);
+                                        Swal.fire('Payment Failed',
+                                            'There was a problem processing your payment.',
+                                            'error');
                                     },
                                     onClose: function() {
                                         console.log(
                                             'User closed the payment popup'
-                                            );
+                                        );
+                                        Swal.fire('Cancelled',
+                                            'You closed the payment window before finishing.',
+                                            'info');
                                     }
                                 });
                             },
@@ -306,11 +341,9 @@
                                 Swal.fire('Error', 'Failed to create transaction',
                                     'error');
                             }
-
                         });
                     }
                 });
-
             });
         });
     </script>

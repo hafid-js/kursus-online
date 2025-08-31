@@ -57,7 +57,7 @@
                                                     @if ($item->course->discount > 0)
                                                         <del>
                                                             <strong
-                                                                class="text-primary">Rp.{{ number_format($item->course->price,2) }}</strong>
+                                                                class="text-danger">Rp.{{ number_format($item->course->price,2) }}</strong>
                                                         </del>
                                                         @php
                                                             $discount = $item->course->discount ?? 0;

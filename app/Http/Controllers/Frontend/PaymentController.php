@@ -126,26 +126,28 @@ class PaymentController extends Controller
         Config::$isSanitized = true;
         Config::$is3ds = true;
 
-        // Decode items dari request
         $items = json_decode($request->items, true);
         $totalIDR = 0;
+
         foreach ($items as $item) {
-            $totalIDR += $item['price'] * ($item['quantity'] ?? 1);
+            $quantity = $item['quantity'] ?? 1;
+            $totalIDR += $item['price'] * $quantity;
         }
 
-        // $rate = $this->getUsdToIdrRate();
-        // $totalIDR = round($totalUSD * $rate);
+        $discount = cartTotalDiscount() ?? 0;
+        $grossAmount = max(0, $totalIDR - $discount);
 
         $params = [
             'transaction_details' => [
                 'order_id' => generateOrderId(),
-                'gross_amount' => $totalIDR,
+                'gross_amount' => $grossAmount,
             ],
             'customer_details' => [
                 'first_name' => $request->name,
                 'email' => $request->email,
             ],
         ];
+
 
         $snapToken = Snap::getSnapToken($params);
 
@@ -154,24 +156,46 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function storeAfterPayment(Request $request)
-    {
-        try {
-            OrderService::storeOrder(
-                $request->transaction_id,
-                auth()->id(),
-                'approved',
-                $request->main_amount,
-                $request->paid_amount,
-                $request->currency,
-                'midtrans'
-            );
 
-            return response()->json(['success' => true]);
-        } catch (\Throwable $th) {
-            return response()->json(['success' => false], 500);
+    public function storeAfterPayment(Request $request)
+{
+    try {
+        OrderService::storeOrder(
+            $request->transaction_id,
+            auth()->id(),
+            'approved',
+            $request->main_amount,
+            $request->paid_amount,
+            $request->currency,
+            'midtrans'
+        );
+
+        // Tentukan redirect berdasarkan role user
+        $role = auth()->user()->role;
+        $redirectUrl = match ($role) {
+            'student' => route('student.enrolled-courses.index'),
+            'instructor' => route('instructor.enrolled-courses.index'),
+            default => null
+        };
+
+        if (!$redirectUrl) {
+            abort(404);
         }
-    }
+
+        return response()->json([
+            'success' => true,
+            'redirect' => $redirectUrl,
+        ]);
+    } catch (\Throwable $th) {
+    return response()->json([
+        'success' => false,
+        'message' => 'An error occurred while saving the payment data.',
+        // 'error' => $th->getMessage()
+    ], 500);
+}
+}
+
+
 
     public function handleNotification(Request $request)
     {

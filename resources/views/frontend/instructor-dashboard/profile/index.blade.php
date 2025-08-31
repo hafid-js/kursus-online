@@ -37,224 +37,30 @@
                     <div class="wsus__dashboard_contant">
                         <div class="wsus__dashboard_contant_top d-flex flex-wrap justify-content-between">
                             <div class="wsus__dashboard_heading">
-                                <h5>Update Your Information</h5>
+                                <h5>Profile Details</h5>
                                 <p>Manage your courses and its update like live, draft and insight.</p>
                             </div>
-                        </div>
-
-                        <form action="{{ route('instructor.profile.update') }}" method="POST"
-                            class="wsus__dashboard_profile_update" enctype="multipart/form-data">
-                            @csrf
-                            <div class="wsus__dashboard_profile wsus__dashboard_profile_avatar">
-                                <div class="img">
-                                    <img id="profilePreview"
-                                        src="{{ asset(auth()->user()?->image ?? 'frontend/assets/images/image-profile.png') }}"
-                                        alt="profile" class="img-fluid w-100">
-
-                                    <label for="profile_photo">
-                                        <img src="{{ asset('frontend/assets/images/dash_camera.png') }}" alt="camera"
-                                            class="img-fluid w-100">
-                                    </label>
-                                    <input type="file" id="profile_photo" name="avatar" hidden="">
-                                </div>
-                                <div class="text">
-                                    <h6>Your avatar</h6>
-                                    <p>PNG or JPG no bigger than 400px wide and tall.</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>Full Name</label>
-                                        <input type="text" placeholder="Enter your full name" name="name"
-                                            value="{{ auth()->user()->name }}">
-                                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>Headline</label>
-                                        <input type="text" placeholder="Enter your headline" name="headline"
-                                            value="{{ auth()->user()->headline }}">
-                                        <x-input-error :messages="$errors->get('heading')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>Email</label>
-                                        <input type="email" placeholder="Enter your email" name="email"
-                                            value="{{ auth()->user()->email }}">
-                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>Gender</label>
-                                        <select name="gender" id="" class="form-control">
-                                            <option value="">Select</option>
-                                            <option @selected(auth()->user()->gender == 'male') value="male">Male</option>
-                                            <option @selected(auth()->user()->gender == 'female') value="female">Female</option>
-                                        </select>
-                                    </div>
-                                    <x-input-error :messages="$errors->get('gender')" class="mt-2" />
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>About Me</label>
-                                        <textarea rows="7" placeholder="Your text here" name="about">{{ auth()->user()->bio }}</textarea>
-                                        <x-input-error :messages="$errors->get('about')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_btn">
-                                        <button type="submit" class="common_btn">Update Profile</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="wsus__dashboard_contant">
-                        <div class="wsus__dashboard_contant_top d-flex flex-wrap justify-content-between">
-                            <div class="wsus__dashboard_heading">
-                                <h5>Payout Settings</h5>
-                                <p>Put your payout information here.</p>
+                            <div class="wsus__dashboard_contant_btn">
+                                <a href="{{ route('instructor.profile.show') }}" class="common_btn">Edit Profile</a>
                             </div>
                         </div>
-
-                        <form action="{{ route('instructor.profile.update-gateway-info') }}" method="POST"
-                            class="wsus__dashboard_profile_update">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        @foreach ($gateways as $gateway)
-                                            <span class="d-none gateway-{{ $gateway->id }}">{!! $gateway->description !!}</span>
-                                        @endforeach
-                                        <label>Gateway</label>
-                                        <select name="gateway" id="" class="form-control gateway">
-                                            <option value="">Select</option>
-                                            @foreach ($gateways as $gateway)
-                                                <option @selected($gatewayInfo?->gateway == $gateway->name) value="{{ $gateway->name }}"
-                                                    data-id="{{ $gateway->id }}">{{ $gateway->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>Gateway Information</label>
-                                        <textarea name="information" id="" style="height: 300px" class="form-control gateway_description">{{ $gatewayInfo?->information ? $gatewayInfo->information : 'Deskripsi belum diisi.' }}</textarea>
-                                        <x-input-error :messages="$errors->get('information')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_btn">
-                                        <button type="submit" class="common_btn">Update Gateway</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="wsus__dashboard_contant">
-                        <div class="wsus__dashboard_contant_top d-flex flex-wrap justify-content-between">
-                            <div class="wsus__dashboard_heading">
-                                <h5>Update Your Email/Password</h5>
-                                <p>Add your new email or password here to update.</p>
+                        <div class="wsus__dashboard_profile">
+                            <div class="text ms-0">
+                                <h6>About Me</h6>
+                                <p>{{ auth()->user()->bio ?? '-'}}.</p>
                             </div>
                         </div>
-
-                        <form action="{{ route('instructor.profile.update-password') }}" method="POST"
-                            class="wsus__dashboard_profile_update">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>Current Password</label>
-                                        <input type="password" placeholder="Enter Your Currrent Password"
-                                            name="current_password">
-                                        <x-input-error :messages="$errors->get('current_password')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>Password</label>
-                                        <input type="password" placeholder="Enter New Password" name="password">
-                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>Confirm Password</label>
-                                        <input type="password" placeholder="Enter Confirm Password"
-                                            name="password_confirmation">
-                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_btn">
-                                        <button type="submit" class="common_btn">Update Password</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-
-
-                    <div class="wsus__dashboard_contant">
-                        <div class="wsus__dashboard_contant_top d-flex flex-wrap justify-content-between">
-                            <div class="wsus__dashboard_heading">
-                                <h5>Update Your Social Information</h5>
-                                <p>Put Your Social Links Here.</p>
-                            </div>
-                        </div>
-
-                        <form action="{{ route('instructor.profile.update-social') }}" method="POST"
-                            class="wsus__dashboard_profile_update">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>Facebook</label>
-                                        <input type="text" placeholder="Enter your facebook url" name="facebook"
-                                            value="{{ auth()->user()->facebook }}">
-                                        <x-input-error :messages="$errors->get('facebook')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>X</label>
-                                        <input type="text" placeholder="Enter your x url" name="x"
-                                            value="{{ auth()->user()->x }}">
-                                        <x-input-error :messages="$errors->get('x')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>LinkedIn</label>
-                                        <input type="text" placeholder="Enter your linkedin url" name="linkedin"
-                                            value="{{ auth()->user()->linkedin }}">
-                                        <x-input-error :messages="$errors->get('linkedin')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_info">
-                                        <label>Website</label>
-                                        <input type="text" placeholder="Enter your website url" name="website"
-                                            value="{{ auth()->user()->website }}">
-                                        <x-input-error :messages="$errors->get('website')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="wsus__dashboard_profile_update_btn">
-                                        <button type="submit" class="common_btn">Update Socials</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        <ul class="wsus__dashboard_profile_info">
+                            <li><span>Name :</span>{{ auth()->user()->name }}</li>
+                            <li><span>Gender :</span>{{ auth()->user()->gender === 'female' ? 'Female' : (auth()->user()->gender === 'male' ? 'Male' : '-') }}</li>
+                            {{-- <li><span>Contact :</span>+4425 545 955</li> --}}
+                            {{-- <li><span>Birthday :</span>June 25, 1990</li> --}}
+                            <li><span>Email :</span>{{ auth()->user()->email }}</li>
+                            {{-- <li><span>Zip Code : </span>9946723</li>
+                            <li><span>City :</span>dhaka</li>
+                            <li><span>Country :</span>Bangladesh</li>
+                            <li><span>Present Address : </span>uttora 07, dhaka-1230, DNCC, bangladesh.</li> --}}
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -264,15 +70,3 @@
                     DASHBOARD OVERVIEW END
                 ============================-->
 @endsection
-
-@push('scripts')
-    <script>
-        $(function() {
-            $('.gateway').on('change', function() {
-                let id = $(this).find(':selected').data('id');
-
-                $('.gateway_description').attr('placeholder', $('.gateway-' + id).html())
-            })
-        })
-    </script>
-@endpush

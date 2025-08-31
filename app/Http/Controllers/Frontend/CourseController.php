@@ -230,18 +230,15 @@ class CourseController extends Controller
                     'downloadable' => ['nullable', 'boolean'],
                     'description' => ['required', 'string'],
                     'course_id' => ['required', 'integer', 'exists:courses,id'],
-                    'next_step' => ['required', 'integer'], // step untuk redirect
+                    'next_step' => ['required', 'integer'],
                 ]);
 
-                // Ambil lesson milik user
                 $lesson = CourseChapterLession::where('id', $request->id)
                     ->where('instructor_id', Auth::id())
                     ->firstOrFail();
 
-                // Tentukan file_path dari source
                 $filePath = 'upload' === $request->source ? $request->file : $request->url;
 
-                // Update data lesson
                 $lesson->title = $request->title;
                 $lesson->storage = $request->source;
                 $lesson->file_path = $filePath;
@@ -252,7 +249,6 @@ class CourseController extends Controller
                 $lesson->description = $request->description;
                 $lesson->save();
 
-                // Kembalikan response untuk frontend (AJAX atau redirect)
                 return response([
                     'status' => 'success',
                     'message' => 'Updated Successfully Bro!',
@@ -333,14 +329,12 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         try {
-            // Cek apakah course milik instructor yang login
             if (auth()->id() !== $course->instructor_id) {
                 abort(403, 'Unauthorized action.');
             }
 
             $course->delete();
 
-            // Optional: notifikasi khusus untuk instructor
             notyf()->success('Course deleted successfully!');
 
             return response(['message' => 'Delete Successfully!'], 200);
