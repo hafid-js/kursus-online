@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-xl-3 col-6 col-md-4 wow fadeInUp"
                                 style="visibility: visible; animation-name: fadeInUp;">
-                                <a href="{{ route('paypal.payment') }}" class="payment_mathod">
+                                <a href="#" onclick="alert('sorry, this payment under maintenance')" class="payment_mathod">
                                     <img src="{{ asset('frontend/assets/images/payment_2.png') }}" alt="payment"
                                         class="img-fluid w-100">
                                 </a>

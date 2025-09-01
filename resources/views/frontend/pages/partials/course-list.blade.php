@@ -76,7 +76,11 @@
                     @endphp
 
                     @if ($hasPurchased)
-                        <a class="btn btn-primary" href="{{ route('student.course-player.index', $course->slug) }}">
+                        @php
+                            $role = auth()->user()->role;
+                        @endphp
+
+                        <a class="btn btn-primary" href="{{ route($role . '.course-player.index', $course->slug) }}">
                             <i class="fas fa-eye"></i> Watch Course
                         </a>
                     @elseif (!$isMyCourse)
@@ -84,9 +88,9 @@
                             Add to Cart <i class="far fa-arrow-right" aria-hidden="true"></i>
                         </a>
                         <p>
-                           @if ($course->discount > 0)
+                            @if ($course->discount > 0)
                                 <del>Rp.{{ number_format($course->price, 2) }}</del>
-                                  Rp.{{ number_format(getFinalPrice($course->price, $course->discount),2) }}
+                                Rp.{{ number_format(getFinalPrice($course->price, $course->discount), 2) }}
                             @else
                                 Rp.{{ number_format($course->price, 2) }}
                             @endif

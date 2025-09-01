@@ -63,32 +63,29 @@
                                             {{-- <td>{{ calculateCommission($orderItem->price, $orderItem->commission_rate) }}
                                                 {{ $orderItem->order->currency }}</td> --}}
                                             @if ($orderItem->order->currency === 'IDR')
-                                                <td>{{ format_rupiah(
-                                                    calculateCommissionInIdr(
-                                                        $orderItem->price,
-                                                        $orderItem->commission_rate,
-                                                        $orderItem->order->currency,
-                                                        $orderItem->order->created_at,
-                                                    ),
-                                                ) }}
-                                                </td>
-                                                @elseif($orderItem->order->currency != 'IDR')
-                                                    <td>
-                                                        {{ number_format(calculateCommission($orderItem->price, $orderItem->commission_rate), 2) }}
-                                                        {{ $orderItem->order->currency }}
+    <td>
+        {{ format_rupiah(
+            calculateCommission(
+                $orderItem->price,
+                $orderItem->commission_rate,
+            )
+        ) }}
+    </td>
+@elseif($orderItem->order->currency != 'IDR')
+    <td>
+        {{ number_format(calculateEarning($orderItem->price, $orderItem->commission_rate), 2) }}
+        {{ $orderItem->order->currency }}
 
-                                                        <br>
+        <br>
 
-                                                        {{ format_rupiah(
-                                                            calculateCommissionInIdr(
-                                                                $orderItem->price,
-                                                                $orderItem->commission_rate,
-                                                                $orderItem->order->currency,
-                                                                $orderItem->order->created_at,
-                                                            ),
-                                                        ) }}
-                                                    </td>
-                                                    @endif
+        {{ format_rupiah(
+            calculateCommission(
+                $orderItem->price,
+                $orderItem->commission_rate,
+            )
+        ) }}
+    </td>
+@endif
 
                                         </tr>
                                     @empty

@@ -158,42 +158,42 @@ class PaymentController extends Controller
 
 
     public function storeAfterPayment(Request $request)
-{
-    try {
-        OrderService::storeOrder(
-            $request->transaction_id,
-            auth()->id(),
-            'approved',
-            $request->main_amount,
-            $request->paid_amount,
-            $request->currency,
-            'midtrans'
-        );
+    {
+        try {
+            OrderService::storeOrder(
+                $request->transaction_id,
+                auth()->id(),
+                'approved',
+                $request->main_amount,
+                $request->paid_amount,
+                $request->currency,
+                'midtrans'
+            );
 
-        // Tentukan redirect berdasarkan role user
-        $role = auth()->user()->role;
-        $redirectUrl = match ($role) {
-            'student' => route('student.enrolled-courses.index'),
-            'instructor' => route('instructor.enrolled-courses.index'),
-            default => null
-        };
+            // Tentukan redirect berdasarkan role user
+            $role = auth()->user()->role;
+            $redirectUrl = match ($role) {
+                'student' => route('student.enrolled-courses.index'),
+                'instructor' => route('instructor.enrolled-courses.index'),
+                default => null
+            };
 
-        if (!$redirectUrl) {
-            abort(404);
+            if (!$redirectUrl) {
+                abort(404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'redirect' => $redirectUrl,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while saving the payment data.',
+                // 'error' => $th->getMessage()
+            ], 500);
         }
-
-        return response()->json([
-            'success' => true,
-            'redirect' => $redirectUrl,
-        ]);
-    } catch (\Throwable $th) {
-    return response()->json([
-        'success' => false,
-        'message' => 'An error occurred while saving the payment data.',
-        // 'error' => $th->getMessage()
-    ], 500);
-}
-}
+    }
 
 
 

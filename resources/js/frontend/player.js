@@ -156,4 +156,3 @@ $(".make_completed").on("click", function () {
         error: function (xhr, status, error) {},
     });
 });
-x;

@@ -415,7 +415,7 @@
                                         <tr>
                                             <td>
                                                 <a href="{{ route('admin.orders.show', $order->id) }}">
-                                                    {{ $order->invoice_id }}
+                                                    #{{ strtoupper($order->invoice_id) }}
                                                 </a>
                                             </td>
                                             <td class="text-start">

@@ -55,8 +55,9 @@
                                     @forelse ($orders as $order)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $order->invoice_id }}</td>
-                                            <td>{{ $order->total_amount }} {{ $order->currency }}</td>
+                                            <td>#{{ strtoupper($order->invoice_id) }}</td>
+                                            <td>Rp.{{ number_format($order->total_amount, 2, ',', '.') }}</td>
+                                            {{-- <td>{{ $order->total_amount }} {{ $order->currency }}</td> --}}
                                             <td>
                                                <span class="badge bg-success text-green-fg">{{ $order->status }}</span>
                                             </td>

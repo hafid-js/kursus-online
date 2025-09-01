@@ -112,6 +112,7 @@ if (!function_exists('calculateCommission')) {
     }
 }
 
+
 // sidebar item active
 if (!function_exists('sidebarItemActive')) {
     function sidebarItemActive(array $routes)
@@ -121,6 +122,8 @@ if (!function_exists('sidebarItemActive')) {
                 return 'active';
             }
         }
+
+        return ''; // ← Penting agar tidak return null
     }
 }
 

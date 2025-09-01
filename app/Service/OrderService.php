@@ -10,61 +10,63 @@ use App\Models\OrderItem;
 class OrderService
 {
     public static function storeOrder(
-    string $transaction_id,
-    int $buyer_id,
-    string $status,
-    float $total_amount,
-    float $paid_amount,
-    string $currency,
-    string $payment_method,
-) {
-    try {
-        $order = new Order();
-        $order->invoice_id = uniqid();
-        $order->buyer_id = $buyer_id;
-        $order->status = $status;
-        $order->total_amount = $total_amount;
-        $order->paid_amount = $paid_amount;
-        $order->currency = $currency;
-        $order->payment_method = $payment_method;
-        $order->transaction_id = $transaction_id;
-        $order->save();
+        string $transaction_id,
+        int $buyer_id,
+        string $status,
+        float $total_amount,
+        float $paid_amount,
+        string $currency,
+        string $payment_method,
+    ) {
+        try {
+            $order = new Order();
+            $order->invoice_id = uniqid();
+            $order->buyer_id = $buyer_id;
+            $order->status = $status;
+            $order->total_amount = $total_amount;
+            $order->paid_amount = $paid_amount;
+            $order->currency = $currency;
+            $order->payment_method = $payment_method;
+            $order->transaction_id = $transaction_id;
+            $order->save();
 
-        // Ambil cart items
-        $cart = Cart::where('user_id', $buyer_id);
-        $cartItems = $cart->get();
+            $cart = Cart::where('user_id', $buyer_id);
+            $cartItems = $cart->get();
 
-        foreach ($cartItems as $item) {
-            $orderItem = new OrderItem();
-            $orderItem->order_id = $order->id;
-            $orderItem->price = $item->course->discount > 0 ? $item->course->discount : $item->course->price;
-            $orderItem->course_id = $item->course->id;
-            $orderItem->commission_rate = config('settings.commission_rate');
-            $orderItem->save();
+            foreach ($cartItems as $item) {
+                $orderItem = new OrderItem();
+                $orderItem->order_id = $order->id;
 
-            // Enroll user
-            $enrollment = new Enrollment();
-            $enrollment->user_id = $buyer_id;
-            $enrollment->course_id = $item->course->id;
-            $enrollment->instructor_id = $item->course->instructor_id;
-            $enrollment->save();
+                $price = $item->course->price;
+                $discount = $item->course->discount ?? 0;
 
-            // Tambah komisi ke wallet instructor
-            $instructorWallet = $item->course->instructor;
-            $instructorWallet->wallet += calculateCommission(
-                $item->course->discount > 0 ? $item->course->discount : $item->course->price,
-                config('settings.commission_rate')
-            );
-            $instructorWallet->save();
+                $finalPrice = $discount > 0 ? $price - ($price * $discount / 100) : $price;
+
+                $orderItem->price = $finalPrice;
+                $orderItem->course_id = $item->course->id;
+                $orderItem->commission_rate = config('settings.commission_rate');
+                $orderItem->save();
+
+
+                $enrollment = new Enrollment();
+                $enrollment->user_id = $buyer_id;
+                $enrollment->course_id = $item->course->id;
+                $enrollment->instructor_id = $item->course->instructor_id;
+                $enrollment->save();
+
+                $instructorWallet = $item->course->instructor;
+                $instructorWallet->wallet += calculateCommission(
+                    $item->course->discount > 0 ? $item->course->discount : $item->course->price,
+                    config('settings.commission_rate')
+                );
+                $instructorWallet->save();
+            }
+
+            if ($status === 'approved') {
+                $cart->delete();
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
-
-        // Hanya hapus cart kalau payment disetujui
-        if ($status === 'approved') {
-            $cart->delete();
-        }
-
-    } catch (\Throwable $th) {
-        throw $th;
     }
-}
 }

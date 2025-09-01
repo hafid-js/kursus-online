@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-xl-4 col-sm-5">
                                     <div class="wsus__invoice_date">
-                                        <h5>Invoice#<span>{{ $order->invoice_id }}</span></h5>
+                                        <h5>Invoice#<span>#{{ strtoupper($order->invoice_id) }}</span></h5>
                                         <h5 class="date">Date<span>{{ $order->created_at }}</span></h5>
                                     </div>
                                 </div>
@@ -109,9 +109,10 @@
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="wsus__invoice_final_total_right">
-                                        <h6>Subtotal:<span>Rp.{{ $order->total_amount }}</span></h6>
-                                        <h5>Paid Amount: <span>Rp.{{ $order->paid_amount }}
-                                                {{ $order->currency }}</span></h5>
+                                        <h6>Subtotal:<span>Rp.{{ number_format($order->total_amount, 2, ',', '.') }}</span></h6>
+                                        <h5>Paid Amount: <span>Rp.Rp.{{ number_format($order->paid_amount, 2, ',', '.') }}
+                                                {{-- {{ $order->currency }} --}}
+                                            </span></h5>
                                     </div>
                                 </div>
                             </div>

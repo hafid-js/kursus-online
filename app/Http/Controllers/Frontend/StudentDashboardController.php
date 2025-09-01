@@ -63,32 +63,4 @@ class StudentDashboardController extends Controller
         return redirect()
             ->route('student.dashboard');
     }
-
-    public function review()
-    {
-        $reviews = Review::where('user_id', auth()->id())->paginate(10);
-
-        return view('frontend.student-dashboard.review.index', compact('reviews'));
-    }
-
-    public function reviewDestroy(string $id)
-    {
-        try {
-            $review = Review::where('id', $id)
-                ->where('user_id', auth()->id())
-                ->firstOrFail();
-
-            $review->delete();
-
-            return redirect()
-                ->back()
-                ->with('success', 'Review deleted successfully!');
-        } catch (\Exception $e) {
-            logger('Review Error >> ' . $e);
-
-            return redirect()
-                ->back()
-                ->with('error', 'Something went wrong!');
-        }
-    }
 }

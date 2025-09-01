@@ -106,7 +106,6 @@
         SCROLL BUTTON END
     =================================-->
 
-
     <!--jquery library js-->
     <script src="{{ asset('frontend/assets/js/jquery-3.7.1.min.js') }}"></script>
     <!--bootstrap js-->
@@ -157,16 +156,19 @@
 
     {{-- sweetalert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{--
-               <script src="{{ asset('admin/assets/js/demo.min.js?1692870487') }} " defer></script> --}}
+
+               <script src="{{ asset('admin/assets/js/demo.min.js?1692870487') }} " defer></script>
     <script src="{{ asset('admin/assets/libs/tinymce/tinymce.min.js') }}"></script>
 
     <!--main/custom js-->
-    <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+
 
     {{-- yajra datatables --}}
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     @stack('scripts')
+        <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 </body>
+
+
 
 </html>

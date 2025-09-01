@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="dt-type-numeric">{{ $item->course->price }}</td>
+                            <td class="dt-type-numeric">Rp.{{ number_format($item->course->price,2) }}</td>
                             <td>{{ $item->course->discount ?? 0 }}%</td>
                             <td>{{ $item->order->currency }}</td>
                             <td><span class="badge bg-lime text-lime-fg">{{ $item->order->status }}</span>

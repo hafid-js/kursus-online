@@ -81,6 +81,11 @@ class CourseOrdersDataTable extends DataTable
         </div>
     ';
             })
+            ->editColumn('total_amount', function($row) {
+              return "Rp " . number_format($row->total_amount, 2, ',', '.');
+
+
+            })
             ->addColumn('course', function ($row) {
                 $avatar = '';
 
@@ -128,7 +133,7 @@ class CourseOrdersDataTable extends DataTable
                  <i class="ti ti-eye"></i>
              </a>';
             })
-            ->rawColumns(['checkbox', 'action', 'user_name', 'created_at', 'status', 'course', 'discount'])
+            ->rawColumns(['checkbox', 'action', 'user_name','total_amount', 'created_at', 'status', 'course', 'discount'])
             ->setRowId('id');
     }
 

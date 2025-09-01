@@ -58,10 +58,10 @@ class StudentCourseEnrolledDataTable extends DataTable
 
         return $dataTable
             ->editColumn('paid_amount', function ($row) {
-                return $row->price;
+                 return "Rp " . number_format($row->price, 2, ',', '.');
             })
             ->editColumn('price', function ($row) {
-                return $row->course->price;
+                 return "Rp " . number_format($row->course->price, 2, ',', '.');
             })
             ->addColumn('checkbox', function ($row) {
                 return '<input type="checkbox" class="order-checkbox form-check-input m-0 align-middle" value="' . $row->id . '">';

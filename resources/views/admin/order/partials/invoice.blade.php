@@ -53,11 +53,11 @@
                         @endforeach
                         <tr>
                             <td colspan="3" class="strong text-end">Subtotal</td>
-                            <td class="text-end">Rp.{{ $order->total_amount }}</td>
+                            <td class="text-end">Rp.{{ number_format($order->total_amount, 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td colspan="3" class="strong text-end">Paid Amount</td>
-                            <td class="text-end">Rp.{{ $order->paid_amount }}
+                            <td class="text-end">Rp.Rp.{{ number_format($order->paid_amount, 2, ',', '.') }}
                                 {{ $order->currency }}</td>
                         </tr>
                     </tbody>

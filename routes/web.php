@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityTrackerController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Export\ExportController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Frontend\InstructorOrderController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\Frontend\ReviewController as FrontendReviewController;
 use App\Http\Controllers\Frontend\StudentDashboardController;
 use App\Http\Controllers\Frontend\StudentOrderController;
 use App\Http\Controllers\Frontend\WithdrawController;
@@ -148,8 +150,8 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
     Route::get('certificate/{course}', [CertificateController::class, 'download'])->name('certificate.download');
 
     // review routes
-    Route::get('review', [InstructorDashboardController::class, 'review'])->name('review.index');
-    Route::delete('review/{id}', [InstructorDashboardController::class, 'reviewDestroy'])->name('review.destroy');
+    Route::get('review', [ReviewController::class, 'index'])->name('review.index');
+    Route::delete('review/{id}', [ReviewController::class, 'reviewDestroy'])->name('review.destroy');
 
     Route::get('orders', [InstructorOrderController::class, 'index'])->name('orders.index');
     Route::get('orders/{order}', [InstructorOrderController::class, 'show'])->name('orders.show');

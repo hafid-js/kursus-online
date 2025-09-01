@@ -2,18 +2,18 @@
 
 @section('content')
     <!--===========================
-                                        BREADCRUMB START
-                                    ============================-->
+                                                    BREADCRUMB START
+                                                ============================-->
     <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
                 <div class="row">
                     <div class="col-12 wow fadeInUp">
                         <div class="wsus__breadcrumb_text">
-                            <h1>Orders</h1>
+                            <h1>Student Dashboard</h1>
                             <ul>
                                 <li><a href="{{ url('/') }}">Home</a></li>
-                                <li>Invoices</li>
+                                <li>Student Dashboard</li>
                             </ul>
                         </div>
                     </div>
@@ -22,18 +22,17 @@
         </div>
     </section>
     <!--===========================
-                                        BREADCRUMB END
-                                    ============================-->
+                                                    BREADCRUMB END
+                                                ============================-->
 
 
     <!--===========================
-                                        DASHBOARD OVERVIEW START
-                                    ============================-->
+                                                    DASHBOARD OVERVIEW START
+                                                ============================-->
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
-                @include('frontend.layouts.sidebar')
-
+                @include('frontend.student-dashboard.sidebar')
                 <div class="col-xl-9 col-md-8 wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;">
                     <div class="wsus__dashboard_contant">
                         <div class="wsus__invoice_top">
@@ -56,55 +55,41 @@
                                 </div>
                                 <div class="col-xl-4 col-sm-5">
                                     <div class="wsus__invoice_date">
-                                        <h5>Invoice#<span>{{ $order->invoice_id }}</span></h5>
+                                        <h5>Invoice#<span>#{{ strtoupper($order->invoice_id) }}</span></h5>
                                         <h5 class="date">Date<span>{{ $order->created_at }}</span></h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="wsus__invoice_table">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="table-responsive">
                                         <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <th class="serial">
-                                                        SL
-                                                    </th>
-                                                    <th class="description">
-                                                        Item Description
-                                                    </th>
 
-                                                    <th class="price">
-                                                    </th>
-                                                     <th class="quantity">
-                                                        Quantity
-                                                    </th>
-                                                     <th class="total">
-                                                        Price
-                                                    </th>
+                                            <thead style="background-color: black; color: white;">
+                                                <tr>
+                                                    <th class="serial">SL</th>
+                                                    <th class="description">Item Description</th>
+                                                    <th class="quantity">Quantity</th>
+                                                    <th class="price">Price</th>
+                                                    <th class="discount">Discount</th>
                                                 </tr>
-                                                @foreach ($order->orderItems as $item)
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach ($order->orderItems as $index => $item)
                                                     <tr>
-                                                        <td class="serial">
-                                                            <p>1</p>
-                                                        </td>
+                                                        <td class="serial">{{ $index + 1 }}</td>
                                                         <td class="description">
                                                             <p class="strong mb-1">{{ $item->course->title }}</p>
                                                             <div class="text-secondary">By
                                                                 {{ $item->course->instructor->name }}</div>
                                                         </td>
-                                                        <td class="price">
-
+                                                        <td class="quantity">1</td>
+                                                        <td class="price">Rp.{{ number_format($item->course->price, 2) }}
                                                         </td>
-                                                        <td class="quantity">
-                                                            <p>1</p>
-                                                        </td>
-                                                        <td class="total">
-                                                            <p>Rp.{{ $item->price }}</p>
-                                                        </td>
+                                                        <td class="discount">{{ $item->course->discount ?? 0 }}%</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -113,6 +98,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="wsus__invoice_final_total">
                             <div class="row">
@@ -123,9 +109,10 @@
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="wsus__invoice_final_total_right">
-                                        <h6>Subtotal:<span>Rp.{{ $order->total_amount }}</span></h6>
-                                        <h5>Paid Amount: <span>Rp.{{ $order->paid_amount }}
-                                                {{ $order->currency }}</span></h5>
+                                        <h6>Subtotal:<span>Rp.{{ number_format($order->total_amount, 2, ',', '.') }}</span></h6>
+                                        <h5>Paid Amount: <span>Rp.Rp.{{ number_format($order->paid_amount, 2, ',', '.') }}
+                                                {{-- {{ $order->currency }} --}}
+                                            </span></h5>
                                     </div>
                                 </div>
                             </div>
@@ -139,6 +126,6 @@
         </div>
     </section>
     <!--===========================
-                                        DASHBOARD OVERVIEW END
-                                    ============================-->
+                                                    DASHBOARD OVERVIEW END
+                                                ============================-->
 @endsection
