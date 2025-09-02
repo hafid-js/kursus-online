@@ -239,7 +239,10 @@
                     $(this).find('td').eq(5).addClass('status');
                 });
                 $('#course-table tbody tr').each(function() {
-                    $(this).find('td').eq(6).addClass('action');
+                    $(this).find('td').eq(6).addClass('status');
+                });
+                $('#course-table tbody tr').each(function() {
+                    $(this).find('td').eq(7).addClass('action');
                 });
             });
             $('#btnReload').on('click', function() {

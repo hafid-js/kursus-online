@@ -65,19 +65,25 @@ class CourseDataTable extends DataTable
             ->editColumn('sale', fn ($row) => '<p class="sale">' . $row->enrollments()->count() . '</p>')
             ->editColumn('status', function ($row) {
                 return match ($row->status) {
-                    'active' => '<td class="status"><p class="active">Active</p></td>',
-                    'inactive' => '<p class="delete">Inactive</p>',
-                    'draft' => '<p class="status">Draft</p>',
-                    default => '<p class="unknown">Unknown</p>',
+                    'active' => '<td class="status"><p class="text-dark">ACTIVE</p></td>',
+                    'inactive' => '<p class="text-dark">Inactive</p>',
+                    'draft' => '<p class="text-dark">Draft</p>',
+                    default => '<p class="text-dark">Unknown</p>',
                 };
             })
             ->editColumn('is_approved', function ($row) {
                 return match ($row->is_approved) {
-                    'approved' => '<p style="background:#159F46;">Approved</p>',
-                    'rejected' => '<p style="background: #dc3545;">Rejected</p>',
-                    'pending' => '<p style="background: #E79520;">Pending</p>',
+                    'approved' => '<p class="text-dark">YES</p>',
+                    'rejected' => '<p class="text-dark">Rejected</p>',
+                    'pending' => '<p class="text-dark">Pending</p>',
                     default => '',
                 };
+            })
+            ->editColumn('review', function ($row) {
+                return '
+                    <a class="text-dark" href="' . route('instructor.courses.review',$row->id) . '">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>';
             })
             ->editColumn('action', function ($row) {
                 return '
@@ -88,7 +94,7 @@ class CourseDataTable extends DataTable
                         <i class="fas fa-trash-alt" aria-hidden="true"></i>
                     </a>';
             })
-            ->rawColumns(['thumbnail', 'title', 'sale', 'status', 'is_approved','action'])
+            ->rawColumns(['thumbnail', 'title', 'sale', 'status', 'is_approved', 'review', 'action'])
             ->setRowId('id');
     }
 
@@ -165,11 +171,11 @@ class CourseDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-             Column::computed('DT_RowIndex')
-                ->title('No')
-                ->searchable(false)
-                ->width(10)
-                ->orderable(false),
+            Column::computed('DT_RowIndex')
+               ->title('No')
+               ->searchable(false)
+               ->width(10)
+               ->orderable(false),
 
             Column::computed('thumbnail')
                 ->title('<span class="image">COURSES</span>')
@@ -198,6 +204,10 @@ class CourseDataTable extends DataTable
                 ->searchable(true)
                 ->orderable(true)
                 ->escape(false),
+
+            Column::computed('review')
+            ->title('REVIEW')
+            ->escape(false),
 
             Column::computed('action')
                 ->title('ACTION')

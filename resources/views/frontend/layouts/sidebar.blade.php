@@ -38,13 +38,21 @@
 
             @if($role === 'instructor' && isDocumentApproved($user))
                 <li>
-                    <a href="{{ route('instructor.courses.index') }}" class="{{ sidebarItemActive(['instructor.courses.index','instructor.courses.create','instructor.courses.edit']) }}">
+                    <a href="{{ route('instructor.courses.index') }}" class="{{ sidebarItemActive(['instructor.courses.index','instructor.courses.create','instructor.courses.edit','instructor.courses.review']) }}">
                         <div class="img">
                             <img src="{{ asset('frontend/assets/images/dash_icon_3.png') }}" alt="icon" class="img-fluid w-100">
                         </div>
                         My Courses
                     </a>
                 </li>
+                            <li>
+                <a href="{{ route("$role.review.index") }}" class="{{ sidebarItemActive(["$role.review.index"]) }}">
+                    <div class="img">
+                        <img src="{{ asset('frontend/assets/images/dash_icon_4.png') }}" alt="icon" class="img-fluid w-100">
+                    </div>
+                    Review
+                </a>
+            </li>
 
                 <li>
                     <a href="{{ route('instructor.course-sales.index') }}" class="{{ sidebarItemActive(['instructor.course-sales.index']) }}">
@@ -91,14 +99,6 @@
                     My Reviews
                 </a>
             </li> --}}
-            <li>
-                <a href="{{ route("$role.review.index") }}" class="{{ sidebarItemActive(["$role.review.index"]) }}">
-                    <div class="img">
-                        <img src="{{ asset('frontend/assets/images/dash_icon_4.png') }}" alt="icon" class="img-fluid w-100">
-                    </div>
-                    Review
-                </a>
-            </li>
 
             <li>
                 <a href="{{ route("$role.orders.index") }}" class="{{ sidebarItemActive(["$role.orders.index"]) }}">

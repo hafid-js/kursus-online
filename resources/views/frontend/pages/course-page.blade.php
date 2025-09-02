@@ -108,7 +108,6 @@
                             <div class="wsus__sidebar_rating">
                                 <h3>Price Range</h3>
                                 <div class="range_slider">
-                                    <!-- Price slider here (jika ada plugin atau custom) -->
                                 </div>
                             </div>
                             <br>
