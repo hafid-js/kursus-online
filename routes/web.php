@@ -132,7 +132,7 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
     // profile routes
     Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
-        Route::get('profile/detail', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('profile/detail', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('profile/update', [ProfileController::class, 'profileUpdate'])->name('profile.update');
     Route::post('profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
     Route::post('profile/update-social', [ProfileController::class, 'updateSocial'])->name('profile.update-social');
@@ -148,10 +148,6 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
 
     // certificate routes
     Route::get('certificate/{course}', [CertificateController::class, 'download'])->name('certificate.download');
-
-    // review routes
-    Route::get('review', [ReviewController::class, 'index'])->name('review.index');
-    Route::delete('review/{id}', [ReviewController::class, 'reviewDestroy'])->name('review.destroy');
 
     Route::get('orders', [InstructorOrderController::class, 'index'])->name('orders.index');
     Route::get('orders/{order}', [InstructorOrderController::class, 'show'])->name('orders.show');
@@ -187,6 +183,12 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
         Route::get('course-content/{course}/sort-chapter', [CourseContentController::class, 'sortChapter'])->name('course-content.sort-chapter');
         Route::post('course-content/{course}/sort-chapter', [CourseContentController::class, 'updateSortChapter'])->name('course-content.update-sort-chapter');
         Route::get('courses/{id}/review', [CourseController::class, 'review'])->name('courses.review');
+
+        // review routes
+        Route::get('review', [ReviewController::class, 'index'])->name('review.index');
+        Route::delete('review/{id}', [ReviewController::class, 'reviewDestroy'])->name('review.destroy');
+        Route::post('review/reply', [ReviewController::class, 'reply'])->name('review.reply');
+        Route::post('/instructor/review/reply/update', [ReviewController::class, 'updateReply'])->name('review.reply.update');
 
         Route::get('withdrawals/request-payout', [WithdrawController::class, 'requestPayoutIndex'])->name('withdraw.request-payout');
         Route::post('withdrawals/request-payout', [WithdrawController::class, 'requestPayout'])->name('withdraw.request-payout.create');

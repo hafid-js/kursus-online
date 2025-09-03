@@ -19,8 +19,8 @@ class Review extends Model
     {
         return $this->belongsTo(Course::class);
     }
-    public function reply()
-{
-    return $this->hasOne(ReviewReply::class);
-}
+    public function replies()
+    {
+        return $this->hasMany(ReviewReply::class);
+    }
 }
