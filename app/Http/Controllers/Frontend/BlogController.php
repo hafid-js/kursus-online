@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogComment;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -30,30 +29,54 @@ class BlogController extends Controller
 
     public function show(string $slug)
     {
-        $blog = Blog::with(['author', 'category', 'comments'])->where('slug', $slug)->where('status', 1)->firstOrFail();
+        $blog = Blog::with(['author', 'category', 'comments.children.user', 'comments.user'])->where('slug', $slug)->where('status', 1)->firstOrFail();
+
         $recentBlogs = Blog::where('status', 1)->where('slug', '!=', $slug)->latest()->take(3)->get();
         $blogCategories = BlogCategory::withCount('blogs')->where('status', 1)->get();
 
         return view('frontend.pages.blog-detail', compact('blog', 'recentBlogs', 'blogCategories'));
     }
 
-    public function storeComment(Request $request, string $id): RedirectResponse
+    public function storeComment(Request $request, $id)
     {
         $request->validate([
-            'comment' => ['required', 'string', 'min:3', 'max:255'],
-            'parent_id' => ['nullable', 'exists:blog_comments,id'],
-        ]
-        );
+            'comment' => 'required|string|max:1000',
+            'parent_id' => 'nullable|exists:blog_comments,id',
+        ]);
 
-        BlogComment::create([
-            'user_id' => auth()->id(),
+        $comment = BlogComment::create([
             'blog_id' => $id,
-            'parent_id' => $request->parent_id ?? null,
+            'user_id' => auth()->id(),
+            'parent_id' => $request->parent_id,
             'comment' => $request->comment,
         ]);
 
-        notyf()->success('Comment Added Successfully!');
+        return response()->json([
+            'message' => 'Comment added successfully.',
+            'data' => [
+                'id' => $comment->id,
+                'parent_id' => $comment->parent_id,
+                'comment' => $comment->comment,
+                'date' => $comment->created_at->format('M d, Y'),
+                'user_name' => $comment->user->name,
+                'user_image' => $comment->user->image
+                    ? asset($comment->user->image)
+                    : asset('default-files/image-profile.png'),
+                    'user_id' => $comment->user_id,
+            ],
+        ]);
+    }
 
-        return redirect()->back();
+    public function destroyComment($id)
+    {
+        $comment = BlogComment::findOrFail($id);
+
+        if (auth()->id() !== $comment->user_id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $comment->delete();
+
+        return response()->json(['message' => 'Comment and its replies deleted']);
     }
 }

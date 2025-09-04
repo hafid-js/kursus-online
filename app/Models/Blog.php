@@ -23,6 +23,8 @@ class Blog extends Model
 
     public function comments(): HasMany
     {
-        return $this->hasMany(BlogComment::class, 'blog_id', 'id');
+        return $this->hasMany(BlogComment::class, 'blog_id', 'id')
+                    ->whereNull('parent_id')
+                    ->with('user', 'children.user');
     }
 }

@@ -2,8 +2,8 @@
 
 @section('content')
     <!--===========================
-            BREADCRUMB START
-        ============================-->
+                    BREADCRUMB START
+                ============================-->
     <section class="wsus__breadcrumb" style="background: url({{ asset(config('settings.site_breadcrumb')) }});">
         <div class="wsus__breadcrumb_overlay">
             <div class="container">
@@ -22,11 +22,11 @@
         </div>
     </section>
     <!--===========================
-            BREADCRUMB END
-        ============================-->
+                    BREADCRUMB END
+                ============================-->
     <!--===========================
-            DASHBOARD OVERVIEW START
-        ============================-->
+                    DASHBOARD OVERVIEW START
+                ============================-->
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -39,9 +39,15 @@
                                     <h5>Reviews</h5>
                                     <p>Manage your courses and its update like live, draft and insight.</p>
                                 </div>
-                                <a class="btn btn-primary" href="{{ route('instructor.courses.index') }}">
-                                    <i class="fa fa-arrow-left"></i> Back
-                                </a>
+                                @php
+                                    $currentRoute = Route::currentRouteName();
+                                @endphp
+
+                                @if ($currentRoute !== 'instructor.review.index')
+                                    <a class="btn btn-primary" href="{{ route('instructor.courses.index') }}">
+                                        <i class="fa fa-arrow-left"></i> Back
+                                    </a>
+                                @endif
                             </div>
                         </div>
 
@@ -195,10 +201,13 @@
                 e.preventDefault();
                 const reviewId = $(this).data('id');
                 const replyId = $(this).data('reply-id') || '';
+                const isEdit = !!replyId;
 
                 $('#replyModal input[name="review_id"]').val(reviewId);
                 $('#replyModal input[name="reply_id"]').val(replyId);
                 $('#replyModal textarea[name="reply"]').val($(this).data('reply-text') || '');
+                const modalTitle = isEdit ? 'Edit Reply' : 'Reply to Review';
+                $('#replyModal .reply-modal-title').text(modalTitle);
                 $('#replyModal').modal('show');
             });
 
@@ -292,7 +301,8 @@
             <input type="hidden" name="review_id">
             <div class="modal-header text-white">
                 <h6 class="modal-title" id="replyModalLabel">
-                    <i class="fas fa-reply me-2"></i>Reply to Review
+                    <i class="fas fa-reply me-2"></i>
+                    <h6 class="reply-modal-title">Reply to Review</h6>
                 </h6>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>

@@ -322,7 +322,10 @@
                                         @else
                                             <div class="wsus__course_single_reviews">
                                                 <div class="wsus__single_review_img">
-                                                    <img src="{{ asset($review->user->image) }}" alt="user"
+                                                   @php
+                                                    $image = $review->user->image ? asset($review->user->image) : asset('frontend/assets/images/image-profile.png');
+                                                   @endphp
+                                                    <img src="{{ $image }}" alt="user"
                                                         class="img-fluid">
                                                 </div>
                                                 <div class="wsus__single_review_text">
@@ -336,7 +339,7 @@
                                                     </h6>
                                                     <p>{{ $review->review }}</p>
                                                 </div>
-                                            </div>
+                                                </div>
                                         @endif
                                     @endforeach
                                 </div>

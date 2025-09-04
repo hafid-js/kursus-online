@@ -81,6 +81,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('order-success', [PaymentController::class, 'orderSuccess'])->name('order.success');
     // Blog comment route
     Route::post('blog/comment/{id}', [BlogController::class, 'storeComment'])->name('blog.comment.store');
+    Route::delete('blog/comment/{id}', [BlogController::class, 'destroyComment'])->name('blog.comment.destroy');
+
     // Review routes
     Route::post('review', [CoursePageController::class, 'storeReview'])->name('review.store');
 });
