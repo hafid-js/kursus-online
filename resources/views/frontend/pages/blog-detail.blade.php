@@ -105,32 +105,6 @@
                         </div>
                         <div class="wsus__blog_comment_area mt_75">
                             <h2>Comments</h2>
-                            {{-- @foreach ($blog->comments ?? [] as $comment)
-                            <div class="wsus__blog_single_comment">
-                                <div class="img">
-                                    <img src="{{ asset($comment->user->image ? asset($comment->user->image) : asset('default-files/image-profile.png')) }}" alt="Comments" class="img-fluid">
-                                </div>
-                                <div class="text">
-                                    <h4>{{ $comment->user->name }}</h4>
-                                    <h6>{{ date('M d, Y', strtotime($comment->created_at)) }} <a href="#"><i class="fas fa-reply" aria-hidden="true"></i></a></h6>
-                                    <p>{{ $comment->comment }}</p>
-                                </div>
-                            </div>
-                            <div class="wsus__blog_single_comment single_comment_reply">
-                                <div class="img">
-                                    <img src="images/testimonial_user_2.png" alt="Comments" class="img-fluid">
-                                </div>
-                                <div class="text">
-                                    <h4>Doug Lyphe</h4>
-                                    <h6>June 25, 2024 at 08:45 pm <a href="#"><i class="fas fa-reply review_reply" aria-hidden="true" data-id="{{ $comment->id }}"></i></a></h6>
-                                    <p>Nulla a ipsum nibh. Fusce purus elit, tristique vitae enim sed, auctor placerat
-                                        est. Maecenas consequat nibh consequat malesuada fringilla, mauris lorem dapibus
-                                        metus, non imperdiet nunc erat ultricies est. Praesent ames nec lorem sit amet
-                                        leo consequat rutrum non nibh sem eget metus.</p>
-                                </div>
-                            </div>
-                              @endforeach --}}
-
 
                             @foreach ($blog->comments ?? [] as $comment)
                                 <div class="wsus__blog_single_comment" data-comment-id="{{ $comment->id }}">
