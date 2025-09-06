@@ -55,6 +55,11 @@ Aplikasi kursus online berbasis web yang dibangun menggunakan **Laravel**, diran
 
 <img width="1440" height="900" alt="Tangkapan Layar 2025-08-25 pukul 12 00 37" src="https://github.com/user-attachments/assets/9af6b5a0-84f1-440b-91de-e681eb5e05fb" />
 
+<img width="1440" height="900" alt="Tangkapan Layar 2025-09-06 pukul 15 05 58" src="https://github.com/user-attachments/assets/7c659dd5-f114-4174-85b1-46fdd3dc4fba" />
+
+<img width="1440" height="900" alt="Tangkapan Layar 2025-09-06 pukul 14 53 01" src="https://github.com/user-attachments/assets/04558138-4e09-4e44-a34f-f2a2f75d639c" />
+
+
 <img width="1440" height="900" alt="Tangkapan Layar 2025-08-25 pukul 12 00 44" src="https://github.com/user-attachments/assets/2add2d01-3302-4780-82b6-a0e5941986ba" />
 
 <img width="1440" height="900" alt="Tangkapan Layar 2025-08-25 pukul 12 00 54" src="https://github.com/user-attachments/assets/6cc32b7f-4c6c-4198-adc0-7b2e44a82966" />
