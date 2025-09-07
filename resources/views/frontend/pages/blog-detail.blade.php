@@ -123,11 +123,11 @@
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                     @endif
-                                                @endauth
 
-                                                <a href="#" class="review_reply" data-id="{{ $comment->id }}">
-                                                    <i class="fas fa-reply"></i>
-                                                </a>
+                                                    <a href="#" class="review_reply" data-id="{{ $comment->id }}">
+                                                        <i class="fas fa-reply"></i>
+                                                    </a>
+                                                @endauth
                                             </div>
                                         </h6>
                                         <p>{{ $comment->comment }}</p>

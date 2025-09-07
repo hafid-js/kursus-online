@@ -59,7 +59,8 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])
+        ->name('login.store');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
@@ -74,7 +75,9 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
         ->name('password.store');
 });
 
+
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -96,16 +99,28 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
     // profile update routes
-    Route::get('profile', [ProfileUpdateController::class, 'index'])->name('profile.index');
-    Route::post('profile', [ProfileUpdateController::class, 'profileUpdate'])->name('profile.update');
-    Route::post('update-password', [ProfileUpdateController::class, 'updatePassword'])->name('password.update');
+    Route::get('profile', [ProfileUpdateController::class, 'index'])
+        ->name('profile.index');
 
-    Route::get('instructor-doc-download/{user}', [InstructorRequestController::class, 'download'])->name('instructor-doc-download');
-    Route::get('instructor-doc-show/{user}', [InstructorRequestController::class, 'show'])->name('instructor-doc-show');
-    Route::get('instructor-requests', [InstructorRequestController::class, 'index'])->name('instructor-requests.index');
+    Route::post('profile', [ProfileUpdateController::class, 'profileUpdate'])
+        ->name('profile.update');
+
+    Route::post('update-password', [ProfileUpdateController::class, 'updatePassword'])
+        ->name('password.update');
+
+    Route::get('instructor-doc-download/{user}', [InstructorRequestController::class, 'download'])
+        ->name('instructor-doc-download');
+
+    Route::get('instructor-doc-show/{user}', [InstructorRequestController::class, 'show'])
+        ->name('instructor-doc-show');
+
+    Route::get('instructor-requests', [InstructorRequestController::class, 'index'])
+        ->name('instructor-requests.index');
+
     Route::put('instructor-requests/{user}/update-approval', [InstructorRequestController::class, 'update'])
         ->name('instructor-requests.update-approval');
 
@@ -117,75 +132,148 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
     // Course categories route
     Route::resource('course-categories', CourseCategoryController::class);
-    Route::get('/{course_category}/sub-categories', [CourseSubCategoryController::class, 'index'])->name('course-sub-categories.index');
-    Route::get('/{course_category}/course-sub-categories/create', [CourseSubCategoryController::class, 'create'])->name('course-sub-categories.create');
 
-    Route::post('/{course_category}/sub-categories', [CourseSubCategoryController::class, 'store'])->name('course-sub-categories.store');
-    Route::get('/{course_category}/sub-categories/{course_sub_category}/edit', [CourseSubCategoryController::class, 'edit'])->name('course-sub-categories.edit');
+    Route::get('/{course_category}/sub-categories', [CourseSubCategoryController::class, 'index'])
+        ->name('course-sub-categories.index');
 
-    Route::put('/{course_category}/sub-categories/{course_sub_category}', [CourseSubCategoryController::class, 'update'])->name('course-sub-categories.update');
-    Route::delete('/{course_category}/sub-categories/{course_sub_category}', [CourseSubCategoryController::class, 'destroy'])->name('course-sub-categories.destroy');
+    Route::get('/{course_category}/course-sub-categories/create', [CourseSubCategoryController::class, 'create'])
+        ->name('course-sub-categories.create');
+
+    Route::post('/{course_category}/sub-categories', [CourseSubCategoryController::class, 'store'])
+        ->name('course-sub-categories.store');
+
+    Route::get('/{course_category}/sub-categories/{course_sub_category}/edit', [CourseSubCategoryController::class, 'edit'])
+        ->name('course-sub-categories.edit');
+
+    Route::put('/{course_category}/sub-categories/{course_sub_category}', [CourseSubCategoryController::class, 'update'])
+        ->name('course-sub-categories.update');
+
+    Route::delete('/{course_category}/sub-categories/{course_sub_category}', [CourseSubCategoryController::class, 'destroy'])
+        ->name('course-sub-categories.destroy');
 
     // course module routes
-    Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
-    Route::put('courses/{course}/update-approval', [CourseController::class, 'updateApproval'])->name('courses.update-approval');
-    Route::get('courses/create', [CourseController::class, 'create'])->name('courses.create');
-    Route::post('courses/create', [CourseController::class, 'storeBasicInfo'])->name('courses.store-basic-info');
+    Route::get('courses', [CourseController::class, 'index'])
+        ->name('courses.index');
 
-    Route::get('courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
-    Route::post('courses/update', [CourseController::class, 'update'])->name('courses.update');
+    Route::put('courses/{course}/update-approval', [CourseController::class, 'updateApproval'])
+        ->name('courses.update-approval');
+
+    Route::get('courses/create', [CourseController::class, 'create'])
+        ->name('courses.create');
+
+    Route::post('courses/create', [CourseController::class, 'storeBasicInfo'])
+        ->name('courses.store-basic-info');
+
+    Route::get('courses/{id}/edit', [CourseController::class, 'edit'])
+        ->name('courses.edit');
+
+    Route::post('courses/update', [CourseController::class, 'update'])
+        ->name('courses.update');
+
     // Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
 
-    Route::get('course-content/{course}/create-chapter', [CourseContentController::class, 'createChapterModal'])->name('course-content.create-chapter');
-    Route::post('course-content/{chapter}/create-chapter', [CourseContentController::class, 'storeChapter'])->name('course-content.store-chapter');
-    Route::get('course-content/{chapter}/edit-chapter', [CourseContentController::class, 'editChapterModal'])->name('course-content.edit-chapter');
-    Route::post('course-content/{chapter}/edit-chapter', [CourseContentController::class, 'updateChapterModal'])->name('course-content.update-chapter');
-    Route::delete('course-content/{chapter}/chapter', [CourseContentController::class, 'destroyChapter'])->name('course-content.destroy-chapter');
+    Route::get('course-content/{course}/create-chapter', [CourseContentController::class, 'createChapterModal'])
+        ->name('course-content.create-chapter');
 
-    Route::get('course-content/create-lesson', [CourseContentController::class, 'createLesson'])->name('course-content.create-lesson');
-    Route::post('course-content/create-lesson', [CourseContentController::class, 'storeLesson'])->name('course-content.store-lesson');
-    Route::get('course-content/edit-lesson', [CourseContentController::class, 'editLesson'])->name('course-content.edit-lesson');
-    Route::post('course-content/{id}/edit-lesson', [CourseContentController::class, 'updateLesson'])->name('course-content.update-lesson');
-    Route::delete('course-content/{id}/lesson', [CourseContentController::class, 'destroyLesson'])->name('course-content.destroy-lesson');
+    Route::post('course-content/{chapter}/create-chapter', [CourseContentController::class, 'storeChapter'])
+        ->name('course-content.store-chapter');
 
-    Route::post('course-chapter/{chapter}/sort-lesson', [CourseContentController::class, 'sortLesson'])->name('course-chapter.sort-lesson');
+    Route::get('course-content/{chapter}/edit-chapter', [CourseContentController::class, 'editChapterModal'])
+        ->name('course-content.edit-chapter');
 
-    Route::get('course-content/{course}/sort-chapter', [CourseContentController::class, 'sortChapter'])->name('course-content.sort-chapter');
-    Route::post('course-content/{course}/sort-chapter', [CourseContentController::class, 'updateSortChapter'])->name('course-content.update-sort-chapter');
+    Route::post('course-content/{chapter}/edit-chapter', [CourseContentController::class, 'updateChapterModal'])
+        ->name('course-content.update-chapter');
+
+    Route::delete('course-content/{chapter}/chapter', [CourseContentController::class, 'destroyChapter'])
+        ->name('course-content.destroy-chapter');
+
+    Route::get('course-content/create-lesson', [CourseContentController::class, 'createLesson'])
+        ->name('course-content.create-lesson');
+
+    Route::post('course-content/create-lesson', [CourseContentController::class, 'storeLesson'])
+        ->name('course-content.store-lesson');
+
+    Route::get('course-content/edit-lesson', [CourseContentController::class, 'editLesson'])
+        ->name('course-content.edit-lesson');
+
+    Route::post('course-content/{id}/edit-lesson', [CourseContentController::class, 'updateLesson'])
+        ->name('course-content.update-lesson');
+
+    Route::delete('course-content/{id}/lesson', [CourseContentController::class, 'destroyLesson'])
+        ->name('course-content.destroy-lesson');
+
+    Route::post('course-chapter/{chapter}/sort-lesson', [CourseContentController::class, 'sortLesson'])
+        ->name('course-chapter.sort-lesson');
+
+    Route::get('course-content/{course}/sort-chapter', [CourseContentController::class, 'sortChapter'])
+        ->name('course-content.sort-chapter');
+
+    Route::post('course-content/{course}/sort-chapter', [CourseContentController::class, 'updateSortChapter'])
+        ->name('course-content.update-sort-chapter');
 
     // order routes
-    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
-    Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('orders', [OrderController::class, 'index'])
+        ->name('orders.index');
+
+    Route::get('orders/{order}', [OrderController::class, 'show'])
+        ->name('orders.show');
 
     // payment setting routes
-    Route::get('payment-setting', [PaymentSettingController::class, 'index'])->name('payment-setting.index');
-    Route::post('paypal-setting', [PaymentSettingController::class, 'paypalSetting'])->name('paypal-setting.update');
-    Route::post('stripe-setting', [PaymentSettingController::class, 'stripeSetting'])->name('stripe-setting.update');
+    Route::get('payment-setting', [PaymentSettingController::class, 'index'])
+        ->name('payment-setting.index');
+
+    Route::post('paypal-setting', [PaymentSettingController::class, 'paypalSetting'])
+        ->name('paypal-setting.update');
+
+    Route::post('stripe-setting', [PaymentSettingController::class, 'stripeSetting'])
+        ->name('stripe-setting.update');
 
     // site setting route
-    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('general-settings', [SettingController::class, 'updateGeneralSettings'])->name('general-settings.update');
+    Route::get('settings', [SettingController::class, 'index'])
+        ->name('settings.index');
 
-    Route::get('commission-settings', [SettingController::class, 'commissionSettingIndex'])->name('commission-settings.index');
-    Route::post('commission-settings', [SettingController::class, 'updatecommissionSetting'])->name('commission-settings.update');
+    Route::post('general-settings', [SettingController::class, 'updateGeneralSettings'])
+        ->name('general-settings.update');
 
-    Route::get('smtp-settings', [SettingController::class, 'smtpSetting'])->name('smtp-settings.index');
-    Route::post('smtp-settings', [SettingController::class, 'updateSmtpSetting'])->name('smtp-settings.update');
+    Route::get('commission-settings', [SettingController::class, 'commissionSettingIndex'])
+        ->name('commission-settings.index');
 
-    Route::get('logo-settings', [SettingController::class, 'logoSetting'])->name('logo-settings.index');
-    Route::post('logo-settings', [SettingController::class, 'updateLogoSetting'])->name('logo-settings.update');
+    Route::post('commission-settings', [SettingController::class, 'updatecommissionSetting'])
+        ->name('commission-settings.update');
+
+    Route::get('smtp-settings', [SettingController::class, 'smtpSetting'])
+        ->name('smtp-settings.index');
+
+    Route::post('smtp-settings', [SettingController::class, 'updateSmtpSetting'])
+        ->name('smtp-settings.update');
+
+    Route::get('logo-settings', [SettingController::class, 'logoSetting'])
+        ->name('logo-settings.index');
+
+    Route::post('logo-settings', [SettingController::class, 'updateLogoSetting'])
+        ->name('logo-settings.update');
 
     Route::resource('payout-gateway', PayoutGatewayController::class);
 
     // Withdrawal routes
-    Route::get('withdraw-requests', [WithdrawRequestController::class, 'index'])->name('withdraw-request.index');
-    Route::get('withdraw-requests/{withdraw}/details', [WithdrawRequestController::class, 'show'])->name('withdraw-request.show');
-    Route::post('withdraw-requests/{withdraw}/status', [WithdrawRequestController::class, 'updateStatus'])->name('withdraw-request.update');
+    Route::get('withdraw-requests', [WithdrawRequestController::class, 'index'])
+        ->name('withdraw-request.index');
+
+    Route::get('withdraw-requests/{withdraw}/details', [WithdrawRequestController::class, 'show'])
+        ->name('withdraw-request.show');
+
+    Route::post('withdraw-requests/{withdraw}/status', [WithdrawRequestController::class, 'updateStatus'])
+        ->name('withdraw-request.update');
 
     // lfm routes
-    Route::get('certificate-builder', [CertificateBuilderController::class, 'index'])->name('certificate-builder.index');
-    Route::post('certificate-builder', [CertificateBuilderController::class, 'update'])->name('certificate-builder.update');
-    Route::post('certificate-item', [CertificateBuilderController::class, 'itemUpdate'])->name('certificate-item.update');
+    Route::get('certificate-builder', [CertificateBuilderController::class, 'index'])
+        ->name('certificate-builder.index');
+
+    Route::post('certificate-builder', [CertificateBuilderController::class, 'update'])
+        ->name('certificate-builder.update');
+
+    Route::post('certificate-item', [CertificateBuilderController::class, 'itemUpdate'])
+        ->name('certificate-item.update');
 
     // hero routes
     Route::resource('hero', HeroController::class);
@@ -209,7 +297,9 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
     Route::resource('brand-section', BrandSectionController::class);
 
     // featured instructor section
-    Route::get('get-instructor-courses/{id}', [FeaturedInstructorController::class, 'getInstructorCourses'])->name('featured-instructor.index');
+    Route::get('get-instructor-courses/{id}', [FeaturedInstructorController::class, 'getInstructorCourses'])
+        ->name('featured-instructor.index');
+
     Route::resource('featured-instructor-section', FeaturedInstructorController::class);
 
     // testimonial route
@@ -252,17 +342,30 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
     Route::resource('blogs', BlogController::class);
 
     // database clear routes
-    Route::get('database-clear', [DatabaseClearController::class, 'index'])->name('database-clear.index');
-    Route::delete('database-clear', [DatabaseClearController::class, 'destroy'])->name('database-clear.destroy');
+    Route::get('database-clear', [DatabaseClearController::class, 'index'])
+        ->name('database-clear.index');
+
+    Route::delete('database-clear', [DatabaseClearController::class, 'destroy'])
+        ->name('database-clear.destroy');
 
     // export to excel || pdf
-    Route::get('export/course-orders', [ExportController::class, 'courseExportOrders'])->name('export.course-orders');
-    Route::match(['GET', 'POST'], 'export/course-orders-pdf', [ExportController::class, 'exportSelected'])->name('export.course-orders-pdf');
+    Route::get('export/course-orders', [ExportController::class, 'courseExportOrders'])
+        ->name('export.course-orders');
 
-    Route::get('students/{id}/course-enrolled', [StudentController::class, 'getAllStudentEnrolled'])->name('student.course-enrolled');
+    Route::match(['GET', 'POST'], 'export/course-orders-pdf', [ExportController::class, 'exportSelected'])
+        ->name('export.course-orders-pdf');
+
+    Route::get('students/{id}/course-enrolled', [StudentController::class, 'getAllStudentEnrolled'])
+        ->name('student.course-enrolled');
+
     Route::resource('students', StudentController::class);
-    Route::get('instructors/{id}/data-course', [InstructorController::class, 'getAllCourse'])->name('instructor.data-course');
-    Route::get('instructors/{id}/course-student-enrolled', [InstructorController::class, 'getAllStudentEnrolled'])->name('instructor.course-student-enrolled');
+
+    Route::get('instructors/{id}/data-course', [InstructorController::class, 'getAllCourse'])
+        ->name('instructor.data-course');
+
+    Route::get('instructors/{id}/course-student-enrolled', [InstructorController::class, 'getAllStudentEnrolled'])
+        ->name('instructor.course-student-enrolled');
+
     Route::resource('instructors', InstructorController::class);
 
     // lfm routes

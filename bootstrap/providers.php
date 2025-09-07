@@ -1,12 +1,12 @@
 <?php
 
 return [
-    App\Providers\MidtransServiceProvider::class,
     App\Providers\AppServiceProvider::class,
-    App\Providers\PaymentGatewaySettingServiceProvider::class,
-    App\Providers\SettingServiceProvider::class,
-    Yajra\DataTables\DataTablesServiceProvider::class,
-    Maatwebsite\Excel\ExcelServiceProvider::class,
     App\Providers\EventServiceProvider::class,
+    App\Providers\MidtransServiceProvider::class,
+    App\Providers\PaymentGatewaySettingServiceProvider::class,
+    App\Providers\RouteServiceProvider::class,
+    App\Providers\SettingServiceProvider::class,
+    Maatwebsite\Excel\ExcelServiceProvider::class,
+    Yajra\DataTables\DataTablesServiceProvider::class,
 ];
-

@@ -44,10 +44,16 @@ return [
             'provider' => 'admins',
         ],
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'sanctum',
             'provider' => 'users',
         ],
     ],
+'providers' => [
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------
