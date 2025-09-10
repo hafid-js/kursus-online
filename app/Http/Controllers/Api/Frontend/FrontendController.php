@@ -26,9 +26,17 @@ use App\Models\Testimonial;
 use App\Models\VideoSection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Traits\ApiResponseTrait;
 
 class FrontendController extends Controller
 {
+    use ApiResponseTrait;
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->only(['storeComment', 'subscribe']);
+    }
+
     public function index(): JsonResponse
     {
         $hero = Hero::first();
@@ -46,23 +54,20 @@ class FrontendController extends Controller
         $testimonials = Testimonial::all();
         $blogs = Blog::where('status', 1)->latest()->limit(6)->get();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => [
-                'hero' => $hero,
-                'feature' => $feature,
-                'featureCategories' => $featureCategories,
-                'about' => $about,
-                'latestCourses' => $latestCourses,
-                'becomeInstructorBanner' => $becomeInstructorBanner,
-                'video' => $video ? new \App\Http\Resources\VideoSectionResource($video) : null,
-                'brands' => $brands,
-                'featuredInstructor' => $featuredInstructor,
-                'featuredInstructorCourses' => $featuredInstructorCourses,
-                'testimonials' => $testimonials,
-                'blogs' => BlogResource::collection($blogs),
-            ],
-        ]);
+        return $this->sendResponse([
+            'hero' => $hero,
+            'feature' => $feature,
+            'featureCategories' => $featureCategories,
+            'about' => $about,
+            'latestCourses' => $latestCourses,
+            'becomeInstructorBanner' => $becomeInstructorBanner,
+            'video' => $video ? new \App\Http\Resources\VideoSectionResource($video) : null,
+            'brands' => $brands,
+            'featuredInstructor' => $featuredInstructor,
+            'featuredInstructorCourses' => $featuredInstructorCourses,
+            'testimonials' => $testimonials,
+            'blogs' => BlogResource::collection($blogs),
+        ], 'Frontend data loaded successfully');
     }
 
     public function about(): JsonResponse
@@ -72,60 +77,57 @@ class FrontendController extends Controller
         $testimonials = Testimonial::all();
         $blogs = Blog::where('status', 1)->latest()->limit(6)->get();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => [
-                'about' => $about,
-                'counter' => $counter,
-                'testimonials' => $testimonials,
-                'blogs' => BlogResource::collection($blogs),
-            ],
-        ]);
+        return $this->sendResponse([
+            'about' => $about,
+            'counter' => $counter,
+            'testimonials' => $testimonials,
+            'blogs' => BlogResource::collection($blogs),
+        ], 'About section data retrieved');
     }
 
     public function subscribe(SubscribeNewsletterRequest $request): JsonResponse
     {
         Newsletter::create(['email' => $request->email]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Successfully Subscribed!',
-        ]);
+        return $this->sendResponse(null, 'Successfully Subscribed!');
     }
 
     public function customPage(string $slug): JsonResponse
     {
-        $page = CustomPage::whereSlug($slug)->where('status', 1)->firstOrFail();
+        $page = CustomPage::whereSlug($slug)->where('status', 1)->first();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => ['page' => $page],
-        ]);
+        if (!$page) {
+            return $this->sendError('Page not found', 404);
+        }
+
+        return $this->sendResponse(['page' => $page], 'Page data retrieved');
     }
 
     public function blogIndex(Request $request): JsonResponse
     {
         $blogs = Blog::with('comments')
             ->where('status', 1)
-            ->when($request->filled('search'), fn ($q) => $q->where(fn ($q2) => $q2->where('title', 'like', '%' . $request->search . '%')
-                       ->orWhere('description', 'like', '%' . $request->search . '%')
-            )
-            )
-            ->when($request->filled('category'), fn ($q) => $q->whereHas('category', fn ($q2) => $q2->where('slug', $request->category)
-            )
-            )
+            ->when($request->filled('search'), function ($q) use ($request) {
+                $q->where(function ($q2) use ($request) {
+                    $q2->where('title', 'like', '%' . $request->search . '%')
+                       ->orWhere('description', 'like', '%' . $request->search . '%');
+                });
+            })
+            ->when($request->filled('category'), function ($q) use ($request) {
+                $q->whereHas('category', function ($q2) use ($request) {
+                    $q2->where('slug', $request->category);
+                });
+            })
             ->paginate(20);
 
-        return response()->json([
-            'status' => 'success',
-            'data' => BlogResource::collection($blogs),
-            'meta' => [
-                'current_page' => $blogs->currentPage(),
-                'last_page' => $blogs->lastPage(),
-                'per_page' => $blogs->perPage(),
-                'total' => $blogs->total(),
-            ],
-        ]);
+        $pagination = [
+            'current_page' => $blogs->currentPage(),
+            'last_page' => $blogs->lastPage(),
+            'per_page' => $blogs->perPage(),
+            'total' => $blogs->total(),
+        ];
+
+        return $this->sendPaginatedResponse(BlogResource::collection($blogs), 'Blogs fetched successfully', $pagination);
     }
 
     public function blogShow(Blog $blog): JsonResponse
@@ -142,14 +144,11 @@ class FrontendController extends Controller
             ->where('status', 1)
             ->get();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => [
-                'blog' => new BlogResource($blog),
-                'recentBlogs' => BlogResource::collection($recentBlogs),
-                'blogCategories' => $blogCategories,
-            ],
-        ]);
+        return $this->sendResponse([
+            'blog' => new BlogResource($blog),
+            'recentBlogs' => BlogResource::collection($recentBlogs),
+            'blogCategories' => $blogCategories,
+        ], 'Blog details retrieved');
     }
 
     public function storeComment(StoreBlogCommentRequest $request, Blog $blog): JsonResponse
@@ -161,10 +160,6 @@ class FrontendController extends Controller
             'comment' => $request->comment,
         ]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Comment added!',
-            'data' => new BlogCommentResource($comment),
-        ]);
+        return $this->sendResponse(new BlogCommentResource($comment), 'Comment added!');
     }
 }

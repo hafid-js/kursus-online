@@ -8,9 +8,17 @@ use App\Http\Resources\OrderItemResource;
 use App\Models\Course;
 use App\Models\OrderItem;
 use Illuminate\Http\JsonResponse;
+use App\Traits\ApiResponseTrait;
 
 class InstructorDashboardController extends Controller
 {
+    use ApiResponseTrait;
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
     public function index(): JsonResponse
     {
         $user = auth()->user();
@@ -53,22 +61,16 @@ class InstructorDashboardController extends Controller
             ->take(5)
             ->values();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Instructor dashboard data retrieved successfully',
-            'data' => [
-                'pendingCourses' => $pendingCoursesCount,
-                'approvedCourses' => $approvedCoursesCount,
-                'rejectedCourses' => $rejectedCoursesCount,
-                'orderItems' => OrderItemResource::collection($orderItems),
-                'bestSellingCourses' => $bestSellingCourses->map(function ($item) {
-                    return [
-                        'course' => new CourseResource($item->course),
-                        'total_buyers' => $item->total_buyers,
-                        'total_revenue' => $item->total_revenue,
-                    ];
-                }),
-            ],
-        ]);
+        return $this->sendResponse([
+            'pendingCourses' => $pendingCoursesCount,
+            'approvedCourses' => $approvedCoursesCount,
+            'rejectedCourses' => $rejectedCoursesCount,
+            'orderItems' => OrderItemResource::collection($orderItems),
+            'bestSellingCourses' => $bestSellingCourses->map(fn($item) => [
+                'course' => new CourseResource($item->course),
+                'total_buyers' => $item->total_buyers,
+                'total_revenue' => $item->total_revenue,
+            ]),
+        ], 'Instructor dashboard data retrieved successfully');
     }
 }

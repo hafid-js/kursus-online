@@ -1,24 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Api\Frontend;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use Illuminate\Http\JsonResponse;
+use App\Traits\ApiResponseTrait;
+use Illuminate\Http\Request;
 
 class StudentOrderController extends Controller
 {
-    public function index(): JsonResponse
-    {
-        $orders = Order::where('buyer_id', auth()->id())->get();
+    use ApiResponseTrait;
 
-        return response()->json(['orders' => $orders]);
+    public function index()
+    {
+        $orders = Order::where('buyer_id', auth()->id())
+            ->with('orderItems.course') // Optional: eager load course
+            ->latest()
+            ->get();
+
+        return $this->sendResponse($orders, 'Orders retrieved successfully.');
     }
 
-    public function show(string $id): JsonResponse
+    public function show(string $id)
     {
-        $order = Order::where('buyer_id', auth()->id())->findOrFail($id);
+        $order = Order::with('orderItems.course')
+            ->where('buyer_id', auth()->id())
+            ->findOrFail($id);
 
-        return response()->json(['order' => $order]);
+        return $this->sendResponse($order, 'Order detail retrieved successfully.');
     }
 }

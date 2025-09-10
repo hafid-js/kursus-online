@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Frontend;
+namespace App\Http\Controllers\Api;
 
 use App\Events\User\UserProfileUpdated;
 use App\Http\Controllers\Controller;
@@ -9,33 +9,43 @@ use App\Http\Requests\Frontend\ProfileUpdateRequest;
 use App\Http\Requests\Frontend\SocialUpdateRequest;
 use App\Models\InstructorPayoutInformation;
 use App\Models\PayoutGateway;
+use App\Traits\ApiResponseTrait;
 use App\Traits\FileUpload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    use FileUpload;
+    use FileUpload, ApiResponseTrait;
 
-    public function index()
+    public function profile()
     {
         $user = Auth::user();
 
-        return response()->json($user);
+        return $this->sendResponse([
+            'user' => $user,
+        ], 'Profile data retrieved.');
     }
 
-    // public function instructorIndex()
-    // {
-    //     $gateways = PayoutGateway::where('status', 1)->get();
-    //     $gatewayInfo = InstructorPayoutInformation::where('instructor_id', Auth::id())->first();
+    public function dashboardData()
+    {
+        $user = Auth::user();
 
-    //     return response()->json([
-    //         'gateways' => $gateways,
-    //         'gatewayInfo' => $gatewayInfo,
-    //     ]);
-    // }
+        if ($user->role === 'instructor') {
+            $gateways = PayoutGateway::where('status', 1)->get();
+            $gatewayInfo = InstructorPayoutInformation::where('instructor_id', $user->id)->first();
 
-    public function profileUpdate(ProfileUpdateRequest $request)
+            return $this->sendResponse([
+                'user' => $user,
+                'gateways' => $gateways,
+                'gateway_info' => $gatewayInfo,
+            ], 'Instructor profile data retrieved.');
+        }
+
+        return $this->sendResponse(['user' => $user], 'Student profile data retrieved.');
+    }
+
+    public function updateProfile(ProfileUpdateRequest $request)
     {
         $user = Auth::user();
 
@@ -58,7 +68,7 @@ class ProfileController extends Controller
             event(new UserProfileUpdated($user, $changes));
         }
 
-        return response()->json(['message' => 'Update Successfully', 'user' => $user]);
+        return $this->sendResponse(['user' => $user], 'Profile updated successfully.');
     }
 
     public function updatePassword(PasswordUpdateRequest $request)
@@ -67,7 +77,7 @@ class ProfileController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        return response()->json(['message' => 'Password updated successfully']);
+        return $this->sendResponse(null, 'Password updated successfully.');
     }
 
     public function updateSocial(SocialUpdateRequest $request)
@@ -79,19 +89,21 @@ class ProfileController extends Controller
         $user->website = $request->website;
         $user->save();
 
-        return response()->json(['message' => 'Social profile updated successfully', 'user' => $user]);
+        return $this->sendResponse(['user' => $user], 'Social links updated successfully.');
     }
 
     public function updateGatewayInfo(Request $request)
     {
-        $info = InstructorPayoutInformation::updateOrCreate(
-            ['instructor_id' => Auth::id()],
+        $user = Auth::user();
+
+        InstructorPayoutInformation::updateOrCreate(
+            ['instructor_id' => $user->id],
             [
                 'gateway' => $request->gateway,
                 'information' => $request->information,
             ]
         );
 
-        return response()->json(['message' => 'Payout info updated successfully', 'data' => $info]);
+        return $this->sendResponse(null, 'Payout information updated successfully.');
     }
 }

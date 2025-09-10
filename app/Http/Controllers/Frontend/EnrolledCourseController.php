@@ -14,21 +14,6 @@ use Illuminate\Http\Response;
 
 class EnrolledCourseController extends Controller
 {
-    // public function index()
-    // {
-    //     $enrollments = Enrollment::with('course')
-    //         ->where('user_id', user()->id)
-    //         ->whereHas('course')
-    //         ->get();
-
-    //     if ('student' === user()->role) {
-    //         return view('frontend.student-dashboard.enrolled-course.index', compact('enrollments'));
-    //     } elseif ('instructor' === user()->role) {
-    //         return view('frontend.instructor-dashboard.enrolled-course.index', compact('enrollments'));
-    //     } else {
-    //         abort(403, 'Unauthorized role.');
-    //     }
-    // }
 
     public function index(CourseEnrolledDataTable $courseDataTable)
     {

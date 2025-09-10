@@ -3,20 +3,29 @@
 namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BlogCategoryResource;
-use App\Http\Resources\BlogCommentResource;
-use App\Http\Resources\BlogResource;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogComment;
+use App\Traits\ApiResponseTrait;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
-    public function index(Request $request)
+    use ApiResponseTrait;
+
+    public function __construct()
     {
-        $blogs = Blog::with(['comments', 'category', 'author'])
+        // Buat middleware auth di comment create/delete
+        $this->middleware('auth:sanctum')->only(['storeComment', 'destroyComment']);
+    }
+
+    /**
+     * List blogs with optional search and category filter
+     */
+    public function index(Request $request): JsonResponse
+    {
+        $blogs = Blog::with('comments')
             ->where('status', 1)
             ->when($request->filled('search'), function ($query) use ($request) {
                 $query->where(function ($q) use ($request) {
@@ -25,32 +34,27 @@ class BlogController extends Controller
                 });
             })
             ->when($request->filled('category'), function ($query) use ($request) {
-                $query->whereHas('category', function ($q) use ($request) {
-                    $q->where('slug', $request->category);
-                });
+                $slug = $request->category;
+                $query->whereHas('category', fn ($q) => $q->where('slug', $slug));
             })
-            ->latest()
             ->paginate(10);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Blog list retrieved successfully.',
-            'data' => BlogResource::collection($blogs),
-            'pagination' => [
-                'current_page' => $blogs->currentPage(),
-                'last_page' => $blogs->lastPage(),
-                'per_page' => $blogs->perPage(),
-                'total' => $blogs->total(),
-            ],
-        ]);
+        return $this->sendResponse($blogs, 'Blogs retrieved successfully');
     }
 
-    public function show($slug)
+    /**
+     * Show single blog detail with relations and metadata
+     */
+    public function show(string $slug): JsonResponse
     {
-        $blog = Blog::with(['author', 'category', 'comments.user', 'comments.replies.user'])
+        $blog = Blog::with(['author', 'category', 'comments.children.user', 'comments.user'])
             ->where('slug', $slug)
             ->where('status', 1)
-            ->firstOrFail();
+            ->first();
+
+        if (!$blog) {
+            return $this->sendError('Blog not found', 404);
+        }
 
         $recentBlogs = Blog::where('status', 1)
             ->where('slug', '!=', $slug)
@@ -58,41 +62,64 @@ class BlogController extends Controller
             ->take(3)
             ->get();
 
-        $categories = BlogCategory::withCount('blogs')
+        $blogCategories = BlogCategory::withCount('blogs')
             ->where('status', 1)
             ->get();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Blog detail retrieved.',
-            'data' => [
-                'blog' => new BlogResource($blog),
-                'recent_blogs' => BlogResource::collection($recentBlogs),
-                'categories' => BlogCategoryResource::collection($categories),
-            ],
-        ]);
+        return $this->sendResponse([
+            'blog' => $blog,
+            'recent_blogs' => $recentBlogs,
+            'categories' => $blogCategories,
+        ], 'Blog detail retrieved successfully');
     }
 
-    public function storeComment(Request $request, $id)
+    /**
+     * Store a comment on blog post
+     */
+    public function storeComment(Request $request, int $id): JsonResponse
     {
         $request->validate([
-            'comment' => 'required|string|min:3|max:255',
+            'comment' => 'required|string|max:1000',
             'parent_id' => 'nullable|exists:blog_comments,id',
         ]);
 
         $comment = BlogComment::create([
-            'user_id' => Auth::id(),
             'blog_id' => $id,
+            'user_id' => auth()->id(),
             'parent_id' => $request->parent_id,
             'comment' => $request->comment,
         ]);
 
-        $comment->load('user');
+        return $this->sendResponse([
+            'id' => $comment->id,
+            'parent_id' => $comment->parent_id,
+            'comment' => $comment->comment,
+            'date' => $comment->created_at->format('M d, Y'),
+            'user_name' => $comment->user->name,
+            'user_image' => $comment->user->image
+                ? asset($comment->user->image)
+                : asset('default-files/image-profile.png'),
+            'user_id' => $comment->user_id,
+        ], 'Comment added successfully');
+    }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Comment added successfully.',
-            'data' => new BlogCommentResource($comment),
-        ]);
+    /**
+     * Delete a comment (only owner)
+     */
+    public function destroyComment(int $id): JsonResponse
+    {
+        $comment = BlogComment::find($id);
+
+        if (!$comment) {
+            return $this->sendError('Comment not found', 404);
+        }
+
+        if (auth()->id() !== $comment->user_id) {
+            return $this->sendError('Unauthorized', 403);
+        }
+
+        $comment->delete();
+
+        return $this->sendResponse(null, 'Comment deleted successfully');
     }
 }

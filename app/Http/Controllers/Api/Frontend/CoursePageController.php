@@ -3,27 +3,31 @@
 namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\StoreReviewRequest;
-use App\Http\Resources\CourseResource;
-use App\Http\Resources\ReviewResource;
 use App\Models\Course;
+use App\Models\CourseCategory;
+use App\Models\CourseLanguage;
+use App\Models\CourseLevel;
 use App\Models\Enrollment;
 use App\Models\Review;
+use App\Models\User;
+use App\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CoursePageController extends Controller
 {
+    use ApiResponseTrait;
+
     public function index(Request $request): JsonResponse
     {
-        $courses = Course::with(['enrollments', 'category', 'instructor'])
+        $courses = Course::with('enrollments')
             ->where('is_approved', 'approved')
             ->where('status', 'active')
-            ->when($request->has('search') && $request->filled('search'), function ($query) use ($request) {
-                $query->where('title', 'like', '%' . $request->search . '%')
-                      ->orWhere('description', 'like', '%' . $request->search . '%');
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $query->where('title', 'like', "%{$request->search}%")
+                      ->orWhere('description', 'like', "%{$request->search}%");
             })
-            ->when($request->has('category') && $request->filled('category'), function ($query) use ($request) {
+            ->when($request->filled('category'), function ($query) use ($request) {
                 if (is_array($request->category)) {
                     $query->whereIn('category_id', $request->category);
                 } else {
@@ -31,58 +35,74 @@ class CoursePageController extends Controller
                 }
             })
             ->when($request->filled('main_category'), function ($query) use ($request) {
-                $query->whereHas('category', function ($query) use ($request) {
-                    $query->whereHas('parentCategory', function ($query) use ($request) {
-                        $query->where('slug', $request->main_category);
-                    });
+                $query->whereHas('category.parentCategory', function ($q) use ($request) {
+                    $q->where('slug', $request->main_category);
                 });
             })
-            ->when($request->has('level') && $request->filled('level'), function ($query) use ($request) {
-                $query->whereIn('course_level_id', $request->level);
+            ->when($request->filled('level'), fn ($q) => $q->whereIn('course_level_id', $request->level))
+            ->when($request->filled('language'), fn ($q) => $q->whereIn('course_language_id', $request->language))
+            ->when($request->filled('from') && $request->filled('to'), fn ($q) => $q->whereBetween('price', [$request->from, $request->to]))
+            ->when($request->filled('rating'), function ($query) use ($request) {
+                $rating = min($request->rating);
+                $query->withAvg('reviews', 'rating')
+                    ->having('reviews_avg_rating', '=', $rating);
             })
-            ->when($request->has('language') && $request->filled('language'), function ($query) use ($request) {
-                $query->whereIn('course_language_id', $request->language);
-            })
-            ->when(
-                $request->has('from') && $request->has('to')
-                && $request->filled('from') && $request->filled('to'),
-                function ($query) use ($request) {
-                    $query->whereBetween('price', [$request->from, $request->to]);
-                }
-            )
-            ->orderBy('id', $request->filled('order') ? $request->order : 'desc')
-            ->paginate(12);
+            ->orderBy('id', $request->get('order', 'desc'))
+            ->paginate(9);
 
-        return CourseResource::collection($courses)->response();
+        $filters = [
+            'categories' => CourseCategory::where('status', 1)->whereNull('parent_id')->get(),
+            'levels' => CourseLevel::all(),
+            'languages' => CourseLanguage::all(),
+        ];
+
+        return $this->sendPaginatedResponse($courses, 'Courses fetched successfully', $filters);
     }
 
     public function show(string $slug): JsonResponse
     {
-        $course = Course::with('reviews.user')->where('slug', $slug)
+        $course = Course::with(['reviews', 'instructor'])
+            ->where('slug', $slug)
             ->where('is_approved', 'approved')
             ->where('status', 'active')
             ->firstOrFail();
 
-        return response()->json([
-            'success' => true,
-            'course' => new CourseResource($course),
-            'reviews' => ReviewResource::collection($course->reviews),
+        $instructorId = $course->instructor_id;
+
+        $students = User::whereIn('id', function ($query) use ($instructorId) {
+            $query->select('user_id')
+                ->from('enrollments')
+                ->where('instructor_id', $instructorId);
+        })->where('role', 'student')->get();
+
+        $reviews = Review::where('course_id', $course->id)->get();
+
+        $avgInstructorRating = Review::whereIn('course_id', function ($query) use ($instructorId) {
+            $query->select('id')
+                ->from('courses')
+                ->where('instructor_id', $instructorId);
+        })->avg('rating');
+
+        return $this->sendResponse([
+            'course' => $course,
+            'reviews' => $reviews,
+            'students' => $students,
+            'avg_instructor_rating' => round($avgInstructorRating, 1),
         ]);
     }
 
-    public function storeReview(StoreReviewRequest $request): JsonResponse
+    public function storeReview(Request $request): JsonResponse
     {
-        $user = $request->user();
+        $request->validate([
+            'rating' => ['required', 'numeric', 'min:1', 'max:5'],
+            'review' => ['required', 'string', 'max:1000'],
+            'course' => ['required', 'exists:courses,id'],
+        ]);
 
-        $checkPurchase = Enrollment::where('user_id', $user->id)
-            ->where('course_id', $request->course)
-            ->exists();
+        $user = auth('sanctum')->user();
 
-        if (!$checkPurchase) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Please Purchase Course First!',
-            ], 403);
+        if (!$user) {
+            return $this->sendError('Unauthorized', 401);
         }
 
         $alreadyReviewed = Review::where('user_id', $user->id)
@@ -91,13 +111,18 @@ class CoursePageController extends Controller
             ->exists();
 
         if ($alreadyReviewed) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You Already Reviewed This Course!',
-            ], 409);
+            return $this->sendError('You already reviewed this course.', 400);
         }
 
-        $review = Review::create([
+        $hasPurchased = Enrollment::where('user_id', $user->id)
+            ->where('course_id', $request->course)
+            ->exists();
+
+        if (!$hasPurchased) {
+            return $this->sendError('You must purchase the course before reviewing.', 403);
+        }
+
+        Review::create([
             'user_id' => $user->id,
             'course_id' => $request->course,
             'rating' => $request->rating,
@@ -105,12 +130,6 @@ class CoursePageController extends Controller
             'status' => 1,
         ]);
 
-        $review->load('user');
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Review Submitted Successfully!',
-            'data' => new ReviewResource($review),
-        ]);
+        return $this->sendResponse(null, 'Review submitted successfully!');
     }
 }

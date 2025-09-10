@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ActivityTrackerController;
-use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Export\ExportController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
@@ -18,7 +17,7 @@ use App\Http\Controllers\Frontend\InstructorOrderController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
-use App\Http\Controllers\Frontend\ReviewController as FrontendReviewController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\StudentDashboardController;
 use App\Http\Controllers\Frontend\StudentOrderController;
 use App\Http\Controllers\Frontend\WithdrawController;
@@ -27,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['web'])->group(function () {
     Route::get('/test-session', function () {
         session(['foo' => 'bar']);
+
         return session('foo');
     });
 });
@@ -39,6 +39,7 @@ Route::get('/test', function () {
 
 Route::get('/debug-session-prefix', function () {
     $redis = app('redis')->connection('session');
+
     return $redis->getConfig('prefix') ?? 'prefix not found';
 });
 
@@ -105,7 +106,7 @@ Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::group([
     'middleware' => ['auth:web', 'verified', 'check_role:student'],
     'prefix' => 'student',
-    'as' => 'student.'
+    'as' => 'student.',
 ], function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
     Route::get('/become-instructor', [StudentDashboardController::class, 'becomeInstructor'])->name('become-instructor');
@@ -141,7 +142,7 @@ Route::group([
 Route::group([
     'middleware' => ['auth:web', 'verified', 'check_role:instructor'],
     'prefix' => 'instructor',
-    'as' => 'instructor.'
+    'as' => 'instructor.',
 ], function () {
     // Profile routes
     Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');

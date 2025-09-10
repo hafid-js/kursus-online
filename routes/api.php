@@ -19,32 +19,38 @@ use App\Http\Controllers\Api\Frontend\WithdrawController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Frontend public routes
-Route::get('/', [FrontendController::class, 'index'])->name('home');
-Route::get('/courses', [CoursePageController::class, 'index'])->name('courses.index');
-Route::get('/courses/{slug}', [CoursePageController::class, 'show'])->name('courses.show');
-Route::post('newsletter-subscribe', [FrontendController::class, 'subscribe'])->name('newsletter.subscribe');
-Route::get('about', [FrontendController::class, 'about'])->name('about.index');
-Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
-Route::get('/categories', [FrontendController::class, 'categories'])->name('categories.index');
-
 // API v1 prefix group
-Route::prefix('v1')->group(function () {
-
+Route::prefix('v1')->name('api.')->group(function () {
     // Auth routes
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware(['auth:token', 'auth.json'])->group(function () {
         Route::post('/logout', [AuthController::class, 'destroy']);
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
     });
 
-    // Auth + verified middleware group
-    Route::middleware(['auth', 'verified'])->group(function () {
+    // Frontend public routes
+    Route::get('/', [FrontendController::class, 'index'])->name('home');
+    Route::get('/courses', [CoursePageController::class, 'index'])->name('courses.index');
+    Route::get('/courses/{slug}', [CoursePageController::class, 'show'])->name('courses.show');
+    Route::post('newsletter-subscribe', [FrontendController::class, 'subscribe'])->name('newsletter.subscribe');
+    Route::get('about', [FrontendController::class, 'about'])->name('about.index');
+    Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::get('/categories', [FrontendController::class, 'categories'])->name('categories.index');
 
+    // Public routes without auth + verified
+    Route::get('order-failed', [PaymentController::class, 'orderFailed'])->name('order.failed');
+    Route::get('page/{slug}', [FrontendController::class, 'customPage'])->name('custom-page');
+
+    // Blog routes
+    Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+    // Auth + verified middleware group
+    Route::middleware(['auth:token', 'auth.json', 'verified'])->group(function () {
         // Contact POST
         Route::post('contact', [ContactController::class, 'sendMail'])->name('send.contact');
 
@@ -79,19 +85,11 @@ Route::prefix('v1')->group(function () {
         Route::post('review', [CoursePageController::class, 'storeReview'])->name('review.store');
     });
 
-    // Public routes without auth + verified
-    Route::get('order-failed', [PaymentController::class, 'orderFailed'])->name('order.failed');
-    Route::get('page/{slug}', [FrontendController::class, 'customPage'])->name('custom-page');
-
-    // Blog routes
-    Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
-    Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
-
     // Student routes group
     Route::group([
-        'middleware' => ['auth:sanctum', 'verified.api', 'role:student'],
+        'middleware' => ['auth:token', 'auth.json', 'verified.api', 'role:student'],
         'prefix' => 'student',
-        'as' => 'student.'
+        'as' => 'student.',
     ], function () {
         Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
         Route::get('/become-instructor', [StudentDashboardController::class, 'becomeInstructor'])->name('become-instructor');
@@ -122,7 +120,7 @@ Route::prefix('v1')->group(function () {
     });
 
     // Instructor routes group
-    Route::group(['middleware' => ['auth:sanctum', 'verified.api', 'role:instructor'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
+    Route::group(['middleware' => ['auth:token', 'auth.json', 'verified.api', 'role:instructor'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
         Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');
 
         // Profile
@@ -151,7 +149,7 @@ Route::prefix('v1')->group(function () {
         Route::get('withdrawals', [WithdrawController::class, 'index'])->name('withdraw.index');
 
         // Verified document middleware group
-        Route::middleware(['auth:sanctum', 'verified.document.api'])->group(function () {
+        Route::middleware(['auth:token', 'auth.json', 'verified.document.api'])->group(function () {
             // Course CRUD & content
             Route::get('instructors/{id}/data-course', [CourseController::class, 'getAllCourse'])->name('data-course');
             Route::get('courses', [CourseController::class, 'index'])->name('courses.index');

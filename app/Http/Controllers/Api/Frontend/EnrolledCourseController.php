@@ -8,89 +8,108 @@ use App\Models\CourseChapterLession;
 use App\Models\Enrollment;
 use App\Models\Review;
 use App\Models\WatchHistory;
+use App\Traits\ApiResponseTrait;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Response;
 
 class EnrolledCourseController extends Controller
 {
-    public function index()
+    use ApiResponseTrait;
+
+    public function index(): JsonResponse
     {
+        $user = auth()->user();
+
         $enrollments = Enrollment::with('course')
-            ->where('user_id', user()->id)
-            ->whereHas('course')
+            ->where('user_id', $user->id)
+            ->where('have_access', 1)
             ->get();
 
-        return response()->json(['enrollments' => $enrollments]);
+        return $this->sendResponse($enrollments, 'Enrolled courses fetched successfully');
     }
 
-    public function playerIndex(string $slug)
+    public function playerIndex(string $slug): JsonResponse
     {
-        $course = Course::with('language', 'level', 'chapters.lessons')
-            ->withCount(['enrollments as student_count' => function ($query) {
-                $query->whereHas('user', fn ($q) => $q->where('role', 'student'));
+        $user = auth()->user();
+
+        $course = Course::with(['language', 'level', 'chapters.lessons'])
+            ->withCount(['enrollments as student_count' => function ($query) use ($user) {
+                $query->whereHas('user', fn ($q) => $q->where('role', $user->role));
             }])
             ->where('slug', $slug)
             ->firstOrFail();
 
-        if (!Enrollment::where('user_id', user()->id)->where('course_id', $course->id)->where('have_access', 1)->exists()) {
-            return response()->json(['message' => 'Access denied'], 403);
+        $hasAccess = Enrollment::where([
+            'user_id' => $user->id,
+            'course_id' => $course->id,
+            'have_access' => 1,
+        ])->exists();
+
+        if (!$hasAccess) {
+            return $this->sendError('Access denied. Please enroll first.', 403);
         }
 
-        $lessonCount = CourseChapterLession::where('course_id', $course->id)->count();
-        $lastWatchHistory = WatchHistory::where([
-            'user_id' => user()->id,
-            'course_id' => $course->id,
-        ])->orderByDesc('updated_at')->first();
-
-        $watchedLessonIds = WatchHistory::where([
-            'user_id' => user()->id,
-            'course_id' => $course->id,
-            'is_completed' => 1,
-        ])->pluck('lesson_id')->toArray();
-
-        $userId = user()->id;
         $lessonIds = $course->chapters->flatMap(fn ($chapter) => $chapter->lessons->pluck('id'));
         $totalLessonCount = $lessonIds->count();
 
         $completedCount = WatchHistory::whereIn('lesson_id', $lessonIds)
-            ->where('user_id', $userId)
+            ->where('user_id', $user->id)
             ->where('is_completed', 1)
             ->count();
 
         $showCertificate = $totalLessonCount > 0 && $completedCount === $totalLessonCount;
 
+        $lastWatchHistory = WatchHistory::where([
+            'user_id' => $user->id,
+            'course_id' => $course->id,
+        ])->latest('updated_at')->first();
+
+        $watchedLessonIds = WatchHistory::where([
+            'user_id' => $user->id,
+            'course_id' => $course->id,
+            'is_completed' => 1,
+        ])->pluck('lesson_id');
+
         $reviews = Review::where('course_id', $course->id)->get();
 
-        return response()->json([
+        return $this->sendResponse([
             'course' => $course,
-            'lastWatchHistory' => $lastWatchHistory,
-            'watchedLessonIds' => $watchedLessonIds,
-            'lessonCount' => $lessonCount,
-            'showCertificate' => $showCertificate,
+            'last_watched' => $lastWatchHistory,
+            'watched_lessons' => $watchedLessonIds,
+            'show_certificate' => $showCertificate,
             'reviews' => $reviews,
         ]);
     }
 
-    public function getLessonContent(Request $request)
+    public function getLessonContent(Request $request): JsonResponse
     {
+        $request->validate([
+            'course_id' => ['required', 'integer'],
+            'chapter_id' => ['required', 'integer'],
+            'lesson_id' => ['required', 'integer'],
+        ]);
+
         $lesson = CourseChapterLession::where([
             'course_id' => $request->course_id,
             'chapter_id' => $request->chapter_id,
             'id' => $request->lesson_id,
-        ])->first();
+        ])->firstOrFail();
 
-        if (!$lesson) {
-            return response()->json(['message' => 'Lesson not found'], 404);
-        }
-
-        return response()->json($lesson);
+        return $this->sendResponse($lesson, 'Lesson content fetched successfully');
     }
 
-    public function updateWatchHistory(Request $request)
+    public function updateWatchHistory(Request $request): JsonResponse
     {
+        $request->validate([
+            'course_id' => ['required', 'integer'],
+            'chapter_id' => ['required', 'integer'],
+            'lesson_id' => ['required', 'integer'],
+        ]);
+
         WatchHistory::updateOrCreate(
             [
-                'user_id' => user()->id,
+                'user_id' => auth()->id(),
                 'lesson_id' => $request->lesson_id,
             ],
             [
@@ -100,37 +119,41 @@ class EnrolledCourseController extends Controller
             ]
         );
 
-        return response()->json(['status' => 'success']);
+        return $this->sendResponse(null, 'Watch history updated');
     }
 
-    public function updateLessonCompletion(Request $request): Response
+    public function updateLessonCompletion(Request $request): JsonResponse
     {
-        $watchedLesson = WatchHistory::where([
-            'user_id' => user()->id,
+        $request->validate([
+            'course_id' => ['required', 'integer'],
+            'chapter_id' => ['required', 'integer'],
+            'lesson_id' => ['required', 'integer'],
+        ]);
+
+        $userId = auth()->id();
+
+        $watchHistory = WatchHistory::firstOrNew([
+            'user_id' => $userId,
             'lesson_id' => $request->lesson_id,
-        ])->first();
+        ]);
 
-        $newStatus = ($watchedLesson && 1 == $watchedLesson->is_completed) ? 0 : 1;
+        $watchHistory->course_id = $request->course_id;
+        $watchHistory->chapter_id = $request->chapter_id;
+        $watchHistory->is_completed = !$watchHistory->is_completed;
+        $watchHistory->save();
 
-        WatchHistory::updateOrCreate(
-            [
-                'user_id' => user()->id,
-                'lesson_id' => $request->lesson_id,
-            ],
-            [
-                'course_id' => $request->course_id,
-                'chapter_id' => $request->chapter_id,
-                'is_completed' => $newStatus,
-            ]
-        );
-
-        return response(['status' => 'success', 'message' => 'Great job completing this lesson!']);
+        return $this->sendResponse(null, 'Lesson completion updated');
     }
 
     public function fileDownload(string $id)
     {
         $lesson = CourseChapterLession::findOrFail($id);
 
-        return response()->download(public_path($lesson->file_path));
+        $path = public_path($lesson->file_path);
+        if (!file_exists($path)) {
+            return $this->sendError('File not found.', 404);
+        }
+
+        return Response::download($path);
     }
 }

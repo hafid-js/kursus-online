@@ -1,53 +1,69 @@
 <?php
 
-namespace App\Http\Controllers\Api\Frontend;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Withdraw;
-use Illuminate\Http\RedirectResponse;
+use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 
 class WithdrawController extends Controller
 {
+    use ApiResponseTrait;
+
     public function index()
     {
-        return view('frontend.instructor-dashboard.withdraw.index');
+        // Jika perlu data dasar, bisa return misal balance dan stats, atau list withdraw
+        return $this->sendResponse(null, 'Endpoint ready');
     }
 
     public function requestPayoutIndex()
     {
-        $currentBalance = user()->wallet;
-        $pendingBalance = Withdraw::where('instructor_id', user()->id)->where('status', 'pending')->sum('amount');
-        $totalPayout = Withdraw::where('instructor_id', user()->id)->where('status', 'approved')->sum('amount');
+        $user = auth()->user();
 
-        return view('frontend.instructor-dashboard.withdraw.request-payout', compact('currentBalance', 'pendingBalance', 'totalPayout'));
+        $currentBalance = $user->wallet;
+        $pendingBalance = Withdraw::where('instructor_id', $user->id)
+            ->where('status', 'pending')
+            ->sum('amount');
+        $totalPayout = Withdraw::where('instructor_id', $user->id)
+            ->where('status', 'approved')
+            ->sum('amount');
+
+        $data = [
+            'currentBalance' => $currentBalance,
+            'pendingBalance' => $pendingBalance,
+            'totalPayout' => $totalPayout,
+        ];
+
+        return $this->sendResponse($data, 'Payout data retrieved successfully.');
     }
 
-    public function requestPayout(Request $request): RedirectResponse
+    public function requestPayout(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric',
+            'amount' => 'required|numeric|min:1',
         ]);
 
-        if (user()->wallet < $request->amount) {
-            notyf()->error('Insufficient Balance!');
+        $user = auth()->user();
 
-            return redirect()->back();
+        if ($user->wallet < $request->amount) {
+            return $this->sendError('Insufficient Balance!', 400);
         }
 
-        if (Withdraw::where('instructor_id', user()->id)->where('status', 'pending')->exists()) {
-            notyf()->error('Withdraw Request Already Pending!');
+        $pendingExists = Withdraw::where('instructor_id', $user->id)
+            ->where('status', 'pending')
+            ->exists();
 
-            return redirect()->back();
+        if ($pendingExists) {
+            return $this->sendError('Withdraw Request Already Pending!', 400);
         }
 
-        Withdraw::create([
-            'instructor_id' => user()->id,
+        $withdraw = Withdraw::create([
+            'instructor_id' => $user->id,
             'amount' => $request->amount,
+            'status' => 'pending',
         ]);
 
-        notyf()->success('Withdraw Request Sent!');
-
-        return redirect()->back();
+        return $this->sendResponse($withdraw, 'Withdraw Request Sent!');
     }
 }
