@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    use ApiResponseTrait;
+
     /**
      * User registration.
      */
@@ -18,46 +21,32 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['image'] = '';
+        $validated['image'] = ''; // default kosong, bisa sesuaikan
         $validated['email_verified_at'] = now();
-        $validated['password'] = bcrypt($validated['password']);
+        $validated['password'] = Hash::make($validated['password']);
 
         if ('instructor' === $validated['role']) {
             if ($request->hasFile('document')) {
                 $validated['document'] = $request->file('document')->store('documents', 'public');
             } else {
-                return response()->json([
-                    'success' => false,
-                    'statusCode' => 422,
-                    'message' => 'Dokumen wajib diupload untuk instructor.',
-                ], 422);
+                return $this->sendError('Dokumen wajib diupload untuk instructor.', 422);
             }
             $validated['approve_status'] = 'pending';
         } elseif ('student' === $validated['role']) {
             $validated['approve_status'] = 'approved';
         } else {
-            return response()->json([
-                'success' => false,
-                'statusCode' => 400,
-                'message' => 'Role tidak valid.',
-            ], 400);
+            return $this->sendError('Role tidak valid.', 400);
         }
 
         $user = User::create($validated);
 
-        // Generate token Sanctum
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'success' => true,
-            'statusCode' => 201,
-            'message' => 'User has been registered successfully.',
-            'data' => [
-                'user' => $user,
-                'token' => $token,
-                'token_type' => 'Bearer',
-            ],
-        ], 201);
+        return $this->sendResponse([
+            'user' => $user,
+            'token' => $token,
+            'token_type' => 'Bearer',
+        ], 'User berhasil terdaftar.', 201);
     }
 
     /**
@@ -67,49 +56,36 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|string',
         ]);
 
         $user = User::where('email', $request->email)->first();
+
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Email or password is incorrect.',
-            ], 401);
+            return $this->sendError('Email atau password salah.', 401);
         }
 
         if ('approved' !== $user->approve_status) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Your account is not approved yet.',
-            ], 403);
+            return $this->sendError('Akun Anda belum disetujui.', 403);
         }
 
-        // Generate Sanctum token
         $token = $user->createToken($user->role . '-token')->plainTextToken;
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Login successful',
-            'data' => [
-                'user' => $user,
-                'token' => $token,
-                'token_type' => 'Bearer',
-            ],
-        ]);
+        return $this->sendResponse([
+            'user' => $user,
+            'token' => $token,
+            'token_type' => 'Bearer',
+        ], 'Login berhasil.');
     }
 
     /**
-     * Logout user and revoke tokens.
+     * Logout user and revoke current token.
      */
-    public function destroy(Request $request): JsonResponse
+    public function logout(Request $request): JsonResponse
     {
-        // Revoke current access token
+        // Hapus token akses saat ini
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Logged out successfully.',
-        ]);
+        return $this->sendResponse(null, 'Logout berhasil.');
     }
 }

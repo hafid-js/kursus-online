@@ -13,10 +13,7 @@ class CartController extends Controller
 {
     use ApiResponseTrait;
 
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-    }
+
 
     /**
      * Get paginated cart items for authenticated user

@@ -11,7 +11,7 @@ trait ApiResponseTrait
         return response()->json([
             'success' => true,
             'message' => $message,
-            'data'    => $data,
+            'data' => $data,
         ], $code);
     }
 
@@ -32,9 +32,9 @@ trait ApiResponseTrait
     public function sendPaginatedResponse($data, $message = '', $pagination = [], int $code = 200): JsonResponse
     {
         return response()->json([
-            'success'    => true,
-            'message'    => $message,
-            'data'       => $data,
+            'success' => true,
+            'message' => $message,
+            'data' => $data,
             'pagination' => $pagination,
         ], $code);
     }

@@ -14,10 +14,7 @@ class InstructorDashboardController extends Controller
 {
     use ApiResponseTrait;
 
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-    }
+
 
     public function index(): JsonResponse
     {

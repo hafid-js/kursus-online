@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Review;
@@ -22,7 +22,7 @@ class ReviewController extends Controller
 
         $reviews = Review::whereHas('course', function ($query) use ($user) {
             $query->where('instructor_id', $user->id);
-        })->with(['user', 'course', 'reply'])->latest()->paginate(10);
+        })->with(['user', 'course', 'replies'])->latest()->paginate(10);
 
         return $this->sendPaginatedResponse($reviews, 'Reviews retrieved successfully.');
     }

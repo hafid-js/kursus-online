@@ -19,7 +19,7 @@ class VerifiedDocumentApiMiddleware
     {
         $user = $request->user();
 
-        if (!$user || !$user->document_verified) {
+        if (!$user || $user->document_status !== 'approved') {
             return response()->json([
                 'message' => 'Document not verified.'
             ], 403);

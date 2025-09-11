@@ -23,11 +23,6 @@ class CourseController extends Controller
 {
     use FileUpload, ApiResponseTrait;
 
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->except(['index', 'students']);
-    }
-
     public function index(Request $request): JsonResponse
     {
         $courses = Course::where('instructor_id', Auth::id())

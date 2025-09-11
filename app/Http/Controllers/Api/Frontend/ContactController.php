@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
@@ -15,12 +15,6 @@ use Illuminate\Support\Facades\Auth;
 class ContactController extends Controller
 {
     use ApiResponseTrait;
-
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->only('sendMail');
-    }
-
     public function index()
     {
         $contactCards = Cache::rememberForever('contact_cards', function () {

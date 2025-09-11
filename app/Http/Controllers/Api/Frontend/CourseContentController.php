@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\CourseChapter;
@@ -14,10 +14,7 @@ class CourseContentController extends Controller
 {
     use ApiResponseTrait;
 
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-    }
+
 
     public function createChapter(string $courseId)
     {

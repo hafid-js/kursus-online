@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Frontend;
 
 use App\Events\User\UserProfileUpdated;
 use App\Http\Controllers\Controller;
@@ -18,7 +18,7 @@ class ProfileController extends Controller
 {
     use FileUpload, ApiResponseTrait;
 
-    public function profile()
+    public function index()
     {
         $user = Auth::user();
 
@@ -27,7 +27,7 @@ class ProfileController extends Controller
         ], 'Profile data retrieved.');
     }
 
-    public function dashboardData()
+    public function show()
     {
         $user = Auth::user();
 

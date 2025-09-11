@@ -4,18 +4,15 @@ namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderItem;
+use App\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Traits\ApiResponseTrait;
 
 class OrderController extends Controller
 {
     use ApiResponseTrait;
 
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-    }
+
 
     public function index(Request $request): JsonResponse
     {

@@ -25,7 +25,7 @@ class CoursePageController extends Controller
             ->where('status', 'active')
             ->when($request->filled('search'), function ($query) use ($request) {
                 $query->where('title', 'like', "%{$request->search}%")
-                      ->orWhere('description', 'like', "%{$request->search}%");
+                    ->orWhere('description', 'like', "%{$request->search}%");
             })
             ->when($request->filled('category'), function ($query) use ($request) {
                 if (is_array($request->category)) {
@@ -39,9 +39,9 @@ class CoursePageController extends Controller
                     $q->where('slug', $request->main_category);
                 });
             })
-            ->when($request->filled('level'), fn ($q) => $q->whereIn('course_level_id', $request->level))
-            ->when($request->filled('language'), fn ($q) => $q->whereIn('course_language_id', $request->language))
-            ->when($request->filled('from') && $request->filled('to'), fn ($q) => $q->whereBetween('price', [$request->from, $request->to]))
+            ->when($request->filled('level'), fn($q) => $q->whereIn('course_level_id', $request->level))
+            ->when($request->filled('language'), fn($q) => $q->whereIn('course_language_id', $request->language))
+            ->when($request->filled('from') && $request->filled('to'), fn($q) => $q->whereBetween('price', [$request->from, $request->to]))
             ->when($request->filled('rating'), function ($query) use ($request) {
                 $rating = min($request->rating);
                 $query->withAvg('reviews', 'rating')
@@ -65,7 +65,11 @@ class CoursePageController extends Controller
             ->where('slug', $slug)
             ->where('is_approved', 'approved')
             ->where('status', 'active')
-            ->firstOrFail();
+            ->first();
+
+        if (!$course) {
+            return response()->json(['message' => 'Course not found or not approved or inactive'], 404);
+        }
 
         $instructorId = $course->instructor_id;
 

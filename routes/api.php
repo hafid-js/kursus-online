@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Frontend\InstructorDashboardController;
 use App\Http\Controllers\Api\Frontend\OrderController;
 use App\Http\Controllers\Api\Frontend\PaymentController;
 use App\Http\Controllers\Api\Frontend\ProfileController;
+use App\Http\Controllers\Api\Frontend\ReviewController;
 use App\Http\Controllers\Api\Frontend\StudentDashboardController;
 use App\Http\Controllers\Api\Frontend\StudentOrderController;
 use App\Http\Controllers\Api\Frontend\WithdrawController;
@@ -25,8 +26,8 @@ Route::prefix('v1')->name('api.')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 
-    Route::middleware(['auth:token', 'auth.json'])->group(function () {
-        Route::post('/logout', [AuthController::class, 'destroy']);
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
@@ -50,7 +51,7 @@ Route::prefix('v1')->name('api.')->group(function () {
     Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
     // Auth + verified middleware group
-    Route::middleware(['auth:token', 'auth.json', 'verified'])->group(function () {
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // Contact POST
         Route::post('contact', [ContactController::class, 'sendMail'])->name('send.contact');
 
@@ -87,7 +88,7 @@ Route::prefix('v1')->name('api.')->group(function () {
 
     // Student routes group
     Route::group([
-        'middleware' => ['auth:token', 'auth.json', 'verified.api', 'role:student'],
+        'middleware' => ['auth:sanctum', 'verified.api', 'role:student'],
         'prefix' => 'student',
         'as' => 'student.',
     ], function () {
@@ -120,7 +121,7 @@ Route::prefix('v1')->name('api.')->group(function () {
     });
 
     // Instructor routes group
-    Route::group(['middleware' => ['auth:token', 'auth.json', 'verified.api', 'role:instructor'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'verified.api', 'role:instructor'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
         Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');
 
         // Profile
@@ -149,7 +150,7 @@ Route::prefix('v1')->name('api.')->group(function () {
         Route::get('withdrawals', [WithdrawController::class, 'index'])->name('withdraw.index');
 
         // Verified document middleware group
-        Route::middleware(['auth:token', 'auth.json', 'verified.document.api'])->group(function () {
+        Route::middleware(['auth:sanctum', 'verified.document.api'])->group(function () {
             // Course CRUD & content
             Route::get('instructors/{id}/data-course', [CourseController::class, 'getAllCourse'])->name('data-course');
             Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
@@ -180,7 +181,7 @@ Route::prefix('v1')->name('api.')->group(function () {
             Route::post('course-content/{course}/sort-chapter', [CourseContentController::class, 'updateSortChapter'])->name('course-content.update-sort-chapter');
 
             // Course review
-            Route::get('courses/{id}/review', [CourseController::class, 'review'])->name('courses.review');
+            Route::get('courses/{id}/review', [ReviewController::class, 'index'])->name('review.index');
 
             // Withdrawal payout requests
             Route::get('withdrawals/request-payout', [WithdrawController::class, 'requestPayoutIndex'])->name('withdraw.request-payout');

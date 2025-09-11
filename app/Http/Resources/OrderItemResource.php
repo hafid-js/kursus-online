@@ -19,8 +19,9 @@ class OrderItemResource extends JsonResource
             'created_at' => $this->created_at?->toDateTimeString(),
             'updated_at' => $this->updated_at?->toDateTimeString(),
 
-            'order' => OrderResource::whenLoaded($this->order),
-            'course' => CourseResource::whenLoaded($this->course),
+            'order' => new OrderResource($this->whenLoaded('order')),
+            'course' => new CourseResource($this->whenLoaded('course')),
+
         ];
     }
 }

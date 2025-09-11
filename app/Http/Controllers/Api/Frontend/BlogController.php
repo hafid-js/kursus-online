@@ -14,12 +14,6 @@ class BlogController extends Controller
 {
     use ApiResponseTrait;
 
-    public function __construct()
-    {
-        // Buat middleware auth di comment create/delete
-        $this->middleware('auth:sanctum')->only(['storeComment', 'destroyComment']);
-    }
-
     /**
      * List blogs with optional search and category filter
      */
