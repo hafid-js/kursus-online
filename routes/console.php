@@ -3,6 +3,7 @@
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Laravel\Sanctum\PersonalAccessToken;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -12,13 +13,16 @@ Artisan::command('activitylog:clean', function () {
     $this->call('activitylog:clean-batch');
 })->describe('Clean up old records from the activity log');
 
-// Setup scheduler di sini juga:
 app()->booted(function () {
     $schedule = app(Schedule::class);
 
+    // Clean activity log weekly
     $schedule->command('activitylog:clean')->weekly();
 
+    // Token expiration cleanup daily
     $schedule->call(function () {
-        Log::info('Scheduler test runs at ' . now());
-    })->everyMinute();
+        PersonalAccessToken::whereNotNull('expires_at')
+            ->where('expires_at', '<', now())
+            ->delete();
+    })->daily();
 });

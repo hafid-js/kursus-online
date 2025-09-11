@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Middleware\CheckRoleMiddleware;
+use App\Http\Middleware\CheckTokenExpiration;
 use App\Http\Middleware\EnsureApiRole;
 use App\Http\Middleware\EnsureDocumentVerified;
+use App\Http\Middleware\EnsureEmailIsVerifiedApi;
 use App\Http\Middleware\EnsurePasswordIsSet;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\VerifiedDocumentApiMiddleware;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -25,8 +28,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'password.set' => EnsurePasswordIsSet::class,
             'verified.document' => EnsureDocumentVerified::class,
             'role' => EnsureApiRole::class,
-            'verified.api' => App\Http\Middleware\EnsureEmailIsVerifiedApi::class,
-            'verified.document.api' => App\Http\Middleware\VerifiedDocumentApiMiddleware::class,
+            'verified.api' => EnsureEmailIsVerifiedApi::class,
+            'verified.document.api' => VerifiedDocumentApiMiddleware::class,
+            'token.expired' =>  CheckTokenExpiration::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

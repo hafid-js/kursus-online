@@ -26,7 +26,7 @@ Route::prefix('v1')->name('api.')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 
-    Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware(['auth:sanctum', 'token.expired'])->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/user', function (Request $request) {
             return $request->user();
@@ -88,7 +88,7 @@ Route::prefix('v1')->name('api.')->group(function () {
 
     // Student routes group
     Route::group([
-        'middleware' => ['auth:sanctum', 'verified.api', 'role:student'],
+        'middleware' => ['auth:sanctum', 'verified.api', 'role:student', 'token.expired'],
         'prefix' => 'student',
         'as' => 'student.',
     ], function () {
@@ -121,7 +121,7 @@ Route::prefix('v1')->name('api.')->group(function () {
     });
 
     // Instructor routes group
-    Route::group(['middleware' => ['auth:sanctum', 'verified.api', 'role:instructor'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'verified.api', 'role:instructor', 'token.expired'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
         Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');
 
         // Profile
@@ -150,7 +150,7 @@ Route::prefix('v1')->name('api.')->group(function () {
         Route::get('withdrawals', [WithdrawController::class, 'index'])->name('withdraw.index');
 
         // Verified document middleware group
-        Route::middleware(['auth:sanctum', 'verified.document.api'])->group(function () {
+        Route::middleware(['auth:sanctum', 'verified.document.api', 'token.expired'])->group(function () {
             // Course CRUD & content
             Route::get('instructors/{id}/data-course', [CourseController::class, 'getAllCourse'])->name('data-course');
             Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
@@ -189,7 +189,7 @@ Route::prefix('v1')->name('api.')->group(function () {
         });
 
         // Laravel File Manager routes
-        Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['sanctum', 'auth']], function () {
+        Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['sanctum', 'auth','token.expired']], function () {
             UniSharp\LaravelFilemanager\Lfm::routes();
         });
     });

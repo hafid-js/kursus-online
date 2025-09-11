@@ -70,6 +70,12 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken($user->role . '-token')->plainTextToken;
+        $user->tokens()
+    ->latest('id')
+    ->first()
+    ->update([
+        'expires_at' => now()->addHour(),
+    ]);
 
         return $this->sendResponse([
             'user' => $user,

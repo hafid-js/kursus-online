@@ -45,6 +45,35 @@ class CourseController extends Controller
         );
     }
 
+    public function getAllCourse(string $id)
+    {
+        $courses = Course::with('instructor')
+            ->where('status', '!=', 'draft')
+            ->when($id, function ($q) use ($id) {
+                $q->where('instructor_id', $id);
+            })
+            ->select('courses.*')
+            ->paginate(10);
+
+        $pagination = [
+            'total' => $courses->total(),
+            'per_page' => $courses->perPage(),
+            'current_page' => $courses->currentPage(),
+            'last_page' => $courses->lastPage(),
+            'from' => $courses->firstItem(),
+            'to' => $courses->lastItem(),
+        ];
+
+        return $this->sendPaginatedResponse(
+            $courses,
+            'Courses retrieved successfully',
+            $pagination
+        );
+    }
+
+
+
+
     public function storeBasicInfo(CourseBasicInfoCreateRequest $request): JsonResponse
     {
         $thumbnail = $this->uploadFile($request->file('thumbnail'));

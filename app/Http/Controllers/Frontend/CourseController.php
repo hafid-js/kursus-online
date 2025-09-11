@@ -27,28 +27,6 @@ use Illuminate\Support\Str;
 class CourseController extends Controller
 {
     use FileUpload;
-    // function index()
-    // {
-    //     $courses = Course::where('instructor_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
-    //     return view('frontend.instructor-dashboard.course.index', compact('courses',));
-    // }
-
-    //   public function index(CourseDataTable $dataTable)
-    // {
-    //     $id = 18;
-    //     $orderItems = OrderItem::with([
-    //         'course.instructor',
-    //         'order.customer'
-    //     ])
-    //         ->whereHas('course', function ($query) use ($id) {
-    //             $query->where('instructor_id', $id);
-    //         })
-    //         ->get();
-    //     $dataTable->setInstructorId($id);
-
-    //     dd($orderItems);
-    //     return $dataTable->render('frontend.instructor-dashboard.course.index', compact('orderItems'));
-    // }
 
     public function index(CourseDataTable $courseDataTable)
     {
