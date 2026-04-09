@@ -34,6 +34,7 @@ class CoursePageController extends Controller
                     $query->where('category_id', $request->category);
                 }
             })
+
             ->when($request->filled('main_category'), function ($query) use ($request) {
                 $query->whereHas('category.parentCategory', function ($q) use ($request) {
                     $q->where('slug', $request->main_category);
@@ -61,7 +62,18 @@ class CoursePageController extends Controller
 
     public function show(string $slug): JsonResponse
     {
-        $course = Course::with(['reviews', 'instructor'])
+        $course = Course::with([
+            'reviews.user',
+            'instructor',
+            'level',
+            'language',
+            'students',
+            'instructor.students',
+            'instructor.courses',
+            'instructor.courses.reviews',
+            'chapters.lessons',
+
+        ])
             ->where('slug', $slug)
             ->where('is_approved', 'approved')
             ->where('status', 'active')
@@ -71,26 +83,22 @@ class CoursePageController extends Controller
             return response()->json(['message' => 'Course not found or not approved or inactive'], 404);
         }
 
-        $instructorId = $course->instructor_id;
+        if ($course->thumbnail) {
+            $course->thumbnail = url($course->thumbnail);
+        }
 
-        $students = User::whereIn('id', function ($query) use ($instructorId) {
-            $query->select('user_id')
-                ->from('enrollments')
-                ->where('instructor_id', $instructorId);
-        })->where('role', 'student')->get();
+        if ($course->instructor->image) {
+            $course->instructor->image = url($course->instructor->image);
+        }
 
-        $reviews = Review::where('course_id', $course->id)->get();
-
-        $avgInstructorRating = Review::whereIn('course_id', function ($query) use ($instructorId) {
+        $avgInstructorRating = Review::whereIn('course_id', function ($query) use ($course) {
             $query->select('id')
                 ->from('courses')
-                ->where('instructor_id', $instructorId);
-        })->avg('rating');
+                ->where('instructor_id', $course->instructor_id);
+        })->avg('rating') ?? 0;
 
         return $this->sendResponse([
             'course' => $course,
-            'reviews' => $reviews,
-            'students' => $students,
             'avg_instructor_rating' => round($avgInstructorRating, 1),
         ]);
     }

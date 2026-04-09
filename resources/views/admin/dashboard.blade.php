@@ -28,68 +28,58 @@
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span
-                                                    class="bg-primary text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
-                                                    <i class="ti ti-shopping-cart"></i>
+                                                <span class="bg-primary text-white avatar">
+                                                    <i class="ti ti-currency-dollar"></i>
                                                 </span>
                                             </div>
                                             <div class="col">
                                                 <div class="font-weight-medium">
                                                     <b>{{ config('settings.currency_icon') }} {{ $todaysOrder }}</b>
                                                 </div>
-                                                <div class="text-secondary">
-                                                    Today's Earnings
-                                                </div>
+                                                <div class="text-secondary">Today's Earnings</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- This Week Orders -->
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card card-sm">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span
-                                                    class="bg-green text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/shopping-cart -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg') }}" class="icon"
-                                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                        stroke="currentColor" fill="none" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                                        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                                        <path d="M17 17h-11v-14h-2" />
-                                                        <path d="M6 5l14 1l-1 7h-13" />
-                                                    </svg>
+                                                <span class="bg-info text-white avatar">
+                                                    <i class="ti ti-shopping-cart"></i>
                                                 </span>
                                             </div>
                                             <div class="col">
                                                 <div class="font-weight-medium">
                                                     <b>{{ config('settings.currency_icon') }} {{ $thisWeekOrders }}</b>
                                                 </div>
-                                                <div class="text-secondary">
-                                                    This Weeks Orders
-                                                </div>
+                                                <div class="text-secondary">This Week Orders</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- This Month Orders -->
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card card-sm">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span
-                                                    class="bg-twitter text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg') }}" class="icon"
-                                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                <span class="bg-warning text-white avatar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                                        height="24" viewBox="0 0 24 24" stroke-width="2"
                                                         stroke="currentColor" fill="none" stroke-linecap="round"
                                                         stroke-linejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                        <path
-                                                            d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z" />
+                                                        <rect x="4" y="5" width="16" height="16" rx="2" />
+                                                        <line x1="16" y1="3" x2="16" y2="7" />
+                                                        <line x1="8" y1="3" x2="8" y2="7" />
+                                                        <line x1="4" y1="11" x2="20" y2="11" />
                                                     </svg>
                                                 </span>
                                             </div>
@@ -97,149 +87,122 @@
                                                 <div class="font-weight-medium">
                                                     <b>{{ config('settings.currency_icon') }} {{ $thisMonthOrders }}</b>
                                                 </div>
-                                                <div class="text-secondary">
-                                                    This Month Orders
-                                                </div>
+                                                <div class="text-secondary">This Month Orders</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- This Year Orders -->
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card card-sm">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span
-                                                    class="bg-facebook text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/brand-facebook -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg') }}" class="icon"
-                                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                <!-- This Year Orders -->
+                                                <span class="bg-success text-white avatar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                                        height="24" viewBox="0 0 24 24" stroke-width="2"
                                                         stroke="currentColor" fill="none" stroke-linecap="round"
                                                         stroke-linejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                        <path
-                                                            d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+                                                        <rect x="3" y="4" width="18" height="18" rx="2" />
+                                                        <line x1="3" y1="12" x2="21" y2="12" />
+                                                        <line x1="12" y1="4" x2="12" y2="22" />
                                                     </svg>
                                                 </span>
+
                                             </div>
                                             <div class="col">
                                                 <div class="font-weight-medium">
                                                     <b>{{ config('settings.currency_icon') }} {{ $thisYearOrders }}</b>
                                                 </div>
-                                                <div class="text-secondary">
-                                                    This Year Orders
-                                                </div>
+                                                <div class="text-secondary">This Year Orders</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Pending Courses -->
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card card-sm">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span
-                                                    class="bg-primary text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
-                                                    <i class="ti ti-certificate"></i>
+                                                <span class="bg-warning text-white avatar">
+                                                    <i class="ti ti-clock"></i>
                                                 </span>
                                             </div>
                                             <div class="col">
                                                 <div class="font-weight-medium">
                                                     <b>{{ $pendingCourses }}</b>
                                                 </div>
-                                                <div class="text-secondary">
-                                                    Pending Courses
-                                                </div>
+                                                <div class="text-secondary">Pending Courses</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Rejected Courses -->
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card card-sm">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span
-                                                    class="bg-green text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/shopping-cart -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg') }}" class="icon"
-                                                        width="24" height="24" viewBox="0 0 24 24"
-                                                        stroke-width="2" stroke="currentColor" fill="none"
-                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                                        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                                        <path d="M17 17h-11v-14h-2" />
-                                                        <path d="M6 5l14 1l-1 7h-13" />
-                                                    </svg>
+                                                <span class="bg-danger text-white avatar">
+                                                    <i class="ti ti-x"></i>
                                                 </span>
                                             </div>
                                             <div class="col">
                                                 <div class="font-weight-medium">
                                                     <b>{{ $rejectedCourses }}</b>
                                                 </div>
-                                                <div class="text-secondary">
-                                                    Rejected Courses
-                                                </div>
+                                                <div class="text-secondary">Rejected Courses</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Total Courses -->
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card card-sm">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span
-                                                    class="bg-twitter text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg') }}" class="icon"
-                                                        width="24" height="24" viewBox="0 0 24 24"
-                                                        stroke-width="2" stroke="currentColor" fill="none"
-                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                        <path
-                                                            d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z" />
-                                                    </svg>
+                                                <span class="bg-primary text-white avatar">
+                                                    <i class="ti ti-book"></i>
                                                 </span>
                                             </div>
                                             <div class="col">
                                                 <div class="font-weight-medium">
                                                     <b>{{ $totalCourses }}</b>
                                                 </div>
-                                                <div class="text-secondary">
-                                                    This Month Orders
-                                                </div>
+                                                <div class="text-secondary">Total Courses</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Orders Statistics -->
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card card-sm">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <span
-                                                    class="bg-facebook text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/brand-facebook -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg') }}" class="icon"
-                                                        width="24" height="24" viewBox="0 0 24 24"
-                                                        stroke-width="2" stroke="currentColor" fill="none"
-                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                        <path
-                                                            d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
-                                                    </svg>
+                                                <span class="bg-info text-white avatar">
+                                                    <i class="ti ti-chart-bar"></i>
                                                 </span>
                                             </div>
                                             <div class="col">
                                                 <div class="font-weight-medium">
                                                     <b>{{ config('settings.currency_icon') }} {{ $thisYearOrders }}</b>
                                                 </div>
-                                                <div class="text-secondary">
-                                                    This Year Orders
-                                                </div>
+                                                <div class="text-secondary">Orders Statistics</div>
                                             </div>
                                         </div>
                                     </div>

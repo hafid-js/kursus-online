@@ -69,7 +69,7 @@
                                                                     <path d="M7 11l5 5l5 -5" />
                                                                     <path d="M12 4l0 12" />
                                                                 </svg></a>
-                                                            <a href="{{ route('admin.instructor-doc-show', $request->id) }}"
+                                                            <a target="_blank" href="{{ route('admin.instructor-doc-show', $request->id) }}"
                                                                 class="text-secondary"><svg
                                                                     xmlns="http://www.w3.org/2000/svg" width="24"
                                                                     height="24" viewBox="0 0 24 24" fill="none"

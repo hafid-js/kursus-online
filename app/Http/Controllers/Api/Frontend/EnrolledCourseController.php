@@ -21,13 +21,60 @@ class EnrolledCourseController extends Controller
     {
         $user = auth()->user();
 
-        $enrollments = Enrollment::with('course')
+        $enrollments = Enrollment::with(['course', 'course.instructor', 'course.chapters.lessons'])
             ->where('user_id', $user->id)
             ->where('have_access', 1)
             ->get();
 
+        $enrollments->each(function ($enrollment) {
+            if ($enrollment->course) {
+
+                if ($enrollment->course->thumbnail) {
+                    $enrollment->course->thumbnail = url($enrollment->course->thumbnail);
+                }
+
+
+                $enrollment->course->instructor_name = $enrollment->course->instructor
+                    ? $enrollment->course->instructor->name
+                    : 'Unknown';
+
+            }
+        });
+
         return $this->sendResponse($enrollments, 'Enrolled courses fetched successfully');
     }
+
+    //     public function index(): JsonResponse
+    // {
+    //     $user = auth()->user();
+
+    //     $enrollments = Enrollment::with('course')
+    //         ->where('user_id', $user->id)
+    //         ->where('have_access', 1)
+    //         ->get();
+
+    //     // Transform enrollments untuk Flutter
+    //     $enrollmentsTransformed = $enrollments->map(function ($enrollment) {
+    //         $course = $enrollment->course;
+
+    //         return [
+    //             'enrollment_id' => $enrollment->id,
+    //             'course' => [
+    //                 'id' => $course->id,
+    //                 'title' => $course->title,
+    //                 'description' => $course->description,
+    //                 // Tambahkan /api/v1 prefix ke thumbnail
+    //                 'thumbnail' => $course->thumbnail ? url('api/v1' . $course->thumbnail) : null,
+    //                 'price' => $course->price,
+    //                 'slug' => $course->slug,
+    //             ],
+    //             // Contoh progress, bisa ambil dari DB kalau ada field progress
+    //             'progress' => $enrollment->progress ?? 0,
+    //         ];
+    //     });
+
+    //     return $this->sendResponse($enrollmentsTransformed, 'Enrolled courses fetched successfully');
+    // }
 
     public function playerIndex(string $slug): JsonResponse
     {
@@ -35,7 +82,7 @@ class EnrolledCourseController extends Controller
 
         $course = Course::with(['language', 'level', 'chapters.lessons'])
             ->withCount(['enrollments as student_count' => function ($query) use ($user) {
-                $query->whereHas('user', fn ($q) => $q->where('role', $user->role));
+                $query->whereHas('user', fn($q) => $q->where('role', $user->role));
             }])
             ->where('slug', $slug)
             ->firstOrFail();
@@ -50,7 +97,7 @@ class EnrolledCourseController extends Controller
             return $this->sendError('Access denied. Please enroll first.', 403);
         }
 
-        $lessonIds = $course->chapters->flatMap(fn ($chapter) => $chapter->lessons->pluck('id'));
+        $lessonIds = $course->chapters->flatMap(fn($chapter) => $chapter->lessons->pluck('id'));
         $totalLessonCount = $lessonIds->count();
 
         $completedCount = WatchHistory::whereIn('lesson_id', $lessonIds)

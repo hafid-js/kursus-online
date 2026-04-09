@@ -148,14 +148,12 @@ class PaymentController extends Controller
             ],
         ];
 
-
         $snapToken = Snap::getSnapToken($params);
 
         return response()->json([
             'token' => $snapToken,
         ]);
     }
-
 
     public function storeAfterPayment(Request $request)
     {
@@ -194,8 +192,6 @@ class PaymentController extends Controller
             ], 500);
         }
     }
-
-
 
     public function handleNotification(Request $request)
     {

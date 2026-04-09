@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Auth\OAuthController;
+use App\Http\Controllers\Api\Frontend\ApiPaymentController;
 use App\Http\Controllers\Api\Frontend\BlogController;
 use App\Http\Controllers\Api\Frontend\CartController;
 use App\Http\Controllers\Api\Frontend\ContactController;
@@ -11,7 +13,6 @@ use App\Http\Controllers\Api\Frontend\EnrolledCourseController;
 use App\Http\Controllers\Api\Frontend\FrontendController;
 use App\Http\Controllers\Api\Frontend\InstructorDashboardController;
 use App\Http\Controllers\Api\Frontend\OrderController;
-use App\Http\Controllers\Api\Frontend\PaymentController;
 use App\Http\Controllers\Api\Frontend\ProfileController;
 use App\Http\Controllers\Api\Frontend\ReviewController;
 use App\Http\Controllers\Api\Frontend\StudentDashboardController;
@@ -22,9 +23,19 @@ use Illuminate\Support\Facades\Route;
 
 // API v1 prefix group
 Route::prefix('v1')->name('api.')->group(function () {
+    Route::get('v1/uploads/{filename}', function ($filename) {
+        $path = public_path('uploads/' . $filename);
+
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
+    });
     // Auth routes
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/oauth/google', [OAuthController::class, 'googleLogin']);
 
     Route::middleware(['auth:sanctum', 'token.expired'])->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
@@ -62,21 +73,21 @@ Route::prefix('v1')->name('api.')->group(function () {
         Route::get('remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
 
         // Payment routes
-        Route::post('/midtrans/create-transaction', [PaymentController::class, 'createMidtransTransaction'])->name('midtrans.createTransaction');
-        Route::post('/order/store', [PaymentController::class, 'storeAfterPayment']);
-        Route::post('/midtrans/notification', [PaymentController::class, 'handleNotification']);
+        Route::post('/midtrans/create-transaction', [ApiPaymentController::class, 'createMidtransTransaction'])->name('midtrans.createTransaction');
+        Route::post('/order/store', [ApiPaymentController::class, 'storeAfterPayment']);
+        Route::post('/midtrans/notification', [ApiPaymentController::class, 'handleNotification']);
 
-        Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
-        Route::get('paypal/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.success');
-        Route::get('paypal/cancel', [PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
+        Route::get('paypal/payment', [ApiPaymentController::class, 'payWithPaypal'])->name('paypal.payment');
+        Route::get('paypal/success', [ApiPaymentController::class, 'paypalSuccess'])->name('paypal.success');
+        Route::get('paypal/cancel', [ApiPaymentController::class, 'paypalCancel'])->name('paypal.cancel');
 
-        Route::get('midtrans/payment', [PaymentController::class, 'midtransCallback'])->name('midtrans.payment');
+        Route::get('midtrans/payment', [ApiPaymentController::class, 'midtransCallback'])->name('midtrans.payment');
 
-        Route::get('stripe/payment', [PaymentController::class, 'payWithStripe'])->name('stripe.payment');
-        Route::get('stripe/success', [PaymentController::class, 'stripeSuccess'])->name('stripe.success');
-        Route::get('stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
+        Route::get('stripe/payment', [ApiPaymentController::class, 'payWithStripe'])->name('stripe.payment');
+        Route::get('stripe/success', [ApiPaymentController::class, 'stripeSuccess'])->name('stripe.success');
+        Route::get('stripe/cancel', [ApiPaymentController::class, 'stripeCancel'])->name('stripe.cancel');
 
-        Route::get('order-success', [PaymentController::class, 'orderSuccess'])->name('order.success');
+        Route::get('order-success', [ApiPaymentController::class, 'orderSuccess'])->name('order.success');
 
         // Blog comment routes
         Route::post('blog/comment/{id}', [BlogController::class, 'storeComment'])->name('blog.comment.store');
@@ -189,7 +200,7 @@ Route::prefix('v1')->name('api.')->group(function () {
         });
 
         // Laravel File Manager routes
-        Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['sanctum', 'auth','token.expired']], function () {
+        Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['sanctum', 'auth', 'token.expired']], function () {
             UniSharp\LaravelFilemanager\Lfm::routes();
         });
     });

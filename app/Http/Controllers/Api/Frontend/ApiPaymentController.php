@@ -13,7 +13,7 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Stripe\Checkout\Session as StripeSession;
 use Stripe\Stripe;
 
-class PaymentController extends Controller
+class ApiPaymentController extends Controller
 {
     use ApiResponseTrait;
 
@@ -62,7 +62,7 @@ class PaymentController extends Controller
 
         if (isset($response['id'])) {
             foreach ($response['links'] as $link) {
-                if ($link['rel'] === 'approve') {
+                if ('approve' === $link['rel']) {
                     return $this->sendResponse(['redirect_url' => $link['href']], 'PayPal redirect URL generated.');
                 }
             }
@@ -77,7 +77,7 @@ class PaymentController extends Controller
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($request->token);
 
-        if (isset($response['status']) && $response['status'] === 'COMPLETED') {
+        if (isset($response['status']) && 'COMPLETED' === $response['status']) {
             $capture = $response['purchase_units'][0]['payments']['captures'][0];
 
             try {
@@ -100,14 +100,53 @@ class PaymentController extends Controller
         return $this->sendError('Payment not completed.', 400);
     }
 
-    public function createMidtransTransaction(Request $request)
+    // public function createMidtransTransaction(Request $request)
+    // {
+    //     Config::$serverKey = config('midtrans.server_key');
+    //     Config::$isProduction = config('midtrans.is_production');
+    //     Config::$isSanitized = true;
+    //     Config::$is3ds = true;
+
+    //     $items = is_array($request->items)
+    //      ? $request->items
+    //      : json_decode($request->items, true) ?? [];
+    //     $total = array_reduce($items, function ($carry, $item) {
+    //         return $carry + ($item['price'] * ($item['quantity'] ?? 1));
+    //     }, 0);
+
+    //     $discount = cartTotalDiscount() ?? 0;
+    //     $grossAmount = max(0, $total - $discount);
+
+    //     $params = [
+    //         'transaction_details' => [
+    //             'order_id' => generateOrderId(),
+    //             'gross_amount' => $grossAmount,
+    //         ],
+    //         'customer_details' => [
+    //             'first_name' => $request->name,
+    //             'email' => $request->email,
+    //         ],
+    //     ];
+
+    //     $snapToken = Snap::getSnapToken($params);
+
+    //     dd($snapToken);
+    //     dump($snapToken);
+
+    //     return $this->sendResponse(['token' => $snapToken], 'Midtrans token generated.');
+    // }
+
+        public function createMidtransTransaction(Request $request)
     {
         Config::$serverKey = config('midtrans.server_key');
         Config::$isProduction = config('midtrans.is_production');
         Config::$isSanitized = true;
         Config::$is3ds = true;
 
-        $items = json_decode($request->items, true);
+        $items = is_array($request->items)
+            ? $request->items
+            : json_decode($request->items, true) ?? [];
+
         $total = array_reduce($items, function ($carry, $item) {
             return $carry + ($item['price'] * ($item['quantity'] ?? 1));
         }, 0);
@@ -121,14 +160,31 @@ class PaymentController extends Controller
                 'gross_amount' => $grossAmount,
             ],
             'customer_details' => [
-                'first_name' => $request->name,
-                'email' => $request->email,
+                'first_name' => $request->name ?? 'Guest',
+                'email' => $request->email ?? 'guest@mail.com',
             ],
+            'item_details' => array_map(function ($item) {
+                return [
+                    'id' => $item['id'] ?? rand(1, 999),
+                    'price' => $item['price'],
+                    'quantity' => $item['quantity'] ?? 1,
+                    'name' => $item['name'] ?? 'Item',
+                ];
+            }, $items),
         ];
 
-        $snapToken = Snap::getSnapToken($params);
+        try {
+            $snapToken = Snap::getSnapToken($params);
 
-        return $this->sendResponse(['token' => $snapToken], 'Midtrans token generated.');
+            return response()->json([
+                'token' => $snapToken
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to create transaction',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function storeAfterPayment(Request $request)
@@ -202,7 +258,7 @@ class PaymentController extends Controller
 
         $session = StripeSession::retrieve($request->session_id);
 
-        if ($session->payment_status === 'paid') {
+        if ('paid' === $session->payment_status) {
             try {
                 OrderService::storeOrder(
                     $session->payment_intent,

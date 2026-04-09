@@ -19,4 +19,9 @@ class Cart extends Model
     {
         return $this->belongsTo(user::class);
     }
+
+    public function instructor()
+    {
+        return $this->belongsTo(User::class, 'instructor_id', 'id');
+    }
 }

@@ -53,7 +53,7 @@ class Course extends Model
 
     public function students()
     {
-        return $this->belongsToMany(User::class, 'enrollments', 'course_id', 'user_id')
-                    ->where('role', 'student');
+        return $this->belongsToMany(User::class, 'enrollments', 'course_id', 'user_id');
+                    // ->where('role', 'student');
     }
 }

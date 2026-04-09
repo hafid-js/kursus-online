@@ -13,22 +13,34 @@ class CartController extends Controller
 {
     use ApiResponseTrait;
 
-
-
     /**
-     * Get paginated cart items for authenticated user
+     * Get paginated cart items for authenticated user.
      */
     public function index(Request $request): JsonResponse
     {
-        $cart = Cart::with('course')
+        $cart = Cart::with('course', 'course.level')
             ->where('user_id', auth()->id())
             ->paginate(10);
+
+
+
+        $cart->each(function ($cart) {
+            if ($cart->course) {
+                if ($cart->course->thumbnail) {
+                    $cart->course->thumbnail = url($cart->course->thumbnail);
+                }
+
+                $cart->course->instructor_name = $cart->course->instructor
+                    ? $cart->course->instructor->name
+                    : 'Unknown';
+            }
+        });
 
         return $this->sendResponse($cart, 'Cart items retrieved successfully');
     }
 
     /**
-     * Get count of cart items for authenticated user
+     * Get count of cart items for authenticated user.
      */
     public function cartCount(): JsonResponse
     {
@@ -38,7 +50,7 @@ class CartController extends Controller
     }
 
     /**
-     * Add a course to cart
+     * Add a course to cart.
      */
     public function addToCart(int $id): JsonResponse
     {
@@ -62,7 +74,7 @@ class CartController extends Controller
     }
 
     /**
-     * Remove an item from cart
+     * Remove an item from cart.
      */
     public function removeFromCart(int $id): JsonResponse
     {
