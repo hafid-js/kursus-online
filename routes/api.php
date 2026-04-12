@@ -47,6 +47,7 @@ Route::prefix('v1')->name('api.')->group(function () {
     // Frontend public routes
     Route::get('/', [FrontendController::class, 'index'])->name('home');
     Route::get('/courses', [CoursePageController::class, 'index'])->name('courses.index');
+    Route::get('courses/categories', [CourseController::class, 'courses_by_category'])->name('courses.courses_by_category');
     Route::get('/courses/{slug}', [CoursePageController::class, 'show'])->name('courses.show');
     Route::post('newsletter-subscribe', [FrontendController::class, 'subscribe'])->name('newsletter.subscribe');
     Route::get('about', [FrontendController::class, 'about'])->name('about.index');

@@ -11,16 +11,23 @@ use App\Models\CourseChapterLession;
 use App\Models\CourseLanguage;
 use App\Models\CourseLevel;
 use App\Models\OrderItem;
+use App\Models\User;
 use App\Models\WatchHistory;
+use App\Service\CourseService;
 use App\Traits\ApiResponseTrait;
 use App\Traits\FileUpload;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use PhpOffice\PhpSpreadsheet\Calculation\Category;
 
 class CourseController extends Controller
 {
+
+ public function __construct(
+        protected CourseService $service
+    ) {}
     use FileUpload, ApiResponseTrait;
 
     public function index(Request $request): JsonResponse
@@ -261,6 +268,17 @@ class CourseController extends Controller
 
         return $this->sendError('Invalid step', 400);
     }
+
+public function courses_by_category(Request $request): JsonResponse
+{
+    $parentId = $request->input('parent_id', 8);
+
+    return response()->json(
+        $this->service->getCategoryPageData($parentId)
+    );
+}
+
+
 
     public function students(): JsonResponse
     {

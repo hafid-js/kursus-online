@@ -9,7 +9,6 @@ use App\Models\CourseLanguage;
 use App\Models\CourseLevel;
 use App\Models\Enrollment;
 use App\Models\Review;
-use App\Models\User;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -40,9 +39,9 @@ class CoursePageController extends Controller
                     $q->where('slug', $request->main_category);
                 });
             })
-            ->when($request->filled('level'), fn($q) => $q->whereIn('course_level_id', $request->level))
-            ->when($request->filled('language'), fn($q) => $q->whereIn('course_language_id', $request->language))
-            ->when($request->filled('from') && $request->filled('to'), fn($q) => $q->whereBetween('price', [$request->from, $request->to]))
+            ->when($request->filled('level'), fn ($q) => $q->whereIn('course_level_id', $request->level))
+            ->when($request->filled('language'), fn ($q) => $q->whereIn('course_language_id', $request->language))
+            ->when($request->filled('from') && $request->filled('to'), fn ($q) => $q->whereBetween('price', [$request->from, $request->to]))
             ->when($request->filled('rating'), function ($query) use ($request) {
                 $rating = min($request->rating);
                 $query->withAvg('reviews', 'rating')
@@ -72,7 +71,6 @@ class CoursePageController extends Controller
             'instructor.courses',
             'instructor.courses.reviews',
             'chapters.lessons',
-
         ])
             ->where('slug', $slug)
             ->where('is_approved', 'approved')
